@@ -1,0 +1,1 @@
+{only when compiled with the |+float| feature}

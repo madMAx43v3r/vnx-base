@@ -1,0 +1,196 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{xcolor}
+\definecolor{mygray}{rgb}{0.95,0.95,0.95}
+\author{Max Wittal}
+\title{VNX User Guide}
+\begin{document}
+\lstset{language=C++,tabsize=4,breaklines=true,backgroundcolor=\color{mygray}}
+
+\section{Introduction}
+VNX stands for "Virtual Network Anything" which is the foundation of its architechture, borrowing existing concepts from real networks such as Ethernet and applying them to communication between processes and threads.
+
+VNX is a light-weight middleware or software framework similar to ROS (Robot Operating System) and DDS (Data Distribution Service) with a focus on simplicity, ease of use, development efficiency and runtime performance. An important design feature is the absence of external dependencies, only a C++11 capable compiler and a POSIX compliant system is needed, as such it can be used on almost any modern hardware.
+
+\section{Components}
+VNX consists of the core library containing most of the functionatily in addition to the code generator and various tools such as the data recorder and player:
+
+\begin{itemize}
+  \item Core library: libvnx\_base.so or libvnx\_full.so
+  \item Code generator: vnxcppcodegen
+  \item Data recorder: vnx::Recorder, vnxrecord
+  \item Data player: vnx::Player, vnxplay
+  \item Data inspection tool: vnxdump
+  \item Data router: vnx::Router, vnxrouter
+  \item Time server: vnx::TimeServer, vnxtimeserver
+  \item Data reader: vnxread
+  \item Process shutdown tool: vnxclose
+\end{itemize}
+
+\section{Architecture}
+When working with VNX one has modules which run inside their own thread communicating via publish/subscribe and request/response with other modules running either in the same process or another process on the same machine or on a different machine. Routers are used to bridge the gap between processes (via UNIX domain sockets) and machines (via TCP/IP). Communication inside the same process is zero-copy and read-only.
+
+The strict pairing of one thread for each module avoids having to write thread-safe code which avoids bugs like race conditions and dead locks by design. This is a key concept for safety critical systems.
+
+Modules do not have to know where their data is coming from or where their output is going to, this is the job of the router design which is done by the user. In other words "discovery" is static, althought it can be made dynamic using the framework itself.
+
+The code generator is used to generate code for serializing and de-serializing of data based on interface type definitions. Type information is shared on the wire and thus for example automatically recorded and played back.
+
+\section{Interface}
+The code generator reads interface type definitions written in "VNI" (Virtual Network Interface) with a file extension of "*.vni". The language is similar to Java in its design, types are separated into packages and each type is contained in its own file with a matching file name.
+
+\subsection{Class}
+
+\begin{lstlisting}[language=Java, caption=ExampleType.vni]
+package example;
+
+import other_package.OtherType;
+
+class ExampleType <extends SomeType> {
+	bool value_a;			// boolean, default = 0 (FALSE)
+	uchar value_b;			// unsigned 8-bit, default = 0
+	ushort value_c;			// unsigned 16-bit, default = 0
+	uint value_d;			// unsigned 32-bit, default = 0
+	ulong value_e;			// unsigned 64-bit, default = 0
+	char value_f;			// signed 8-bit, default = 0
+	short value_g;			// signed 16-bit, default = 0
+	int value_h;			// signed 32-bit, default = 0
+	long value_i;			// signed 64-bit, default = 0
+	float value_j;			// 32-bit float, default = 0.0
+	double value_k;			// 64-bit float, default = 0.0
+	double value_x = 123.456;
+	string value_m;			// dynamic string, default = ""
+	string value_n = "default";
+	float array_a[3];		// static array, default = {0,0,0}
+	SomeType value_o;		// nested type
+	some_package.SomeType value_oo;	// nested type from other package
+	SomeType array_b[8];		// static array, default = {}
+	vector<int> vector_a;		// dynamic array, default = {}
+	vector<string> vector_b;		
+	vector<SomeType> vector_c;
+	map<int, int> map_a;		// dynamic map, default = {}
+	map<string, int> map_b;
+	map<string, SomeType> map_c;
+	const SomeType* p_value;	// pointer to nested type, default = 0
+	void update();				// user defined function
+	double compute() const;		// user defined const function
+}
+\end{lstlisting}
+
+Fields are either primitive or extended, with primitive meaning their size is known at compile time and extended whose size is dynamic. Integral types and static arrays of integral types are primitive, all other fields are extended. Primitive fields are more efficient to serialize and de-serialize as well as more space efficient since their size is static.
+
+Fields of integral type or of type string can be given a default value in the VNI definition.
+
+User defined functions have to be implemented in a seperate *.cpp file and linked in by the user.
+
+If a class does not have a user defined super-class (via extends) it will implicitly inherit from the internal vnx::Value class. As such all classes have vnx::Value as their base class.
+
+\subsection{Struct}
+
+In addition to classes one can also define structs, the only difference is structs cannot inherit and they cannot be published by themselves, only when contained in a class. The use-case for structs are small types which are used in large arrays, since a class has an overhead of 4 to 8 bytes per instance in memory.
+
+\begin{lstlisting}[language=Java, caption=example\_type\_t.vni]
+package example;
+
+struct example_type_t {
+	float x;
+	float y;
+	float z;
+}
+\end{lstlisting}
+
+\subsection{Enum}
+
+
+
+\subsection{Module}
+
+Modules are defined in the interface to generate a base class from which the user can inherit to implement callback functions. In addition code is generated to read configuration variables as specified in the module interface description. Also a client class is generated to send requests to said module and receive a response.
+
+\begin{lstlisting}[language=Java, caption=ExampleModule.vni]
+package example;
+
+module ExampleModule {
+	int config_a = 1234;			// config variable
+	string config_b = "default";	// config variable
+	SomeType config_c;				// config variable
+	vector<float> config_d;			// config variable
+	void handle(SomeType sample);	// handle function
+	void do_something(int param_a, SomeType param_b); // request function
+	int get_something() const;		// request function
+}
+\end{lstlisting}
+
+Contrary to functions in C++ and Java one cannot overload functions, only one instance is allowed with the same function name. This is to allow for transparent compatibility.
+
+Functions returning a value need to be const, this is to allow multiple re-tries in case a response was lost without violating consistency.
+
+\lstinline|void handle(Type sample)| functions are special in that they are called when the Module reveives a sample of the specified type.
+
+For the above example a base class called \lstinline|example::ExampleModuleBase| is generated from which the user inherits when implementing the actual \lstinline|example::ExampleModule|. For each config variable a public field is generated which can be accessed before the module is started. In the base class constructor the configuration variables are loaded from the config system.
+
+For each \lstinline|void handle(...)| function two functions are generated in the base class: A \lstinline|void handle(std::shared_ptr<const example::SomeType> value)| and a \lstinline|void handle(std::shared_ptr<const example::SomeType> value, std::shared_ptr<const vnx::Sample> sample)|, where the latter allows access to the sample header to determine on which topic the sample was published for example. By default the latter function calls the former while ignoring the sample header. So when overriding the latter function one has to remember that the former will not be called anymore.
+
+For each request function a pure virtual function is generated which has to be implemented by the user, it will be called when a request is received.
+
+Additionally for the above example a client class called \lstinline|example::ExampleModuleClient| will be generated which is a wrapper for serializing and de-serializing the requests and responses. To the user it appears as if the functions are called directly on the module object but behind the scenes a request is created, sent to the module, after which the calling thread is blocked until a response is received and then returned. In case a request could not be processed an exception is thrown, this can happen when the requested service does not exist, is not reachable, the requested function does not exist, the connection got interrupted or there was an exception when processing the request.
+
+Moreover, for request functions that return void an optional asynchronous client function is generated with a "_async()" suffix. This async version does not wait for completion of the request, which means the calling thread will not be blocked but the user also would not know if the request was processed sucessfully.
+
+\subsection{Compatibility}
+An important design feature is transparent compatibility between different versions of the same type. This allows the usage of old recordings with new code or running different versions of software components at the same time.
+Transparent compatibility covers the following use-cases:
+\begin{itemize}
+\item A field is added or removed to/from a class or struct. If data for a field is missing it will be left as default initialized. Any extra fields in the data are ignored.
+\item Changing a field of integral type to any other integral type, such as float to double or int to float. The conversion is done as specified in the C++ standard.
+\item Changing the size of a static array. Too many elements are ignored and missing elements are left as default initialized.
+\item Changing the type of a static array, vector or map. The behavior is the same as when changing the type of a field.
+\item Changing the parent class in case of inheritance. The behavior is the same as removing and adding fields.
+\end{itemize}
+
+If a conversion cannot be applied the situation is handled as if the two fields (source and destination) have a different name. In other words, it is impossible for an error to occur during de-serialization, the worst case scenario is data not being passed through. It is up to the user to handle changes that cannot be covered transparently by the framework.
+
+The same rules apply to request functions, which are nothing else than a struct named after the function name with each parameter being a field. This means parameters can be added, removed, moved around and their type can be changed according to above rules while still being transparently compatible.
+
+\subsection{Limitations}
+\begin{itemize}
+\item The maximum size of a static array is: VNX\_MAX\_STATIC\_SIZE = 0xFFFF elements
+\item The maximum size of dynamic containers is: VNX\_MAX\_SIZE = 0xFFFFFFFF elements
+\item The maximum combined size of all primitive fields (including static arrays of integral type) inside a struct or class is: VNX\_BUFFER\_SIZE = 16384 bytes
+\end{itemize}
+
+
+\section{Topic}
+
+A Topic is defined by its name which is a string that defines a leaf node inside a tree, just like a file path but with "." instead of "/" seperating the levels. For example: "sensors.raw\_data.Camera\_A".
+Multiple different types can be published on the same topic without them being specified beforehand.
+
+Modules can subscribe to specific topics as well as higher level nodes like "sensors.raw\_data" or even "sensors", it will then receive all samples published in that sub-tree.
+
+Modules can subscribe to any number of topics as well as publish samples on any topic. Subscriptions are reference counted, which means if a module subscribes twice to the same topic it needs to unsubscribe twice to stop receiving samples on said topic.
+
+Moreover, modules can subscribe and unsubscribe dynamically at any point in time.
+
+Topics are global within a process but need to be imported and/or exported from/to other processes. This is achieved with the vnx::Proxy, vnx::Server and vnx::Router.
+
+\section{Module}
+
+Modules can subscribe to topics to receive data, publish results as well as register themselves as a service and receive requests.
+
+Each module has a main() function that is executed in its own thread. The only way to access a module is before it has been started and after that only by sending requests.
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,16 @@
+{
+	"steering_factor": 120,
+	"steering_position_factor": 1,
+	"steering_power": 0.4,
+	"lateral_steering_factor": 0,
+	"lateral_steering_power": 1,
+	"steering_damping": 50,
+	"steering_gain": 0.0005,
+	"brake_gain": 0.003,
+	"accel_gain": 0.001,
+	"max_torque": 5,
+	"max_brake": 0.45,
+	"max_lateral_accel": 3,
+	"brake_hold_value": 0.25,
+	"hold_velocity_threshold": 0.5
+}

@@ -1,0 +1,5 @@
+{
+	"min_speed": 5,
+	"min_yawrate": 20,
+	"gain_angle": 0.000001
+}

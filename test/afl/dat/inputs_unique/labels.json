@@ -1,0 +1,10 @@
+[
+	{
+		"name": "background",
+		"color": [70, 70, 70]
+	},
+	{
+		"name" : "label",
+		"color": [220, 220, 0]
+	}
+]

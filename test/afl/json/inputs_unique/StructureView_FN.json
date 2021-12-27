@@ -1,0 +1,41 @@
+{
+	"width": 1400,
+	"height": 1050,
+	"interval_ms": 20,
+	"field_of_view": 70,
+	"cam_offset": [0, 0, 2],
+	"cam_rotation": [0, 3, 0],
+	"clear_color": [0.15, 0.15, 0.15, 0],
+	"plugins": {
+		"Axis3D": {
+			"frame": "vehicle",
+			"length": 3
+		},
+		"Grid3D": {
+			"frame": "local",
+			"follow": "vehicle.odometry",
+			"color": [0.5, 0.5, 1, 0.5],
+			"size": 10,
+			"cell_size": 5,
+			"line_width": 2,
+			"offset_z": -0.35
+		},
+		"TimeSyncInfo": {
+			"frame": "overlay_top_left",
+			"shift": [0, -1]
+		},
+		"GPS_Info": {
+			"input": "vehicle.gps_info"
+		},
+		"OdometryInfo": {
+			"input": "vehicle.odometry",
+			"offset": [250, 0]
+		},
+		"CameraPointCloud": {
+			"input": "vision.structure.FLIR_FL",
+			"point_size": 2,
+			"history": 1,
+			"color": [0, 0, 0, 1]
+		},
+	}
+}

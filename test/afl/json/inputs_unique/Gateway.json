@@ -1,0 +1,16 @@
+{
+	"interval": 10000,
+	"dst_addr": "192.168.2.5",
+	"vehicle_info": {
+		"dimensions": {
+			"width": 2.0,
+			"length": 3.8,
+			"height": 1.8,
+			"wheelbase": 2.6,
+			"ground_offset": -0.35,
+			"pos_x": 3.4,
+			"neg_x": -0.4
+		},
+		"steering_ratio": 15.7
+	}
+}

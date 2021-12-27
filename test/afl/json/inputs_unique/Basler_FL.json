@@ -1,0 +1,10 @@
+{
+	"device_name": "Basler-22450663",
+	"pixel_type": "BayerGR12",
+	"info": {
+		"rotation": [0, 0, 0],
+		"position": [1.82, 0.33, 1.12],
+		"focal_length": 2667,
+		"distortion": [0, 0, 0]
+	}
+}

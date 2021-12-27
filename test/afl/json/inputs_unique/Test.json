@@ -1,0 +1,33 @@
+{
+	"bool": false,
+	"false": false,
+	"null": null,
+	"test": 1337,
+	"negative": -1337,
+	"double": 123.456,
+	"string": "[{sdk jfh\"sdk\\jf]}",
+	"empty": {},
+	"empty2": {   
+	},
+	"value": {
+		"array": [1, 2, 3, 4]
+	},
+	"list": [
+		{"name": "asdasdsa"},
+		{"name": "sdfsdfsd"}
+	],
+	"list2": ["foo", "bar"],
+	"list3": [[],[]],
+	"map": [
+		["key", "value"], ["key2", "value2"]
+	],
+	"map2": {
+		"key": "value",
+		"key2": "value2"
+	},
+	"map3": {
+		"nested": {
+			"key": 1337
+		}
+	}
+}

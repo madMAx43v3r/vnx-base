@@ -1,0 +1,40 @@
+package vnx.test;
+
+class TestValue {
+	
+	bool bool_ = true;
+	int int_ = 1337;
+	double double_ = 1337.7331;
+	
+	float array_[4];
+	test_struct_t struct_array_[2];
+	optional<int> tmpl_array_[2];
+	
+	string string_ = "test";
+	
+	tuple<int, float, double, string> tuple_;
+	tuple<vnx.User, vnx.User> user_tuple_;
+	
+	vector<int> vector_;
+	vector<vnx.User> user_vector_;
+	vector<vnx.Variant> variant_vector_;
+	vector<vnx.permission_e> enum_vector_;
+	vector<pair<int, float>> pair_vector_;
+	
+	set<string> set_;
+	map<string, int> map_;
+	
+	vnx.Variant variant_;
+	
+	test_struct_t struct_;
+	vnx.permission_e enum_ = VIEW;
+	
+	vnx.User user_;
+	vnx.User* pointer_;
+	
+	optional<int> optional_int_;
+	optional<test_struct_t> optional_struct_;
+	optional<vnx.permission_e> optional_enum_;
+	optional<vector<pair<int, float>>> optional_vector_;
+	
+}

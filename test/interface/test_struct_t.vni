@@ -1,0 +1,15 @@
+package vnx.test;
+
+struct test_struct_t {
+	
+	bool bool_ = true;
+	
+	char char_ = 42;
+	
+	short short_ = 1337;
+	
+	int array_[3];
+	
+	double double_ = 11.11;
+	
+}

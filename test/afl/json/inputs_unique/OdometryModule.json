@@ -1,0 +1,10 @@
+{
+	"gravity_reset_gain": 0.0001,
+	"gyro_bias_gain": 0.0005,
+	"speed_factor_gain": 0.01,
+	"velocity_gain": 0.01,
+	"pitch_gain": 0.001,
+	"low_pass_gain": 0.1,
+	"wheel_slip_coeff": 0.01,
+	"side_slip_coeff": 0.01
+}
