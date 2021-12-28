@@ -142,9 +142,9 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 			var = tmp;
 		} else {
 			if(is_negative) {
-				var = int64_t(std::stoll(value, nullptr, 0));
+				var = int64_t(std::stoll(value));
 			} else {
-				var = uint64_t(std::stoull(value, nullptr, 0));
+				var = uint64_t(std::stoull(value));
 			}
 		}
 	} else {
