@@ -59,14 +59,15 @@ void Directory::create(const std::string &path_) {
 	create();
 }
 
-void Directory::create(){
+void Directory::create() {
 	size_t position = 0;
-	while(position < path.length()){
+	while(position < path.length()) {
 		position = path.find("/", position);
-		if(position == std::string::npos) position = path.length();
-		std::string parent = path.substr(0, position);
-		mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-
+		if(position == std::string::npos) {
+			position = path.length();
+		}
+		const auto parent = path.substr(0, position);
+		::mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		position++;
 	}
 }
@@ -148,7 +149,7 @@ void Directory::close() {
 		if(::closedir(p_dir) != 0) {
 			throw std::runtime_error("closedir('" + path + "') failed with: " + std::string(::strerror(errno)));
 		}
-		p_dir = 0;
+		p_dir = nullptr;
 	}
 }
 
