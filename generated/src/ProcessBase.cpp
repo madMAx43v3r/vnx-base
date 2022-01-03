@@ -72,7 +72,7 @@ namespace vnx {
 
 
 const vnx::Hash64 ProcessBase::VNX_TYPE_HASH(0x149355fa43209cb1ull);
-const vnx::Hash64 ProcessBase::VNX_CODE_HASH(0x21e4c83bbb54becfull);
+const vnx::Hash64 ProcessBase::VNX_CODE_HASH(0x18284d06b43bbaf5ull);
 
 ProcessBase::ProcessBase(const std::string& _vnx_name)
 	:	Module::Module(_vnx_name)
@@ -82,6 +82,7 @@ ProcessBase::ProcessBase(const std::string& _vnx_name)
 	vnx::read_config(vnx_name + ".log_history_size", log_history_size);
 	vnx::read_config(vnx_name + ".error_history_size", error_history_size);
 	vnx::read_config(vnx_name + ".log_file_name", log_file_name);
+	vnx::read_config(vnx_name + ".log_file_path", log_file_path);
 	vnx::read_config(vnx_name + ".log_file_name_suffix", log_file_name_suffix);
 	vnx::read_config(vnx_name + ".log_file_entry_prefix", log_file_entry_prefix);
 	vnx::read_config(vnx_name + ".log_file_auto_restart", log_file_auto_restart);
@@ -107,9 +108,10 @@ void ProcessBase::accept(vnx::Visitor& _visitor) const {
 	_visitor.type_field(_type_code->fields[2], 2); vnx::accept(_visitor, log_history_size);
 	_visitor.type_field(_type_code->fields[3], 3); vnx::accept(_visitor, error_history_size);
 	_visitor.type_field(_type_code->fields[4], 4); vnx::accept(_visitor, log_file_name);
-	_visitor.type_field(_type_code->fields[5], 5); vnx::accept(_visitor, log_file_name_suffix);
-	_visitor.type_field(_type_code->fields[6], 6); vnx::accept(_visitor, log_file_entry_prefix);
-	_visitor.type_field(_type_code->fields[7], 7); vnx::accept(_visitor, log_file_auto_restart);
+	_visitor.type_field(_type_code->fields[5], 5); vnx::accept(_visitor, log_file_path);
+	_visitor.type_field(_type_code->fields[6], 6); vnx::accept(_visitor, log_file_name_suffix);
+	_visitor.type_field(_type_code->fields[7], 7); vnx::accept(_visitor, log_file_entry_prefix);
+	_visitor.type_field(_type_code->fields[8], 8); vnx::accept(_visitor, log_file_auto_restart);
 	_visitor.type_end(*_type_code);
 }
 
@@ -120,6 +122,7 @@ void ProcessBase::write(std::ostream& _out) const {
 	_out << ", \"log_history_size\": "; vnx::write(_out, log_history_size);
 	_out << ", \"error_history_size\": "; vnx::write(_out, error_history_size);
 	_out << ", \"log_file_name\": "; vnx::write(_out, log_file_name);
+	_out << ", \"log_file_path\": "; vnx::write(_out, log_file_path);
 	_out << ", \"log_file_name_suffix\": "; vnx::write(_out, log_file_name_suffix);
 	_out << ", \"log_file_entry_prefix\": "; vnx::write(_out, log_file_entry_prefix);
 	_out << ", \"log_file_auto_restart\": "; vnx::write(_out, log_file_auto_restart);
@@ -140,6 +143,7 @@ vnx::Object ProcessBase::to_object() const {
 	_object["log_history_size"] = log_history_size;
 	_object["error_history_size"] = error_history_size;
 	_object["log_file_name"] = log_file_name;
+	_object["log_file_path"] = log_file_path;
 	_object["log_file_name_suffix"] = log_file_name_suffix;
 	_object["log_file_entry_prefix"] = log_file_entry_prefix;
 	_object["log_file_auto_restart"] = log_file_auto_restart;
@@ -160,6 +164,8 @@ void ProcessBase::from_object(const vnx::Object& _object) {
 			_entry.second.to(log_file_name);
 		} else if(_entry.first == "log_file_name_suffix") {
 			_entry.second.to(log_file_name_suffix);
+		} else if(_entry.first == "log_file_path") {
+			_entry.second.to(log_file_path);
 		} else if(_entry.first == "log_history_size") {
 			_entry.second.to(log_history_size);
 		} else if(_entry.first == "update_interval_ms") {
@@ -184,6 +190,9 @@ vnx::Variant ProcessBase::get_field(const std::string& _name) const {
 	if(_name == "log_file_name") {
 		return vnx::Variant(log_file_name);
 	}
+	if(_name == "log_file_path") {
+		return vnx::Variant(log_file_path);
+	}
 	if(_name == "log_file_name_suffix") {
 		return vnx::Variant(log_file_name_suffix);
 	}
@@ -207,6 +216,8 @@ void ProcessBase::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(error_history_size);
 	} else if(_name == "log_file_name") {
 		_value.to(log_file_name);
+	} else if(_name == "log_file_path") {
+		_value.to(log_file_path);
 	} else if(_name == "log_file_name_suffix") {
 		_value.to(log_file_name_suffix);
 	} else if(_name == "log_file_entry_prefix") {
@@ -242,7 +253,7 @@ std::shared_ptr<vnx::TypeCode> ProcessBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.Process";
 	type_code->type_hash = vnx::Hash64(0x149355fa43209cb1ull);
-	type_code->code_hash = vnx::Hash64(0x21e4c83bbb54becfull);
+	type_code->code_hash = vnx::Hash64(0x18284d06b43bbaf5ull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::ProcessBase);
 	type_code->methods.resize(26);
@@ -272,7 +283,7 @@ std::shared_ptr<vnx::TypeCode> ProcessBase::static_create_type_code() {
 	type_code->methods[23] = ::vnx::Process_ungrep_log::static_get_type_code();
 	type_code->methods[24] = ::vnx::Process_trigger_shutdown::static_get_type_code();
 	type_code->methods[25] = ::vnx::Process_self_test_all::static_get_type_code();
-	type_code->fields.resize(8);
+	type_code->fields.resize(9);
 	{
 		auto& field = type_code->fields[0];
 		field.data_size = 4;
@@ -310,19 +321,25 @@ std::shared_ptr<vnx::TypeCode> ProcessBase::static_create_type_code() {
 	{
 		auto& field = type_code->fields[5];
 		field.is_extended = true;
+		field.name = "log_file_path";
+		field.code = {32};
+	}
+	{
+		auto& field = type_code->fields[6];
+		field.is_extended = true;
 		field.name = "log_file_name_suffix";
 		field.value = vnx::to_string("_%Y_%m_%d.txt");
 		field.code = {32};
 	}
 	{
-		auto& field = type_code->fields[6];
+		auto& field = type_code->fields[7];
 		field.is_extended = true;
 		field.name = "log_file_entry_prefix";
 		field.value = vnx::to_string("%Y-%m-%d %H:%M:%S ");
 		field.code = {32};
 	}
 	{
-		auto& field = type_code->fields[7];
+		auto& field = type_code->fields[8];
 		field.data_size = 1;
 		field.name = "log_file_auto_restart";
 		field.value = vnx::to_string(true);
@@ -574,15 +591,16 @@ void read(TypeInput& in, ::vnx::ProcessBase& value, const TypeCode* type_code, c
 		if(const auto* const _field = type_code->field_map[3]) {
 			vnx::read_value(_buf + _field->offset, value.error_history_size, _field->code.data());
 		}
-		if(const auto* const _field = type_code->field_map[7]) {
+		if(const auto* const _field = type_code->field_map[8]) {
 			vnx::read_value(_buf + _field->offset, value.log_file_auto_restart, _field->code.data());
 		}
 	}
 	for(const auto* _field : type_code->ext_fields) {
 		switch(_field->native_index) {
 			case 4: vnx::read(in, value.log_file_name, type_code, _field->code.data()); break;
-			case 5: vnx::read(in, value.log_file_name_suffix, type_code, _field->code.data()); break;
-			case 6: vnx::read(in, value.log_file_entry_prefix, type_code, _field->code.data()); break;
+			case 5: vnx::read(in, value.log_file_path, type_code, _field->code.data()); break;
+			case 6: vnx::read(in, value.log_file_name_suffix, type_code, _field->code.data()); break;
+			case 7: vnx::read(in, value.log_file_entry_prefix, type_code, _field->code.data()); break;
 			default: vnx::skip(in, type_code, _field->code.data());
 		}
 	}
@@ -608,8 +626,9 @@ void write(TypeOutput& out, const ::vnx::ProcessBase& value, const TypeCode* typ
 	vnx::write_value(_buf + 12, value.error_history_size);
 	vnx::write_value(_buf + 16, value.log_file_auto_restart);
 	vnx::write(out, value.log_file_name, type_code, type_code->fields[4].code.data());
-	vnx::write(out, value.log_file_name_suffix, type_code, type_code->fields[5].code.data());
-	vnx::write(out, value.log_file_entry_prefix, type_code, type_code->fields[6].code.data());
+	vnx::write(out, value.log_file_path, type_code, type_code->fields[5].code.data());
+	vnx::write(out, value.log_file_name_suffix, type_code, type_code->fields[6].code.data());
+	vnx::write(out, value.log_file_entry_prefix, type_code, type_code->fields[7].code.data());
 }
 
 void read(std::istream& in, ::vnx::ProcessBase& value) {

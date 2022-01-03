@@ -25,6 +25,7 @@ public:
 	uint32_t log_history_size = 10000;
 	uint32_t error_history_size = 100;
 	std::string log_file_name;
+	std::string log_file_path;
 	std::string log_file_name_suffix = "_%Y_%m_%d.txt";
 	std::string log_file_entry_prefix = "%Y-%m-%d %H:%M:%S ";
 	vnx::bool_t log_file_auto_restart = true;
