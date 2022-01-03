@@ -20,6 +20,7 @@
 #include <vnx/JRPC_Server.h>
 #include <vnx/Proxy.h>
 #include <vnx/JRPC_Proxy.h>
+#include <vnx/Directory.h>
 #include <vnx/Authentication.h>
 #include <vnx/TopicInfoList.hxx>
 #include <vnx/thread_priority_e.hxx>
@@ -698,7 +699,10 @@ void Process::show_log_message_ansi(std::shared_ptr<const LogMsg> message) const
 
 void Process::open_log_file() {
 	if(!log_file_name.empty()) {
-		const auto file_name = log_file_name + vnx::get_date_string_ex(log_file_name_suffix);
+		if(!log_file_path.empty()) {
+			vnx::Directory(log_file_path).create();
+		}
+		const auto file_name = log_file_path + log_file_name + vnx::get_date_string_ex(log_file_name_suffix);
 		if(file_name != curr_log_file_name) {
 			bool is_start = true;
 			if(log_file.is_open()) {
