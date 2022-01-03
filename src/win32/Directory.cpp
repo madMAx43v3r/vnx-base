@@ -53,8 +53,12 @@ void Directory::create() {
 		position = path.find_first_of("/\\", position);
 		if(position == std::string::npos) position = path.length();
 		std::string parent = path.substr(0, position);
-		CreateDirectoryA(parent.c_str(), NULL);
-
+		if(!CreateDirectoryA(parent.c_str(), NULL)) {
+			const auto err = GetLastError();
+			if(err != ERROR_ALREADY_EXISTS) {
+				throw std::runtime_error("CreateDirectoryA() failed with: code " + std::to_string(err));
+			}
+		}
 		position++;
 	}
 }
