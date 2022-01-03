@@ -67,7 +67,11 @@ void Directory::create() {
 			position = path.length();
 		}
 		const auto parent = path.substr(0, position);
-		::mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if(::mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)) {
+			if(errno != EEXIST) {
+				throw std::runtime_error("mkdir() failed with: " + std::string(::strerror(errno)));
+			}
+		}
 		position++;
 	}
 }
