@@ -167,7 +167,7 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 			}
 			case CODE_ARRAY:
 			case CODE_ALT_ARRAY: {
-				size_t size = code[1];
+				uint16_t size = code[1];
 				if(code[0] == CODE_ALT_ARRAY) {
 					size = flip_bytes(size);
 				}
