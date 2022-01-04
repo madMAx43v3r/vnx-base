@@ -96,7 +96,7 @@ void File::seek_to(int64_t pos) {
 }
 
 void File::fadvise(int advice, int64_t pos, int64_t length) {
-#ifndef _WIN32
+#if _POSIX_C_SOURCE >= 200112L
 	const int ret = ::posix_fadvise(::fileno(p_file), pos, std::max(length, int64_t(0)), advice);
 	if(ret) {
 		throw std::runtime_error("posix_fadvise('" + path + "') failed with: " + std::string(::strerror(ret)));
