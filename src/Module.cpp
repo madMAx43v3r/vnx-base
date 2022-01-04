@@ -159,7 +159,9 @@ void Module::vnx_entry() {
 		if(thread_name.size() > 15) {
 			thread_name.resize(15);
 		}
+#ifdef _GNU_SOURCE
 		pthread_setname_np(pthread_self(), thread_name.c_str());
+#endif
 	}
 	while(vnx_do_run()) {
 		try {
