@@ -269,6 +269,17 @@ void write_dynamic(TypeOutput& out, const float64_t& value) {
 	write_value(buf + 4, value);
 }
 
+#ifdef __APPLE__
+void write_dynamic(TypeOutput& out, const size_t& value) {
+	if(sizeof(size_t) == 4) {
+		write_dynamic(out, uint32_t(value));
+	}
+	if(sizeof(size_t) == 8) {
+		write_dynamic(out, uint64_t(value));
+	}
+}
+#endif
+
 void write_dynamic_null(TypeOutput& out) {
 	char* buf = out.write(4);
 	write_value(buf, (uint16_t)1);
