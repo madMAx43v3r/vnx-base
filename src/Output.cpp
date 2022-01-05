@@ -271,11 +271,20 @@ void write_dynamic(TypeOutput& out, const float64_t& value) {
 
 #ifdef __APPLE__
 void write_dynamic(TypeOutput& out, const size_t& value) {
-	if(sizeof(size_t) == 4) {
+	if(sizeof(value) == 4) {
 		write_dynamic(out, uint32_t(value));
 	}
-	if(sizeof(size_t) == 8) {
+	if(sizeof(value) == 8) {
 		write_dynamic(out, uint64_t(value));
+	}
+}
+
+void write_dynamic(TypeOutput& out, const ssize_t& value) {
+	if(sizeof(value) == 4) {
+		write_dynamic(out, int32_t(value));
+	}
+	if(sizeof(value) == 8) {
+		write_dynamic(out, int64_t(value));
 	}
 }
 #endif

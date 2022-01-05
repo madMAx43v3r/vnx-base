@@ -129,6 +129,7 @@ void write_dynamic(TypeOutput& out, const float32_t& value);
 void write_dynamic(TypeOutput& out, const float64_t& value);
 #ifdef __APPLE__
 void write_dynamic(TypeOutput& out, const size_t& value);
+void write_dynamic(TypeOutput& out, const ssize_t& value);
 #endif
 /// @}
 
@@ -461,6 +462,7 @@ inline void write(std::ostream& out, const int32_t& value) { out << value; }
 inline void write(std::ostream& out, const int64_t& value) { out << value; }
 #ifdef __APPLE__
 inline void write(std::ostream& out, const size_t& value) { out << value; }
+inline void write(std::ostream& out, const ssize_t& value) { out << value; }
 #endif
 
 void write(std::ostream& out, const float32_t& value);
