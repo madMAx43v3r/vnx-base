@@ -808,7 +808,7 @@ inline void create_dynamic_code(std::vector<uint16_t>& code, std::shared_ptr<con
 /// \private
 template<typename T>
 void create_dynamic_code(std::vector<uint16_t>& code, const vnx::optional<T>& value, bool special) {
-	if(value) {
+	if(!special || value) {
 		vnx::type<T>().create_dynamic_code(code);
 	} else {
 		code.push_back(CODE_NULL);
