@@ -93,7 +93,7 @@ public:
 
 	optional& operator=(const optional& other) {
 		if(other) {
-			*this = *other;
+			this->operator=(*other);
 		} else {
 			clear();
 		}
