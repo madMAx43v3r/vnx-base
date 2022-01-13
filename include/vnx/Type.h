@@ -156,7 +156,7 @@ enum {
 	CODE_OBJECT = 24,			///< same as CODE_MAP with {MAP, 4, LIST, INT8, DYNAMIC} but intended to be a dynamically defined type instead of a map
 	
 	CODE_BOOL = 31,				///< 8-bit unsigned integer (0 = false, otherwise = true)
-	CODE_STRING = 32,			///< 8-bit signed integer list (same as {CODE_LSIT, CODE_INT8}, but different meaning, used to denote a ASCII/UTF8 string)
+	CODE_STRING = 32,			///< 8-bit signed integer list (same as {CODE_LIST, CODE_INT8}, but different meaning, used to denote a ASCII/UTF8 string)
 	CODE_OPTIONAL = 33,			///< optional value using 8-bit bool to indicate if data is to follow, code = {33, ...}
 
 	CODE_MAGIC = 0x3713,		///< magic number for VNX to detect binary files containing serialized data
