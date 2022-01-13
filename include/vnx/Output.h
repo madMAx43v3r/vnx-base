@@ -428,6 +428,9 @@ void write(TypeOutput& out, std::shared_ptr<T> value, const TypeCode* type_code,
 
 template<typename T>
 void write(TypeOutput& out, const vnx::optional<T>& value, const TypeCode* type_code, const uint16_t* code) {
+	if(!code) {
+		throw std::logic_error("write(vnx::optional<T>): !code");
+	}
 	if(code) {
 		switch(code[0]) {
 			case CODE_NULL:
