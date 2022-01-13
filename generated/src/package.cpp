@@ -192,6 +192,10 @@
 
 namespace vnx {
 
+const TypeCode* type<::vnx::Buffer>::get_type_code() {
+	return nullptr;
+}
+
 void type<::vnx::Buffer>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Buffer());
 }
@@ -200,12 +204,20 @@ void type<::vnx::Buffer>::create_dynamic_code(std::vector<uint16_t>& code, const
 	const std::vector<int> tmp = {12, 1};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::Endpoint>::get_type_code() {
+	return vnx::vnx_native_type_code_Endpoint;
+}
+
 void type<::vnx::Endpoint>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Endpoint());
 }
 
 void type<::vnx::Endpoint>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Exception>::get_type_code() {
+	return vnx::vnx_native_type_code_Exception;
 }
 
 void type<::vnx::Exception>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -216,12 +228,20 @@ void type<::vnx::Exception>::create_dynamic_code(std::vector<uint16_t>& code, co
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::FlowMessage>::get_type_code() {
+	return vnx::vnx_native_type_code_FlowMessage;
+}
+
 void type<::vnx::FlowMessage>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::FlowMessage());
 }
 
 void type<::vnx::FlowMessage>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::FlowMessage& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Frame>::get_type_code() {
+	return vnx::vnx_native_type_code_Frame;
 }
 
 void type<::vnx::Frame>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -232,12 +252,20 @@ void type<::vnx::Frame>::create_dynamic_code(std::vector<uint16_t>& code, const 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::GatewayInterface_forward>::get_type_code() {
+	return vnx::vnx_native_type_code_GatewayInterface_forward;
+}
+
 void type<::vnx::GatewayInterface_forward>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::GatewayInterface_forward());
 }
 
 void type<::vnx::GatewayInterface_forward>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::GatewayInterface_forward& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::GatewayInterface_forward_return>::get_type_code() {
+	return vnx::vnx_native_type_code_GatewayInterface_forward_return;
 }
 
 void type<::vnx::GatewayInterface_forward_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -248,12 +276,20 @@ void type<::vnx::GatewayInterface_forward_return>::create_dynamic_code(std::vect
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Generic>::get_type_code() {
+	return vnx::vnx_native_type_code_Generic;
+}
+
 void type<::vnx::Generic>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Generic());
 }
 
 void type<::vnx::Generic>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Generic& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Hash128>::get_type_code() {
+	return nullptr;
 }
 
 void type<::vnx::Hash128>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -264,6 +300,10 @@ void type<::vnx::Hash128>::create_dynamic_code(std::vector<uint16_t>& code, cons
 	const std::vector<int> tmp = {11, 2, 4};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::Hash64>::get_type_code() {
+	return nullptr;
+}
+
 void type<::vnx::Hash64>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Hash64());
 }
@@ -272,12 +312,20 @@ void type<::vnx::Hash64>::create_dynamic_code(std::vector<uint16_t>& code, const
 	const std::vector<int> tmp = {4};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::InternalError>::get_type_code() {
+	return vnx::vnx_native_type_code_InternalError;
+}
+
 void type<::vnx::InternalError>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::InternalError());
 }
 
 void type<::vnx::InternalError>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::InternalError& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::JRPC_Error>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Error;
 }
 
 void type<::vnx::JRPC_Error>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -288,12 +336,20 @@ void type<::vnx::JRPC_Error>::create_dynamic_code(std::vector<uint16_t>& code, c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::JRPC_Failure>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Failure;
+}
+
 void type<::vnx::JRPC_Failure>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::JRPC_Failure());
 }
 
 void type<::vnx::JRPC_Failure>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::JRPC_Failure& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::JRPC_Notification>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Notification;
 }
 
 void type<::vnx::JRPC_Notification>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -304,12 +360,20 @@ void type<::vnx::JRPC_Notification>::create_dynamic_code(std::vector<uint16_t>& 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::JRPC_Proxy_select_service>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Proxy_select_service;
+}
+
 void type<::vnx::JRPC_Proxy_select_service>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::JRPC_Proxy_select_service());
 }
 
 void type<::vnx::JRPC_Proxy_select_service>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::JRPC_Proxy_select_service& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::JRPC_Proxy_select_service_return>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Proxy_select_service_return;
 }
 
 void type<::vnx::JRPC_Proxy_select_service_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -320,12 +384,20 @@ void type<::vnx::JRPC_Proxy_select_service_return>::create_dynamic_code(std::vec
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::JRPC_Request>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Request;
+}
+
 void type<::vnx::JRPC_Request>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::JRPC_Request());
 }
 
 void type<::vnx::JRPC_Request>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::JRPC_Request& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::JRPC_Response>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Response;
 }
 
 void type<::vnx::JRPC_Response>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -336,12 +408,20 @@ void type<::vnx::JRPC_Response>::create_dynamic_code(std::vector<uint16_t>& code
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::JRPC_Success>::get_type_code() {
+	return vnx::vnx_native_type_code_JRPC_Success;
+}
+
 void type<::vnx::JRPC_Success>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::JRPC_Success());
 }
 
 void type<::vnx::JRPC_Success>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::JRPC_Success& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::LogMsg>::get_type_code() {
+	return vnx::vnx_native_type_code_LogMsg;
 }
 
 void type<::vnx::LogMsg>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -352,12 +432,20 @@ void type<::vnx::LogMsg>::create_dynamic_code(std::vector<uint16_t>& code, const
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Marker>::get_type_code() {
+	return vnx::vnx_native_type_code_Marker;
+}
+
 void type<::vnx::Marker>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Marker());
 }
 
 void type<::vnx::Marker>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Marker& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Memory>::get_type_code() {
+	return nullptr;
 }
 
 void type<::vnx::Memory>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -368,12 +456,20 @@ void type<::vnx::Memory>::create_dynamic_code(std::vector<uint16_t>& code, const
 	const std::vector<int> tmp = {12, 1};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::Message>::get_type_code() {
+	return vnx::vnx_native_type_code_Message;
+}
+
 void type<::vnx::Message>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Message());
 }
 
 void type<::vnx::Message>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Message& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInfo>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInfo;
 }
 
 void type<::vnx::ModuleInfo>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -384,12 +480,20 @@ void type<::vnx::ModuleInfo>::create_dynamic_code(std::vector<uint16_t>& code, c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_config>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_config;
+}
+
 void type<::vnx::ModuleInterface_vnx_get_config>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_get_config());
 }
 
 void type<::vnx::ModuleInterface_vnx_get_config>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_get_config& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_config_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_config_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_get_config_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -400,12 +504,20 @@ void type<::vnx::ModuleInterface_vnx_get_config_return>::create_dynamic_code(std
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_config_object>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_config_object;
+}
+
 void type<::vnx::ModuleInterface_vnx_get_config_object>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_get_config_object());
 }
 
 void type<::vnx::ModuleInterface_vnx_get_config_object>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_get_config_object& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_config_object_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_config_object_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_get_config_object_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -416,12 +528,20 @@ void type<::vnx::ModuleInterface_vnx_get_config_object_return>::create_dynamic_c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_module_info>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_module_info;
+}
+
 void type<::vnx::ModuleInterface_vnx_get_module_info>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_get_module_info());
 }
 
 void type<::vnx::ModuleInterface_vnx_get_module_info>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_get_module_info& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_module_info_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_module_info_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_get_module_info_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -432,12 +552,20 @@ void type<::vnx::ModuleInterface_vnx_get_module_info_return>::create_dynamic_cod
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_type_code>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_type_code;
+}
+
 void type<::vnx::ModuleInterface_vnx_get_type_code>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_get_type_code());
 }
 
 void type<::vnx::ModuleInterface_vnx_get_type_code>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_get_type_code& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_get_type_code_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_get_type_code_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_get_type_code_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -448,12 +576,20 @@ void type<::vnx::ModuleInterface_vnx_get_type_code_return>::create_dynamic_code(
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_restart>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_restart;
+}
+
 void type<::vnx::ModuleInterface_vnx_restart>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_restart());
 }
 
 void type<::vnx::ModuleInterface_vnx_restart>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_restart& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_restart_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_restart_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_restart_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -464,12 +600,20 @@ void type<::vnx::ModuleInterface_vnx_restart_return>::create_dynamic_code(std::v
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_self_test>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_self_test;
+}
+
 void type<::vnx::ModuleInterface_vnx_self_test>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_self_test());
 }
 
 void type<::vnx::ModuleInterface_vnx_self_test>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_self_test& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_self_test_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_self_test_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_self_test_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -480,12 +624,20 @@ void type<::vnx::ModuleInterface_vnx_self_test_return>::create_dynamic_code(std:
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_set_config>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_set_config;
+}
+
 void type<::vnx::ModuleInterface_vnx_set_config>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_set_config());
 }
 
 void type<::vnx::ModuleInterface_vnx_set_config>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_set_config& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_set_config_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_set_config_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_set_config_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -496,12 +648,20 @@ void type<::vnx::ModuleInterface_vnx_set_config_return>::create_dynamic_code(std
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_set_config_object>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_set_config_object;
+}
+
 void type<::vnx::ModuleInterface_vnx_set_config_object>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_set_config_object());
 }
 
 void type<::vnx::ModuleInterface_vnx_set_config_object>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_set_config_object& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_set_config_object_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_set_config_object_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_set_config_object_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -512,12 +672,20 @@ void type<::vnx::ModuleInterface_vnx_set_config_object_return>::create_dynamic_c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ModuleInterface_vnx_stop>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_stop;
+}
+
 void type<::vnx::ModuleInterface_vnx_stop>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ModuleInterface_vnx_stop());
 }
 
 void type<::vnx::ModuleInterface_vnx_stop>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ModuleInterface_vnx_stop& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ModuleInterface_vnx_stop_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ModuleInterface_vnx_stop_return;
 }
 
 void type<::vnx::ModuleInterface_vnx_stop_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -528,12 +696,20 @@ void type<::vnx::ModuleInterface_vnx_stop_return>::create_dynamic_code(std::vect
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::NoSuchMethod>::get_type_code() {
+	return vnx::vnx_native_type_code_NoSuchMethod;
+}
+
 void type<::vnx::NoSuchMethod>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::NoSuchMethod());
 }
 
 void type<::vnx::NoSuchMethod>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::NoSuchMethod& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::NoSuchService>::get_type_code() {
+	return vnx::vnx_native_type_code_NoSuchService;
 }
 
 void type<::vnx::NoSuchService>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -544,6 +720,10 @@ void type<::vnx::NoSuchService>::create_dynamic_code(std::vector<uint16_t>& code
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Object>::get_type_code() {
+	return nullptr;
+}
+
 void type<::vnx::Object>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Object());
 }
@@ -552,12 +732,20 @@ void type<::vnx::Object>::create_dynamic_code(std::vector<uint16_t>& code, const
 	const std::vector<int> tmp = {24};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::OverflowException>::get_type_code() {
+	return vnx::vnx_native_type_code_OverflowException;
+}
+
 void type<::vnx::OverflowException>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::OverflowException());
 }
 
 void type<::vnx::OverflowException>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::OverflowException& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::PermissionDenied>::get_type_code() {
+	return vnx::vnx_native_type_code_PermissionDenied;
 }
 
 void type<::vnx::PermissionDenied>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -568,12 +756,20 @@ void type<::vnx::PermissionDenied>::create_dynamic_code(std::vector<uint16_t>& c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_get_info>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_get_info;
+}
+
 void type<::vnx::Player_get_info>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_get_info());
 }
 
 void type<::vnx::Player_get_info>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_get_info& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_get_info_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_get_info_return;
 }
 
 void type<::vnx::Player_get_info_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -584,12 +780,20 @@ void type<::vnx::Player_get_info_return>::create_dynamic_code(std::vector<uint16
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_pause>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_pause;
+}
+
 void type<::vnx::Player_pause>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_pause());
 }
 
 void type<::vnx::Player_pause>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_pause& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_pause_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_pause_return;
 }
 
 void type<::vnx::Player_pause_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -600,12 +804,20 @@ void type<::vnx::Player_pause_return>::create_dynamic_code(std::vector<uint16_t>
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_play>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_play;
+}
+
 void type<::vnx::Player_play>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_play());
 }
 
 void type<::vnx::Player_play>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_play& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_play_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_play_return;
 }
 
 void type<::vnx::Player_play_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -616,12 +828,20 @@ void type<::vnx::Player_play_return>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_seek_by_count>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_by_count;
+}
+
 void type<::vnx::Player_seek_by_count>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_seek_by_count());
 }
 
 void type<::vnx::Player_seek_by_count>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_seek_by_count& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_seek_by_count_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_by_count_return;
 }
 
 void type<::vnx::Player_seek_by_count_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -632,12 +852,20 @@ void type<::vnx::Player_seek_by_count_return>::create_dynamic_code(std::vector<u
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_seek_by_time>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_by_time;
+}
+
 void type<::vnx::Player_seek_by_time>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_seek_by_time());
 }
 
 void type<::vnx::Player_seek_by_time>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_seek_by_time& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_seek_by_time_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_by_time_return;
 }
 
 void type<::vnx::Player_seek_by_time_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -648,12 +876,20 @@ void type<::vnx::Player_seek_by_time_return>::create_dynamic_code(std::vector<ui
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_seek_to_position>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_to_position;
+}
+
 void type<::vnx::Player_seek_to_position>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_seek_to_position());
 }
 
 void type<::vnx::Player_seek_to_position>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_seek_to_position& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_seek_to_position_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_to_position_return;
 }
 
 void type<::vnx::Player_seek_to_position_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -664,12 +900,20 @@ void type<::vnx::Player_seek_to_position_return>::create_dynamic_code(std::vecto
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_seek_to_time>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_to_time;
+}
+
 void type<::vnx::Player_seek_to_time>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_seek_to_time());
 }
 
 void type<::vnx::Player_seek_to_time>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_seek_to_time& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_seek_to_time_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_seek_to_time_return;
 }
 
 void type<::vnx::Player_seek_to_time_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -680,12 +924,20 @@ void type<::vnx::Player_seek_to_time_return>::create_dynamic_code(std::vector<ui
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_set_speed>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_set_speed;
+}
+
 void type<::vnx::Player_set_speed>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_set_speed());
 }
 
 void type<::vnx::Player_set_speed>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_set_speed& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_set_speed_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_set_speed_return;
 }
 
 void type<::vnx::Player_set_speed_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -696,12 +948,20 @@ void type<::vnx::Player_set_speed_return>::create_dynamic_code(std::vector<uint1
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_stop>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_stop;
+}
+
 void type<::vnx::Player_stop>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_stop());
 }
 
 void type<::vnx::Player_stop>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_stop& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_stop_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_stop_return;
 }
 
 void type<::vnx::Player_stop_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -712,12 +972,20 @@ void type<::vnx::Player_stop_return>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Player_toggle>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_toggle;
+}
+
 void type<::vnx::Player_toggle>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Player_toggle());
 }
 
 void type<::vnx::Player_toggle>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Player_toggle& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Player_toggle_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Player_toggle_return;
 }
 
 void type<::vnx::Player_toggle_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -728,12 +996,20 @@ void type<::vnx::Player_toggle_return>::create_dynamic_code(std::vector<uint16_t
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::PlayerStatus>::get_type_code() {
+	return vnx::vnx_native_type_code_PlayerStatus;
+}
+
 void type<::vnx::PlayerStatus>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::PlayerStatus());
 }
 
 void type<::vnx::PlayerStatus>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::PlayerStatus& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_global_config>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_global_config;
 }
 
 void type<::vnx::Process_get_global_config>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -744,12 +1020,20 @@ void type<::vnx::Process_get_global_config>::create_dynamic_code(std::vector<uin
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_global_config_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_global_config_return;
+}
+
 void type<::vnx::Process_get_global_config_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_global_config_return());
 }
 
 void type<::vnx::Process_get_global_config_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_global_config_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_module_info>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_module_info;
 }
 
 void type<::vnx::Process_get_module_info>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -760,12 +1044,20 @@ void type<::vnx::Process_get_module_info>::create_dynamic_code(std::vector<uint1
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_module_info_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_module_info_return;
+}
+
 void type<::vnx::Process_get_module_info_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_module_info_return());
 }
 
 void type<::vnx::Process_get_module_info_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_module_info_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_name>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_name;
 }
 
 void type<::vnx::Process_get_name>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -776,12 +1068,20 @@ void type<::vnx::Process_get_name>::create_dynamic_code(std::vector<uint16_t>& c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_name_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_name_return;
+}
+
 void type<::vnx::Process_get_name_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_name_return());
 }
 
 void type<::vnx::Process_get_name_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_name_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_process_info>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_process_info;
 }
 
 void type<::vnx::Process_get_process_info>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -792,12 +1092,20 @@ void type<::vnx::Process_get_process_info>::create_dynamic_code(std::vector<uint
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_process_info_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_process_info_return;
+}
+
 void type<::vnx::Process_get_process_info_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_process_info_return());
 }
 
 void type<::vnx::Process_get_process_info_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_process_info_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_sync_time>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_sync_time;
 }
 
 void type<::vnx::Process_get_sync_time>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -808,12 +1116,20 @@ void type<::vnx::Process_get_sync_time>::create_dynamic_code(std::vector<uint16_
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_sync_time_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_sync_time_return;
+}
+
 void type<::vnx::Process_get_sync_time_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_sync_time_return());
 }
 
 void type<::vnx::Process_get_sync_time_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_sync_time_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_get_topic_info>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_topic_info;
 }
 
 void type<::vnx::Process_get_topic_info>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -824,12 +1140,20 @@ void type<::vnx::Process_get_topic_info>::create_dynamic_code(std::vector<uint16
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_get_topic_info_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_get_topic_info_return;
+}
+
 void type<::vnx::Process_get_topic_info_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_get_topic_info_return());
 }
 
 void type<::vnx::Process_get_topic_info_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_get_topic_info_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_grep_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_grep_log;
 }
 
 void type<::vnx::Process_grep_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -840,12 +1164,20 @@ void type<::vnx::Process_grep_log>::create_dynamic_code(std::vector<uint16_t>& c
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_grep_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_grep_log_return;
+}
+
 void type<::vnx::Process_grep_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_grep_log_return());
 }
 
 void type<::vnx::Process_grep_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_grep_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_journal_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_journal_log;
 }
 
 void type<::vnx::Process_journal_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -856,12 +1188,20 @@ void type<::vnx::Process_journal_log>::create_dynamic_code(std::vector<uint16_t>
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_journal_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_journal_log_return;
+}
+
 void type<::vnx::Process_journal_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_journal_log_return());
 }
 
 void type<::vnx::Process_journal_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_journal_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_pause_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_pause_log;
 }
 
 void type<::vnx::Process_pause_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -872,12 +1212,20 @@ void type<::vnx::Process_pause_log>::create_dynamic_code(std::vector<uint16_t>& 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_pause_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_pause_log_return;
+}
+
 void type<::vnx::Process_pause_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_pause_log_return());
 }
 
 void type<::vnx::Process_pause_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_pause_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_reload_config>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_reload_config;
 }
 
 void type<::vnx::Process_reload_config>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -888,12 +1236,20 @@ void type<::vnx::Process_reload_config>::create_dynamic_code(std::vector<uint16_
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_reload_config_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_reload_config_return;
+}
+
 void type<::vnx::Process_reload_config_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_reload_config_return());
 }
 
 void type<::vnx::Process_reload_config_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_reload_config_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_resume_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_resume_log;
 }
 
 void type<::vnx::Process_resume_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -904,12 +1260,20 @@ void type<::vnx::Process_resume_log>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_resume_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_resume_log_return;
+}
+
 void type<::vnx::Process_resume_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_resume_log_return());
 }
 
 void type<::vnx::Process_resume_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_resume_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_self_test_all>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_self_test_all;
 }
 
 void type<::vnx::Process_self_test_all>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -920,12 +1284,20 @@ void type<::vnx::Process_self_test_all>::create_dynamic_code(std::vector<uint16_
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_self_test_all_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_self_test_all_return;
+}
+
 void type<::vnx::Process_self_test_all_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_self_test_all_return());
 }
 
 void type<::vnx::Process_self_test_all_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_self_test_all_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_set_debug>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_set_debug;
 }
 
 void type<::vnx::Process_set_debug>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -936,12 +1308,20 @@ void type<::vnx::Process_set_debug>::create_dynamic_code(std::vector<uint16_t>& 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_set_debug_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_set_debug_return;
+}
+
 void type<::vnx::Process_set_debug_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_set_debug_return());
 }
 
 void type<::vnx::Process_set_debug_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_set_debug_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_set_global_config>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_set_global_config;
 }
 
 void type<::vnx::Process_set_global_config>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -952,12 +1332,20 @@ void type<::vnx::Process_set_global_config>::create_dynamic_code(std::vector<uin
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_set_global_config_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_set_global_config_return;
+}
+
 void type<::vnx::Process_set_global_config_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_set_global_config_return());
 }
 
 void type<::vnx::Process_set_global_config_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_set_global_config_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_show_error_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_show_error_log;
 }
 
 void type<::vnx::Process_show_error_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -968,12 +1356,20 @@ void type<::vnx::Process_show_error_log>::create_dynamic_code(std::vector<uint16
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_show_error_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_show_error_log_return;
+}
+
 void type<::vnx::Process_show_error_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_show_error_log_return());
 }
 
 void type<::vnx::Process_show_error_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_show_error_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_trigger_shutdown>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_trigger_shutdown;
 }
 
 void type<::vnx::Process_trigger_shutdown>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -984,12 +1380,20 @@ void type<::vnx::Process_trigger_shutdown>::create_dynamic_code(std::vector<uint
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_trigger_shutdown_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_trigger_shutdown_return;
+}
+
 void type<::vnx::Process_trigger_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_trigger_shutdown_return());
 }
 
 void type<::vnx::Process_trigger_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_trigger_shutdown_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Process_ungrep_log>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_ungrep_log;
 }
 
 void type<::vnx::Process_ungrep_log>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1000,12 +1404,20 @@ void type<::vnx::Process_ungrep_log>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Process_ungrep_log_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Process_ungrep_log_return;
+}
+
 void type<::vnx::Process_ungrep_log_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Process_ungrep_log_return());
 }
 
 void type<::vnx::Process_ungrep_log_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Process_ungrep_log_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProcessInfo>::get_type_code() {
+	return vnx::vnx_native_type_code_ProcessInfo;
 }
 
 void type<::vnx::ProcessInfo>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1016,12 +1428,20 @@ void type<::vnx::ProcessInfo>::create_dynamic_code(std::vector<uint16_t>& code, 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_disable_export>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_export;
+}
+
 void type<::vnx::ProxyInterface_disable_export>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_disable_export());
 }
 
 void type<::vnx::ProxyInterface_disable_export>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_disable_export& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_disable_export_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_export_return;
 }
 
 void type<::vnx::ProxyInterface_disable_export_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1032,12 +1452,20 @@ void type<::vnx::ProxyInterface_disable_export_return>::create_dynamic_code(std:
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_disable_forward>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_forward;
+}
+
 void type<::vnx::ProxyInterface_disable_forward>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_disable_forward());
 }
 
 void type<::vnx::ProxyInterface_disable_forward>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_disable_forward& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_disable_forward_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_forward_return;
 }
 
 void type<::vnx::ProxyInterface_disable_forward_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1048,12 +1476,20 @@ void type<::vnx::ProxyInterface_disable_forward_return>::create_dynamic_code(std
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_disable_import>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_import;
+}
+
 void type<::vnx::ProxyInterface_disable_import>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_disable_import());
 }
 
 void type<::vnx::ProxyInterface_disable_import>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_disable_import& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_disable_import_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_import_return;
 }
 
 void type<::vnx::ProxyInterface_disable_import_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1064,12 +1500,20 @@ void type<::vnx::ProxyInterface_disable_import_return>::create_dynamic_code(std:
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_disable_tunnel>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_tunnel;
+}
+
 void type<::vnx::ProxyInterface_disable_tunnel>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_disable_tunnel());
 }
 
 void type<::vnx::ProxyInterface_disable_tunnel>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_disable_tunnel& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_disable_tunnel_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_disable_tunnel_return;
 }
 
 void type<::vnx::ProxyInterface_disable_tunnel_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1080,12 +1524,20 @@ void type<::vnx::ProxyInterface_disable_tunnel_return>::create_dynamic_code(std:
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_enable_export>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_export;
+}
+
 void type<::vnx::ProxyInterface_enable_export>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_enable_export());
 }
 
 void type<::vnx::ProxyInterface_enable_export>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_enable_export& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_enable_export_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_export_return;
 }
 
 void type<::vnx::ProxyInterface_enable_export_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1096,12 +1548,20 @@ void type<::vnx::ProxyInterface_enable_export_return>::create_dynamic_code(std::
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_enable_forward>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_forward;
+}
+
 void type<::vnx::ProxyInterface_enable_forward>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_enable_forward());
 }
 
 void type<::vnx::ProxyInterface_enable_forward>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_enable_forward& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_enable_forward_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_forward_return;
 }
 
 void type<::vnx::ProxyInterface_enable_forward_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1112,12 +1572,20 @@ void type<::vnx::ProxyInterface_enable_forward_return>::create_dynamic_code(std:
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_enable_import>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_import;
+}
+
 void type<::vnx::ProxyInterface_enable_import>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_enable_import());
 }
 
 void type<::vnx::ProxyInterface_enable_import>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_enable_import& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_enable_import_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_import_return;
 }
 
 void type<::vnx::ProxyInterface_enable_import_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1128,12 +1596,20 @@ void type<::vnx::ProxyInterface_enable_import_return>::create_dynamic_code(std::
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_enable_tunnel>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_tunnel;
+}
+
 void type<::vnx::ProxyInterface_enable_tunnel>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_enable_tunnel());
 }
 
 void type<::vnx::ProxyInterface_enable_tunnel>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_enable_tunnel& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_enable_tunnel_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_enable_tunnel_return;
 }
 
 void type<::vnx::ProxyInterface_enable_tunnel_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1144,12 +1620,20 @@ void type<::vnx::ProxyInterface_enable_tunnel_return>::create_dynamic_code(std::
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_login>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_login;
+}
+
 void type<::vnx::ProxyInterface_login>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_login());
 }
 
 void type<::vnx::ProxyInterface_login>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_login& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_login_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_login_return;
 }
 
 void type<::vnx::ProxyInterface_login_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1160,12 +1644,20 @@ void type<::vnx::ProxyInterface_login_return>::create_dynamic_code(std::vector<u
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_on_connect>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_connect;
+}
+
 void type<::vnx::ProxyInterface_on_connect>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_on_connect());
 }
 
 void type<::vnx::ProxyInterface_on_connect>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_on_connect& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_on_connect_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_connect_return;
 }
 
 void type<::vnx::ProxyInterface_on_connect_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1176,12 +1668,20 @@ void type<::vnx::ProxyInterface_on_connect_return>::create_dynamic_code(std::vec
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_on_disconnect>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_disconnect;
+}
+
 void type<::vnx::ProxyInterface_on_disconnect>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_on_disconnect());
 }
 
 void type<::vnx::ProxyInterface_on_disconnect>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_on_disconnect& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_on_disconnect_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_disconnect_return;
 }
 
 void type<::vnx::ProxyInterface_on_disconnect_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1192,12 +1692,20 @@ void type<::vnx::ProxyInterface_on_disconnect_return>::create_dynamic_code(std::
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_on_login>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_login;
+}
+
 void type<::vnx::ProxyInterface_on_login>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_on_login());
 }
 
 void type<::vnx::ProxyInterface_on_login>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_on_login& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_on_login_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_login_return;
 }
 
 void type<::vnx::ProxyInterface_on_login_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1208,12 +1716,20 @@ void type<::vnx::ProxyInterface_on_login_return>::create_dynamic_code(std::vecto
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_on_remote_connect>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_remote_connect;
+}
+
 void type<::vnx::ProxyInterface_on_remote_connect>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_on_remote_connect());
 }
 
 void type<::vnx::ProxyInterface_on_remote_connect>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_on_remote_connect& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_on_remote_connect_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_remote_connect_return;
 }
 
 void type<::vnx::ProxyInterface_on_remote_connect_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1224,12 +1740,20 @@ void type<::vnx::ProxyInterface_on_remote_connect_return>::create_dynamic_code(s
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_on_remote_login>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_remote_login;
+}
+
 void type<::vnx::ProxyInterface_on_remote_login>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_on_remote_login());
 }
 
 void type<::vnx::ProxyInterface_on_remote_login>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_on_remote_login& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_on_remote_login_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_on_remote_login_return;
 }
 
 void type<::vnx::ProxyInterface_on_remote_login_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1240,12 +1764,20 @@ void type<::vnx::ProxyInterface_on_remote_login_return>::create_dynamic_code(std
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_wait_on_connect>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_wait_on_connect;
+}
+
 void type<::vnx::ProxyInterface_wait_on_connect>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_wait_on_connect());
 }
 
 void type<::vnx::ProxyInterface_wait_on_connect>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_wait_on_connect& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_wait_on_connect_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_wait_on_connect_return;
 }
 
 void type<::vnx::ProxyInterface_wait_on_connect_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1256,12 +1788,20 @@ void type<::vnx::ProxyInterface_wait_on_connect_return>::create_dynamic_code(std
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_wait_on_disconnect>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_wait_on_disconnect;
+}
+
 void type<::vnx::ProxyInterface_wait_on_disconnect>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::ProxyInterface_wait_on_disconnect());
 }
 
 void type<::vnx::ProxyInterface_wait_on_disconnect>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_wait_on_disconnect& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_wait_on_disconnect_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_wait_on_disconnect_return;
 }
 
 void type<::vnx::ProxyInterface_wait_on_disconnect_return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1272,12 +1812,20 @@ void type<::vnx::ProxyInterface_wait_on_disconnect_return>::create_dynamic_code(
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::RecordHeader>::get_type_code() {
+	return vnx::vnx_native_type_code_RecordHeader;
+}
+
 void type<::vnx::RecordHeader>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::RecordHeader());
 }
 
 void type<::vnx::RecordHeader>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::RecordHeader& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::RecordIndex>::get_type_code() {
+	return vnx::vnx_native_type_code_RecordIndex;
 }
 
 void type<::vnx::RecordIndex>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1288,12 +1836,20 @@ void type<::vnx::RecordIndex>::create_dynamic_code(std::vector<uint16_t>& code, 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::RecordPointer>::get_type_code() {
+	return vnx::vnx_native_type_code_RecordPointer;
+}
+
 void type<::vnx::RecordPointer>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::RecordPointer());
 }
 
 void type<::vnx::RecordPointer>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::RecordPointer& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::RecorderStatus>::get_type_code() {
+	return vnx::vnx_native_type_code_RecorderStatus;
 }
 
 void type<::vnx::RecorderStatus>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1304,12 +1860,20 @@ void type<::vnx::RecorderStatus>::create_dynamic_code(std::vector<uint16_t>& cod
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Request>::get_type_code() {
+	return vnx::vnx_native_type_code_Request;
+}
+
 void type<::vnx::Request>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Request());
 }
 
 void type<::vnx::Request>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Request& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::RequestQueue_clear>::get_type_code() {
+	return vnx::vnx_native_type_code_RequestQueue_clear;
 }
 
 void type<::vnx::RequestQueue_clear>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1320,12 +1884,20 @@ void type<::vnx::RequestQueue_clear>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::RequestQueue_clear_return>::get_type_code() {
+	return vnx::vnx_native_type_code_RequestQueue_clear_return;
+}
+
 void type<::vnx::RequestQueue_clear_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::RequestQueue_clear_return());
 }
 
 void type<::vnx::RequestQueue_clear_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::RequestQueue_clear_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::RequestQueue_purge>::get_type_code() {
+	return vnx::vnx_native_type_code_RequestQueue_purge;
 }
 
 void type<::vnx::RequestQueue_purge>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1336,12 +1908,20 @@ void type<::vnx::RequestQueue_purge>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::RequestQueue_purge_return>::get_type_code() {
+	return vnx::vnx_native_type_code_RequestQueue_purge_return;
+}
+
 void type<::vnx::RequestQueue_purge_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::RequestQueue_purge_return());
 }
 
 void type<::vnx::RequestQueue_purge_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::RequestQueue_purge_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Return>::get_type_code() {
+	return vnx::vnx_native_type_code_Return;
 }
 
 void type<::vnx::Return>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1352,12 +1932,20 @@ void type<::vnx::Return>::create_dynamic_code(std::vector<uint16_t>& code, const
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Sample>::get_type_code() {
+	return vnx::vnx_native_type_code_Sample;
+}
+
 void type<::vnx::Sample>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Sample());
 }
 
 void type<::vnx::Sample>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Sample& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Session>::get_type_code() {
+	return vnx::vnx_native_type_code_Session;
 }
 
 void type<::vnx::Session>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1368,12 +1956,20 @@ void type<::vnx::Session>::create_dynamic_code(std::vector<uint16_t>& code, cons
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::TcpEndpoint>::get_type_code() {
+	return vnx::vnx_native_type_code_TcpEndpoint;
+}
+
 void type<::vnx::TcpEndpoint>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::TcpEndpoint());
 }
 
 void type<::vnx::TcpEndpoint>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Terminal_read_char>::get_type_code() {
+	return vnx::vnx_native_type_code_Terminal_read_char;
 }
 
 void type<::vnx::Terminal_read_char>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1384,12 +1980,20 @@ void type<::vnx::Terminal_read_char>::create_dynamic_code(std::vector<uint16_t>&
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Terminal_read_char_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Terminal_read_char_return;
+}
+
 void type<::vnx::Terminal_read_char_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Terminal_read_char_return());
 }
 
 void type<::vnx::Terminal_read_char_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Terminal_read_char_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Terminal_read_event>::get_type_code() {
+	return vnx::vnx_native_type_code_Terminal_read_event;
 }
 
 void type<::vnx::Terminal_read_event>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1400,12 +2004,20 @@ void type<::vnx::Terminal_read_event>::create_dynamic_code(std::vector<uint16_t>
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Terminal_read_event_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Terminal_read_event_return;
+}
+
 void type<::vnx::Terminal_read_event_return>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Terminal_read_event_return());
 }
 
 void type<::vnx::Terminal_read_event_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Terminal_read_event_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::TimeControl>::get_type_code() {
+	return vnx::vnx_native_type_code_TimeControl;
 }
 
 void type<::vnx::TimeControl>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1416,12 +2028,20 @@ void type<::vnx::TimeControl>::create_dynamic_code(std::vector<uint16_t>& code, 
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::TimeSync>::get_type_code() {
+	return vnx::vnx_native_type_code_TimeSync;
+}
+
 void type<::vnx::TimeSync>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::TimeSync());
 }
 
 void type<::vnx::TimeSync>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TimeSync& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::TopicInfo>::get_type_code() {
+	return vnx::vnx_native_type_code_TopicInfo;
 }
 
 void type<::vnx::TopicInfo>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1432,12 +2052,20 @@ void type<::vnx::TopicInfo>::create_dynamic_code(std::vector<uint16_t>& code, co
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::TopicInfoList>::get_type_code() {
+	return vnx::vnx_native_type_code_TopicInfoList;
+}
+
 void type<::vnx::TopicInfoList>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::TopicInfoList());
 }
 
 void type<::vnx::TopicInfoList>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TopicInfoList& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::TopicPtr>::get_type_code() {
+	return nullptr;
 }
 
 void type<::vnx::TopicPtr>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1448,12 +2076,20 @@ void type<::vnx::TopicPtr>::create_dynamic_code(std::vector<uint16_t>& code, con
 	const std::vector<int> tmp = {12, 5};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::Tuple>::get_type_code() {
+	return vnx::vnx_native_type_code_Tuple;
+}
+
 void type<::vnx::Tuple>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Tuple());
 }
 
 void type<::vnx::Tuple>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Tuple& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::TypeCode>::get_type_code() {
+	return nullptr;
 }
 
 void type<::vnx::TypeCode>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1464,12 +2100,20 @@ void type<::vnx::TypeCode>::create_dynamic_code(std::vector<uint16_t>& code, con
 	const std::vector<int> tmp = {14};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
 
+const TypeCode* type<::vnx::UnixEndpoint>::get_type_code() {
+	return vnx::vnx_native_type_code_UnixEndpoint;
+}
+
 void type<::vnx::UnixEndpoint>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::UnixEndpoint());
 }
 
 void type<::vnx::UnixEndpoint>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::User>::get_type_code() {
+	return vnx::vnx_native_type_code_User;
 }
 
 void type<::vnx::User>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1480,6 +2124,10 @@ void type<::vnx::User>::create_dynamic_code(std::vector<uint16_t>& code, const :
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::Variant>::get_type_code() {
+	return nullptr;
+}
+
 void type<::vnx::Variant>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::Variant());
 }
@@ -1487,6 +2135,10 @@ void type<::vnx::Variant>::create_dynamic_code(std::vector<uint16_t>& code) {
 void type<::vnx::Variant>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Variant& value, bool special) {
 	const std::vector<int> tmp = {17};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
+
+const TypeCode* type<::vnx::access_role_e>::get_type_code() {
+	return vnx::vnx_native_type_code_access_role_e;
+}
 
 void type<::vnx::access_role_e>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::access_role_e());
@@ -1498,6 +2150,10 @@ void type<::vnx::access_role_e>::create_dynamic_code(std::vector<uint16_t>& code
 	} else {
 		code.push_back(CODE_UINT32);
 	}
+}
+
+const TypeCode* type<::vnx::permission_e>::get_type_code() {
+	return vnx::vnx_native_type_code_permission_e;
 }
 
 void type<::vnx::permission_e>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1512,6 +2168,10 @@ void type<::vnx::permission_e>::create_dynamic_code(std::vector<uint16_t>& code,
 	}
 }
 
+const TypeCode* type<::vnx::record_index_entry_t>::get_type_code() {
+	return vnx::vnx_native_type_code_record_index_entry_t;
+}
+
 void type<::vnx::record_index_entry_t>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::record_index_entry_t());
 }
@@ -1520,12 +2180,20 @@ void type<::vnx::record_index_entry_t>::create_dynamic_code(std::vector<uint16_t
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::record_topic_info_t>::get_type_code() {
+	return vnx::vnx_native_type_code_record_topic_info_t;
+}
+
 void type<::vnx::record_topic_info_t>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::record_topic_info_t());
 }
 
 void type<::vnx::record_topic_info_t>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::record_topic_info_t& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::terminal_event_e>::get_type_code() {
+	return vnx::vnx_native_type_code_terminal_event_e;
 }
 
 void type<::vnx::terminal_event_e>::create_dynamic_code(std::vector<uint16_t>& code) {
@@ -1538,6 +2206,10 @@ void type<::vnx::terminal_event_e>::create_dynamic_code(std::vector<uint16_t>& c
 	} else {
 		code.push_back(CODE_UINT32);
 	}
+}
+
+const TypeCode* type<::vnx::thread_priority_e>::get_type_code() {
+	return vnx::vnx_native_type_code_thread_priority_e;
 }
 
 void type<::vnx::thread_priority_e>::create_dynamic_code(std::vector<uint16_t>& code) {

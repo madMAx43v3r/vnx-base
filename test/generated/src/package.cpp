@@ -11,12 +11,20 @@
 
 namespace vnx {
 
+const TypeCode* type<::vnx::test::TestValue>::get_type_code() {
+	return vnx::test::vnx_native_type_code_TestValue;
+}
+
 void type<::vnx::test::TestValue>::create_dynamic_code(std::vector<uint16_t>& code) {
 	create_dynamic_code(code, ::vnx::test::TestValue());
 }
 
 void type<::vnx::test::TestValue>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::test::TestValue& value, bool special) {
 	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::test::test_struct_t>::get_type_code() {
+	return vnx::test::vnx_native_type_code_test_struct_t;
 }
 
 void type<::vnx::test::test_struct_t>::create_dynamic_code(std::vector<uint16_t>& code) {

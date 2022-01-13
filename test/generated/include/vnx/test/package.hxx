@@ -58,6 +58,7 @@ struct type<::vnx::test::TestValue> {
 	void accept(Visitor& visitor, const ::vnx::test::TestValue& value) {
 		vnx::accept(visitor, value);
 	}
+	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::test::TestValue& value, bool special = false);
 };
@@ -80,6 +81,7 @@ struct type<::vnx::test::test_struct_t> {
 	void accept(Visitor& visitor, const ::vnx::test::test_struct_t& value) {
 		vnx::accept(visitor, value);
 	}
+	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::test::test_struct_t& value, bool special = false);
 };
