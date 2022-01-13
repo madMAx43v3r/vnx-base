@@ -199,6 +199,11 @@ public:
 		return stream->get_output_pos() + pos;
 	}
 	
+	/// Returns pointer to buffer
+	const void* get_buffer() const {
+		return buffer;
+	}
+
 private:
 	char buffer[VNX_BUFFER_SIZE];
 	OutputStream* stream = 0;
