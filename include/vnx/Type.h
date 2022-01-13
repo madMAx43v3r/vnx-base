@@ -660,7 +660,13 @@ struct type {
 	void write(std::ostream& out, const T& value);
 	void accept(Visitor& visitor, const T& value);
 	void create_dynamic_code(std::vector<uint16_t>& code, const T& value = T(), bool special = false);
+	const TypeCode* get_type_code();
 };
+
+template<typename T>
+const TypeCode* type<T>::get_type_code() {
+	return nullptr;
+}
 
 template<typename T>
 void type<T>::create_dynamic_code(std::vector<uint16_t>& code, const T& value, bool special) {
