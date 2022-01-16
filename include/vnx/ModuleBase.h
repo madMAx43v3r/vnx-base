@@ -17,7 +17,7 @@
 #ifndef INCLUDE_VNX_MODULEBASE_H_
 #define INCLUDE_VNX_MODULEBASE_H_
 
-#include <vnx/Time.h>
+#include <vnx/TimeUtil.h>
 #include <vnx/Task.h>
 #include <vnx/Stream.h>
 #include <vnx/Hash128.h>

@@ -15,7 +15,7 @@
  */
 
 #include <vnx/vnx.h>
-#include <vnx/Time.h>
+#include <vnx/TimeUtil.h>
 
 #include <chrono>
 #include <mutex>

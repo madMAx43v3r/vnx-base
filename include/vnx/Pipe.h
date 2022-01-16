@@ -17,7 +17,6 @@
 #ifndef INCLUDE_VNX_PIPE_H_
 #define INCLUDE_VNX_PIPE_H_
 
-#include <vnx/Time.h>
 #include <vnx/Message.hxx>
 
 #include <queue>

@@ -35,7 +35,7 @@
 #include <vnx/Publisher.h>
 #include <vnx/Subscriber.h>
 #include <vnx/Struct.h>
-#include <vnx/Time.h>
+#include <vnx/TimeUtil.h>
 #include <vnx/Task.h>
 #include <vnx/Type.h>
 #include <vnx/Topic.h>

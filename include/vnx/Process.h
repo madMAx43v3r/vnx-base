@@ -18,7 +18,7 @@
 #define INCLUDE_VNX_PROCESS_H_
 
 #include <vnx/Value.h>
-#include <vnx/Time.h>
+#include <vnx/TimeUtil.h>
 #include <vnx/Publisher.h>
 #include <vnx/ProcessBase.hxx>
 #include <vnx/LogMsg.hxx>
