@@ -4,6 +4,10 @@
 #ifndef INCLUDE_vnx_LogMsg_HXX_
 #define INCLUDE_vnx_LogMsg_HXX_
 
+#ifdef _WIN32
+#undef ERROR
+#endif
+
 #include <vnx/package.hxx>
 #include <vnx/Value.h>
 
