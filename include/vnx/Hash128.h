@@ -85,7 +85,7 @@ inline bool Hash128::operator!=(const Hash128& other) const {
 }
 
 inline Hash128 Hash128::operator^(const Hash128& other) const {
-	return Hash128(A() xor other.A(), B() xor other.B());
+	return Hash128(A() ^ other.A(), B() ^ other.B());
 }
 
 
@@ -95,7 +95,7 @@ inline Hash128 Hash128::operator^(const Hash128& other) const {
 namespace std {
 	template<> struct hash<vnx::Hash128> {
 		size_t operator()(const vnx::Hash128& x) const {
-			return x.A() xor x.B();
+			return x.A() ^ x.B();
 		}
 	};
 } // std
