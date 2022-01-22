@@ -17,6 +17,11 @@
 #ifndef INCLUDE_VNX_SUBSCRIBER_H_
 #define INCLUDE_VNX_SUBSCRIBER_H_
 
+#ifdef _MSC_VER
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#endif
+
 #include <vnx/Node.h>
 #include <vnx/Topic.h>
 #include <vnx/TopicPtr.h>
