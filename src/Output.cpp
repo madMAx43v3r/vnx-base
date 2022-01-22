@@ -21,7 +21,9 @@
 #include <cstring>
 #include <sstream>
 #include <cstdlib>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
 #include <winsock2.h>
 #else

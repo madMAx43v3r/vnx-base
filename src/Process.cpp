@@ -33,7 +33,9 @@
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
 #endif
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <csignal>
 #include <cstdlib>
 #include <set>

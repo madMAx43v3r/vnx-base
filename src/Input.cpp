@@ -24,7 +24,9 @@
 #include <cstdlib>
 #include <cctype>
 #include <fstream>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
 #include <winsock2.h>
 #include <windows.h>

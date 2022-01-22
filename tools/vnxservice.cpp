@@ -19,7 +19,9 @@
 #include <vnx/ProxyClient.hxx>
 #include <vnx/GenericClient.h>
 
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
 #include <winsock2.h>
 #endif

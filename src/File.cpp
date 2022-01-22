@@ -18,7 +18,9 @@
 #include <vnx/File.h>
 
 #include <fcntl.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <sys/stat.h>
 #include <sys/types.h>
 
