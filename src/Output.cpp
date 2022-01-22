@@ -26,6 +26,8 @@
 #endif
 #ifdef _WIN32
 #include <winsock2.h>
+#include <io.h>
+#include <vnx/WinUtils.h>
 #else
 #include <sys/socket.h>
 #endif

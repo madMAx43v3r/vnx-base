@@ -17,6 +17,7 @@
 #include <vnx/vnx.h>
 #include <vnx/RecordReader.h>
 #include <vnx/RecordPointer.hxx>
+#include <vnx/WinUtils.h>
 
 #include <algorithm>
 

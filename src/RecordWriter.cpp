@@ -18,6 +18,7 @@
 #include <vnx/RecordWriter.h>
 #include <vnx/RecordPointer.hxx>
 #include <vnx/Marker.hxx>
+#include <vnx/WinUtils.h>
 
 #include <algorithm>
 

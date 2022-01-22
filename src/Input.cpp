@@ -30,6 +30,8 @@
 #ifdef _WIN32
 #include <winsock2.h>
 #include <windows.h>
+#include <vnx/WinUtils.h>
+#include <io.h>
 #else
 #include <sys/socket.h>
 #endif

@@ -16,6 +16,7 @@
 
 #include <vnx/vnx.h>
 #include <vnx/File.h>
+#include <vnx/WinUtils.h>
 
 #include <fcntl.h>
 #ifndef _MSC_VER

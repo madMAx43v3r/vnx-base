@@ -2,6 +2,7 @@
 #include <vnx/Terminal.h>
 #include <vnx/Publisher.h>
 #include <vnx/Marker.hxx>
+#include <vnx/WinUtils.h>
 
 #ifndef _MSC_VER
 #include <unistd.h>
