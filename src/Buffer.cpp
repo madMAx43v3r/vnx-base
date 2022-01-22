@@ -58,11 +58,19 @@ void Buffer::resize(size_t new_size) {
 void Buffer::read_file(const std::string& file_path) {
 	::FILE* p_file = ::fopen(file_path.c_str(), "rb");
 	if(p_file) {
-		const auto offset = size();
+		const auto offset = size();		
+#ifdef _MSC_VER		
+		::_fseeki64(p_file, 0, SEEK_END);
+#else
 		::fseek(p_file, 0, SEEK_END);
+#endif		
 		const auto num_bytes = ::ftell(p_file);
 		resize(offset + num_bytes);
+#ifdef _MSC_VER
+		::_fseeki64(p_file, 0, SEEK_SET);
+#else
 		::fseek(p_file, 0, SEEK_SET);
+#endif		
 		const auto num_read = ::fread(data(offset), 1, num_bytes, p_file);
 		resize(offset + num_read);
 		::fclose(p_file);

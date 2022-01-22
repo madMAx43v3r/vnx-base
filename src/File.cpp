@@ -137,42 +137,77 @@ std::string File::get_extension() const {
 }
 
 int64_t File::last_write_time() const {
+#ifdef _MSC_VER
+	struct ::_stat64 info = {};
+	if(::_stat64(path.c_str(), &info) == 0) {
+		return info.st_mtime;
+	}
+#else
 	struct ::stat info = {};
 	if(::stat(path.c_str(), &info) == 0) {
 		return info.st_mtime;
 	}
+#endif
 	return 0;
 }
 
 int64_t File::file_size() const {
+#ifdef _MSC_VER
+	struct ::_stat64 info = {};
+	if(::_stat64(path.c_str(), &info) == 0) {
+		return info.st_size;
+	}
+#else
 	struct ::stat info = {};
 	if(::stat(path.c_str(), &info) == 0) {
 		return info.st_size;
 	}
+#endif	
 	return 0;
 }
 
-bool File::exists() const {
+bool File::exists() const {	
+#ifdef _MSC_VER
+	struct ::_stat64 info = {};
+	if(::_stat64(path.c_str(), &info) == 0) {
+		return true;
+	}
+#else
 	struct ::stat info = {};
 	if(::stat(path.c_str(), &info) == 0) {
 		return true;
 	}
+#endif	
 	return false;
 }
 
 bool File::is_directory() const {
+#ifdef _MSC_VER
+	struct ::_stat64 info = {};
+	if(::_stat64(path.c_str(), &info) == 0) {
+		return S_ISDIR(info.st_mode);
+	}
+#else
 	struct ::stat info = {};
 	if(::stat(path.c_str(), &info) == 0) {
 		return S_ISDIR(info.st_mode);
 	}
+#endif	
 	return false;
 }
 
 bool File::is_regular() const {
+#ifdef _MSC_VER
+	struct ::_stat64 info = {};
+	if(::_stat64(path.c_str(), &info) == 0) {
+		return S_ISREG(info.st_mode);
+	}
+#else	
 	struct ::stat info = {};
 	if(::stat(path.c_str(), &info) == 0) {
 		return S_ISREG(info.st_mode);
 	}
+#endif	
 	return false;
 }
 
