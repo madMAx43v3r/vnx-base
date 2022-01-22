@@ -6,16 +6,16 @@
 
 #include <vnx/Type.h>
 
-
+#include <vnx_base_export.h>
 
 namespace vnx {
 
-extern vnx::TopicPtr log_out;
-extern vnx::TopicPtr module_info;
-extern vnx::TopicPtr shutdown;
-extern vnx::TopicPtr time_control;
-extern vnx::TopicPtr time_sync;
-extern vnx::TopicPtr topic_info;
+VNX_BASE_EXPORT extern vnx::TopicPtr log_out;
+VNX_BASE_EXPORT extern vnx::TopicPtr module_info;
+VNX_BASE_EXPORT extern vnx::TopicPtr shutdown;
+VNX_BASE_EXPORT extern vnx::TopicPtr time_control;
+VNX_BASE_EXPORT extern vnx::TopicPtr time_sync;
+VNX_BASE_EXPORT extern vnx::TopicPtr topic_info;
 
 class BaseProxyBase;
 class BaseServerBase;

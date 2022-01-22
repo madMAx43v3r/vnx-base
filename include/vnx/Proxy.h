@@ -17,6 +17,8 @@
 #ifndef INCLUDE_VNX_PROXY_H_
 #define INCLUDE_VNX_PROXY_H_
 
+#include <vnx_base_export.h>
+
 #include <vnx/ProxyBase.hxx>
 #include <vnx/Endpoint.hxx>
 
@@ -24,7 +26,7 @@
 namespace vnx {
 
 
-class Proxy : public ProxyBase {
+class VNX_BASE_EXPORT Proxy : public ProxyBase {
 public:
 	/** \brief Create new Proxy instance.
 	 * 

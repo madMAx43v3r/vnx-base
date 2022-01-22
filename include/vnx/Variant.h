@@ -17,6 +17,8 @@
 #ifndef INCLUDE_VNX_VARIANT_H
 #define INCLUDE_VNX_VARIANT_H
 
+#include <vnx_base_export.h>
+
 #include <vnx/package.hxx>
 
 
@@ -26,7 +28,7 @@ namespace vnx {
  * 
  * Used as a generic variable, field or parameter.
  */
-class Variant {
+class VNX_BASE_EXPORT Variant {
 public:
 	std::vector<uint8_t> data;		///< The serialized data
 	

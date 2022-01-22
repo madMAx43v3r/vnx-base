@@ -4,13 +4,15 @@
 #ifndef INCLUDE_vnx_Endpoint_HXX_
 #define INCLUDE_vnx_Endpoint_HXX_
 
+#include <vnx_base_export.h>
+
 #include <vnx/package.hxx>
 #include <vnx/Value.h>
 
 
 namespace vnx {
 
-class Endpoint : public ::vnx::Value {
+class VNX_BASE_EXPORT Endpoint : public ::vnx::Value {
 public:
 	
 	int32_t send_buffer_size = 0;

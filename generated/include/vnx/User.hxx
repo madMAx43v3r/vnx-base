@@ -4,13 +4,15 @@
 #ifndef INCLUDE_vnx_User_HXX_
 #define INCLUDE_vnx_User_HXX_
 
+#include <vnx_base_export.h>
+
 #include <vnx/package.hxx>
 #include <vnx/Value.h>
 
 
 namespace vnx {
 
-class User : public ::vnx::Value {
+class VNX_BASE_EXPORT User : public ::vnx::Value {
 public:
 	
 	std::string name;

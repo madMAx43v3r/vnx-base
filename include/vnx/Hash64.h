@@ -17,6 +17,8 @@
 #ifndef INCLUDE_VNX_HASH64_H_
 #define INCLUDE_VNX_HASH64_H_
 
+#include <vnx_base_export.h>
+
 #include <string>
 #include <cstdint>
 
@@ -26,7 +28,7 @@ namespace vnx {
 class Hash128;
 
 /// Class to hold and compute a 64-bit hash
-class Hash64 {
+class VNX_BASE_EXPORT Hash64 {
 public:
 	uint64_t value = 0;
 	

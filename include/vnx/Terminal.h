@@ -17,6 +17,8 @@
 #ifndef VNX_TERMINAL_H_
 #define VNX_TERMINAL_H_
 
+#include <vnx_base_export.h>
+
 #include <vnx/TerminalBase.hxx>
 #include <vnx/TerminalClient.hxx>
 #include <vnx/ProcessClient.hxx>
@@ -45,7 +47,7 @@ namespace vnx {
  * - \b dump [expr] Dumps samples for matching topics, or all topics in case no \p expr. Same as vnxdump.
  * 
  */
-class Terminal : public TerminalBase {
+class VNX_BASE_EXPORT Terminal : public TerminalBase {
 public:
 	Terminal(const std::string& vnx_name_ = "Terminal");
 	

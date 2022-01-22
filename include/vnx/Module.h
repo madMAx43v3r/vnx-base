@@ -17,6 +17,8 @@
 #ifndef INCLUDE_VNX_MODULE_H_
 #define INCLUDE_VNX_MODULE_H_
 
+#include <vnx_base_export.h>
+
 #include <vnx/ModuleBase.h>
 #include <vnx/Handle.h>
 
@@ -27,19 +29,19 @@
 namespace vnx {
 
 /// Adds a module to the global registry (used by vnx::Handle only)
-void add_module(std::shared_ptr<Module> module);
+VNX_BASE_EXPORT void add_module(std::shared_ptr<Module> module);
 
 /// Removes a module from the global registry (used by vnx::Handle only)
-void remove_module(std::shared_ptr<Module> module);
+VNX_BASE_EXPORT void remove_module(std::shared_ptr<Module> module);
 
 /// Returns the latest module handle found for given name.
-Handle<Module> get_module(const std::string& name);
+VNX_BASE_EXPORT Handle<Module> get_module(const std::string& name);
 
 /// Returns all module handles found for the given name.
-std::vector<Handle<Module>> get_modules(const std::string& name);
+VNX_BASE_EXPORT std::vector<Handle<Module>> get_modules(const std::string& name);
 
 /// Returns array of all modules.
-std::vector<Handle<Module>> get_all_modules();
+VNX_BASE_EXPORT std::vector<Handle<Module>> get_all_modules();
 
 
 /** \brief Module is the base class for all user Modules.
@@ -52,7 +54,7 @@ std::vector<Handle<Module>> get_all_modules();
  * of Request%s inside it's main() function. The user can override main() to implement
  * initialization and cleanup functionality, but must call Module::main() at some point.
  */
-class Module : public ModuleBase {
+class VNX_BASE_EXPORT Module : public ModuleBase {
 public:
 	/** \brief Creates a new Module with given name.
 	 * 

@@ -17,6 +17,8 @@
 #ifndef INCLUDE_VNX_HASH128_H
 #define INCLUDE_VNX_HASH128_H
 
+#include <vnx_base_export.h>
+
 #include <vnx/Hash64.h>
 
 #include <array>
@@ -25,7 +27,7 @@
 namespace vnx {
 
 /// Class to hold and compute a 128-bit hash
-class Hash128 : public std::array<Hash64, 2> {
+class VNX_BASE_EXPORT Hash128 : public std::array<Hash64, 2> {
 public:
 	Hash128() : Hash128(Hash64(), Hash64()) {}
 	
