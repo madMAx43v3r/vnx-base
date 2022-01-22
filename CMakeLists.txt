@@ -1,7 +1,12 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.11)
 project(vnx)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -pthread -Wall -Wsuggest-override")
+if (MSVC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+else()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -pthread -Wall -Wsuggest-override")
+endif()
+
 add_compile_options(-DNOGDI)
 
 find_program(CCACHE_FOUND ccache)
@@ -18,6 +23,7 @@ if(WIN32)
 		src/win32/Endpoint.cpp
 		src/win32/Process.cpp
 		src/win32/Terminal.cpp
+		src/win32/WinUtils.cpp
 	)
 else()
 	list(APPEND PLATFORM_SOURCE_FILES
@@ -103,12 +109,38 @@ target_include_directories(vnx_base
 	PUBLIC include generated/include
 )
 
-if(WIN32)
+include(GenerateExportHeader)
+GENERATE_EXPORT_HEADER(vnx_base)
+include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+set(VNXBASE_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "")	
+
+if(MSVC)
+
+	include(FetchContent)
+	FetchContent_Declare(dirent
+    	GIT_REPOSITORY https://github.com/tronkko/dirent.git
+    	GIT_TAG "a318cee5adaed3dec654773fd0a02723d844461c"
+  	)
+	FetchContent_MakeAvailable(dirent)
+	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
+	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
+
+
+	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS 1)
+	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
+	
+	target_link_libraries(vnx_base wsock32 ws2_32)
+elseif(WIN32)
 	target_link_libraries(vnx_base -lws2_32)
 endif()
 
-add_subdirectory(test)
-add_subdirectory(tools)
+if(VNX_BASE_BUILD_TESTS)
+	add_subdirectory(test)
+endif()
+
+if(VNX_BASE_BUILD_TOOLS)
+	add_subdirectory(tools)
+endif()
 
 get_property(LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS)
 
