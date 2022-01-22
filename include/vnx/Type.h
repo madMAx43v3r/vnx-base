@@ -23,6 +23,12 @@
 #ifndef INCLUDE_VNX_TYPE_H_
 #define INCLUDE_VNX_TYPE_H_
 
+
+#ifdef _WIN32
+#define NOMINMAX
+#endif
+
+
 #include <cstdint>
 #include <utility>
 #include <memory>
