@@ -17,7 +17,11 @@
 #ifndef VNX_TERMINAL_H_
 #define VNX_TERMINAL_H_
 
+#ifdef _MSC_VER
 #include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
 
 #include <vnx/TerminalBase.hxx>
 #include <vnx/TerminalClient.hxx>

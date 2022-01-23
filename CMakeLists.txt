@@ -109,12 +109,12 @@ target_include_directories(vnx_base
 	PUBLIC include generated/include
 )
 
-include(GenerateExportHeader)
-GENERATE_EXPORT_HEADER(vnx_base)
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
-set(VNXBASE_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "")	
 
 if(MSVC)
+	include(GenerateExportHeader)
+	GENERATE_EXPORT_HEADER(vnx_base)
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+	set(VNXBASE_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "")
 
 	include(FetchContent)
 	FetchContent_Declare(dirent
@@ -133,6 +133,7 @@ if(MSVC)
 elseif(WIN32)
 	target_link_libraries(vnx_base -lws2_32)
 endif()
+
 
 if(VNX_BASE_BUILD_TESTS)
 	add_subdirectory(test)

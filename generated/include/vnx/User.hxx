@@ -4,7 +4,11 @@
 #ifndef INCLUDE_vnx_User_HXX_
 #define INCLUDE_vnx_User_HXX_
 
+#ifdef _MSC_VER
 #include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
 
 #include <vnx/package.hxx>
 #include <vnx/Value.h>

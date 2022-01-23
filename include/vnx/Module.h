@@ -17,7 +17,11 @@
 #ifndef INCLUDE_VNX_MODULE_H_
 #define INCLUDE_VNX_MODULE_H_
 
+#ifdef _MSC_VER
 #include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
 
 #include <vnx/ModuleBase.h>
 #include <vnx/Handle.h>

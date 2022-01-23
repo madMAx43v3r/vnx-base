@@ -17,7 +17,11 @@
 #ifndef INCLUDE_VNX_HASH128_H
 #define INCLUDE_VNX_HASH128_H
 
+#ifdef _MSC_VER
 #include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
 
 #include <vnx/Hash64.h>
 
