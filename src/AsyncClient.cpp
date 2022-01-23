@@ -142,6 +142,7 @@ void AsyncClient::vnx_request(std::shared_ptr<const Value> method, const uint64_
 
 	std::shared_ptr<Request> request = Request::create();
 	std::shared_ptr<Pipe> service_pipe;
+	Hash64 gateway_addr;
 	{
 		std::lock_guard<std::mutex> lock(vnx_mutex);
 		if(!vnx_service_pipe || vnx_service_pipe->is_closed()) {
@@ -149,6 +150,7 @@ void AsyncClient::vnx_request(std::shared_ptr<const Value> method, const uint64_
 			connect(vnx_service_pipe, vnx_return_pipe);
 		}
 		service_pipe = vnx_service_pipe;
+		gateway_addr = vnx_gateway_addr;
 		request->session = vnx_session_id;
 	}
 	if(!service_pipe) {
@@ -171,11 +173,11 @@ void AsyncClient::vnx_request(std::shared_ptr<const Value> method, const uint64_
 	request->dst_mac = vnx_service_addr;
 	request->method = method;
 	
-	if(vnx_gateway_addr) {
+	if(gateway_addr) {
 		auto forward = GatewayInterface_forward::create();
 		forward->request = vnx::clone(request);
 		request->flags |= Message::FORWARD;
-		request->dst_mac = vnx_gateway_addr;
+		request->dst_mac = gateway_addr;
 		request->method = forward;
 	}
 	try {

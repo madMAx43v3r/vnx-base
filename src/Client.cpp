@@ -72,6 +72,7 @@ void Client::vnx_set_non_blocking(bool non_blocking_mode) {
 std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> method, const bool is_async) {
 	std::shared_ptr<Request> request = Request::create();
 	std::shared_ptr<Pipe> service_pipe;
+	Hash64 gateway_addr;
 	{
 		std::lock_guard<std::mutex> lock(vnx_mutex);
 		if(!vnx_service_pipe || vnx_service_pipe->is_closed()) {
@@ -79,6 +80,7 @@ std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> me
 			connect(vnx_service_pipe, vnx_return_pipe);
 		}
 		service_pipe = vnx_service_pipe;
+		gateway_addr = vnx_gateway_addr;
 		request->session = vnx_session_id;
 	}
 	if(!service_pipe) {
@@ -103,11 +105,11 @@ std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> me
 	request->dst_mac = vnx_service_addr;
 	request->method = method;
 	
-	if(vnx_gateway_addr) {
+	if(gateway_addr) {
 		auto forward = GatewayInterface_forward::create();
 		forward->request = vnx::clone(request);
 		request->flags |= Message::FORWARD;
-		request->dst_mac = vnx_gateway_addr;
+		request->dst_mac = gateway_addr;
 		request->method = forward;
 	}
 	try {
