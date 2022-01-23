@@ -36,13 +36,21 @@ uint64_t GenericAsyncClient::call(
 {
 	const auto value = vnx::clone(args);
 	(*value)["__type"] = method;
+	return call(value, callback, error_callback);
+}
+
+uint64_t GenericAsyncClient::call(
+			std::shared_ptr<const Value> method,
+			const std::function<void(std::shared_ptr<const Value>)>& callback,
+			const std::function<void(const vnx::exception&)>& error_callback)
+{
 	const auto request_id = ++vnx_next_id;
 	{
-		std::lock_guard<std::mutex> _lock(vnx_mutex);
+		std::lock_guard<std::mutex> lock(vnx_mutex);
 		vnx_pending[request_id] = -1;
 		vnx_queue_generic[request_id] = std::make_pair(callback, error_callback);
 	}
-	vnx_request(value, request_id);
+	vnx_request(method, request_id);
 	return request_id;
 }
 
@@ -79,8 +87,6 @@ int32_t GenericAsyncClient::vnx_callback_switch(uint64_t request_id, std::shared
 	}
 	return index;
 }
-
-
 
 
 } // vnx

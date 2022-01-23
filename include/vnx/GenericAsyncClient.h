@@ -47,6 +47,10 @@ public:
 					const std::function<void(std::shared_ptr<const Value>)>& callback = std::function<void(std::shared_ptr<const Value>)>(),
 					const std::function<void(const vnx::exception&)>& error_callback = std::function<void(const vnx::exception&)>());
 
+	uint64_t call(	std::shared_ptr<const Value> method,
+					const std::function<void(std::shared_ptr<const Value>)>& callback = std::function<void(std::shared_ptr<const Value>)>(),
+					const std::function<void(const vnx::exception&)>& error_callback = std::function<void(const vnx::exception&)>());
+
 protected:
 	int32_t vnx_purge_request(uint64_t request_id, const vnx::exception& ex) override;
 

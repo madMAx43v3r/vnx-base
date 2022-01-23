@@ -35,6 +35,10 @@ std::shared_ptr<const Value> GenericClient::call(const std::string& method, cons
 	return vnx_request(value, false);
 }
 
+std::shared_ptr<const Value> GenericClient::call(std::shared_ptr<const Value> method) {
+	return vnx_request(method, false);
+}
+
 void GenericClient::call_async(const std::string& method, const Object& args) {
 	const auto value = vnx::clone(args);
 	(*value)["__type"] = method;

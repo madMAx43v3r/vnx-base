@@ -42,6 +42,8 @@ public:
 	 */
 	std::shared_ptr<const Value> call(const std::string& method, const Object& args);
 
+	std::shared_ptr<const Value> call(std::shared_ptr<const Value> method);
+
 	/** \brief Asynchronous service request.
 	 *
 	 * Does not throw exceptions in any case.
