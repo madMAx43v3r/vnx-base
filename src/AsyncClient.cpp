@@ -74,6 +74,7 @@ void AsyncClient::vnx_set_error_callback(const std::function<void(uint64_t, cons
 }
 
 std::vector<uint64_t> AsyncClient::vnx_get_pending_ids() const {
+	std::lock_guard<std::mutex> lock(vnx_mutex);
 	std::vector<uint64_t> result;
 	for(const auto& entry : vnx_pending) {
 		result.push_back(entry.first);
