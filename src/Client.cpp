@@ -79,9 +79,12 @@ std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> me
 			vnx_service_pipe = get_pipe(vnx_tunnel_addr);
 			connect(vnx_service_pipe, vnx_return_pipe);
 		}
+		if(vnx_is_non_blocking) {
+			request->flags |= Message::NON_BLOCKING;
+		}
+		request->session = vnx_session_id;
 		service_pipe = vnx_service_pipe;
 		gateway_addr = vnx_gateway_addr;
-		request->session = vnx_session_id;
 	}
 	if(!service_pipe) {
 		if(is_async) {
@@ -95,9 +98,6 @@ std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> me
 	}
 	if(is_async) {
 		request->flags |= Message::NO_RETURN;
-	}
-	if(vnx_is_non_blocking) {
-		request->flags |= Message::NON_BLOCKING;
 	}
 	request->flags |= Message::BLOCKING;
 	request->request_id = ++vnx_next_id;

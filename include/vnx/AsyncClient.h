@@ -111,7 +111,7 @@ private:
 	Hash64 vnx_gateway_addr;
 	Hash64 vnx_service_addr;
 	Hash64 vnx_session_id;
-	std::atomic_bool vnx_is_non_blocking {false};
+	bool vnx_is_non_blocking = false;
 	
 	std::shared_ptr<Pipe> vnx_service_pipe;
 	std::shared_ptr<Pipe> vnx_return_pipe;

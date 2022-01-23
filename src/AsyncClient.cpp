@@ -149,9 +149,12 @@ void AsyncClient::vnx_request(std::shared_ptr<const Value> method, const uint64_
 			vnx_service_pipe = get_pipe(vnx_tunnel_addr);
 			connect(vnx_service_pipe, vnx_return_pipe);
 		}
+		if(vnx_is_non_blocking) {
+			request->flags |= Message::NON_BLOCKING;
+		}
+		request->session = vnx_session_id;
 		service_pipe = vnx_service_pipe;
 		gateway_addr = vnx_gateway_addr;
-		request->session = vnx_session_id;
 	}
 	if(!service_pipe) {
 		auto ex = NoSuchService::create();
@@ -163,9 +166,6 @@ void AsyncClient::vnx_request(std::shared_ptr<const Value> method, const uint64_
 		ret->value = ex;
 		send_msg(vnx_return_pipe, ret, Message::BLOCKING);
 		return;
-	}
-	if(vnx_is_non_blocking) {
-		request->flags |= Message::NON_BLOCKING;
 	}
 	request->flags |= Message::BLOCKING;
 	request->request_id = request_id;
