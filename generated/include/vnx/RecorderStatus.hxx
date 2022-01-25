@@ -43,6 +43,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -58,6 +60,18 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void RecorderStatus::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<RecorderStatus>(6);
+	_visitor.type_field("file_name", 0); _visitor.accept(file_name);
+	_visitor.type_field("is_recording", 1); _visitor.accept(is_recording);
+	_visitor.type_field("bandwidth", 2); _visitor.accept(bandwidth);
+	_visitor.type_field("sample_rate", 3); _visitor.accept(sample_rate);
+	_visitor.type_field("loss_factor", 4); _visitor.accept(loss_factor);
+	_visitor.type_field("header", 5); _visitor.accept(header);
+	_visitor.template type_end<RecorderStatus>(6);
+}
 
 
 } // namespace vnx

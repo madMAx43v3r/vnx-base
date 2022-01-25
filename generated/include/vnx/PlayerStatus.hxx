@@ -49,6 +49,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -64,6 +66,23 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void PlayerStatus::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<PlayerStatus>(11);
+	_visitor.type_field("filename", 0); _visitor.accept(filename);
+	_visitor.type_field("begin_time", 1); _visitor.accept(begin_time);
+	_visitor.type_field("end_time", 2); _visitor.accept(end_time);
+	_visitor.type_field("current_time", 3); _visitor.accept(current_time);
+	_visitor.type_field("progress", 4); _visitor.accept(progress);
+	_visitor.type_field("actual_speed", 5); _visitor.accept(actual_speed);
+	_visitor.type_field("bandwidth", 6); _visitor.accept(bandwidth);
+	_visitor.type_field("sample_rate", 7); _visitor.accept(sample_rate);
+	_visitor.type_field("message", 8); _visitor.accept(message);
+	_visitor.type_field("control", 9); _visitor.accept(control);
+	_visitor.type_field("info", 10); _visitor.accept(info);
+	_visitor.template type_end<PlayerStatus>(11);
+}
 
 
 } // namespace vnx

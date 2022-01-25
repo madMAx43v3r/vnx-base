@@ -33,6 +33,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -56,6 +58,14 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void GatewayBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<GatewayBase>(2);
+	_visitor.type_field("max_queue_ms", 0); _visitor.accept(max_queue_ms);
+	_visitor.type_field("max_queue_size", 1); _visitor.accept(max_queue_size);
+	_visitor.template type_end<GatewayBase>(2);
+}
 
 
 } // namespace vnx

@@ -58,6 +58,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -73,6 +75,28 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void ModuleInfo::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<ModuleInfo>(16);
+	_visitor.type_field("time", 0); _visitor.accept(time);
+	_visitor.type_field("id", 1); _visitor.accept(id);
+	_visitor.type_field("src_mac", 2); _visitor.accept(src_mac);
+	_visitor.type_field("name", 3); _visitor.accept(name);
+	_visitor.type_field("type", 4); _visitor.accept(type);
+	_visitor.type_field("time_started", 5); _visitor.accept(time_started);
+	_visitor.type_field("time_idle", 6); _visitor.accept(time_idle);
+	_visitor.type_field("time_running", 7); _visitor.accept(time_running);
+	_visitor.type_field("time_idle_total", 8); _visitor.accept(time_idle_total);
+	_visitor.type_field("time_running_total", 9); _visitor.accept(time_running_total);
+	_visitor.type_field("num_async_pending", 10); _visitor.accept(num_async_pending);
+	_visitor.type_field("num_async_process", 11); _visitor.accept(num_async_process);
+	_visitor.type_field("sub_topics", 12); _visitor.accept(sub_topics);
+	_visitor.type_field("pub_topics", 13); _visitor.accept(pub_topics);
+	_visitor.type_field("remotes", 14); _visitor.accept(remotes);
+	_visitor.type_field("type_code", 15); _visitor.accept(type_code);
+	_visitor.template type_end<ModuleInfo>(16);
+}
 
 
 } // namespace vnx

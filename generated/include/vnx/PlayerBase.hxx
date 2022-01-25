@@ -44,6 +44,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -76,6 +78,24 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void PlayerBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<PlayerBase>(12);
+	_visitor.type_field("output_status", 0); _visitor.accept(output_status);
+	_visitor.type_field("files", 1); _visitor.accept(files);
+	_visitor.type_field("interval_ms", 2); _visitor.accept(interval_ms);
+	_visitor.type_field("max_time_gap_ms", 3); _visitor.accept(max_time_gap_ms);
+	_visitor.type_field("play_speed", 4); _visitor.accept(play_speed);
+	_visitor.type_field("is_default_enable", 5); _visitor.accept(is_default_enable);
+	_visitor.type_field("is_blocking", 6); _visitor.accept(is_blocking);
+	_visitor.type_field("is_repeat", 7); _visitor.accept(is_repeat);
+	_visitor.type_field("is_autostart", 8); _visitor.accept(is_autostart);
+	_visitor.type_field("is_autoclose", 9); _visitor.accept(is_autoclose);
+	_visitor.type_field("is_autoshutdown", 10); _visitor.accept(is_autoshutdown);
+	_visitor.type_field("topic_map", 11); _visitor.accept(topic_map);
+	_visitor.template type_end<PlayerBase>(12);
+}
 
 
 } // namespace vnx

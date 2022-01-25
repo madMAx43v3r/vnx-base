@@ -40,6 +40,8 @@ struct test_struct_t {
 	void read(std::istream& _in);
 	void write(std::ostream& _out) const;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const;
 	
 	vnx::Object to_object() const;
@@ -55,6 +57,17 @@ struct test_struct_t {
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void test_struct_t::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<test_struct_t>(5);
+	_visitor.type_field("bool_", 0); _visitor.accept(bool_);
+	_visitor.type_field("char_", 1); _visitor.accept(char_);
+	_visitor.type_field("short_", 2); _visitor.accept(short_);
+	_visitor.type_field("array_", 3); _visitor.accept(array_);
+	_visitor.type_field("double_", 4); _visitor.accept(double_);
+	_visitor.template type_end<test_struct_t>(5);
+}
 
 
 } // namespace vnx

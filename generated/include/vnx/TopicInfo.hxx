@@ -40,6 +40,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -55,6 +57,16 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void TopicInfo::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<TopicInfo>(4);
+	_visitor.type_field("name", 0); _visitor.accept(name);
+	_visitor.type_field("sample_count", 1); _visitor.accept(sample_count);
+	_visitor.type_field("num_subscribers", 2); _visitor.accept(num_subscribers);
+	_visitor.type_field("is_domain", 3); _visitor.accept(is_domain);
+	_visitor.template type_end<TopicInfo>(4);
+}
 
 
 } // namespace vnx

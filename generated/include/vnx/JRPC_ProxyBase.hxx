@@ -30,6 +30,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -53,6 +55,34 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void JRPC_ProxyBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<JRPC_ProxyBase>(22);
+	_visitor.type_field("address", 0); _visitor.accept(address);
+	_visitor.type_field("auto_login", 1); _visitor.accept(auto_login);
+	_visitor.type_field("import_list", 2); _visitor.accept(import_list);
+	_visitor.type_field("export_list", 3); _visitor.accept(export_list);
+	_visitor.type_field("forward_list", 4); _visitor.accept(forward_list);
+	_visitor.type_field("tunnel_list", 5); _visitor.accept(tunnel_list);
+	_visitor.type_field("import_map", 6); _visitor.accept(import_map);
+	_visitor.type_field("export_map", 7); _visitor.accept(export_map);
+	_visitor.type_field("receive_tunnel", 8); _visitor.accept(receive_tunnel);
+	_visitor.type_field("request_tunnel", 9); _visitor.accept(request_tunnel);
+	_visitor.type_field("auto_import", 10); _visitor.accept(auto_import);
+	_visitor.type_field("time_sync", 11); _visitor.accept(time_sync);
+	_visitor.type_field("allow_login", 12); _visitor.accept(allow_login);
+	_visitor.type_field("use_authentication", 13); _visitor.accept(use_authentication);
+	_visitor.type_field("block_until_connect", 14); _visitor.accept(block_until_connect);
+	_visitor.type_field("block_until_reconnect", 15); _visitor.accept(block_until_reconnect);
+	_visitor.type_field("max_queue_ms", 16); _visitor.accept(max_queue_ms);
+	_visitor.type_field("max_queue_size", 17); _visitor.accept(max_queue_size);
+	_visitor.type_field("max_hop_count", 18); _visitor.accept(max_hop_count);
+	_visitor.type_field("recv_buffer_size", 19); _visitor.accept(recv_buffer_size);
+	_visitor.type_field("send_buffer_size", 20); _visitor.accept(send_buffer_size);
+	_visitor.type_field("default_access", 21); _visitor.accept(default_access);
+	_visitor.template type_end<JRPC_ProxyBase>(22);
+}
 
 
 } // namespace vnx

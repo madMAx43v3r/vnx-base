@@ -40,6 +40,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -55,6 +57,16 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void User::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<User>(4);
+	_visitor.type_field("name", 0); _visitor.accept(name);
+	_visitor.type_field("hashed_password", 1); _visitor.accept(hashed_password);
+	_visitor.type_field("access_roles", 2); _visitor.accept(access_roles);
+	_visitor.type_field("permissions", 3); _visitor.accept(permissions);
+	_visitor.template type_end<User>(4);
+}
 
 
 } // namespace vnx

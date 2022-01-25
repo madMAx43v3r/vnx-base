@@ -46,6 +46,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -90,6 +92,21 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void ProcessBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<ProcessBase>(9);
+	_visitor.type_field("log_file_level", 0); _visitor.accept(log_file_level);
+	_visitor.type_field("update_interval_ms", 1); _visitor.accept(update_interval_ms);
+	_visitor.type_field("log_history_size", 2); _visitor.accept(log_history_size);
+	_visitor.type_field("error_history_size", 3); _visitor.accept(error_history_size);
+	_visitor.type_field("log_file_name", 4); _visitor.accept(log_file_name);
+	_visitor.type_field("log_file_path", 5); _visitor.accept(log_file_path);
+	_visitor.type_field("log_file_name_suffix", 6); _visitor.accept(log_file_name_suffix);
+	_visitor.type_field("log_file_entry_prefix", 7); _visitor.accept(log_file_entry_prefix);
+	_visitor.type_field("log_file_auto_restart", 8); _visitor.accept(log_file_auto_restart);
+	_visitor.template type_end<ProcessBase>(9);
+}
 
 
 } // namespace vnx

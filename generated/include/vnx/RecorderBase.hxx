@@ -41,6 +41,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -63,6 +65,21 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void RecorderBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<RecorderBase>(9);
+	_visitor.type_field("output_status", 0); _visitor.accept(output_status);
+	_visitor.type_field("filename", 1); _visitor.accept(filename);
+	_visitor.type_field("max_queue_ms", 2); _visitor.accept(max_queue_ms);
+	_visitor.type_field("flush_interval_ms", 3); _visitor.accept(flush_interval_ms);
+	_visitor.type_field("header_size", 4); _visitor.accept(header_size);
+	_visitor.type_field("block_size", 5); _visitor.accept(block_size);
+	_visitor.type_field("topics", 6); _visitor.accept(topics);
+	_visitor.type_field("proxy_name", 7); _visitor.accept(proxy_name);
+	_visitor.type_field("receive_tunnel", 8); _visitor.accept(receive_tunnel);
+	_visitor.template type_end<RecorderBase>(9);
+}
 
 
 } // namespace vnx

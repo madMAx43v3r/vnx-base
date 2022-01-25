@@ -66,6 +66,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -81,6 +83,37 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void TestValue::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<TestValue>(25);
+	_visitor.type_field("bool_", 0); _visitor.accept(bool_);
+	_visitor.type_field("int_", 1); _visitor.accept(int_);
+	_visitor.type_field("double_", 2); _visitor.accept(double_);
+	_visitor.type_field("array_", 3); _visitor.accept(array_);
+	_visitor.type_field("struct_array_", 4); _visitor.accept(struct_array_);
+	_visitor.type_field("tmpl_array_", 5); _visitor.accept(tmpl_array_);
+	_visitor.type_field("string_", 6); _visitor.accept(string_);
+	_visitor.type_field("tuple_", 7); _visitor.accept(tuple_);
+	_visitor.type_field("user_tuple_", 8); _visitor.accept(user_tuple_);
+	_visitor.type_field("vector_", 9); _visitor.accept(vector_);
+	_visitor.type_field("user_vector_", 10); _visitor.accept(user_vector_);
+	_visitor.type_field("variant_vector_", 11); _visitor.accept(variant_vector_);
+	_visitor.type_field("enum_vector_", 12); _visitor.accept(enum_vector_);
+	_visitor.type_field("pair_vector_", 13); _visitor.accept(pair_vector_);
+	_visitor.type_field("set_", 14); _visitor.accept(set_);
+	_visitor.type_field("map_", 15); _visitor.accept(map_);
+	_visitor.type_field("variant_", 16); _visitor.accept(variant_);
+	_visitor.type_field("struct_", 17); _visitor.accept(struct_);
+	_visitor.type_field("enum_", 18); _visitor.accept(enum_);
+	_visitor.type_field("user_", 19); _visitor.accept(user_);
+	_visitor.type_field("pointer_", 20); _visitor.accept(pointer_);
+	_visitor.type_field("optional_int_", 21); _visitor.accept(optional_int_);
+	_visitor.type_field("optional_struct_", 22); _visitor.accept(optional_struct_);
+	_visitor.type_field("optional_enum_", 23); _visitor.accept(optional_enum_);
+	_visitor.type_field("optional_vector_", 24); _visitor.accept(optional_vector_);
+	_visitor.template type_end<TestValue>(25);
+}
 
 
 } // namespace vnx

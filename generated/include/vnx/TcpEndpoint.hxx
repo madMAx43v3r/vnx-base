@@ -53,6 +53,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -68,6 +70,21 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void TcpEndpoint::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<TcpEndpoint>(9);
+	_visitor.type_field("send_buffer_size", 0); _visitor.accept(send_buffer_size);
+	_visitor.type_field("receive_buffer_size", 1); _visitor.accept(receive_buffer_size);
+	_visitor.type_field("listen_queue_size", 2); _visitor.accept(listen_queue_size);
+	_visitor.type_field("non_blocking", 3); _visitor.accept(non_blocking);
+	_visitor.type_field("host_name", 4); _visitor.accept(host_name);
+	_visitor.type_field("port", 5); _visitor.accept(port);
+	_visitor.type_field("reuse_addr", 6); _visitor.accept(reuse_addr);
+	_visitor.type_field("tcp_no_delay", 7); _visitor.accept(tcp_no_delay);
+	_visitor.type_field("tcp_keepalive", 8); _visitor.accept(tcp_keepalive);
+	_visitor.template type_end<TcpEndpoint>(9);
+}
 
 
 } // namespace vnx

@@ -48,6 +48,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -63,6 +65,23 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void RecordHeader::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<RecordHeader>(11);
+	_visitor.type_field("filename", 0); _visitor.accept(filename);
+	_visitor.type_field("header_size", 1); _visitor.accept(header_size);
+	_visitor.type_field("block_size", 2); _visitor.accept(block_size);
+	_visitor.type_field("begin_time", 3); _visitor.accept(begin_time);
+	_visitor.type_field("end_time", 4); _visitor.accept(end_time);
+	_visitor.type_field("num_bytes", 5); _visitor.accept(num_bytes);
+	_visitor.type_field("num_samples", 6); _visitor.accept(num_samples);
+	_visitor.type_field("num_samples_lost", 7); _visitor.accept(num_samples_lost);
+	_visitor.type_field("markers", 8); _visitor.accept(markers);
+	_visitor.type_field("type_code_positions", 9); _visitor.accept(type_code_positions);
+	_visitor.type_field("topics", 10); _visitor.accept(topics);
+	_visitor.template type_end<RecordHeader>(11);
+}
 
 
 } // namespace vnx

@@ -42,6 +42,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -65,6 +67,22 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void SpyToolBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<SpyToolBase>(10);
+	_visitor.type_field("proxy_name", 0); _visitor.accept(proxy_name);
+	_visitor.type_field("topic_expr", 1); _visitor.accept(topic_expr);
+	_visitor.type_field("exact_match", 2); _visitor.accept(exact_match);
+	_visitor.type_field("only_once", 3); _visitor.accept(only_once);
+	_visitor.type_field("header_only", 4); _visitor.accept(header_only);
+	_visitor.type_field("pretty_print", 5); _visitor.accept(pretty_print);
+	_visitor.type_field("show_resend", 6); _visitor.accept(show_resend);
+	_visitor.type_field("max_list_size", 7); _visitor.accept(max_list_size);
+	_visitor.type_field("max_queue_ms", 8); _visitor.accept(max_queue_ms);
+	_visitor.type_field("receive_tunnel", 9); _visitor.accept(receive_tunnel);
+	_visitor.template type_end<SpyToolBase>(10);
+}
 
 
 } // namespace vnx

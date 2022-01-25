@@ -34,6 +34,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -56,6 +58,15 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void TimeServerBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<TimeServerBase>(3);
+	_visitor.type_field("remote_tunnel", 0); _visitor.accept(remote_tunnel);
+	_visitor.type_field("interval_ms", 1); _visitor.accept(interval_ms);
+	_visitor.type_field("inv_gain", 2); _visitor.accept(inv_gain);
+	_visitor.template type_end<TimeServerBase>(3);
+}
 
 
 } // namespace vnx

@@ -38,6 +38,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -60,6 +62,19 @@ protected:
 	std::shared_ptr<vnx::Value> vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) override;
 	
 };
+
+template<typename T>
+void RouterBase::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<RouterBase>(7);
+	_visitor.type_field("port", 0); _visitor.accept(port);
+	_visitor.type_field("unix_path", 1); _visitor.accept(unix_path);
+	_visitor.type_field("max_queue_ms", 2); _visitor.accept(max_queue_ms);
+	_visitor.type_field("import_map", 3); _visitor.accept(import_map);
+	_visitor.type_field("export_map", 4); _visitor.accept(export_map);
+	_visitor.type_field("forward_map", 5); _visitor.accept(forward_map);
+	_visitor.type_field("export_list", 6); _visitor.accept(export_list);
+	_visitor.template type_end<RouterBase>(7);
+}
 
 
 } // namespace vnx

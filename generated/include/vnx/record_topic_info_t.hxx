@@ -38,6 +38,8 @@ struct record_topic_info_t {
 	void read(std::istream& _in);
 	void write(std::ostream& _out) const;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const;
 	
 	vnx::Object to_object() const;
@@ -53,6 +55,16 @@ struct record_topic_info_t {
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void record_topic_info_t::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<record_topic_info_t>(4);
+	_visitor.type_field("name", 0); _visitor.accept(name);
+	_visitor.type_field("num_bytes", 1); _visitor.accept(num_bytes);
+	_visitor.type_field("num_samples", 2); _visitor.accept(num_samples);
+	_visitor.type_field("num_samples_lost", 3); _visitor.accept(num_samples_lost);
+	_visitor.template type_end<record_topic_info_t>(4);
+}
 
 
 } // namespace vnx

@@ -38,6 +38,8 @@ public:
 	void read(std::istream& _in) override;
 	void write(std::ostream& _out) const override;
 	
+	template<typename T>
+	void accept_generic(T& _visitor) const;
 	void accept(vnx::Visitor& _visitor) const override;
 	
 	vnx::Object to_object() const override;
@@ -53,6 +55,13 @@ public:
 	static std::shared_ptr<vnx::TypeCode> static_create_type_code();
 	
 };
+
+template<typename T>
+void ProxyInterface_on_remote_connect::accept_generic(T& _visitor) const {
+	_visitor.template type_begin<ProxyInterface_on_remote_connect>(1);
+	_visitor.type_field("process_id", 0); _visitor.accept(process_id);
+	_visitor.template type_end<ProxyInterface_on_remote_connect>(1);
+}
 
 
 } // namespace vnx
