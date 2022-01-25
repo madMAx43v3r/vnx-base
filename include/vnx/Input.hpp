@@ -448,10 +448,24 @@ void from_string(const std::string& str, T& value) {
 	vnx::type<T>().read(stream, value);
 }
 
+template<typename T>
+T from_string(const std::string& str) {
+	T tmp;
+	from_string(str, tmp);
+	return tmp;
+}
+
 /// Reads a value of type T from a native string (ie. without quotes)
 template<typename T>
 void from_string_value(const std::string& str, T& value) {
 	from_string(str, value);
+}
+
+template<typename T>
+T from_string_value(const std::string& str) {
+	T tmp;
+	from_string_value(str, tmp);
+	return tmp;
 }
 
 template<>
