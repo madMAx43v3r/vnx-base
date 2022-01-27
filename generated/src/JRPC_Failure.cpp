@@ -107,7 +107,8 @@ void JRPC_Failure::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(id);
 	} else if(_name == "error") {
 		_value.to(error);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Failure& _value) {

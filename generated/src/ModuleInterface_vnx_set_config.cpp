@@ -98,7 +98,8 @@ void ModuleInterface_vnx_set_config::set_field(const std::string& _name, const v
 		_value.to(name);
 	} else if(_name == "value") {
 		_value.to(value);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ModuleInterface_vnx_set_config& _value) {

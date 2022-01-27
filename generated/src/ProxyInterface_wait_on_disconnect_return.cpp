@@ -87,7 +87,8 @@ vnx::Variant ProxyInterface_wait_on_disconnect_return::get_field(const std::stri
 void ProxyInterface_wait_on_disconnect_return::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "_ret_0") {
 		_value.to(_ret_0);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_wait_on_disconnect_return& _value) {

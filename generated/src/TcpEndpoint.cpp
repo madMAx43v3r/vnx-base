@@ -167,7 +167,8 @@ void TcpEndpoint::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(tcp_no_delay);
 	} else if(_name == "tcp_keepalive") {
 		_value.to(tcp_keepalive);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TcpEndpoint& _value) {

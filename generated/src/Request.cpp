@@ -160,7 +160,8 @@ void Request::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(request_id);
 	} else if(_name == "method") {
 		_value.to(method);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Request& _value) {

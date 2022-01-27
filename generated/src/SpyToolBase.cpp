@@ -196,7 +196,8 @@ void SpyToolBase::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(max_queue_ms);
 	} else if(_name == "receive_tunnel") {
 		_value.to(receive_tunnel);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const SpyToolBase& _value) {

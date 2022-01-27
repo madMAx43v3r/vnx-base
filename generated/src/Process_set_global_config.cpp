@@ -98,7 +98,8 @@ void Process_set_global_config::set_field(const std::string& _name, const vnx::V
 		_value.to(key);
 	} else if(_name == "value") {
 		_value.to(value);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_set_global_config& _value) {

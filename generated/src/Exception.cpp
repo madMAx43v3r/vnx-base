@@ -86,7 +86,8 @@ vnx::Variant Exception::get_field(const std::string& _name) const {
 void Exception::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "what") {
 		_value.to(what);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Exception& _value) {

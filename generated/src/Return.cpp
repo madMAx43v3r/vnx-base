@@ -139,7 +139,8 @@ void Return::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(src_mac);
 	} else if(_name == "value") {
 		_value.to(value);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Return& _value) {

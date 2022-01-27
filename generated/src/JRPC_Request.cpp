@@ -117,7 +117,8 @@ void JRPC_Request::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(params);
 	} else if(_name == "id") {
 		_value.to(id);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Request& _value) {

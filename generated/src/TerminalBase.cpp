@@ -122,7 +122,8 @@ void TerminalBase::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(prompt);
 	} else if(_name == "htop_interval") {
 		_value.to(htop_interval);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TerminalBase& _value) {

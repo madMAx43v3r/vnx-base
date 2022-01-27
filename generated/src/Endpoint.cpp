@@ -116,7 +116,8 @@ void Endpoint::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(listen_queue_size);
 	} else if(_name == "non_blocking") {
 		_value.to(non_blocking);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Endpoint& _value) {

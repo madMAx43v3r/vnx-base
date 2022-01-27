@@ -188,7 +188,8 @@ void PlayerStatus::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(control);
 	} else if(_name == "info") {
 		_value.to(info);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const PlayerStatus& _value) {

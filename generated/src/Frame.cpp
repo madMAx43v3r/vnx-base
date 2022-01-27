@@ -148,7 +148,8 @@ void Frame::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(seq_num);
 	} else if(_name == "value") {
 		_value.to(value);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Frame& _value) {

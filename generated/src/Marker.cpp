@@ -96,7 +96,8 @@ void Marker::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(time);
 	} else if(_name == "message") {
 		_value.to(message);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Marker& _value) {

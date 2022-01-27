@@ -88,7 +88,8 @@ vnx::Variant ProxyInterface_on_remote_login::get_field(const std::string& _name)
 void ProxyInterface_on_remote_login::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "remote_session") {
 		_value.to(remote_session);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_on_remote_login& _value) {

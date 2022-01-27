@@ -87,7 +87,8 @@ vnx::Variant Process_get_topic_info_return::get_field(const std::string& _name) 
 void Process_get_topic_info_return::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "_ret_0") {
 		_value.to(_ret_0);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_get_topic_info_return& _value) {

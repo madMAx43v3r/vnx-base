@@ -88,7 +88,8 @@ vnx::Variant ProxyInterface_on_remote_connect::get_field(const std::string& _nam
 void ProxyInterface_on_remote_connect::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "process_id") {
 		_value.to(process_id);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_on_remote_connect& _value) {

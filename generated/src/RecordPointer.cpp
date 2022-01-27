@@ -86,7 +86,8 @@ vnx::Variant RecordPointer::get_field(const std::string& _name) const {
 void RecordPointer::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "position") {
 		_value.to(position);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const RecordPointer& _value) {

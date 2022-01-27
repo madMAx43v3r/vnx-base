@@ -116,7 +116,8 @@ void TopicInfo::set_field(const std::string& _name, const vnx::Variant& _value) 
 		_value.to(num_subscribers);
 	} else if(_name == "is_domain") {
 		_value.to(is_domain);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TopicInfo& _value) {

@@ -87,7 +87,8 @@ vnx::Variant Player_seek_by_time::get_field(const std::string& _name) const {
 void Player_seek_by_time::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "delta_us") {
 		_value.to(delta_us);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Player_seek_by_time& _value) {

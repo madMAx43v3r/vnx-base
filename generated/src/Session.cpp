@@ -118,7 +118,8 @@ void Session::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(permissions);
 	} else if(_name == "login_time") {
 		_value.to(login_time);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Session& _value) {

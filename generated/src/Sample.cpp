@@ -159,7 +159,8 @@ void Sample::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(topic);
 	} else if(_name == "value") {
 		_value.to(value);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Sample& _value) {

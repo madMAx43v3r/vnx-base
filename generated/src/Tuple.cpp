@@ -87,7 +87,8 @@ vnx::Variant Tuple::get_field(const std::string& _name) const {
 void Tuple::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "fields") {
 		_value.to(fields);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Tuple& _value) {

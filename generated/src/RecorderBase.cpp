@@ -185,7 +185,8 @@ void RecorderBase::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(proxy_name);
 	} else if(_name == "receive_tunnel") {
 		_value.to(receive_tunnel);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const RecorderBase& _value) {

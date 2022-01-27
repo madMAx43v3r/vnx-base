@@ -238,7 +238,8 @@ void PlayerBase::set_field(const std::string& _name, const vnx::Variant& _value)
 		_value.to(is_autoshutdown);
 	} else if(_name == "topic_map") {
 		_value.to(topic_map);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const PlayerBase& _value) {

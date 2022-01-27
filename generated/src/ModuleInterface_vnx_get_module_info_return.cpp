@@ -87,7 +87,8 @@ vnx::Variant ModuleInterface_vnx_get_module_info_return::get_field(const std::st
 void ModuleInterface_vnx_get_module_info_return::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "_ret_0") {
 		_value.to(_ret_0);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ModuleInterface_vnx_get_module_info_return& _value) {

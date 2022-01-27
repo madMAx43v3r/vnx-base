@@ -136,7 +136,8 @@ void TimeControl::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(is_paused);
 	} else if(_name == "time_speed") {
 		_value.to(time_speed);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TimeControl& _value) {

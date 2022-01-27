@@ -114,7 +114,8 @@ void JRPC_Error::set_field(const std::string& _name, const vnx::Variant& _value)
 		_value.to(message);
 	} else if(_name == "data") {
 		_value.to(data);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Error& _value) {

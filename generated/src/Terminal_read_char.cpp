@@ -87,7 +87,8 @@ vnx::Variant Terminal_read_char::get_field(const std::string& _name) const {
 void Terminal_read_char::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "c") {
 		_value.to(c);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Terminal_read_char& _value) {

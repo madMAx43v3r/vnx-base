@@ -113,7 +113,8 @@ void RequestQueueBase::set_field(const std::string& _name, const vnx::Variant& _
 		_value.to(max_queue_ms);
 	} else if(_name == "max_queue_size") {
 		_value.to(max_queue_size);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const RequestQueueBase& _value) {

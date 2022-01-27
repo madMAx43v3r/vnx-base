@@ -88,7 +88,8 @@ vnx::Variant ProxyInterface_disable_tunnel::get_field(const std::string& _name) 
 void ProxyInterface_disable_tunnel::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "tunnel_addr") {
 		_value.to(tunnel_addr);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_disable_tunnel& _value) {

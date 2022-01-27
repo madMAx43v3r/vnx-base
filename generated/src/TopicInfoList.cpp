@@ -107,7 +107,8 @@ void TopicInfoList::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(process);
 	} else if(_name == "list") {
 		_value.to(list);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TopicInfoList& _value) {

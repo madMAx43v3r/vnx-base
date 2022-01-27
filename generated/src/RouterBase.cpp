@@ -162,7 +162,8 @@ void RouterBase::set_field(const std::string& _name, const vnx::Variant& _value)
 		_value.to(forward_map);
 	} else if(_name == "export_list") {
 		_value.to(export_list);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const RouterBase& _value) {

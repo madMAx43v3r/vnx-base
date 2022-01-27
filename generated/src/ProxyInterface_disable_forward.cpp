@@ -87,7 +87,8 @@ vnx::Variant ProxyInterface_disable_forward::get_field(const std::string& _name)
 void ProxyInterface_disable_forward::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "service_name") {
 		_value.to(service_name);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_disable_forward& _value) {

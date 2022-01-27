@@ -115,7 +115,8 @@ void record_topic_info_t::set_field(const std::string& _name, const vnx::Variant
 		_value.to(num_samples);
 	} else if(_name == "num_samples_lost") {
 		_value.to(num_samples_lost);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const record_topic_info_t& _value) {

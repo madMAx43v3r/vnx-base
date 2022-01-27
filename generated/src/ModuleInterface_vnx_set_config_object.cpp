@@ -88,7 +88,8 @@ vnx::Variant ModuleInterface_vnx_set_config_object::get_field(const std::string&
 void ModuleInterface_vnx_set_config_object::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "config") {
 		_value.to(config);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ModuleInterface_vnx_set_config_object& _value) {

@@ -117,7 +117,8 @@ void PermissionDenied::set_field(const std::string& _name, const vnx::Variant& _
 		_value.to(method);
 	} else if(_name == "permission") {
 		_value.to(permission);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const PermissionDenied& _value) {

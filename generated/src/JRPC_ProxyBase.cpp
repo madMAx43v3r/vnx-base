@@ -338,7 +338,8 @@ void JRPC_ProxyBase::set_field(const std::string& _name, const vnx::Variant& _va
 		_value.to(send_buffer_size);
 	} else if(_name == "default_access") {
 		_value.to(default_access);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_ProxyBase& _value) {

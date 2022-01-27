@@ -97,7 +97,8 @@ void ProxyInterface_on_login::set_field(const std::string& _name, const vnx::Var
 		_value.to(name);
 	} else if(_name == "password") {
 		_value.to(password);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_on_login& _value) {

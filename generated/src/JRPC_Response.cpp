@@ -97,7 +97,8 @@ void JRPC_Response::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(jsonrpc);
 	} else if(_name == "id") {
 		_value.to(id);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Response& _value) {

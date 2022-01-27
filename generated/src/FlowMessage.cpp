@@ -140,7 +140,8 @@ void FlowMessage::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(dst_mac);
 	} else if(_name == "flow_code") {
 		_value.to(flow_code);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const FlowMessage& _value) {

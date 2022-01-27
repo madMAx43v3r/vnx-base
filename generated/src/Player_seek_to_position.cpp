@@ -87,7 +87,8 @@ vnx::Variant Player_seek_to_position::get_field(const std::string& _name) const 
 void Player_seek_to_position::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "position") {
 		_value.to(position);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Player_seek_to_position& _value) {

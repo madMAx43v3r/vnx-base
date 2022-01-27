@@ -87,7 +87,8 @@ vnx::Variant Process_get_global_config::get_field(const std::string& _name) cons
 void Process_get_global_config::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "key") {
 		_value.to(key);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_get_global_config& _value) {

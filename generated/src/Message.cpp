@@ -114,7 +114,8 @@ void Message::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(flags);
 	} else if(_name == "hop_count") {
 		_value.to(hop_count);
-	}}
+	}
+}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Message& _value) {
