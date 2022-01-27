@@ -74,7 +74,6 @@ vnx::Variant Process_self_test_all::get_field(const std::string& _name) const {
 }
 
 void Process_self_test_all::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

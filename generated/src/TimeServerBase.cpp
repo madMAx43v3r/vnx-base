@@ -118,10 +118,7 @@ void TimeServerBase::set_field(const std::string& _name, const vnx::Variant& _va
 		_value.to(interval_ms);
 	} else if(_name == "inv_gain") {
 		_value.to(inv_gain);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TimeServerBase& _value) {

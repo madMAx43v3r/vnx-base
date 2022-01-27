@@ -126,10 +126,7 @@ void test_struct_t::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(array_);
 	} else if(_name == "double_") {
 		_value.to(double_);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const test_struct_t& _value) {

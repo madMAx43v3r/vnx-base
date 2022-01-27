@@ -74,7 +74,6 @@ vnx::Variant ModuleInterface_vnx_self_test::get_field(const std::string& _name) 
 }
 
 void ModuleInterface_vnx_self_test::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

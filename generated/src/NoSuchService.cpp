@@ -97,10 +97,7 @@ void NoSuchService::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(what);
 	} else if(_name == "dst_mac") {
 		_value.to(dst_mac);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const NoSuchService& _value) {

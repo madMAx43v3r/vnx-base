@@ -86,10 +86,7 @@ vnx::Variant ModuleInterface_vnx_self_test_return::get_field(const std::string& 
 void ModuleInterface_vnx_self_test_return::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "_ret_0") {
 		_value.to(_ret_0);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ModuleInterface_vnx_self_test_return& _value) {

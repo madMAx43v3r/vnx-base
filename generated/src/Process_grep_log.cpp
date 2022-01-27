@@ -87,10 +87,7 @@ vnx::Variant Process_grep_log::get_field(const std::string& _name) const {
 void Process_grep_log::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "expr") {
 		_value.to(expr);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_grep_log& _value) {

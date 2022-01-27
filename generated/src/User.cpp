@@ -116,10 +116,7 @@ void User::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(access_roles);
 	} else if(_name == "permissions") {
 		_value.to(permissions);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const User& _value) {

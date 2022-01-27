@@ -188,10 +188,7 @@ void PlayerStatus::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(control);
 	} else if(_name == "info") {
 		_value.to(info);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const PlayerStatus& _value) {

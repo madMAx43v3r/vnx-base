@@ -174,10 +174,7 @@ void JRPC_ServerBase::set_field(const std::string& _name, const vnx::Variant& _v
 		_value.to(send_buffer_size);
 	} else if(_name == "default_access") {
 		_value.to(default_access);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_ServerBase& _value) {

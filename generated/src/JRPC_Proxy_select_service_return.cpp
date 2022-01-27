@@ -73,7 +73,6 @@ vnx::Variant JRPC_Proxy_select_service_return::get_field(const std::string& _nam
 }
 
 void JRPC_Proxy_select_service_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

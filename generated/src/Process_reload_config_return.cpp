@@ -73,7 +73,6 @@ vnx::Variant Process_reload_config_return::get_field(const std::string& _name) c
 }
 
 void Process_reload_config_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

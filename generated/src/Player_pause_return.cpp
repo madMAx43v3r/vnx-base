@@ -73,7 +73,6 @@ vnx::Variant Player_pause_return::get_field(const std::string& _name) const {
 }
 
 void Player_pause_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

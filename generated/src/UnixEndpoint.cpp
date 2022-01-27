@@ -126,10 +126,7 @@ void UnixEndpoint::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(non_blocking);
 	} else if(_name == "domain_path") {
 		_value.to(domain_path);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const UnixEndpoint& _value) {

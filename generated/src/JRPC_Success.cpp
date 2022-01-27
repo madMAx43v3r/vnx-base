@@ -107,10 +107,7 @@ void JRPC_Success::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(id);
 	} else if(_name == "result") {
 		_value.to(result);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Success& _value) {

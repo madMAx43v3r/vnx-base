@@ -73,7 +73,6 @@ vnx::Variant Process_set_debug_return::get_field(const std::string& _name) const
 }
 
 void Process_set_debug_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

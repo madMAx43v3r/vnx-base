@@ -106,10 +106,7 @@ void NoSuchMethod::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(dst_mac);
 	} else if(_name == "method") {
 		_value.to(method);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const NoSuchMethod& _value) {

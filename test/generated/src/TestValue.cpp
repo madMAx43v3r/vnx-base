@@ -331,10 +331,7 @@ void TestValue::set_field(const std::string& _name, const vnx::Variant& _value) 
 		_value.to(optional_enum_);
 	} else if(_name == "optional_vector_") {
 		_value.to(optional_vector_);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const TestValue& _value) {

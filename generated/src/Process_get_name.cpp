@@ -74,7 +74,6 @@ vnx::Variant Process_get_name::get_field(const std::string& _name) const {
 }
 
 void Process_get_name::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

@@ -73,7 +73,6 @@ vnx::Variant Player_seek_by_time_return::get_field(const std::string& _name) con
 }
 
 void Player_seek_by_time_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

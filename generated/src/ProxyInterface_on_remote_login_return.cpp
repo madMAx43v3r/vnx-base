@@ -73,7 +73,6 @@ vnx::Variant ProxyInterface_on_remote_login_return::get_field(const std::string&
 }
 
 void ProxyInterface_on_remote_login_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

@@ -87,10 +87,7 @@ vnx::Variant ProxyInterface_enable_import::get_field(const std::string& _name) c
 void ProxyInterface_enable_import::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "topic_name") {
 		_value.to(topic_name);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const ProxyInterface_enable_import& _value) {

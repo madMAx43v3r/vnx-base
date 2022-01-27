@@ -87,10 +87,7 @@ vnx::Variant JRPC_Proxy_select_service::get_field(const std::string& _name) cons
 void JRPC_Proxy_select_service::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "service_name") {
 		_value.to(service_name);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const JRPC_Proxy_select_service& _value) {

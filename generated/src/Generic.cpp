@@ -87,10 +87,7 @@ vnx::Variant Generic::get_field(const std::string& _name) const {
 void Generic::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "data") {
 		_value.to(data);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Generic& _value) {

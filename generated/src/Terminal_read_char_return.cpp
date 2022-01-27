@@ -73,7 +73,6 @@ vnx::Variant Terminal_read_char_return::get_field(const std::string& _name) cons
 }
 
 void Terminal_read_char_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

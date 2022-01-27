@@ -98,10 +98,7 @@ void Process_set_global_config::set_field(const std::string& _name, const vnx::V
 		_value.to(key);
 	} else if(_name == "value") {
 		_value.to(value);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_set_global_config& _value) {

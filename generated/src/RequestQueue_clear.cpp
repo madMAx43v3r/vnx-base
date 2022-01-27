@@ -74,7 +74,6 @@ vnx::Variant RequestQueue_clear::get_field(const std::string& _name) const {
 }
 
 void RequestQueue_clear::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

@@ -74,7 +74,6 @@ vnx::Variant ProxyInterface_wait_on_disconnect::get_field(const std::string& _na
 }
 
 void ProxyInterface_wait_on_disconnect::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

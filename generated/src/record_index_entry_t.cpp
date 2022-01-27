@@ -95,10 +95,7 @@ void record_index_entry_t::set_field(const std::string& _name, const vnx::Varian
 		_value.to(pos);
 	} else if(_name == "time") {
 		_value.to(time);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const record_index_entry_t& _value) {

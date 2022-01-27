@@ -73,7 +73,6 @@ vnx::Variant ModuleInterface_vnx_restart_return::get_field(const std::string& _n
 }
 
 void ModuleInterface_vnx_restart_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private

@@ -87,10 +87,7 @@ vnx::Variant Process_get_process_info_return::get_field(const std::string& _name
 void Process_get_process_info_return::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "_ret_0") {
 		_value.to(_ret_0);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
-	}
-}
+	}}
 
 /// \private
 std::ostream& operator<<(std::ostream& _out, const Process_get_process_info_return& _value) {

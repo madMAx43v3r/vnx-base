@@ -73,7 +73,6 @@ vnx::Variant ProxyInterface_enable_tunnel_return::get_field(const std::string& _
 }
 
 void ProxyInterface_enable_tunnel_return::set_field(const std::string& _name, const vnx::Variant& _value) {
-	throw std::logic_error("no such field: '" + _name + "'");
 }
 
 /// \private
