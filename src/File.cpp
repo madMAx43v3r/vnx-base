@@ -54,6 +54,15 @@ void File::open(const std::string& mode) {
 	stream_out.reset(p_file);
 }
 
+bool File::create() {
+	if(exists()) {
+		return false;
+	}
+	open("wb");
+	close();
+	return true;
+}
+
 uint16_t File::read_header() {
 	while(true) {
 		uint16_t code;

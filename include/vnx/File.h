@@ -57,6 +57,13 @@ public:
 	 */
 	void open(const std::string& path, const std::string& mode);
 	
+	/** \brief Creates file if it doesn't exist yet.
+	 *
+	 * Does not open the file.
+	 * Returns true if file was created and it didn't exist before.
+	 */
+	bool create();
+
 	/** \brief Returns the first CODE in the file.
 	 * 
 	 * Will skip over CODE_NONE and CODE_MAGIC.
