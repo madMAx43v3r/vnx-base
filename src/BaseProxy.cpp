@@ -575,7 +575,7 @@ void BaseProxy::read_loop(std::shared_ptr<const Endpoint> endpoint)
 			read_socket_until_error(service_pipe);
 		} catch(const std::exception& ex) {
 			if(vnx_do_run()) {
-				log(INFO) << ex.what();
+				log(DEBUG) << ex.what();
 			}
 			is_error = true;
 		}
