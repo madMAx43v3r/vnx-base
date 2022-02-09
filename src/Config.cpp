@@ -268,5 +268,19 @@ void read_config_tree(const Directory& current, const std::string& config_path) 
 	}
 }
 
+vnx::Object read_config_file(const std::string& file_path) {
+	std::ifstream stream(file_path);
+	if(auto json = vnx::read_json(stream, true)) {
+		return json->to_object();
+	}
+	return vnx::Object();
+}
+
+void write_config_file(const std::string& file_path, const vnx::Object& config) {
+	std::ofstream stream(file_path, std::ios::out);
+	vnx::PrettyPrinter out(stream);
+	vnx::accept(out, config);
+}
+
 
 } //vnx
