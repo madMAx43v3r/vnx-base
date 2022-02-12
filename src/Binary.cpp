@@ -96,7 +96,7 @@ Variant Binary::get_field(const std::string& name) const {
 }
 
 void Binary::set_field(const std::string& name, const Variant& value) {
-	throw std::logic_error("Binary::set_field() not supported");
+	// not supported
 }
 
 void Binary::clear() {
