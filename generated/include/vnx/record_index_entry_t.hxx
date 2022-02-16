@@ -16,8 +16,8 @@ struct VNX_EXPORT record_index_entry_t {
 	int64_t pos = -1;
 	int64_t time = 0;
 	
-	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
-	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
+	static const vnx::Hash64 VNX_TYPE_HASH;
+	static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0x84d2685378679269ull;
 	

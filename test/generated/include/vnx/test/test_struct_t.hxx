@@ -20,8 +20,8 @@ struct VNX_EXPORT test_struct_t {
 	std::array<int32_t, 3> array_ = {};
 	vnx::float64_t double_ = 11.11;
 	
-	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
-	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
+	static const vnx::Hash64 VNX_TYPE_HASH;
+	static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0xebf1aa05ed6ef641ull;
 	
