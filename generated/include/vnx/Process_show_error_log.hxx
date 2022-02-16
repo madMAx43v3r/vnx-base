@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_show_error_log : public ::vnx::Value {
+class VNX_EXPORT Process_show_error_log : public ::vnx::Value {
 public:
 	
 	

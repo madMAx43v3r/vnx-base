@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Exception : public ::vnx::Value {
+class VNX_EXPORT Exception : public ::vnx::Value {
 public:
 	
 	std::string what;

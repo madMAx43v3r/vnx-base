@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class InternalError : public ::vnx::Exception {
+class VNX_EXPORT InternalError : public ::vnx::Exception {
 public:
 	
 	

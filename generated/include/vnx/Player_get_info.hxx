@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_get_info : public ::vnx::Value {
+class VNX_EXPORT Player_get_info : public ::vnx::Value {
 public:
 	
 	

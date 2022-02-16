@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class JRPC_Failure : public ::vnx::JRPC_Response {
+class VNX_EXPORT JRPC_Failure : public ::vnx::JRPC_Response {
 public:
 	
 	::vnx::JRPC_Error error;

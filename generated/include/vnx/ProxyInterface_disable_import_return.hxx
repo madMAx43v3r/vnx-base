@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_disable_import_return : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_disable_import_return : public ::vnx::Value {
 public:
 	
 	

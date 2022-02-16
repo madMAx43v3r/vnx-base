@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-struct record_topic_info_t {
+struct VNX_EXPORT record_topic_info_t {
 	
 	
 	std::string name;

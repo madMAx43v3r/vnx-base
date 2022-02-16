@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_grep_log : public ::vnx::Value {
+class VNX_EXPORT Process_grep_log : public ::vnx::Value {
 public:
 	
 	std::string expr;

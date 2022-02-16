@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class JRPC_Proxy_select_service : public ::vnx::Value {
+class VNX_EXPORT JRPC_Proxy_select_service : public ::vnx::Value {
 public:
 	
 	std::string service_name;

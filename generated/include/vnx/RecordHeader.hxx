@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class RecordHeader : public ::vnx::Value {
+class VNX_EXPORT RecordHeader : public ::vnx::Value {
 public:
 	
 	std::string filename;

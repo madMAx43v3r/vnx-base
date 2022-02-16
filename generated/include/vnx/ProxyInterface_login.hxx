@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_login : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_login : public ::vnx::Value {
 public:
 	
 	std::string name;

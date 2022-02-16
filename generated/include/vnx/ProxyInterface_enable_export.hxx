@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_enable_export : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_enable_export : public ::vnx::Value {
 public:
 	
 	std::string topic_name;

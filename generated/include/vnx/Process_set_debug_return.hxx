@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_set_debug_return : public ::vnx::Value {
+class VNX_EXPORT Process_set_debug_return : public ::vnx::Value {
 public:
 	
 	

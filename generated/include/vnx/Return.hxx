@@ -13,7 +13,7 @@
 
 namespace vnx {
 
-class Return : public ::vnx::Message {
+class VNX_EXPORT Return : public ::vnx::Message {
 public:
 	
 	uint64_t request_id = 0;

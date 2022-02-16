@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_wait_on_connect : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_wait_on_connect : public ::vnx::Value {
 public:
 	
 	

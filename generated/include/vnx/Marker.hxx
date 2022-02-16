@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Marker : public ::vnx::Value {
+class VNX_EXPORT Marker : public ::vnx::Value {
 public:
 	
 	int64_t time = 0;

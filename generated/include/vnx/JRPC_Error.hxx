@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class JRPC_Error : public ::vnx::Value {
+class VNX_EXPORT JRPC_Error : public ::vnx::Value {
 public:
 	static const int32_t PARSE_ERROR = -32700;
 	static const int32_t INVALID_REQUEST = -32600;

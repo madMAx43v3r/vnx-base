@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class TcpEndpoint : public ::vnx::Endpoint {
+class VNX_EXPORT TcpEndpoint : public ::vnx::Endpoint {
 public:
 	static const int32_t default_port = 4444;
 	

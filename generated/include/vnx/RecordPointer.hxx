@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class RecordPointer : public ::vnx::Value {
+class VNX_EXPORT RecordPointer : public ::vnx::Value {
 public:
 	
 	int64_t position = -1;

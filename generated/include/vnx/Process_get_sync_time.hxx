@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_get_sync_time : public ::vnx::Value {
+class VNX_EXPORT Process_get_sync_time : public ::vnx::Value {
 public:
 	
 	

@@ -10,9 +10,9 @@
 
 namespace vnx {
 
-struct access_role_e {
+struct VNX_EXPORT access_role_e {
 	
-	enum enum_t : uint32_t {
+	enum VNX_EXPORT enum_t : uint32_t {
 		ADMIN = 2100538712l,
 		DEFAULT = 490312487l,
 		INSTALLER = 455339260l,

@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class NoSuchService : public ::vnx::Exception {
+class VNX_EXPORT NoSuchService : public ::vnx::Exception {
 public:
 	
 	::vnx::Hash64 dst_mac;

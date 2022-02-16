@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ModuleInterface_vnx_set_config_object_return : public ::vnx::Value {
+class VNX_EXPORT ModuleInterface_vnx_set_config_object_return : public ::vnx::Value {
 public:
 	
 	

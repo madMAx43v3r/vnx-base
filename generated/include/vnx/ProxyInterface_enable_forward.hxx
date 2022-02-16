@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_enable_forward : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_enable_forward : public ::vnx::Value {
 public:
 	
 	std::string service_name;

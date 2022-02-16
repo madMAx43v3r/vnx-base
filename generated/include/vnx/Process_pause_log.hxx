@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_pause_log : public ::vnx::Value {
+class VNX_EXPORT Process_pause_log : public ::vnx::Value {
 public:
 	
 	

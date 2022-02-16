@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class PermissionDenied : public ::vnx::Exception {
+class VNX_EXPORT PermissionDenied : public ::vnx::Exception {
 public:
 	
 	::vnx::Hash64 dst_mac;

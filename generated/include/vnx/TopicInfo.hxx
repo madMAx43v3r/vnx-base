@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class TopicInfo : public ::vnx::Value {
+class VNX_EXPORT TopicInfo : public ::vnx::Value {
 public:
 	
 	std::string name;

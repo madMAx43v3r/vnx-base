@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class GatewayInterface_forward : public ::vnx::Value {
+class VNX_EXPORT GatewayInterface_forward : public ::vnx::Value {
 public:
 	
 	std::shared_ptr<const ::vnx::Request> request;

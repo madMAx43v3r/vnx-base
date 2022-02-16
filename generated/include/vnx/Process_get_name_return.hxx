@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_get_name_return : public ::vnx::Value {
+class VNX_EXPORT Process_get_name_return : public ::vnx::Value {
 public:
 	
 	std::string _ret_0;

@@ -13,7 +13,7 @@
 
 namespace vnx {
 
-class ModuleInfo : public ::vnx::Value {
+class VNX_EXPORT ModuleInfo : public ::vnx::Value {
 public:
 	
 	int64_t time = 0;

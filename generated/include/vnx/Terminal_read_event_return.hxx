@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Terminal_read_event_return : public ::vnx::Value {
+class VNX_EXPORT Terminal_read_event_return : public ::vnx::Value {
 public:
 	
 	

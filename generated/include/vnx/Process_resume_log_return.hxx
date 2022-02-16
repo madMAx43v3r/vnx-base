@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_resume_log_return : public ::vnx::Value {
+class VNX_EXPORT Process_resume_log_return : public ::vnx::Value {
 public:
 	
 	

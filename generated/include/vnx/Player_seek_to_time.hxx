@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_seek_to_time : public ::vnx::Value {
+class VNX_EXPORT Player_seek_to_time : public ::vnx::Value {
 public:
 	
 	int64_t time_us = 0;

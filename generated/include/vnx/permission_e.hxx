@@ -10,9 +10,9 @@
 
 namespace vnx {
 
-struct permission_e {
+struct VNX_EXPORT permission_e {
 	
-	enum enum_t : uint32_t {
+	enum VNX_EXPORT enum_t : uint32_t {
 		CONST_REQUEST = 1076482563l,
 		HOST_SHUTDOWN = 1124463389l,
 		INTERNAL = 1861063121l,

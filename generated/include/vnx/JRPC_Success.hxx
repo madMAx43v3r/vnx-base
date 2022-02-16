@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class JRPC_Success : public ::vnx::JRPC_Response {
+class VNX_EXPORT JRPC_Success : public ::vnx::JRPC_Response {
 public:
 	
 	::vnx::Variant result;

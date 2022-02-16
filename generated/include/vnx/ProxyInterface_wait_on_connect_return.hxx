@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ProxyInterface_wait_on_connect_return : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_wait_on_connect_return : public ::vnx::Value {
 public:
 	
 	::vnx::Hash64 _ret_0;

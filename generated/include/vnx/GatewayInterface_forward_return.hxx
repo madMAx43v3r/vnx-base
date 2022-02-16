@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class GatewayInterface_forward_return : public ::vnx::Value {
+class VNX_EXPORT GatewayInterface_forward_return : public ::vnx::Value {
 public:
 	
 	

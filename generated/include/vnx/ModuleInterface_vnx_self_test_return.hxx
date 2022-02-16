@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ModuleInterface_vnx_self_test_return : public ::vnx::Value {
+class VNX_EXPORT ModuleInterface_vnx_self_test_return : public ::vnx::Value {
 public:
 	
 	vnx::bool_t _ret_0 = 0;

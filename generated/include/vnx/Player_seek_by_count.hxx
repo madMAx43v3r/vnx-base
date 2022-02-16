@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_seek_by_count : public ::vnx::Value {
+class VNX_EXPORT Player_seek_by_count : public ::vnx::Value {
 public:
 	
 	int64_t delta_count = 0;

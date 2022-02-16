@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_seek_by_time : public ::vnx::Value {
+class VNX_EXPORT Player_seek_by_time : public ::vnx::Value {
 public:
 	
 	int64_t delta_us = 0;

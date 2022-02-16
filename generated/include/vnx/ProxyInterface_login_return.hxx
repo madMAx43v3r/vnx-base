@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ProxyInterface_login_return : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_login_return : public ::vnx::Value {
 public:
 	
 	std::shared_ptr<const ::vnx::Session> _ret_0;

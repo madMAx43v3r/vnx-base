@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class OverflowException : public ::vnx::Exception {
+class VNX_EXPORT OverflowException : public ::vnx::Exception {
 public:
 	
 	::vnx::Hash64 dst_mac;

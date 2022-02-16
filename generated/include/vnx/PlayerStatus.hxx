@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class PlayerStatus : public ::vnx::Value {
+class VNX_EXPORT PlayerStatus : public ::vnx::Value {
 public:
 	
 	std::string filename;

@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Process_get_global_config_return : public ::vnx::Value {
+class VNX_EXPORT Process_get_global_config_return : public ::vnx::Value {
 public:
 	
 	::vnx::Variant _ret_0;

@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class SpyToolBase : public ::vnx::Module {
+class VNX_EXPORT SpyToolBase : public ::vnx::Module {
 public:
 	
 	std::string proxy_name;

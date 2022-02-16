@@ -13,7 +13,7 @@
 
 namespace vnx {
 
-class ProcessInfo : public ::vnx::Value {
+class VNX_EXPORT ProcessInfo : public ::vnx::Value {
 public:
 	
 	int64_t time = 0;

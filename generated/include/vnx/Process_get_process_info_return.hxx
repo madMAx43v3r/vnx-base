@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Process_get_process_info_return : public ::vnx::Value {
+class VNX_EXPORT Process_get_process_info_return : public ::vnx::Value {
 public:
 	
 	::vnx::ProcessInfo _ret_0;

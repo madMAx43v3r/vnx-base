@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class RecorderBase : public ::vnx::Module {
+class VNX_EXPORT RecorderBase : public ::vnx::Module {
 public:
 	
 	::vnx::TopicPtr output_status = "vnx.recorder_status";

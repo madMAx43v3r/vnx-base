@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ProxyInterface_on_remote_login : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_on_remote_login : public ::vnx::Value {
 public:
 	
 	std::shared_ptr<const ::vnx::Session> remote_session;

@@ -10,9 +10,9 @@
 
 namespace vnx {
 
-struct thread_priority_e {
+struct VNX_EXPORT thread_priority_e {
 	
-	enum enum_t : uint32_t {
+	enum VNX_EXPORT enum_t : uint32_t {
 		HIGH = 3488385431l,
 		LOW = 289856195l,
 		NORMAL = 658629154l,

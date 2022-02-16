@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class Session : public ::vnx::Value {
+class VNX_EXPORT Session : public ::vnx::Value {
 public:
 	
 	::vnx::Hash64 id;

@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_self_test_all : public ::vnx::Value {
+class VNX_EXPORT Process_self_test_all : public ::vnx::Value {
 public:
 	
 	

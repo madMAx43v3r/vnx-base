@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class TerminalBase : public ::vnx::Module {
+class VNX_EXPORT TerminalBase : public ::vnx::Module {
 public:
 	
 	int32_t max_list_size = 1000;

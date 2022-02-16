@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class RecorderStatus : public ::vnx::Value {
+class VNX_EXPORT RecorderStatus : public ::vnx::Value {
 public:
 	
 	std::string file_name;

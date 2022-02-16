@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Terminal_read_char : public ::vnx::Value {
+class VNX_EXPORT Terminal_read_char : public ::vnx::Value {
 public:
 	
 	int8_t c = 0;
