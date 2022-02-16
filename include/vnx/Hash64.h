@@ -20,13 +20,15 @@
 #include <string>
 #include <cstdint>
 
+#include <vnx_base_export.h>
+
 
 namespace vnx {
 
 class Hash128;
 
 /// Class to hold and compute a 64-bit hash
-class Hash64 {
+class VNX_BASE_EXPORT Hash64 {
 public:
 	uint64_t value = 0;
 	

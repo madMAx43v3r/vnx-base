@@ -6,8 +6,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_compile_definitions(NOGDI NOMINMAX)
-
 find_package(Threads REQUIRED)
 
 find_program(CCACHE_FOUND ccache)
@@ -114,6 +112,8 @@ target_include_directories(vnx_base
 
 target_link_libraries(vnx_base Threads::Threads)
 
+target_compile_definitions(vnx_base PUBLIC NOGDI NOMINMAX)
+
 if(MSVC)
 	include(FetchContent)
 	FetchContent_Declare(dirent
@@ -152,4 +152,6 @@ install(DIRECTORY include/vnx generated/include/vnx DESTINATION include)
 install(DIRECTORY interface/ modules/ DESTINATION interface/vnx)
 
 install(TARGETS vnx_base DESTINATION lib${LIBSUFFIX})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/vnx_base_export.h DESTINATION include)
 

@@ -23,11 +23,6 @@
 #ifndef INCLUDE_VNX_TYPE_H_
 #define INCLUDE_VNX_TYPE_H_
 
-#ifdef _MSC_VER
-#include <BaseTsd.h>
-typedef SSIZE_T ssize_t;
-#endif
-
 #include <cstdint>
 #include <utility>
 #include <memory>
@@ -45,10 +40,18 @@ typedef SSIZE_T ssize_t;
 #include <stdexcept>
 #include <type_traits>
 
+#ifdef _MSC_VER
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#endif
+
 #include <vnx_base_export.h>
 #include <vnx/optional.h>
 #include <vnx/Hash64.h>
 #include <vnx/Util.h>
+
+/// Export macro
+#define VNX_EXPORT VNX_BASE_EXPORT
 
 /** \brief The maximum size of dynamic containers
  * 
