@@ -18,9 +18,6 @@
 #include <vnx/File.h>
 
 #include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
 
 namespace vnx {
@@ -82,24 +79,24 @@ void File::write_header() {
 
 void File::seek_begin() {
 	out.flush();
-	if(::fseeko(p_file, 0, SEEK_SET) < 0) {
-		throw std::runtime_error("fseeko('" + path + "') failed with: " + std::string(::strerror(errno)));
+	if(vnx::fseek(p_file, 0, SEEK_SET) < 0) {
+		throw std::runtime_error("fseek('" + path + "') failed with: " + std::string(::strerror(errno)));
 	}
 	in.reset();
 }
 
 void File::seek_end() {
 	out.flush();
-	if(::fseeko(p_file, 0, SEEK_END) < 0) {
-		throw std::runtime_error("fseeko('" + path + "') failed with: " + std::string(::strerror(errno)));
+	if(vnx::fseek(p_file, 0, SEEK_END) < 0) {
+		throw std::runtime_error("fseek('" + path + "') failed with: " + std::string(::strerror(errno)));
 	}
 	in.reset();
 }
 
 void File::seek_to(int64_t pos) {
 	out.flush();
-	if(::fseeko(p_file, pos, SEEK_SET) < 0) {
-		throw std::runtime_error("fseeko('" + path + "') failed with: " + std::string(::strerror(errno)));
+	if(vnx::fseek(p_file, pos, SEEK_SET) < 0) {
+		throw std::runtime_error("fseek('" + path + "') failed with: " + std::string(::strerror(errno)));
 	}
 	in.reset();
 }
@@ -143,40 +140,40 @@ std::string File::get_extension() const {
 }
 
 int64_t File::last_write_time() const {
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return info.st_mtime;
 	}
 	return 0;
 }
 
 int64_t File::file_size() const {
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return info.st_size;
 	}
 	return 0;
 }
 
 bool File::exists() const {
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return true;
 	}
 	return false;
 }
 
 bool File::is_directory() const {
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return S_ISDIR(info.st_mode);
 	}
 	return false;
 }
 
 bool File::is_regular() const {
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return S_ISREG(info.st_mode);
 	}
 	return false;
@@ -186,8 +183,8 @@ bool File::is_symlink() const {
 #ifdef _WIN32
 	return false;
 #else
-	struct ::stat info = {};
-	if(::stat(path.c_str(), &info) == 0) {
+	vnx::stat info = {};
+	if(get_stat(path.c_str(), info) == 0) {
 		return S_ISLNK(info.st_mode);
 	}
 	return false;

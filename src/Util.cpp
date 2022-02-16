@@ -20,11 +20,29 @@
 
 #include <mutex>
 #include <random>
+#include <iostream>
 
 #ifdef _WIN32
+#define NOMINMAX
 #include <windows.h>
+#undef ERROR
 #else
 #include <termios.h>
+#endif
+
+#ifdef _MSC_VER
+void usleep(int64_t usec)
+{
+	HANDLE timer;
+	LARGE_INTEGER ft;
+
+	ft.QuadPart = -(10 * usec); // Convert to 100 nanosecond interval, negative value indicates relative time
+
+	timer = CreateWaitableTimer(NULL, TRUE, NULL);
+	SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
+	WaitForSingleObject(timer, INFINITE);
+	CloseHandle(timer);
+}
 #endif
 
 

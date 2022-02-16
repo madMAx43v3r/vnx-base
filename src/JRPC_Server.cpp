@@ -5,6 +5,7 @@
  *      Author: jaw
  */
 
+#include <vnx/vnx.h>
 #include <vnx/JRPC_Server.h>
 #include <vnx/JRPC_Proxy.h>
 

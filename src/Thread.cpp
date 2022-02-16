@@ -17,6 +17,10 @@
 #include <vnx/vnx.h>
 #include <vnx/Thread.h>
 
+#ifdef _GNU_SOURCE
+#include <pthread.h>
+#endif
+
 
 namespace vnx {
 

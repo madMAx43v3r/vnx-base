@@ -18,11 +18,13 @@
 #include <vnx/Output.hpp>
 
 #include <cmath>
+#include <cstdio>
 #include <cstring>
 #include <sstream>
 #include <cstdlib>
-#include <unistd.h>
+
 #ifdef _WIN32
+#include <io.h>
 #include <winsock2.h>
 #else
 #include <sys/socket.h>
@@ -51,9 +53,9 @@ void FileOutputStream::write(const void* buf, size_t len) {
 }
 
 int64_t FileOutputStream::get_output_pos() const {
-	const int64_t pos = ::ftello(file);
+	const int64_t pos = vnx::ftell(file);
 	if(pos < 0) {
-		throw std::runtime_error("ftello() failed with: " + std::string(strerror(errno)));
+		throw std::runtime_error("ftell() failed with: " + std::string(strerror(errno)));
 	}
 	return pos;
 }

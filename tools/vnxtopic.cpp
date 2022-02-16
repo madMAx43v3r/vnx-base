@@ -20,7 +20,6 @@
 #include <vnx/ProcessClient.hxx>
 
 #include <algorithm>
-#include <unistd.h>
 #ifdef _WIN32
 #include <winsock2.h>
 #endif

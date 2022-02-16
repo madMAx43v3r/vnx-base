@@ -6,7 +6,7 @@ mkdir -p build
 
 cd build
 
-cmake -D CMAKE_CXX_FLAGS="-g -O3 -fmax-errors=1" ..
+cmake -D VNX_BUILD_TESTS=ON -D CMAKE_CXX_FLAGS="-g -O3 -fmax-errors=1" ..
 
 make -j$MAKE_NCPU $@
 

@@ -121,7 +121,7 @@ void RecordWriter::flush() {
 	write_index();		// re-write current index
 	write_header();		// re-write header
 	::fflush(file);
-	::fseeko(file, 0, SEEK_END);		// go back to the end
+	vnx::fseek(file, 0, SEEK_END);		// go back to the end
 }
 
 void RecordWriter::close() {
@@ -164,7 +164,7 @@ void RecordWriter::write_header() {
 
 	// write header
 	out.flush();	// make sure buffer is empty before seek
-	::fseeko(file, header_start_pos, SEEK_SET);
+	vnx::fseek(file, header_start_pos, SEEK_SET);
 	vnx::write(out, header);
 	
 	const auto actual_header_size = out.get_output_pos();
@@ -177,7 +177,7 @@ void RecordWriter::write_header() {
 
 void RecordWriter::write_index() {
 	out.flush();	// make sure buffer is empty before seek
-	::fseeko(file, curr_block_pos, SEEK_SET);
+	vnx::fseek(file, curr_block_pos, SEEK_SET);
 	vnx::write(out, curr_block);
 	out.flush();	// make sure we leave no data in buffer
 }
@@ -194,7 +194,7 @@ void RecordWriter::add_block() {
 	next_block->index.resize(header.block_size);	// fill it up with dummy data
 	
 	// write index for the new block to file
-	::fseeko(file, 0, SEEK_END);
+	vnx::fseek(file, 0, SEEK_END);
 	vnx::write(out, next_block);
 	out.flush();
 	

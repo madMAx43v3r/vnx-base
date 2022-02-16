@@ -25,6 +25,9 @@
 #include <vnx/TopicInfoList.hxx>
 #include <vnx/thread_priority_e.hxx>
 
+#include <csignal>
+#include <cstdlib>
+
 #ifdef _WIN32
 #include <winsock2.h>
 #include <windows.h>
@@ -33,10 +36,6 @@
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
 #endif
-#include <unistd.h>
-#include <csignal>
-#include <cstdlib>
-#include <set>
 
 
 namespace vnx {

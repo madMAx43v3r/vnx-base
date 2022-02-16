@@ -59,10 +59,10 @@ void Buffer::read_file(const std::string& file_path) {
 	::FILE* p_file = ::fopen(file_path.c_str(), "rb");
 	if(p_file) {
 		const auto offset = size();
-		::fseek(p_file, 0, SEEK_END);
-		const auto num_bytes = ::ftell(p_file);
+		vnx::fseek(p_file, 0, SEEK_END);
+		const auto num_bytes = vnx::ftell(p_file);
 		resize(offset + num_bytes);
-		::fseek(p_file, 0, SEEK_SET);
+		vnx::fseek(p_file, 0, SEEK_SET);
 		const auto num_read = ::fread(data(offset), 1, num_bytes, p_file);
 		resize(offset + num_read);
 		::fclose(p_file);

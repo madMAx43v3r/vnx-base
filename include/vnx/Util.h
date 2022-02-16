@@ -17,13 +17,56 @@
 #ifndef INCLUDE_VNX_UTIL_H_
 #define INCLUDE_VNX_UTIL_H_
 
+#include <cstdio>
 #include <cstdint>
 #include <string>
 #include <vector>
 #include <algorithm>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#ifndef _MSC_VER
+#include <unistd.h>
+#else
+void usleep(int64_t usec);
+#endif
+
 
 namespace vnx {
+
+#ifdef _MSC_VER
+typedef struct ::_stat64 stat;
+#else
+typedef struct ::stat stat;
+#endif
+
+inline int get_stat(const std::string& path, vnx::stat& info)
+{
+#ifdef _MSC_VER
+	return ::_stat64(path.c_str(), &info);
+#else
+	return ::stat(path.c_str(), &info);
+#endif
+}
+
+inline int64_t ftell(FILE* stream)
+{
+#ifdef _MSC_VER
+	return ::_ftelli64(stream);
+#else
+	return ::ftello(stream);
+#endif
+}
+
+inline int fseek(FILE* stream, int64_t offset, int whence)
+{
+#ifdef _MSC_VER
+	return ::_fseeki64(stream, offset, whence);
+#else
+	return ::fseek(stream, offset, whence);
+#endif
+}
 
 /// Substitudes any occurrence of \p from with \p to and returns the resulting string.
 std::string string_subs(std::string str, const std::string& from, const std::string& to);

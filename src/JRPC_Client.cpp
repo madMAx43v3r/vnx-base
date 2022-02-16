@@ -5,7 +5,7 @@
  *      Author: jaw
  */
 
-
+#include <vnx/vnx.h>
 #include <vnx/JRPC_Client.h>
 #include <vnx/JRPC_Request.hxx>
 #include <vnx/JRPC_Notification.hxx>
@@ -13,7 +13,6 @@
 #include <vnx/JRPC_Success.hxx>
 #include <vnx/JRPC_Failure.hxx>
 
-#include <unistd.h>
 #ifdef _WIN32
 #include <winsock2.h>
 #else

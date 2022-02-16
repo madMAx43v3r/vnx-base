@@ -28,7 +28,10 @@
 #include <vnx/FlowMessage.hxx>
 
 #include <algorithm>
+
+#ifdef _GNU_SOURCE
 #include <pthread.h>
+#endif
 
 
 namespace vnx {

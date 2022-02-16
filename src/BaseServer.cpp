@@ -8,7 +8,6 @@
 #include <vnx/vnx.h>
 #include <vnx/BaseServer.h>
 
-#include <unistd.h>
 #ifdef _WIN32
 #include <winsock2.h>
 #else

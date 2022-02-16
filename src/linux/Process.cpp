@@ -5,11 +5,10 @@
  *      Author: jaw
  */
 
-
+#include <vnx/vnx.h>
 #include <vnx/Process.h>
 #include <vnx/thread_priority_e.hxx>
-#include <iostream>
-#include <unistd.h>
+
 #include <sys/resource.h>
 
 

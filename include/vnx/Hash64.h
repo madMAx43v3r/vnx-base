@@ -74,7 +74,7 @@ inline bool Hash64::operator!=(const Hash64& other) const {
 }
 
 inline Hash64 Hash64::operator^(const Hash64& other) const {
-	return Hash64(value xor other.value);
+	return Hash64(value ^ other.value);
 }
 
 

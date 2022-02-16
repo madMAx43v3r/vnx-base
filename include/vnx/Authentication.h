@@ -21,7 +21,7 @@
 namespace std {
 	template<> struct hash<std::pair<vnx::Hash64, std::string>> {
 		size_t operator()(const std::pair<vnx::Hash64, std::string>& x) const {
-			return x.first xor std::hash<std::string>{}(x.second);
+			return x.first ^ std::hash<std::string>{}(x.second);
 		}
 	};
 } // std
