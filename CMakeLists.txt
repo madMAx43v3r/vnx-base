@@ -3,7 +3,6 @@ project(vnx)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 find_package(Threads REQUIRED)
@@ -124,8 +123,8 @@ if(MSVC)
 	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
 	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
 	
-	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS 1)
-	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS 1)
+	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS ON)
+	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 	
 	target_link_libraries(vnx_base wsock32)
 endif()
