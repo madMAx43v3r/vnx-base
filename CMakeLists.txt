@@ -138,7 +138,9 @@ if(VNX_BUILD_TESTS)
 	add_subdirectory(test)
 endif()
 
-add_subdirectory(tools)
+if(VNX_BUILD_TOOLS)
+	add_subdirectory(tools)
+endif()
 
 get_property(LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS)
 

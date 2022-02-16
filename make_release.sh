@@ -7,9 +7,9 @@ mkdir -p build
 cd build
 
 if [ `uname -o` == "Msys" ]; then
-	cmake -G "MSYS Makefiles" -D CMAKE_CXX_FLAGS="-O3 -fmax-errors=1" ..
+	cmake -G "MSYS Makefiles" -D VNX_BUILD_TOOLS=ON -D CMAKE_CXX_FLAGS="-O3 -fmax-errors=1" ..
 else
-	cmake -D CMAKE_CXX_FLAGS="-O3 -fmax-errors=1" ..
+	cmake -D VNX_BUILD_TOOLS=ON -D CMAKE_CXX_FLAGS="-O3 -fmax-errors=1" ..
 fi
 
 make -j$MAKE_NCPU $@
