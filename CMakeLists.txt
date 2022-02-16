@@ -6,7 +6,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_compile_options(-DNOGDI)
+add_compile_definitions(NOGDI NOMINMAX)
 
 find_package(Threads REQUIRED)
 
