@@ -23,8 +23,8 @@ public:
 	
 	typedef ::vnx::Message Super;
 	
-	static const vnx::Hash64 VNX_TYPE_HASH;
-	static const vnx::Hash64 VNX_CODE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0x496b887fb39119c2ull;
 	

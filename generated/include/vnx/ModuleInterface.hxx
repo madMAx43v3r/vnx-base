@@ -18,8 +18,8 @@ struct VNX_EXPORT ModuleInterface {
 	
 	
 	
-	static const vnx::Hash64 VNX_TYPE_HASH;
-	static const vnx::Hash64 VNX_CODE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0xe189eb244fe14948ull;
 	

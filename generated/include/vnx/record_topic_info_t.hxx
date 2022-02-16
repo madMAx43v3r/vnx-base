@@ -18,8 +18,8 @@ struct VNX_EXPORT record_topic_info_t {
 	int64_t num_samples = 0;
 	int64_t num_samples_lost = 0;
 	
-	static const vnx::Hash64 VNX_TYPE_HASH;
-	static const vnx::Hash64 VNX_CODE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0x39c9255966eebda0ull;
 	

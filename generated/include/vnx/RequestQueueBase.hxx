@@ -19,8 +19,8 @@ public:
 	
 	typedef ::vnx::Module Super;
 	
-	static const vnx::Hash64 VNX_TYPE_HASH;
-	static const vnx::Hash64 VNX_CODE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_TYPE_HASH;
+	VNX_EXPORT static const vnx::Hash64 VNX_CODE_HASH;
 	
 	static constexpr uint64_t VNX_TYPE_ID = 0x4d2d5c9256513d6eull;
 	
