@@ -25,37 +25,37 @@
 namespace vnx {
 
 /// Returns config value for key \p key, returns empty in case no such key.
-Variant get_config(const std::string& key, bool protect = false);
+VNX_EXPORT Variant get_config(const std::string& key, bool protect = false);
 
 /// Returns a config object for all sub-keys in the given namespace.
-Object get_config_object(const std::string& name_space, bool protect = false);
+VNX_EXPORT Object get_config_object(const std::string& name_space, bool protect = false);
 
 /// Returns a list of all config entries (a copy thereof)
-std::vector<std::pair<std::string, Variant>> get_all_configs(bool protect = false);
+VNX_EXPORT std::vector<std::pair<std::string, Variant>> get_all_configs(bool protect = false);
 
 /// Set config value (in-memory)
-void set_config(const std::string& key, const Variant& value, bool protect = false);
+VNX_EXPORT void set_config(const std::string& key, const Variant& value, bool protect = false);
 
 /// Set config value via JSON string (in-memory)
-void set_config(const std::string& key, const std::string& value, bool protect = false);
+VNX_EXPORT void set_config(const std::string& key, const std::string& value, bool protect = false);
 
 /// Read config file system tree starting at \p root_path
-void read_config_tree(const std::string& root_path);
+VNX_EXPORT void read_config_tree(const std::string& root_path);
 
 /// Reads a JSON config file (returns empty object if file does not exist)
-vnx::Object read_config_file(const std::string& file_path);
+VNX_EXPORT vnx::Object read_config_file(const std::string& file_path);
 
 /// Writes a JSON config file
-void write_config_file(const std::string& file_path, const vnx::Object& config);
+VNX_EXPORT void write_config_file(const std::string& file_path, const vnx::Object& config);
 
 /// Add protection for given config key and all sub-keys
-void protect_config(const std::string& key);
+VNX_EXPORT void protect_config(const std::string& key);
 
 /// Returns if config key is protected
-bool is_config_protected(const std::string& key);
+VNX_EXPORT bool is_config_protected(const std::string& key);
 
 /// Returns set of protected config keys
-std::set<std::string> get_config_protection();
+VNX_EXPORT std::set<std::string> get_config_protection();
 
 
 } // vnx

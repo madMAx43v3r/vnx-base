@@ -27,19 +27,19 @@
 namespace vnx {
 
 /// Adds a module to the global registry (used by vnx::Handle only)
-void add_module(std::shared_ptr<Module> module);
+VNX_EXPORT void add_module(std::shared_ptr<Module> module);
 
 /// Removes a module from the global registry (used by vnx::Handle only)
-void remove_module(std::shared_ptr<Module> module);
+VNX_EXPORT void remove_module(std::shared_ptr<Module> module);
 
 /// Returns the latest module handle found for given name.
-Handle<Module> get_module(const std::string& name);
+VNX_EXPORT Handle<Module> get_module(const std::string& name);
 
 /// Returns all module handles found for the given name.
-std::vector<Handle<Module>> get_modules(const std::string& name);
+VNX_EXPORT std::vector<Handle<Module>> get_modules(const std::string& name);
 
 /// Returns array of all modules.
-std::vector<Handle<Module>> get_all_modules();
+VNX_EXPORT std::vector<Handle<Module>> get_all_modules();
 
 
 /** \brief Module is the base class for all user Modules.

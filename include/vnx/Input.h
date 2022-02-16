@@ -26,26 +26,26 @@
 namespace vnx {
 
 /// Skips the next value in the stream
-void skip(TypeInput& in);
+VNX_EXPORT void skip(TypeInput& in);
 
 /// Skips the current value in the stream
-void skip(TypeInput& in, const TypeCode* type_code, const uint16_t* code);
+VNX_EXPORT void skip(TypeInput& in, const TypeCode* type_code, const uint16_t* code);
 
 /// Bulk byte copy from in to out (out can be null)
-void copy_bytes(TypeInput& in, TypeOutput* out, size_t num_bytes);
+VNX_EXPORT void copy_bytes(TypeInput& in, TypeOutput* out, size_t num_bytes);
 
 /// Copy next value from in to out (out can be null)
-void copy(TypeInput& in, TypeOutput* out);
+VNX_EXPORT void copy(TypeInput& in, TypeOutput* out);
 
 /// Copy rest of current value to out (out can be null)
-void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint16_t* code);
+VNX_EXPORT void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint16_t* code);
 
 /** \brief Reads dynamic code from the stream.
  * 
  * @param code Pointer to at least VNX_MAX_BYTE_CODE_SIZE uint16_t elements.
  * @return Size of the code read, in elements of uint16_t.
  */
-uint16_t read_byte_code(TypeInput& in, uint16_t* code);
+VNX_EXPORT uint16_t read_byte_code(TypeInput& in, uint16_t* code);
 
 /// Converts little-endian to big-endian and big-endian to little-endian.
 /// @{
