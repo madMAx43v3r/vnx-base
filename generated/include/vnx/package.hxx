@@ -10,6 +10,10 @@
 
 namespace vnx {
 
+#ifndef VNX_EXPORT
+#define VNX_EXPORT
+#endif
+
 VNX_EXPORT extern vnx::TopicPtr log_out;
 VNX_EXPORT extern vnx::TopicPtr module_info;
 VNX_EXPORT extern vnx::TopicPtr shutdown;
@@ -204,181 +208,181 @@ struct record_topic_info_t;
 struct terminal_event_e;
 struct thread_priority_e;
 
-extern const vnx::TypeCode* const vnx_native_type_code_BaseProxyBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_BaseServerBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Endpoint; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Exception; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_FlowMessage; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Frame; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_GatewayBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Generic; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_InternalError; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Error; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Failure; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Notification; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_ProxyBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Proxy_select_service; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Proxy_select_service_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Request; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Response; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_ServerBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Success; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_LogMsg; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Marker; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Message; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInfo; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_object; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_object_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_module_info; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_module_info_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_type_code; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_type_code_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_restart; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_restart_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_self_test; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_self_test_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_object; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_object_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_stop; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_stop_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_NoSuchMethod; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_NoSuchService; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_OverflowException; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_PermissionDenied; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_PlayerBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_get_info; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_get_info_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_pause; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_pause_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_play; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_play_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_count; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_count_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_time; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_time_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_position; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_position_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_time; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_time_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_set_speed; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_set_speed_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_stop; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_stop_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_toggle; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Player_toggle_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_PlayerStatus; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProcessBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_global_config; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_global_config_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_module_info; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_module_info_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_name; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_name_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_process_info; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_process_info_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_sync_time; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_sync_time_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_topic_info; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_get_topic_info_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_grep_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_grep_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_journal_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_journal_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_pause_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_pause_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_reload_config; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_reload_config_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_resume_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_resume_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_self_test_all; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_self_test_all_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_set_debug; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_set_debug_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_set_global_config; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_set_global_config_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_show_error_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_show_error_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_trigger_shutdown; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_trigger_shutdown_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_ungrep_log; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Process_ungrep_log_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProcessInfo; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_export; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_export_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_forward; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_forward_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_import; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_import_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_tunnel; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_tunnel_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_export; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_export_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_forward; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_forward_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_disconnect; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_disconnect_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_login; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_login_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_connect; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_connect_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_login; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_login_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_connect; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_connect_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_disconnect; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_disconnect_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RecordHeader; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RecordIndex; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RecordPointer; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RecorderBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RecorderStatus; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Request; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RequestQueueBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_clear; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_clear_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_RouterBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Sample; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_ServerBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Session; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_SpyToolBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TerminalBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_char; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_char_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_event; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_event_return; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TimeControl; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TimeServerBase; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TimeSync; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TopicInfo; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_TopicInfoList; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_Tuple; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_User; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_access_role_e; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_permission_e; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_record_index_entry_t; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_record_topic_info_t; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_terminal_event_e; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_thread_priority_e; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_BaseProxyBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_BaseServerBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Exception; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_FlowMessage; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Frame; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Generic; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_InternalError; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Error; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Failure; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Notification; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_ProxyBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Proxy_select_service; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Proxy_select_service_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Request; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Response; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_ServerBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Success; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_LogMsg; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Marker; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Message; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInfo; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_object; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_config_object_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_module_info; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_module_info_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_type_code; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_get_type_code_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_restart; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_restart_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_self_test; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_self_test_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_object; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_set_config_object_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_stop; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ModuleInterface_vnx_stop_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_NoSuchMethod; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_NoSuchService; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_OverflowException; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_PermissionDenied; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_PlayerBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_get_info; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_get_info_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_pause; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_pause_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_play; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_play_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_count; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_count_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_time; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_by_time_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_position; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_position_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_time; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_seek_to_time_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_set_speed; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_set_speed_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_stop; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_stop_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_toggle; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Player_toggle_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_PlayerStatus; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProcessBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_global_config; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_global_config_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_module_info; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_module_info_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_name; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_name_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_process_info; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_process_info_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_sync_time; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_sync_time_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_topic_info; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_get_topic_info_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_grep_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_grep_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_journal_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_journal_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_pause_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_pause_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_reload_config; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_reload_config_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_resume_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_resume_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_self_test_all; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_self_test_all_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_set_debug; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_set_debug_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_set_global_config; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_set_global_config_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_show_error_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_show_error_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_trigger_shutdown; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_trigger_shutdown_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_ungrep_log; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Process_ungrep_log_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProcessInfo; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_export; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_export_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_forward; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_forward_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_import; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_import_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_tunnel; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_disable_tunnel_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_export; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_export_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_forward; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_forward_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_disconnect; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_disconnect_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_login; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_login_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_connect; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_connect_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_login; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_remote_login_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_connect; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_connect_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_disconnect; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_wait_on_disconnect_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RecordHeader; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RecordIndex; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RecordPointer; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RecorderBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RecorderStatus; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Request; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueueBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_clear; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_clear_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RouterBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Sample; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ServerBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Session; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_SpyToolBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TerminalBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_char; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_char_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_event; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Terminal_read_event_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TimeControl; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TimeServerBase; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TimeSync; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TopicInfo; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TopicInfoList; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Tuple; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_User; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_access_role_e; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_permission_e; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_record_index_entry_t; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_record_topic_info_t; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_terminal_event_e; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_thread_priority_e; ///< \private
 
 } // namespace vnx
 

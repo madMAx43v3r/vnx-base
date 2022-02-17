@@ -12,12 +12,16 @@
 namespace vnx {
 namespace test {
 
+#ifndef VNX_TEST_EXPORT
+#define VNX_TEST_EXPORT
+#endif
+
 
 class TestValue;
 struct test_struct_t;
 
-extern const vnx::TypeCode* const vnx_native_type_code_TestValue; ///< \private
-extern const vnx::TypeCode* const vnx_native_type_code_test_struct_t; ///< \private
+VNX_TEST_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TestValue; ///< \private
+VNX_TEST_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_test_struct_t; ///< \private
 
 } // namespace vnx
 } // namespace test
