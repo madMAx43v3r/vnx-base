@@ -8,13 +8,17 @@
 
 #include <vnx/package.hxx>
 
-
-namespace vnx {
-namespace test {
-
+#ifdef VNX_TEST_EXPORT_ENABLE
+#include <vnx_test_export.h>
+#else
 #ifndef VNX_TEST_EXPORT
 #define VNX_TEST_EXPORT
 #endif
+#endif
+
+
+namespace vnx {
+namespace test {
 
 
 class TestValue;

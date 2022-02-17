@@ -7,12 +7,16 @@
 #include <vnx/Type.h>
 
 
-
-namespace vnx {
-
+#ifdef VNX_EXPORT_ENABLE
+#include <vnx_export.h>
+#else
 #ifndef VNX_EXPORT
 #define VNX_EXPORT
 #endif
+#endif
+
+
+namespace vnx {
 
 VNX_EXPORT extern vnx::TopicPtr log_out;
 VNX_EXPORT extern vnx::TopicPtr module_info;
