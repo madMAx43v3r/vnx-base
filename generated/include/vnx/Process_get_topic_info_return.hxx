@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Process_get_topic_info_return : public ::vnx::Value {
+class VNX_EXPORT Process_get_topic_info_return : public ::vnx::Value {
 public:
 	
 	std::vector<::vnx::TopicInfo> _ret_0;

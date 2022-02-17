@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class FlowMessage : public ::vnx::Message {
+class VNX_EXPORT FlowMessage : public ::vnx::Message {
 public:
 	static const uint16_t OPEN = 1;
 	static const uint16_t PING = 2;

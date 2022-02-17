@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_get_topic_info : public ::vnx::Value {
+class VNX_EXPORT Process_get_topic_info : public ::vnx::Value {
 public:
 	
 	vnx::bool_t include_domains = 0;

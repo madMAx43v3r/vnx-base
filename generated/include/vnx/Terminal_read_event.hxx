@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Terminal_read_event : public ::vnx::Value {
+class VNX_EXPORT Terminal_read_event : public ::vnx::Value {
 public:
 	
 	::vnx::terminal_event_e event;

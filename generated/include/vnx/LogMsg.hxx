@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class LogMsg : public ::vnx::Value {
+class VNX_EXPORT LogMsg : public ::vnx::Value {
 public:
 	static const int32_t ERROR = 1;
 	static const int32_t WARN = 2;

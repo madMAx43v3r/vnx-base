@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.10)
 project(vnx)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -pthread -Wall -Wsuggest-override")
-add_compile_options(-DNOGDI)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+find_package(Threads REQUIRED)
 
 find_program(CCACHE_FOUND ccache)
 if(CCACHE_FOUND)
@@ -99,16 +102,44 @@ add_library(vnx_base SHARED
 	src/RequestQueue.cpp
 )
 
+include(GenerateExportHeader)
+GENERATE_EXPORT_HEADER(vnx_base)
+
 target_include_directories(vnx_base
-	PUBLIC include generated/include
+	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-if(WIN32)
-	target_link_libraries(vnx_base -lws2_32)
+target_link_libraries(vnx_base Threads::Threads)
+
+target_compile_definitions(vnx_base PUBLIC NOGDI NOMINMAX)
+
+if(MSVC)
+	include(FetchContent)
+	FetchContent_Declare(dirent
+		GIT_REPOSITORY https://github.com/tronkko/dirent.git
+		GIT_TAG "a318cee5adaed3dec654773fd0a02723d844461c"
+	)
+	FetchContent_MakeAvailable(dirent)
+	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
+	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
+	
+	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS ON)
+	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	
+	target_link_libraries(vnx_base wsock32)
 endif()
 
-add_subdirectory(test)
-add_subdirectory(tools)
+if(WIN32)
+	target_link_libraries(vnx_base ws2_32)
+endif()
+
+if(VNX_BUILD_TESTS)
+	add_subdirectory(test)
+endif()
+
+if(VNX_BUILD_TOOLS)
+	add_subdirectory(tools)
+endif()
 
 get_property(LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS)
 
@@ -122,4 +153,6 @@ install(DIRECTORY include/vnx generated/include/vnx DESTINATION include)
 install(DIRECTORY interface/ modules/ DESTINATION interface/vnx)
 
 install(TARGETS vnx_base DESTINATION lib${LIBSUFFIX})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/vnx_base_export.h DESTINATION include)
 

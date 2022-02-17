@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_journal_log : public ::vnx::Value {
+class VNX_EXPORT Process_journal_log : public ::vnx::Value {
 public:
 	
 	std::string expr;

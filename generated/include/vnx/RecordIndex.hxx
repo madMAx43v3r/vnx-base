@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class RecordIndex : public ::vnx::Value {
+class VNX_EXPORT RecordIndex : public ::vnx::Value {
 public:
 	
 	int64_t prev_block = -1;

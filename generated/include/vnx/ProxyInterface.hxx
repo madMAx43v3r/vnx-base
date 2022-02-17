@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-struct ProxyInterface {
+struct VNX_EXPORT ProxyInterface {
 	
 	
 	

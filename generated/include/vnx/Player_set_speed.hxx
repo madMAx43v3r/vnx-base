@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_set_speed : public ::vnx::Value {
+class VNX_EXPORT Player_set_speed : public ::vnx::Value {
 public:
 	
 	vnx::float64_t speed = 0;

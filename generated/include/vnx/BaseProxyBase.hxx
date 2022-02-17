@@ -13,7 +13,7 @@
 
 namespace vnx {
 
-class BaseProxyBase : public ::vnx::Module {
+class VNX_EXPORT BaseProxyBase : public ::vnx::Module {
 public:
 	
 	std::string address;

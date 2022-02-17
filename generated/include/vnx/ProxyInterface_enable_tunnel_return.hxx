@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_enable_tunnel_return : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_enable_tunnel_return : public ::vnx::Value {
 public:
 	
 	

@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class RequestQueue_purge_return : public ::vnx::Value {
+class VNX_EXPORT RequestQueue_purge_return : public ::vnx::Value {
 public:
 	
 	

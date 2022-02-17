@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Process_set_global_config : public ::vnx::Value {
+class VNX_EXPORT Process_set_global_config : public ::vnx::Value {
 public:
 	
 	std::string key;

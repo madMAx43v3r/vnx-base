@@ -15,7 +15,7 @@
 namespace vnx {
 namespace test {
 
-class TestValue : public ::vnx::Value {
+class VNX_EXPORT TestValue : public ::vnx::Value {
 public:
 	
 	vnx::bool_t bool_ = true;

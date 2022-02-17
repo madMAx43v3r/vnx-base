@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_seek_to_position : public ::vnx::Value {
+class VNX_EXPORT Player_seek_to_position : public ::vnx::Value {
 public:
 	
 	vnx::float64_t position = 0;

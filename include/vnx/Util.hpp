@@ -8,9 +8,9 @@
 #ifndef INCLUDE_VNX_UTIL_HPP_
 #define INCLUDE_VNX_UTIL_HPP_
 
-#include <vnx/Generic.hxx>
-
+#include <vnx/Util.h>
 #include <vnx/Input.hpp>
+#include <vnx/Generic.hxx>
 
 #include <string>
 

@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Tuple : public ::vnx::Value {
+class VNX_EXPORT Tuple : public ::vnx::Value {
 public:
 	
 	std::vector<::vnx::Variant> fields;

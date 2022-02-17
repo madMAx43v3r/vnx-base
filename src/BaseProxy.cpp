@@ -26,7 +26,6 @@
 #include <vnx/SHA256.h>
 #include <vnx/Util.hpp>
 
-#include <unistd.h>
 #ifdef _WIN32
 #include <winsock2.h>
 #else

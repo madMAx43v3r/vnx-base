@@ -41,7 +41,7 @@ RecordReader::~RecordReader() {
 }
 
 void RecordReader::reset() {
-	::fseeko(file, 0, SEEK_SET);
+	vnx::fseek(file, 0, SEEK_SET);
 	is_end_of_file = false;
 	in.reset();
 	header = std::dynamic_pointer_cast<RecordHeader>(vnx::read(in));
@@ -57,7 +57,7 @@ void RecordReader::reset() {
 	std::sort(type_code_positions.begin(), type_code_positions.end(), std::less<uint64_t>());
 	for(uint64_t pos : type_code_positions) {
 		in.reset();
-		::fseeko(file, pos, SEEK_SET);
+		vnx::fseek(file, pos, SEEK_SET);
 		while(true) {
 			uint16_t code;
 			read(in, code);
@@ -142,7 +142,7 @@ int64_t RecordReader::get_time_micros() const {
 }
 
 int64_t RecordReader::get_input_pos() const {
-	return ::ftello(file) - in.get_num_avail();
+	return vnx::ftell(file) - in.get_num_avail();
 }
 
 std::shared_ptr<Sample> RecordReader::get_sample() const {
@@ -167,7 +167,7 @@ bool RecordReader::seek_next() {
 	index_pos++;
 	if(index_pos >= int32_t(curr_block->index.size())) {
 		if(curr_block->next_block >= 0) {
-			::fseeko(file, curr_block->next_block, SEEK_SET);
+			vnx::fseek(file, curr_block->next_block, SEEK_SET);
 			in.reset();
 			read_index();
 			// now we already point to the first sample of the next block
@@ -192,7 +192,7 @@ bool RecordReader::seek_prev() {
 	index_pos--;
 	if(index_pos < 0) {
 		if(curr_block->prev_block >= 0) {
-			::fseeko(file, curr_block->prev_block, SEEK_SET);	// go to the previous block
+			vnx::fseek(file, curr_block->prev_block, SEEK_SET);	// go to the previous block
 			in.reset();
 			read_index();
 			index_pos = curr_block->index.size() - 1;	// and to the last sample of the previous block
@@ -210,7 +210,7 @@ void RecordReader::fix_index_pos() {
 	if(curr_block->index.empty()) {
 		if(curr_block->prev_block >= 0) {
 			// in this special case where the last block is empty we go back to the second last block
-			::fseeko(file, curr_block->prev_block, SEEK_SET);
+			vnx::fseek(file, curr_block->prev_block, SEEK_SET);
 			in.reset();
 			read_index();
 			index_pos = curr_block->index.size() - 1;	// and to the last sample of that second last block
@@ -226,7 +226,7 @@ void RecordReader::fix_index_pos() {
 }
 
 void RecordReader::seek_and_read_sample() {
-	::fseeko(file, curr_block->index[index_pos].pos, SEEK_SET);
+	vnx::fseek(file, curr_block->index[index_pos].pos, SEEK_SET);
 	in.reset();
 	read_sample();
 }
@@ -241,10 +241,10 @@ void RecordReader::read_sample() {
 	if(value) {
 		if(auto pointer = std::dynamic_pointer_cast<RecordPointer>(value)) {
 			const auto prev = in.get_input_pos();
-			::fseeko(file, pointer->position, SEEK_SET);
+			vnx::fseek(file, pointer->position, SEEK_SET);
 			in.reset();
 			read_sample();
-			::fseeko(file, prev, SEEK_SET);
+			vnx::fseek(file, prev, SEEK_SET);
 			in.reset();
 		} else if(auto sample = std::dynamic_pointer_cast<Sample>(value)) {
 			curr_sample = sample;

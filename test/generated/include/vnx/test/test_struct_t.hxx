@@ -11,7 +11,7 @@
 namespace vnx {
 namespace test {
 
-struct test_struct_t {
+struct VNX_EXPORT test_struct_t {
 	
 	
 	vnx::bool_t bool_ = true;

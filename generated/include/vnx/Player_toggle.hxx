@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_toggle : public ::vnx::Value {
+class VNX_EXPORT Player_toggle : public ::vnx::Value {
 public:
 	
 	

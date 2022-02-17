@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class PlayerBase : public ::vnx::Module {
+class VNX_EXPORT PlayerBase : public ::vnx::Module {
 public:
 	
 	::vnx::TopicPtr output_status = "vnx.player_status";

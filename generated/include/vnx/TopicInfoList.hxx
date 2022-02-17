@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class TopicInfoList : public ::vnx::Value {
+class VNX_EXPORT TopicInfoList : public ::vnx::Value {
 public:
 	
 	int64_t time = 0;

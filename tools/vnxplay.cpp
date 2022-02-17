@@ -21,7 +21,6 @@
 #include <vnx/TcpEndpoint.hxx>
 #include <vnx/UnixEndpoint.hxx>
 
-#include <unistd.h>
 #include <thread>
 #ifdef _WIN32
 #include <windows.h>

@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ProxyInterface_on_remote_connect : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_on_remote_connect : public ::vnx::Value {
 public:
 	
 	::vnx::Hash64 process_id;

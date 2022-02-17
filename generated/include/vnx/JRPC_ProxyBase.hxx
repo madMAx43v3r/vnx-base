@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class JRPC_ProxyBase : public ::vnx::BaseProxy {
+class VNX_EXPORT JRPC_ProxyBase : public ::vnx::BaseProxy {
 public:
 	
 	

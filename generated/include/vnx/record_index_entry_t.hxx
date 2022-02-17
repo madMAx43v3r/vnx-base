@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-struct record_index_entry_t {
+struct VNX_EXPORT record_index_entry_t {
 	
 	
 	int64_t pos = -1;

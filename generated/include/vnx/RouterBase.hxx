@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class RouterBase : public ::vnx::Module {
+class VNX_EXPORT RouterBase : public ::vnx::Module {
 public:
 	
 	int32_t port = 4444;

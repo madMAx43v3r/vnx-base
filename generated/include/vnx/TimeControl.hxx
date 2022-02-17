@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class TimeControl : public ::vnx::Value {
+class VNX_EXPORT TimeControl : public ::vnx::Value {
 public:
 	
 	int64_t time = 0;

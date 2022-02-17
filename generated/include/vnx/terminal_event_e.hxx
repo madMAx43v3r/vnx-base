@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-struct terminal_event_e {
+struct VNX_EXPORT terminal_event_e {
 	
 	enum enum_t : uint32_t {
 		KEY_ARROWDOWN = 119472263l,

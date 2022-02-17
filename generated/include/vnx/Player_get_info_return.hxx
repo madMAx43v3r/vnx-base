@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Player_get_info_return : public ::vnx::Value {
+class VNX_EXPORT Player_get_info_return : public ::vnx::Value {
 public:
 	
 	::vnx::RecordHeader _ret_0;

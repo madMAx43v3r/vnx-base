@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class UnixEndpoint : public ::vnx::Endpoint {
+class VNX_EXPORT UnixEndpoint : public ::vnx::Endpoint {
 public:
 	
 	std::string domain_path;

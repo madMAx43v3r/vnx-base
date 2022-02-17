@@ -24,14 +24,14 @@
 #include <cstdlib>
 #include <cctype>
 #include <fstream>
-#include <unistd.h>
+
 #ifdef _WIN32
-#include <winsock2.h>
+#include <io.h>
 #include <windows.h>
+#include <winsock2.h>
 #else
 #include <sys/socket.h>
 #endif
-
 
 
 // Taken from https://stackoverflow.com/questions/42492843/using-readfile-in-c-code
@@ -60,7 +60,6 @@ ssize_t pread(int fd, void *buf, size_t count, uint64_t offset){
 #endif
 
 
-
 namespace vnx {
 
 size_t BasicInputStream::read(void* buf, size_t len) {
@@ -76,9 +75,9 @@ size_t FileInputStream::read(void* buf, size_t len) {
 }
 
 int64_t FileInputStream::get_input_pos() const {
-	const auto pos = ::ftello(file);
+	const auto pos = vnx::ftell(file);
 	if(pos < 0) {
-		throw std::runtime_error("ftello() failed with: " + std::string(strerror(errno)));
+		throw std::runtime_error("ftell() failed with: " + std::string(strerror(errno)));
 	}
 	return int64_t(pos);
 }

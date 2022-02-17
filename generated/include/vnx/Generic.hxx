@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Generic : public ::vnx::Value {
+class VNX_EXPORT Generic : public ::vnx::Value {
 public:
 	
 	::vnx::Variant data;

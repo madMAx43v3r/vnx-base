@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class JRPC_Request : public ::vnx::JRPC_Notification {
+class VNX_EXPORT JRPC_Request : public ::vnx::JRPC_Notification {
 public:
 	
 	::vnx::Variant id;

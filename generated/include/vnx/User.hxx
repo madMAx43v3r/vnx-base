@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class User : public ::vnx::Value {
+class VNX_EXPORT User : public ::vnx::Value {
 public:
 	
 	std::string name;

@@ -26,7 +26,7 @@ namespace vnx {
  * 
  * Used as a generic variable, field or parameter.
  */
-class Variant {
+class VNX_EXPORT Variant {
 public:
 	std::vector<uint8_t> data;		///< The serialized data
 	

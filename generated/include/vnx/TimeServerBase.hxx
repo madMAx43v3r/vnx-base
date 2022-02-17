@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class TimeServerBase : public ::vnx::Module {
+class VNX_EXPORT TimeServerBase : public ::vnx::Module {
 public:
 	
 	::vnx::Hash64 remote_tunnel;

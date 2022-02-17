@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_seek_to_time_return : public ::vnx::Value {
+class VNX_EXPORT Player_seek_to_time_return : public ::vnx::Value {
 public:
 	
 	

@@ -13,7 +13,7 @@
 
 namespace vnx {
 
-class Sample : public ::vnx::Message {
+class VNX_EXPORT Sample : public ::vnx::Message {
 public:
 	
 	::vnx::Hash64 src_mac;

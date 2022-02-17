@@ -12,7 +12,7 @@
 
 namespace vnx {
 
-class Request : public ::vnx::Message {
+class VNX_EXPORT Request : public ::vnx::Message {
 public:
 	
 	::vnx::Hash64 src_mac;

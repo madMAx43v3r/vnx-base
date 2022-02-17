@@ -23,7 +23,7 @@
 namespace vnx {
 
 
-class Server : public ServerBase {
+class VNX_EXPORT Server : public ServerBase {
 public:
 	/// Create a Server listening on \p endpoint_, or if null, on \b address
 	Server(const std::string& name_, std::shared_ptr<const Endpoint> endpoint_ = 0);

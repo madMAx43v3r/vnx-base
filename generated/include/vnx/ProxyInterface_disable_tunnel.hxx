@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ProxyInterface_disable_tunnel : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_disable_tunnel : public ::vnx::Value {
 public:
 	
 	::vnx::Hash64 tunnel_addr;

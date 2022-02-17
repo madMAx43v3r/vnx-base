@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_set_debug : public ::vnx::Value {
+class VNX_EXPORT Process_set_debug : public ::vnx::Value {
 public:
 	
 	int32_t level = 0;

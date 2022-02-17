@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_on_disconnect : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_on_disconnect : public ::vnx::Value {
 public:
 	
 	

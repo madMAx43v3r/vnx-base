@@ -10,12 +10,12 @@
 
 namespace vnx {
 
-extern vnx::TopicPtr log_out;
-extern vnx::TopicPtr module_info;
-extern vnx::TopicPtr shutdown;
-extern vnx::TopicPtr time_control;
-extern vnx::TopicPtr time_sync;
-extern vnx::TopicPtr topic_info;
+VNX_EXPORT extern vnx::TopicPtr log_out;
+VNX_EXPORT extern vnx::TopicPtr module_info;
+VNX_EXPORT extern vnx::TopicPtr shutdown;
+VNX_EXPORT extern vnx::TopicPtr time_control;
+VNX_EXPORT extern vnx::TopicPtr time_sync;
+VNX_EXPORT extern vnx::TopicPtr topic_info;
 
 class BaseProxyBase;
 class BaseServerBase;

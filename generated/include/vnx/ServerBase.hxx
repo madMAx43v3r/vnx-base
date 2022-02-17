@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ServerBase : public ::vnx::BaseServer {
+class VNX_EXPORT ServerBase : public ::vnx::BaseServer {
 public:
 	
 	

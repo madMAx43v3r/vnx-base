@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ProxyInterface_on_remote_login_return : public ::vnx::Value {
+class VNX_EXPORT ProxyInterface_on_remote_login_return : public ::vnx::Value {
 public:
 	
 	

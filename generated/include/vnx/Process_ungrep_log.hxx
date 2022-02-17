@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_ungrep_log : public ::vnx::Value {
+class VNX_EXPORT Process_ungrep_log : public ::vnx::Value {
 public:
 	
 	

@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class JRPC_Response : public ::vnx::Value {
+class VNX_EXPORT JRPC_Response : public ::vnx::Value {
 public:
 	
 	std::string jsonrpc;

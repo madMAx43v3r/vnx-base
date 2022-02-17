@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class BaseServerBase : public ::vnx::Module {
+class VNX_EXPORT BaseServerBase : public ::vnx::Module {
 public:
 	
 	std::string address;

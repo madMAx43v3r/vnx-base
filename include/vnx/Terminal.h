@@ -29,6 +29,7 @@ typedef unsigned long DWORD;
 struct termios;
 #endif
 
+
 namespace vnx {
 
 /** \brief Module that provides an interactive terminal. 
@@ -45,7 +46,7 @@ namespace vnx {
  * - \b dump [expr] Dumps samples for matching topics, or all topics in case no \p expr. Same as vnxdump.
  * 
  */
-class Terminal : public TerminalBase {
+class VNX_EXPORT Terminal : public TerminalBase {
 public:
 	Terminal(const std::string& vnx_name_ = "Terminal");
 	

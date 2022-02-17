@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ModuleInterface_vnx_self_test : public ::vnx::Value {
+class VNX_EXPORT ModuleInterface_vnx_self_test : public ::vnx::Value {
 public:
 	
 	

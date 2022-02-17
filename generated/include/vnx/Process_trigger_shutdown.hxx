@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_trigger_shutdown : public ::vnx::Value {
+class VNX_EXPORT Process_trigger_shutdown : public ::vnx::Value {
 public:
 	
 	

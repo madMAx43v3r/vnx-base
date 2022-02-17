@@ -24,7 +24,7 @@
 namespace vnx {
 
 
-class Proxy : public ProxyBase {
+class VNX_EXPORT Proxy : public ProxyBase {
 public:
 	/** \brief Create new Proxy instance.
 	 * 

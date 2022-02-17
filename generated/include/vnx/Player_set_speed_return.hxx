@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_set_speed_return : public ::vnx::Value {
+class VNX_EXPORT Player_set_speed_return : public ::vnx::Value {
 public:
 	
 	

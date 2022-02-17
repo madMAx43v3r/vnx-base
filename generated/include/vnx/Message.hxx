@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Message : public ::vnx::Value {
+class VNX_EXPORT Message : public ::vnx::Value {
 public:
 	static const uint16_t BLOCKING = 1;
 	static const uint16_t REPLAY = 2;

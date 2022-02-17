@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Endpoint : public ::vnx::Value {
+class VNX_EXPORT Endpoint : public ::vnx::Value {
 public:
 	
 	int32_t send_buffer_size = 0;

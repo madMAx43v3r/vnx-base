@@ -17,7 +17,7 @@
 
 namespace vnx {
 
-class ProcessBase : public ::vnx::Module {
+class VNX_EXPORT ProcessBase : public ::vnx::Module {
 public:
 	
 	int32_t log_file_level = 2;

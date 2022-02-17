@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class GatewayBase : public ::vnx::Module {
+class VNX_EXPORT GatewayBase : public ::vnx::Module {
 public:
 	
 	int32_t max_queue_ms = 100;

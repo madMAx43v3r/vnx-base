@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Player_pause : public ::vnx::Value {
+class VNX_EXPORT Player_pause : public ::vnx::Value {
 public:
 	
 	

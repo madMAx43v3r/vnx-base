@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class Process_get_sync_time_return : public ::vnx::Value {
+class VNX_EXPORT Process_get_sync_time_return : public ::vnx::Value {
 public:
 	
 	::vnx::TimeSync _ret_0;

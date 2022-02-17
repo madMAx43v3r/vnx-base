@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-class ModuleInterface_vnx_get_config_object_return : public ::vnx::Value {
+class VNX_EXPORT ModuleInterface_vnx_get_config_object_return : public ::vnx::Value {
 public:
 	
 	::vnx::Object _ret_0;

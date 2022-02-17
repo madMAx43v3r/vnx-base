@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-struct permission_e {
+struct VNX_EXPORT permission_e {
 	
 	enum enum_t : uint32_t {
 		CONST_REQUEST = 1076482563l,

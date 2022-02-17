@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class Process_reload_config_return : public ::vnx::Value {
+class VNX_EXPORT Process_reload_config_return : public ::vnx::Value {
 public:
 	
 	

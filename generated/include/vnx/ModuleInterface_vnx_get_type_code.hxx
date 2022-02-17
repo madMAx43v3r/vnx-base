@@ -10,7 +10,7 @@
 
 namespace vnx {
 
-class ModuleInterface_vnx_get_type_code : public ::vnx::Value {
+class VNX_EXPORT ModuleInterface_vnx_get_type_code : public ::vnx::Value {
 public:
 	
 	
