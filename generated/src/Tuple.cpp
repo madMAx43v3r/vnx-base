@@ -3,6 +3,12 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Tuple.hxx>
+#include <vnx/Tuple_get_field_by_index.hxx>
+#include <vnx/Tuple_get_field_by_index_return.hxx>
+#include <vnx/Tuple_get_num_fields.hxx>
+#include <vnx/Tuple_get_num_fields_return.hxx>
+#include <vnx/Tuple_set_field_by_index.hxx>
+#include <vnx/Tuple_set_field_by_index_return.hxx>
 #include <vnx/Value.h>
 #include <vnx/Variant.hpp>
 
@@ -119,6 +125,10 @@ std::shared_ptr<vnx::TypeCode> Tuple::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::Tuple);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Tuple>(); };
+	type_code->methods.resize(3);
+	type_code->methods[0] = ::vnx::Tuple_get_field_by_index::static_get_type_code();
+	type_code->methods[1] = ::vnx::Tuple_get_num_fields::static_get_type_code();
+	type_code->methods[2] = ::vnx::Tuple_set_field_by_index::static_get_type_code();
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];
@@ -128,6 +138,30 @@ std::shared_ptr<vnx::TypeCode> Tuple::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> Tuple::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+		case 0x7007d1d0f7743cb6ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Tuple_get_field_by_index>(_method);
+			auto _return_value = ::vnx::Tuple_get_field_by_index_return::create();
+			_return_value->_ret_0 = get_field_by_index(_args->index);
+			return _return_value;
+		}
+		case 0x966cae32f50133ccull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Tuple_get_num_fields>(_method);
+			auto _return_value = ::vnx::Tuple_get_num_fields_return::create();
+			_return_value->_ret_0 = get_num_fields();
+			return _return_value;
+		}
+		case 0xedec14ecbe6e993full: {
+			auto _args = std::static_pointer_cast<const ::vnx::Tuple_set_field_by_index>(_method);
+			auto _return_value = ::vnx::Tuple_set_field_by_index_return::create();
+			set_field_by_index(_args->index, _args->value);
+			return _return_value;
+		}
+	}
+	return nullptr;
 }
 
 

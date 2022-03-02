@@ -17,6 +17,14 @@ public:
 	
 	TerminalClient(vnx::Hash64 service_addr);
 	
+	void read_char(const int8_t& c = 0);
+	
+	void read_char_async(const int8_t& c = 0);
+	
+	void read_event(const ::vnx::terminal_event_e& event = ::vnx::terminal_event_e());
+	
+	void read_event_async(const ::vnx::terminal_event_e& event = ::vnx::terminal_event_e());
+	
 	::vnx::Object vnx_get_config_object();
 	
 	::vnx::Variant vnx_get_config(const std::string& name = "");
@@ -42,14 +50,6 @@ public:
 	void vnx_stop_async();
 	
 	vnx::bool_t vnx_self_test();
-	
-	void read_char(const int8_t& c = 0);
-	
-	void read_char_async(const int8_t& c = 0);
-	
-	void read_event(const ::vnx::terminal_event_e& event = ::vnx::terminal_event_e());
-	
-	void read_event_async(const ::vnx::terminal_event_e& event = ::vnx::terminal_event_e());
 	
 };
 

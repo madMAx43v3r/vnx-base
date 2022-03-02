@@ -371,32 +371,32 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::BaseProxyBase::static_get_type_code();
 	type_code->methods.resize(26);
-	type_code->methods[0] = ::vnx::ProxyInterface_login::static_get_type_code();
-	type_code->methods[1] = ::vnx::ProxyInterface_enable_import::static_get_type_code();
-	type_code->methods[2] = ::vnx::ProxyInterface_disable_import::static_get_type_code();
-	type_code->methods[3] = ::vnx::ProxyInterface_enable_export::static_get_type_code();
-	type_code->methods[4] = ::vnx::ProxyInterface_disable_export::static_get_type_code();
-	type_code->methods[5] = ::vnx::ProxyInterface_enable_forward::static_get_type_code();
-	type_code->methods[6] = ::vnx::ProxyInterface_disable_forward::static_get_type_code();
-	type_code->methods[7] = ::vnx::ProxyInterface_enable_tunnel::static_get_type_code();
-	type_code->methods[8] = ::vnx::ProxyInterface_disable_tunnel::static_get_type_code();
-	type_code->methods[9] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
-	type_code->methods[10] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
-	type_code->methods[11] = ::vnx::ProxyInterface_on_connect::static_get_type_code();
-	type_code->methods[12] = ::vnx::ProxyInterface_on_disconnect::static_get_type_code();
-	type_code->methods[13] = ::vnx::ProxyInterface_on_remote_connect::static_get_type_code();
-	type_code->methods[14] = ::vnx::ProxyInterface_on_login::static_get_type_code();
-	type_code->methods[15] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
-	type_code->methods[16] = ::vnx::ModuleInterface_vnx_get_config_object::static_get_type_code();
-	type_code->methods[17] = ::vnx::ModuleInterface_vnx_get_config::static_get_type_code();
-	type_code->methods[18] = ::vnx::ModuleInterface_vnx_set_config_object::static_get_type_code();
-	type_code->methods[19] = ::vnx::ModuleInterface_vnx_set_config::static_get_type_code();
-	type_code->methods[20] = ::vnx::ModuleInterface_vnx_get_type_code::static_get_type_code();
-	type_code->methods[21] = ::vnx::ModuleInterface_vnx_get_module_info::static_get_type_code();
-	type_code->methods[22] = ::vnx::ModuleInterface_vnx_restart::static_get_type_code();
-	type_code->methods[23] = ::vnx::ModuleInterface_vnx_stop::static_get_type_code();
-	type_code->methods[24] = ::vnx::ModuleInterface_vnx_self_test::static_get_type_code();
-	type_code->methods[25] = ::vnx::JRPC_Proxy_select_service::static_get_type_code();
+	type_code->methods[0] = ::vnx::JRPC_Proxy_select_service::static_get_type_code();
+	type_code->methods[1] = ::vnx::ModuleInterface_vnx_get_config::static_get_type_code();
+	type_code->methods[2] = ::vnx::ModuleInterface_vnx_get_config_object::static_get_type_code();
+	type_code->methods[3] = ::vnx::ModuleInterface_vnx_get_module_info::static_get_type_code();
+	type_code->methods[4] = ::vnx::ModuleInterface_vnx_get_type_code::static_get_type_code();
+	type_code->methods[5] = ::vnx::ModuleInterface_vnx_restart::static_get_type_code();
+	type_code->methods[6] = ::vnx::ModuleInterface_vnx_self_test::static_get_type_code();
+	type_code->methods[7] = ::vnx::ModuleInterface_vnx_set_config::static_get_type_code();
+	type_code->methods[8] = ::vnx::ModuleInterface_vnx_set_config_object::static_get_type_code();
+	type_code->methods[9] = ::vnx::ModuleInterface_vnx_stop::static_get_type_code();
+	type_code->methods[10] = ::vnx::ProxyInterface_disable_export::static_get_type_code();
+	type_code->methods[11] = ::vnx::ProxyInterface_disable_forward::static_get_type_code();
+	type_code->methods[12] = ::vnx::ProxyInterface_disable_import::static_get_type_code();
+	type_code->methods[13] = ::vnx::ProxyInterface_disable_tunnel::static_get_type_code();
+	type_code->methods[14] = ::vnx::ProxyInterface_enable_export::static_get_type_code();
+	type_code->methods[15] = ::vnx::ProxyInterface_enable_forward::static_get_type_code();
+	type_code->methods[16] = ::vnx::ProxyInterface_enable_import::static_get_type_code();
+	type_code->methods[17] = ::vnx::ProxyInterface_enable_tunnel::static_get_type_code();
+	type_code->methods[18] = ::vnx::ProxyInterface_login::static_get_type_code();
+	type_code->methods[19] = ::vnx::ProxyInterface_on_connect::static_get_type_code();
+	type_code->methods[20] = ::vnx::ProxyInterface_on_disconnect::static_get_type_code();
+	type_code->methods[21] = ::vnx::ProxyInterface_on_login::static_get_type_code();
+	type_code->methods[22] = ::vnx::ProxyInterface_on_remote_connect::static_get_type_code();
+	type_code->methods[23] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
+	type_code->methods[24] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
+	type_code->methods[25] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
 	type_code->fields.resize(22);
 	{
 		auto& field = type_code->fields[0];
@@ -559,27 +559,64 @@ void JRPC_ProxyBase::vnx_handle_switch(std::shared_ptr<const vnx::Value> _value)
 
 std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) {
 	switch(_method->get_type_hash()) {
-		case 0xe1cd627631f1b2f1ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_login>(_method);
-			login_async(_args->name, _args->password, _request_id);
-			return nullptr;
-		}
-		case 0x93be2aa2e0c3400dull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_import>(_method);
-			auto _return_value = ::vnx::ProxyInterface_enable_import_return::create();
-			enable_import(_args->topic_name);
+		case 0x46f370b62d703bf3ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Proxy_select_service>(_method);
+			auto _return_value = ::vnx::JRPC_Proxy_select_service_return::create();
+			select_service(_args->service_name);
 			return _return_value;
 		}
-		case 0xa465d5b138bd53eull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_disable_import>(_method);
-			auto _return_value = ::vnx::ProxyInterface_disable_import_return::create();
-			disable_import(_args->topic_name);
+		case 0xbbc7f1a01044d294ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_return::create();
+			_return_value->_ret_0 = vnx_get_config(_args->name);
 			return _return_value;
 		}
-		case 0xbca6b569c4b73ff7ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_export>(_method);
-			auto _return_value = ::vnx::ProxyInterface_enable_export_return::create();
-			enable_export(_args->topic_name);
+		case 0x17f58f68bf83abc0ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config_object>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_object_return::create();
+			_return_value->_ret_0 = vnx_get_config_object();
+			return _return_value;
+		}
+		case 0xf6d82bdf66d034a1ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_module_info>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_module_info_return::create();
+			_return_value->_ret_0 = vnx_get_module_info();
+			return _return_value;
+		}
+		case 0x305ec4d628960e5dull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_type_code>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_type_code_return::create();
+			_return_value->_ret_0 = vnx_get_type_code();
+			return _return_value;
+		}
+		case 0x9e95dc280cecca1bull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_restart>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_restart_return::create();
+			vnx_restart();
+			return _return_value;
+		}
+		case 0x6ce3775b41a42697ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_self_test>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_self_test_return::create();
+			_return_value->_ret_0 = vnx_self_test();
+			return _return_value;
+		}
+		case 0x362aac91373958b7ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_return::create();
+			vnx_set_config(_args->name, _args->value);
+			return _return_value;
+		}
+		case 0xca30f814f17f322full: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config_object>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_object_return::create();
+			vnx_set_config_object(_args->config);
+			return _return_value;
+		}
+		case 0x7ab49ce3d1bfc0d2ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_stop>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_stop_return::create();
+			vnx_stop();
 			return _return_value;
 		}
 		case 0x255ec29037ffaac4ull: {
@@ -588,22 +625,16 @@ std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<cons
 			disable_export(_args->topic_name);
 			return _return_value;
 		}
-		case 0x89b695187455be9bull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_forward>(_method);
-			auto _return_value = ::vnx::ProxyInterface_enable_forward_return::create();
-			enable_forward(_args->service_name, _args->max_queue_ms, _args->max_queue_size);
-			return _return_value;
-		}
 		case 0x4829f4ced514a3e1ull: {
 			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_disable_forward>(_method);
 			auto _return_value = ::vnx::ProxyInterface_disable_forward_return::create();
 			disable_forward(_args->service_name);
 			return _return_value;
 		}
-		case 0x205fdc566e482078ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_tunnel>(_method);
-			auto _return_value = ::vnx::ProxyInterface_enable_tunnel_return::create();
-			enable_tunnel(_args->tunnel_addr, _args->max_queue_ms, _args->max_queue_size);
+		case 0xa465d5b138bd53eull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_disable_import>(_method);
+			auto _return_value = ::vnx::ProxyInterface_disable_import_return::create();
+			disable_import(_args->topic_name);
 			return _return_value;
 		}
 		case 0xb9a7abaf9d00b54bull: {
@@ -612,14 +643,33 @@ std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<cons
 			disable_tunnel(_args->tunnel_addr);
 			return _return_value;
 		}
-		case 0x21e57eee5d93712eull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_wait_on_connect>(_method);
-			wait_on_connect_async(_request_id);
-			return nullptr;
+		case 0xbca6b569c4b73ff7ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_export>(_method);
+			auto _return_value = ::vnx::ProxyInterface_enable_export_return::create();
+			enable_export(_args->topic_name);
+			return _return_value;
 		}
-		case 0xa313fafa981a7560ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_wait_on_disconnect>(_method);
-			wait_on_disconnect_async(_request_id);
+		case 0x89b695187455be9bull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_forward>(_method);
+			auto _return_value = ::vnx::ProxyInterface_enable_forward_return::create();
+			enable_forward(_args->service_name, _args->max_queue_ms, _args->max_queue_size);
+			return _return_value;
+		}
+		case 0x93be2aa2e0c3400dull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_import>(_method);
+			auto _return_value = ::vnx::ProxyInterface_enable_import_return::create();
+			enable_import(_args->topic_name);
+			return _return_value;
+		}
+		case 0x205fdc566e482078ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_tunnel>(_method);
+			auto _return_value = ::vnx::ProxyInterface_enable_tunnel_return::create();
+			enable_tunnel(_args->tunnel_addr, _args->max_queue_ms, _args->max_queue_size);
+			return _return_value;
+		}
+		case 0xe1cd627631f1b2f1ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_login>(_method);
+			login_async(_args->name, _args->password, _request_id);
 			return nullptr;
 		}
 		case 0x62d6b28adfabac18ull: {
@@ -634,16 +684,16 @@ std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<cons
 			on_disconnect();
 			return _return_value;
 		}
-		case 0x58d0fc825fa3d477ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_on_remote_connect>(_method);
-			auto _return_value = ::vnx::ProxyInterface_on_remote_connect_return::create();
-			on_remote_connect(_args->process_id);
-			return _return_value;
-		}
 		case 0x5df07f9c3a42bf5aull: {
 			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_on_login>(_method);
 			auto _return_value = ::vnx::ProxyInterface_on_login_return::create();
 			on_login(_args->name, _args->password);
+			return _return_value;
+		}
+		case 0x58d0fc825fa3d477ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_on_remote_connect>(_method);
+			auto _return_value = ::vnx::ProxyInterface_on_remote_connect_return::create();
+			on_remote_connect(_args->process_id);
 			return _return_value;
 		}
 		case 0xfdef02ccd8b73be4ull: {
@@ -652,65 +702,15 @@ std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<cons
 			on_remote_login(_args->remote_session);
 			return _return_value;
 		}
-		case 0x17f58f68bf83abc0ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config_object>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_object_return::create();
-			_return_value->_ret_0 = vnx_get_config_object();
-			return _return_value;
+		case 0x21e57eee5d93712eull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_wait_on_connect>(_method);
+			wait_on_connect_async(_request_id);
+			return nullptr;
 		}
-		case 0xbbc7f1a01044d294ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_return::create();
-			_return_value->_ret_0 = vnx_get_config(_args->name);
-			return _return_value;
-		}
-		case 0xca30f814f17f322full: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config_object>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_object_return::create();
-			vnx_set_config_object(_args->config);
-			return _return_value;
-		}
-		case 0x362aac91373958b7ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_return::create();
-			vnx_set_config(_args->name, _args->value);
-			return _return_value;
-		}
-		case 0x305ec4d628960e5dull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_type_code>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_type_code_return::create();
-			_return_value->_ret_0 = vnx_get_type_code();
-			return _return_value;
-		}
-		case 0xf6d82bdf66d034a1ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_module_info>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_module_info_return::create();
-			_return_value->_ret_0 = vnx_get_module_info();
-			return _return_value;
-		}
-		case 0x9e95dc280cecca1bull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_restart>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_restart_return::create();
-			vnx_restart();
-			return _return_value;
-		}
-		case 0x7ab49ce3d1bfc0d2ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_stop>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_stop_return::create();
-			vnx_stop();
-			return _return_value;
-		}
-		case 0x6ce3775b41a42697ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_self_test>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_self_test_return::create();
-			_return_value->_ret_0 = vnx_self_test();
-			return _return_value;
-		}
-		case 0x46f370b62d703bf3ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Proxy_select_service>(_method);
-			auto _return_value = ::vnx::JRPC_Proxy_select_service_return::create();
-			select_service(_args->service_name);
-			return _return_value;
+		case 0xa313fafa981a7560ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_wait_on_disconnect>(_method);
+			wait_on_disconnect_async(_request_id);
+			return nullptr;
 		}
 	}
 	auto _ex = vnx::NoSuchMethod::create();

@@ -73,6 +73,18 @@ JRPC_ProxyClient::JRPC_ProxyClient(vnx::Hash64 service_addr)
 {
 }
 
+void JRPC_ProxyClient::select_service(const std::string& service_name) {
+	auto _method = ::vnx::JRPC_Proxy_select_service::create();
+	_method->service_name = service_name;
+	vnx_request(_method, false);
+}
+
+void JRPC_ProxyClient::select_service_async(const std::string& service_name) {
+	auto _method = ::vnx::JRPC_Proxy_select_service::create();
+	_method->service_name = service_name;
+	vnx_request(_method, true);
+}
+
 std::shared_ptr<const ::vnx::Session> JRPC_ProxyClient::login(const std::string& name, const std::string& password) {
 	auto _method = ::vnx::ProxyInterface_login::create();
 	_method->name = name;
@@ -378,18 +390,6 @@ vnx::bool_t JRPC_ProxyClient::vnx_self_test() {
 	} else {
 		throw std::logic_error("JRPC_ProxyClient: invalid return value");
 	}
-}
-
-void JRPC_ProxyClient::select_service(const std::string& service_name) {
-	auto _method = ::vnx::JRPC_Proxy_select_service::create();
-	_method->service_name = service_name;
-	vnx_request(_method, false);
-}
-
-void JRPC_ProxyClient::select_service_async(const std::string& service_name) {
-	auto _method = ::vnx::JRPC_Proxy_select_service::create();
-	_method->service_name = service_name;
-	vnx_request(_method, true);
 }
 
 

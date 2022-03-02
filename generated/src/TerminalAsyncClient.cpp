@@ -44,12 +44,38 @@ TerminalAsyncClient::TerminalAsyncClient(vnx::Hash64 service_addr)
 {
 }
 
+uint64_t TerminalAsyncClient::read_char(const int8_t& c, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
+	auto _method = ::vnx::Terminal_read_char::create();
+	_method->c = c;
+	const auto _request_id = ++vnx_next_id;
+	{
+		std::lock_guard<std::mutex> _lock(vnx_mutex);
+		vnx_pending[_request_id] = 0;
+		vnx_queue_read_char[_request_id] = std::make_pair(_callback, _error_callback);
+	}
+	vnx_request(_method, _request_id);
+	return _request_id;
+}
+
+uint64_t TerminalAsyncClient::read_event(const ::vnx::terminal_event_e& event, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
+	auto _method = ::vnx::Terminal_read_event::create();
+	_method->event = event;
+	const auto _request_id = ++vnx_next_id;
+	{
+		std::lock_guard<std::mutex> _lock(vnx_mutex);
+		vnx_pending[_request_id] = 1;
+		vnx_queue_read_event[_request_id] = std::make_pair(_callback, _error_callback);
+	}
+	vnx_request(_method, _request_id);
+	return _request_id;
+}
+
 uint64_t TerminalAsyncClient::vnx_get_config_object(const std::function<void(const ::vnx::Object&)>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
 	auto _method = ::vnx::ModuleInterface_vnx_get_config_object::create();
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 0;
+		vnx_pending[_request_id] = 2;
 		vnx_queue_vnx_get_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -62,7 +88,7 @@ uint64_t TerminalAsyncClient::vnx_get_config(const std::string& name, const std:
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 1;
+		vnx_pending[_request_id] = 3;
 		vnx_queue_vnx_get_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -75,7 +101,7 @@ uint64_t TerminalAsyncClient::vnx_set_config_object(const ::vnx::Object& config,
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 2;
+		vnx_pending[_request_id] = 4;
 		vnx_queue_vnx_set_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -89,7 +115,7 @@ uint64_t TerminalAsyncClient::vnx_set_config(const std::string& name, const ::vn
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 3;
+		vnx_pending[_request_id] = 5;
 		vnx_queue_vnx_set_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -101,7 +127,7 @@ uint64_t TerminalAsyncClient::vnx_get_type_code(const std::function<void(const :
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 4;
+		vnx_pending[_request_id] = 6;
 		vnx_queue_vnx_get_type_code[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -113,7 +139,7 @@ uint64_t TerminalAsyncClient::vnx_get_module_info(const std::function<void(std::
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 5;
+		vnx_pending[_request_id] = 7;
 		vnx_queue_vnx_get_module_info[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -125,7 +151,7 @@ uint64_t TerminalAsyncClient::vnx_restart(const std::function<void()>& _callback
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 6;
+		vnx_pending[_request_id] = 8;
 		vnx_queue_vnx_restart[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -137,7 +163,7 @@ uint64_t TerminalAsyncClient::vnx_stop(const std::function<void()>& _callback, c
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 7;
+		vnx_pending[_request_id] = 9;
 		vnx_queue_vnx_stop[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -149,34 +175,8 @@ uint64_t TerminalAsyncClient::vnx_self_test(const std::function<void(const vnx::
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 8;
-		vnx_queue_vnx_self_test[_request_id] = std::make_pair(_callback, _error_callback);
-	}
-	vnx_request(_method, _request_id);
-	return _request_id;
-}
-
-uint64_t TerminalAsyncClient::read_char(const int8_t& c, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
-	auto _method = ::vnx::Terminal_read_char::create();
-	_method->c = c;
-	const auto _request_id = ++vnx_next_id;
-	{
-		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 9;
-		vnx_queue_read_char[_request_id] = std::make_pair(_callback, _error_callback);
-	}
-	vnx_request(_method, _request_id);
-	return _request_id;
-}
-
-uint64_t TerminalAsyncClient::read_event(const ::vnx::terminal_event_e& event, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
-	auto _method = ::vnx::Terminal_read_event::create();
-	_method->event = event;
-	const auto _request_id = ++vnx_next_id;
-	{
-		std::lock_guard<std::mutex> _lock(vnx_mutex);
 		vnx_pending[_request_id] = 10;
-		vnx_queue_read_event[_request_id] = std::make_pair(_callback, _error_callback);
+		vnx_queue_vnx_self_test[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
 	return _request_id;
@@ -192,114 +192,6 @@ int32_t TerminalAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx::
 	vnx_pending.erase(_iter);
 	switch(_index) {
 		case 0: {
-			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
-			if(_iter != vnx_queue_vnx_get_config_object.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_get_config_object.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 1: {
-			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
-			if(_iter != vnx_queue_vnx_get_config.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_get_config.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 2: {
-			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
-			if(_iter != vnx_queue_vnx_set_config_object.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_set_config_object.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 3: {
-			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
-			if(_iter != vnx_queue_vnx_set_config.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_set_config.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 4: {
-			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
-			if(_iter != vnx_queue_vnx_get_type_code.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_get_type_code.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 5: {
-			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
-			if(_iter != vnx_queue_vnx_get_module_info.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_get_module_info.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 6: {
-			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
-			if(_iter != vnx_queue_vnx_restart.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_restart.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 7: {
-			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
-			if(_iter != vnx_queue_vnx_stop.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_stop.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 8: {
-			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
-			if(_iter != vnx_queue_vnx_self_test.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_vnx_self_test.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 9: {
 			const auto _iter = vnx_queue_read_char.find(_request_id);
 			if(_iter != vnx_queue_read_char.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -311,11 +203,119 @@ int32_t TerminalAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx::
 			}
 			break;
 		}
-		case 10: {
+		case 1: {
 			const auto _iter = vnx_queue_read_event.find(_request_id);
 			if(_iter != vnx_queue_read_event.end()) {
 				const auto _callback = std::move(_iter->second.second);
 				vnx_queue_read_event.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 2: {
+			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
+			if(_iter != vnx_queue_vnx_get_config_object.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_get_config_object.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 3: {
+			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
+			if(_iter != vnx_queue_vnx_get_config.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_get_config.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 4: {
+			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
+			if(_iter != vnx_queue_vnx_set_config_object.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_set_config_object.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 5: {
+			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
+			if(_iter != vnx_queue_vnx_set_config.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_set_config.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 6: {
+			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
+			if(_iter != vnx_queue_vnx_get_type_code.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_get_type_code.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 7: {
+			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
+			if(_iter != vnx_queue_vnx_get_module_info.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_get_module_info.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 8: {
+			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
+			if(_iter != vnx_queue_vnx_restart.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_restart.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 9: {
+			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
+			if(_iter != vnx_queue_vnx_stop.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_stop.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 10: {
+			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
+			if(_iter != vnx_queue_vnx_self_test.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_vnx_self_test.erase(_iter);
 				_lock.unlock();
 				if(_callback) {
 					_callback(_ex);
@@ -337,6 +337,32 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 	vnx_pending.erase(_iter);
 	switch(_index) {
 		case 0: {
+			const auto _iter = vnx_queue_read_char.find(_request_id);
+			if(_iter == vnx_queue_read_char.end()) {
+				throw std::runtime_error("TerminalAsyncClient: callback not found");
+			}
+			const auto _callback = std::move(_iter->second.first);
+			vnx_queue_read_char.erase(_iter);
+			_lock.unlock();
+			if(_callback) {
+				_callback();
+			}
+			break;
+		}
+		case 1: {
+			const auto _iter = vnx_queue_read_event.find(_request_id);
+			if(_iter == vnx_queue_read_event.end()) {
+				throw std::runtime_error("TerminalAsyncClient: callback not found");
+			}
+			const auto _callback = std::move(_iter->second.first);
+			vnx_queue_read_event.erase(_iter);
+			_lock.unlock();
+			if(_callback) {
+				_callback();
+			}
+			break;
+		}
+		case 2: {
 			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config_object.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -355,7 +381,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 1: {
+		case 3: {
 			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -374,7 +400,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 2: {
+		case 4: {
 			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config_object.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -387,7 +413,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 3: {
+		case 5: {
 			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -400,7 +426,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 4: {
+		case 6: {
 			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_type_code.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -419,7 +445,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 5: {
+		case 7: {
 			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_module_info.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -438,7 +464,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 6: {
+		case 8: {
 			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
 			if(_iter == vnx_queue_vnx_restart.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -451,7 +477,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 7: {
+		case 9: {
 			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
 			if(_iter == vnx_queue_vnx_stop.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -464,7 +490,7 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 			}
 			break;
 		}
-		case 8: {
+		case 10: {
 			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
 			if(_iter == vnx_queue_vnx_self_test.end()) {
 				throw std::runtime_error("TerminalAsyncClient: callback not found");
@@ -480,32 +506,6 @@ int32_t TerminalAsyncClient::vnx_callback_switch(uint64_t _request_id, std::shar
 				} else {
 					throw std::logic_error("TerminalAsyncClient: invalid return value");
 				}
-			}
-			break;
-		}
-		case 9: {
-			const auto _iter = vnx_queue_read_char.find(_request_id);
-			if(_iter == vnx_queue_read_char.end()) {
-				throw std::runtime_error("TerminalAsyncClient: callback not found");
-			}
-			const auto _callback = std::move(_iter->second.first);
-			vnx_queue_read_char.erase(_iter);
-			_lock.unlock();
-			if(_callback) {
-				_callback();
-			}
-			break;
-		}
-		case 10: {
-			const auto _iter = vnx_queue_read_event.find(_request_id);
-			if(_iter == vnx_queue_read_event.end()) {
-				throw std::runtime_error("TerminalAsyncClient: callback not found");
-			}
-			const auto _callback = std::move(_iter->second.first);
-			vnx_queue_read_event.erase(_iter);
-			_lock.unlock();
-			if(_callback) {
-				_callback();
 			}
 			break;
 		}

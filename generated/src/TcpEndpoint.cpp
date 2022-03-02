@@ -4,6 +4,36 @@
 #include <vnx/package.hxx>
 #include <vnx/TcpEndpoint.hxx>
 #include <vnx/Endpoint.hxx>
+#include <vnx/Endpoint_accept.hxx>
+#include <vnx/Endpoint_accept_return.hxx>
+#include <vnx/Endpoint_bind.hxx>
+#include <vnx/Endpoint_bind_return.hxx>
+#include <vnx/Endpoint_connect.hxx>
+#include <vnx/Endpoint_connect_return.hxx>
+#include <vnx/Endpoint_listen.hxx>
+#include <vnx/Endpoint_listen_return.hxx>
+#include <vnx/Endpoint_open.hxx>
+#include <vnx/Endpoint_open_return.hxx>
+#include <vnx/Endpoint_to_url.hxx>
+#include <vnx/Endpoint_to_url_return.hxx>
+#include <vnx/TcpEndpoint_accept.hxx>
+#include <vnx/TcpEndpoint_accept_return.hxx>
+#include <vnx/TcpEndpoint_bind.hxx>
+#include <vnx/TcpEndpoint_bind_return.hxx>
+#include <vnx/TcpEndpoint_close.hxx>
+#include <vnx/TcpEndpoint_close_return.hxx>
+#include <vnx/TcpEndpoint_connect.hxx>
+#include <vnx/TcpEndpoint_connect_return.hxx>
+#include <vnx/TcpEndpoint_create_ex_return.hxx>
+#include <vnx/TcpEndpoint_from_url_return.hxx>
+#include <vnx/TcpEndpoint_listen.hxx>
+#include <vnx/TcpEndpoint_listen_return.hxx>
+#include <vnx/TcpEndpoint_open.hxx>
+#include <vnx/TcpEndpoint_open_return.hxx>
+#include <vnx/TcpEndpoint_set_options.hxx>
+#include <vnx/TcpEndpoint_set_options_return.hxx>
+#include <vnx/TcpEndpoint_to_url.hxx>
+#include <vnx/TcpEndpoint_to_url_return.hxx>
 
 #include <vnx/vnx.h>
 
@@ -201,6 +231,21 @@ std::shared_ptr<vnx::TypeCode> TcpEndpoint::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::Endpoint::static_get_type_code();
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TcpEndpoint>(); };
+	type_code->methods.resize(14);
+	type_code->methods[0] = ::vnx::Endpoint_accept::static_get_type_code();
+	type_code->methods[1] = ::vnx::Endpoint_bind::static_get_type_code();
+	type_code->methods[2] = ::vnx::Endpoint_connect::static_get_type_code();
+	type_code->methods[3] = ::vnx::Endpoint_listen::static_get_type_code();
+	type_code->methods[4] = ::vnx::Endpoint_open::static_get_type_code();
+	type_code->methods[5] = ::vnx::Endpoint_to_url::static_get_type_code();
+	type_code->methods[6] = ::vnx::TcpEndpoint_accept::static_get_type_code();
+	type_code->methods[7] = ::vnx::TcpEndpoint_bind::static_get_type_code();
+	type_code->methods[8] = ::vnx::TcpEndpoint_close::static_get_type_code();
+	type_code->methods[9] = ::vnx::TcpEndpoint_connect::static_get_type_code();
+	type_code->methods[10] = ::vnx::TcpEndpoint_listen::static_get_type_code();
+	type_code->methods[11] = ::vnx::TcpEndpoint_open::static_get_type_code();
+	type_code->methods[12] = ::vnx::TcpEndpoint_set_options::static_get_type_code();
+	type_code->methods[13] = ::vnx::TcpEndpoint_to_url::static_get_type_code();
 	type_code->fields.resize(9);
 	{
 		auto& field = type_code->fields[0];
@@ -265,6 +310,96 @@ std::shared_ptr<vnx::TypeCode> TcpEndpoint::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> TcpEndpoint::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+		case 0x6b14b11386336a88ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_accept>(_method);
+			auto _return_value = ::vnx::Endpoint_accept_return::create();
+			_return_value->_ret_0 = accept(_args->socket);
+			return _return_value;
+		}
+		case 0xf4cb30bb0b382bc3ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_bind>(_method);
+			auto _return_value = ::vnx::Endpoint_bind_return::create();
+			bind(_args->socket);
+			return _return_value;
+		}
+		case 0xeb6f6f23b9cc504cull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_connect>(_method);
+			auto _return_value = ::vnx::Endpoint_connect_return::create();
+			connect(_args->socket);
+			return _return_value;
+		}
+		case 0xb4ce343ca89d6718ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_listen>(_method);
+			auto _return_value = ::vnx::Endpoint_listen_return::create();
+			listen(_args->socket);
+			return _return_value;
+		}
+		case 0x1f54c9a1e8f45beeull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_open>(_method);
+			auto _return_value = ::vnx::Endpoint_open_return::create();
+			_return_value->_ret_0 = open();
+			return _return_value;
+		}
+		case 0x4362b4ad51f861f5ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_to_url>(_method);
+			auto _return_value = ::vnx::Endpoint_to_url_return::create();
+			_return_value->_ret_0 = to_url();
+			return _return_value;
+		}
+		case 0xd6bfe7141a5482a7ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_accept>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_accept_return::create();
+			_return_value->_ret_0 = accept(_args->socket);
+			return _return_value;
+		}
+		case 0x60904a6a0073dd35ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_bind>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_bind_return::create();
+			bind(_args->socket);
+			return _return_value;
+		}
+		case 0x139036cfaab0583dull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_close>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_close_return::create();
+			close(_args->socket);
+			return _return_value;
+		}
+		case 0xdb3eb861b740e657ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_connect>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_connect_return::create();
+			connect(_args->socket);
+			return _return_value;
+		}
+		case 0x965623b34fa8f37ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_listen>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_listen_return::create();
+			listen(_args->socket);
+			return _return_value;
+		}
+		case 0x8b0fb370e3bfad18ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_open>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_open_return::create();
+			_return_value->_ret_0 = open();
+			return _return_value;
+		}
+		case 0x8458afe05a08ddffull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_set_options>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_set_options_return::create();
+			set_options(_args->socket);
+			return _return_value;
+		}
+		case 0xfec9e2aacd9f89daull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_to_url>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_to_url_return::create();
+			_return_value->_ret_0 = to_url();
+			return _return_value;
+		}
+	}
+	return nullptr;
 }
 
 

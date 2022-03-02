@@ -3,6 +3,7 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Generic.hxx>
+#include <vnx/Generic_from_data_return.hxx>
 #include <vnx/Value.h>
 #include <vnx/Variant.hpp>
 
@@ -128,6 +129,12 @@ std::shared_ptr<vnx::TypeCode> Generic::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> Generic::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+	}
+	return nullptr;
 }
 
 

@@ -17,6 +17,10 @@ public:
 	
 	GatewayClient(vnx::Hash64 service_addr);
 	
+	void forward(std::shared_ptr<const ::vnx::Request> request = nullptr);
+	
+	void forward_async(std::shared_ptr<const ::vnx::Request> request = nullptr);
+	
 	::vnx::Object vnx_get_config_object();
 	
 	::vnx::Variant vnx_get_config(const std::string& name = "");
@@ -42,10 +46,6 @@ public:
 	void vnx_stop_async();
 	
 	vnx::bool_t vnx_self_test();
-	
-	void forward(std::shared_ptr<const ::vnx::Request> request = nullptr);
-	
-	void forward_async(std::shared_ptr<const ::vnx::Request> request = nullptr);
 	
 };
 

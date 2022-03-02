@@ -44,6 +44,30 @@ TerminalClient::TerminalClient(vnx::Hash64 service_addr)
 {
 }
 
+void TerminalClient::read_char(const int8_t& c) {
+	auto _method = ::vnx::Terminal_read_char::create();
+	_method->c = c;
+	vnx_request(_method, false);
+}
+
+void TerminalClient::read_char_async(const int8_t& c) {
+	auto _method = ::vnx::Terminal_read_char::create();
+	_method->c = c;
+	vnx_request(_method, true);
+}
+
+void TerminalClient::read_event(const ::vnx::terminal_event_e& event) {
+	auto _method = ::vnx::Terminal_read_event::create();
+	_method->event = event;
+	vnx_request(_method, false);
+}
+
+void TerminalClient::read_event_async(const ::vnx::terminal_event_e& event) {
+	auto _method = ::vnx::Terminal_read_event::create();
+	_method->event = event;
+	vnx_request(_method, true);
+}
+
 ::vnx::Object TerminalClient::vnx_get_config_object() {
 	auto _method = ::vnx::ModuleInterface_vnx_get_config_object::create();
 	auto _return_value = vnx_request(_method, false);
@@ -149,30 +173,6 @@ vnx::bool_t TerminalClient::vnx_self_test() {
 	} else {
 		throw std::logic_error("TerminalClient: invalid return value");
 	}
-}
-
-void TerminalClient::read_char(const int8_t& c) {
-	auto _method = ::vnx::Terminal_read_char::create();
-	_method->c = c;
-	vnx_request(_method, false);
-}
-
-void TerminalClient::read_char_async(const int8_t& c) {
-	auto _method = ::vnx::Terminal_read_char::create();
-	_method->c = c;
-	vnx_request(_method, true);
-}
-
-void TerminalClient::read_event(const ::vnx::terminal_event_e& event) {
-	auto _method = ::vnx::Terminal_read_event::create();
-	_method->event = event;
-	vnx_request(_method, false);
-}
-
-void TerminalClient::read_event_async(const ::vnx::terminal_event_e& event) {
-	auto _method = ::vnx::Terminal_read_event::create();
-	_method->event = event;
-	vnx_request(_method, true);
 }
 
 

@@ -4,6 +4,12 @@
 #include <vnx/package.hxx>
 #include <vnx/JRPC_Request.hxx>
 #include <vnx/JRPC_Notification.hxx>
+#include <vnx/JRPC_Request_is_notification.hxx>
+#include <vnx/JRPC_Request_is_notification_return.hxx>
+#include <vnx/JRPC_Request_is_request.hxx>
+#include <vnx/JRPC_Request_is_request_return.hxx>
+#include <vnx/JRPC_Request_is_request_object.hxx>
+#include <vnx/JRPC_Request_is_request_object_return.hxx>
 #include <vnx/Variant.hpp>
 
 #include <vnx/vnx.h>
@@ -151,6 +157,10 @@ std::shared_ptr<vnx::TypeCode> JRPC_Request::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::JRPC_Notification::static_get_type_code();
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<JRPC_Request>(); };
+	type_code->methods.resize(3);
+	type_code->methods[0] = ::vnx::JRPC_Request_is_notification::static_get_type_code();
+	type_code->methods[1] = ::vnx::JRPC_Request_is_request::static_get_type_code();
+	type_code->methods[2] = ::vnx::JRPC_Request_is_request_object::static_get_type_code();
 	type_code->fields.resize(4);
 	{
 		auto& field = type_code->fields[0];
@@ -178,6 +188,30 @@ std::shared_ptr<vnx::TypeCode> JRPC_Request::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> JRPC_Request::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+		case 0xf9eb2d8015b3c619ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Request_is_notification>(_method);
+			auto _return_value = ::vnx::JRPC_Request_is_notification_return::create();
+			_return_value->_ret_0 = is_notification();
+			return _return_value;
+		}
+		case 0x62fe799ef5f20eb0ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Request_is_request>(_method);
+			auto _return_value = ::vnx::JRPC_Request_is_request_return::create();
+			_return_value->_ret_0 = is_request();
+			return _return_value;
+		}
+		case 0x50fda27cdef051cfull: {
+			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Request_is_request_object>(_method);
+			auto _return_value = ::vnx::JRPC_Request_is_request_object_return::create();
+			_return_value->_ret_0 = is_request_object();
+			return _return_value;
+		}
+	}
+	return nullptr;
 }
 
 

@@ -255,32 +255,32 @@ std::shared_ptr<vnx::TypeCode> ProcessBase::static_create_type_code() {
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::ProcessBase);
 	type_code->methods.resize(26);
-	type_code->methods[0] = ::vnx::ModuleInterface_vnx_get_config_object::static_get_type_code();
-	type_code->methods[1] = ::vnx::ModuleInterface_vnx_get_config::static_get_type_code();
-	type_code->methods[2] = ::vnx::ModuleInterface_vnx_set_config_object::static_get_type_code();
-	type_code->methods[3] = ::vnx::ModuleInterface_vnx_set_config::static_get_type_code();
-	type_code->methods[4] = ::vnx::ModuleInterface_vnx_get_type_code::static_get_type_code();
-	type_code->methods[5] = ::vnx::ModuleInterface_vnx_get_module_info::static_get_type_code();
-	type_code->methods[6] = ::vnx::ModuleInterface_vnx_restart::static_get_type_code();
-	type_code->methods[7] = ::vnx::ModuleInterface_vnx_stop::static_get_type_code();
-	type_code->methods[8] = ::vnx::ModuleInterface_vnx_self_test::static_get_type_code();
-	type_code->methods[9] = ::vnx::Process_get_name::static_get_type_code();
-	type_code->methods[10] = ::vnx::Process_get_sync_time::static_get_type_code();
-	type_code->methods[11] = ::vnx::Process_get_topic_info::static_get_type_code();
-	type_code->methods[12] = ::vnx::Process_get_module_info::static_get_type_code();
-	type_code->methods[13] = ::vnx::Process_get_process_info::static_get_type_code();
-	type_code->methods[14] = ::vnx::Process_get_global_config::static_get_type_code();
-	type_code->methods[15] = ::vnx::Process_set_global_config::static_get_type_code();
-	type_code->methods[16] = ::vnx::Process_reload_config::static_get_type_code();
+	type_code->methods[0] = ::vnx::ModuleInterface_vnx_get_config::static_get_type_code();
+	type_code->methods[1] = ::vnx::ModuleInterface_vnx_get_config_object::static_get_type_code();
+	type_code->methods[2] = ::vnx::ModuleInterface_vnx_get_module_info::static_get_type_code();
+	type_code->methods[3] = ::vnx::ModuleInterface_vnx_get_type_code::static_get_type_code();
+	type_code->methods[4] = ::vnx::ModuleInterface_vnx_restart::static_get_type_code();
+	type_code->methods[5] = ::vnx::ModuleInterface_vnx_self_test::static_get_type_code();
+	type_code->methods[6] = ::vnx::ModuleInterface_vnx_set_config::static_get_type_code();
+	type_code->methods[7] = ::vnx::ModuleInterface_vnx_set_config_object::static_get_type_code();
+	type_code->methods[8] = ::vnx::ModuleInterface_vnx_stop::static_get_type_code();
+	type_code->methods[9] = ::vnx::Process_get_global_config::static_get_type_code();
+	type_code->methods[10] = ::vnx::Process_get_module_info::static_get_type_code();
+	type_code->methods[11] = ::vnx::Process_get_name::static_get_type_code();
+	type_code->methods[12] = ::vnx::Process_get_process_info::static_get_type_code();
+	type_code->methods[13] = ::vnx::Process_get_sync_time::static_get_type_code();
+	type_code->methods[14] = ::vnx::Process_get_topic_info::static_get_type_code();
+	type_code->methods[15] = ::vnx::Process_grep_log::static_get_type_code();
+	type_code->methods[16] = ::vnx::Process_journal_log::static_get_type_code();
 	type_code->methods[17] = ::vnx::Process_pause_log::static_get_type_code();
-	type_code->methods[18] = ::vnx::Process_resume_log::static_get_type_code();
-	type_code->methods[19] = ::vnx::Process_set_debug::static_get_type_code();
-	type_code->methods[20] = ::vnx::Process_show_error_log::static_get_type_code();
-	type_code->methods[21] = ::vnx::Process_grep_log::static_get_type_code();
-	type_code->methods[22] = ::vnx::Process_journal_log::static_get_type_code();
-	type_code->methods[23] = ::vnx::Process_ungrep_log::static_get_type_code();
+	type_code->methods[18] = ::vnx::Process_reload_config::static_get_type_code();
+	type_code->methods[19] = ::vnx::Process_resume_log::static_get_type_code();
+	type_code->methods[20] = ::vnx::Process_self_test_all::static_get_type_code();
+	type_code->methods[21] = ::vnx::Process_set_debug::static_get_type_code();
+	type_code->methods[22] = ::vnx::Process_set_global_config::static_get_type_code();
+	type_code->methods[23] = ::vnx::Process_show_error_log::static_get_type_code();
 	type_code->methods[24] = ::vnx::Process_trigger_shutdown::static_get_type_code();
-	type_code->methods[25] = ::vnx::Process_self_test_all::static_get_type_code();
+	type_code->methods[25] = ::vnx::Process_ungrep_log::static_get_type_code();
 	type_code->fields.resize(9);
 	{
 		auto& field = type_code->fields[0];
@@ -372,34 +372,16 @@ void ProcessBase::vnx_handle_switch(std::shared_ptr<const vnx::Value> _value) {
 
 std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const vnx::Value> _method, const vnx::request_id_t& _request_id) {
 	switch(_method->get_type_hash()) {
-		case 0x17f58f68bf83abc0ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config_object>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_object_return::create();
-			_return_value->_ret_0 = vnx_get_config_object();
-			return _return_value;
-		}
 		case 0xbbc7f1a01044d294ull: {
 			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config>(_method);
 			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_return::create();
 			_return_value->_ret_0 = vnx_get_config(_args->name);
 			return _return_value;
 		}
-		case 0xca30f814f17f322full: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config_object>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_object_return::create();
-			vnx_set_config_object(_args->config);
-			return _return_value;
-		}
-		case 0x362aac91373958b7ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_return::create();
-			vnx_set_config(_args->name, _args->value);
-			return _return_value;
-		}
-		case 0x305ec4d628960e5dull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_type_code>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_get_type_code_return::create();
-			_return_value->_ret_0 = vnx_get_type_code();
+		case 0x17f58f68bf83abc0ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_config_object>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_config_object_return::create();
+			_return_value->_ret_0 = vnx_get_config_object();
 			return _return_value;
 		}
 		case 0xf6d82bdf66d034a1ull: {
@@ -408,16 +390,16 @@ std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const v
 			_return_value->_ret_0 = vnx_get_module_info();
 			return _return_value;
 		}
+		case 0x305ec4d628960e5dull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_get_type_code>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_get_type_code_return::create();
+			_return_value->_ret_0 = vnx_get_type_code();
+			return _return_value;
+		}
 		case 0x9e95dc280cecca1bull: {
 			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_restart>(_method);
 			auto _return_value = ::vnx::ModuleInterface_vnx_restart_return::create();
 			vnx_restart();
-			return _return_value;
-		}
-		case 0x7ab49ce3d1bfc0d2ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_stop>(_method);
-			auto _return_value = ::vnx::ModuleInterface_vnx_stop_return::create();
-			vnx_stop();
 			return _return_value;
 		}
 		case 0x6ce3775b41a42697ull: {
@@ -426,10 +408,46 @@ std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const v
 			_return_value->_ret_0 = vnx_self_test();
 			return _return_value;
 		}
+		case 0x362aac91373958b7ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_return::create();
+			vnx_set_config(_args->name, _args->value);
+			return _return_value;
+		}
+		case 0xca30f814f17f322full: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_set_config_object>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_set_config_object_return::create();
+			vnx_set_config_object(_args->config);
+			return _return_value;
+		}
+		case 0x7ab49ce3d1bfc0d2ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInterface_vnx_stop>(_method);
+			auto _return_value = ::vnx::ModuleInterface_vnx_stop_return::create();
+			vnx_stop();
+			return _return_value;
+		}
+		case 0x45f9dbed550b37d9ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_get_global_config>(_method);
+			auto _return_value = ::vnx::Process_get_global_config_return::create();
+			_return_value->_ret_0 = get_global_config(_args->key);
+			return _return_value;
+		}
+		case 0x61e2fd6d8b7d628ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_get_module_info>(_method);
+			auto _return_value = ::vnx::Process_get_module_info_return::create();
+			_return_value->_ret_0 = get_module_info();
+			return _return_value;
+		}
 		case 0xcc81c6fa292b2300ull: {
 			auto _args = std::static_pointer_cast<const ::vnx::Process_get_name>(_method);
 			auto _return_value = ::vnx::Process_get_name_return::create();
 			_return_value->_ret_0 = get_name();
+			return _return_value;
+		}
+		case 0x4df5fe4349df342eull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_get_process_info>(_method);
+			auto _return_value = ::vnx::Process_get_process_info_return::create();
+			_return_value->_ret_0 = get_process_info();
 			return _return_value;
 		}
 		case 0x52100ddd83201e5cull: {
@@ -444,60 +462,6 @@ std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const v
 			_return_value->_ret_0 = get_topic_info(_args->include_domains);
 			return _return_value;
 		}
-		case 0x61e2fd6d8b7d628ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_get_module_info>(_method);
-			auto _return_value = ::vnx::Process_get_module_info_return::create();
-			_return_value->_ret_0 = get_module_info();
-			return _return_value;
-		}
-		case 0x4df5fe4349df342eull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_get_process_info>(_method);
-			auto _return_value = ::vnx::Process_get_process_info_return::create();
-			_return_value->_ret_0 = get_process_info();
-			return _return_value;
-		}
-		case 0x45f9dbed550b37d9ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_get_global_config>(_method);
-			auto _return_value = ::vnx::Process_get_global_config_return::create();
-			_return_value->_ret_0 = get_global_config(_args->key);
-			return _return_value;
-		}
-		case 0x983cac911bf7ae36ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_set_global_config>(_method);
-			auto _return_value = ::vnx::Process_set_global_config_return::create();
-			set_global_config(_args->key, _args->value);
-			return _return_value;
-		}
-		case 0x434937c5c6f96de7ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_reload_config>(_method);
-			auto _return_value = ::vnx::Process_reload_config_return::create();
-			reload_config();
-			return _return_value;
-		}
-		case 0xab840945a4069720ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_pause_log>(_method);
-			auto _return_value = ::vnx::Process_pause_log_return::create();
-			pause_log();
-			return _return_value;
-		}
-		case 0x47a431cdd5ea3171ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_resume_log>(_method);
-			auto _return_value = ::vnx::Process_resume_log_return::create();
-			resume_log();
-			return _return_value;
-		}
-		case 0xdc4916fdbd8d5616ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_set_debug>(_method);
-			auto _return_value = ::vnx::Process_set_debug_return::create();
-			set_debug(_args->level);
-			return _return_value;
-		}
-		case 0xd569d9ff26cc2b95ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_show_error_log>(_method);
-			auto _return_value = ::vnx::Process_show_error_log_return::create();
-			show_error_log();
-			return _return_value;
-		}
 		case 0x2cbc4a5cebf11808ull: {
 			auto _args = std::static_pointer_cast<const ::vnx::Process_grep_log>(_method);
 			auto _return_value = ::vnx::Process_grep_log_return::create();
@@ -510,10 +474,45 @@ std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const v
 			journal_log(_args->expr);
 			return _return_value;
 		}
-		case 0xf34b9052419eb6caull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_ungrep_log>(_method);
-			auto _return_value = ::vnx::Process_ungrep_log_return::create();
-			ungrep_log();
+		case 0xab840945a4069720ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_pause_log>(_method);
+			auto _return_value = ::vnx::Process_pause_log_return::create();
+			pause_log();
+			return _return_value;
+		}
+		case 0x434937c5c6f96de7ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_reload_config>(_method);
+			auto _return_value = ::vnx::Process_reload_config_return::create();
+			reload_config();
+			return _return_value;
+		}
+		case 0x47a431cdd5ea3171ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_resume_log>(_method);
+			auto _return_value = ::vnx::Process_resume_log_return::create();
+			resume_log();
+			return _return_value;
+		}
+		case 0x757d61aa2ac74f7bull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_self_test_all>(_method);
+			self_test_all_async(_request_id);
+			return nullptr;
+		}
+		case 0xdc4916fdbd8d5616ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_set_debug>(_method);
+			auto _return_value = ::vnx::Process_set_debug_return::create();
+			set_debug(_args->level);
+			return _return_value;
+		}
+		case 0x983cac911bf7ae36ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_set_global_config>(_method);
+			auto _return_value = ::vnx::Process_set_global_config_return::create();
+			set_global_config(_args->key, _args->value);
+			return _return_value;
+		}
+		case 0xd569d9ff26cc2b95ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_show_error_log>(_method);
+			auto _return_value = ::vnx::Process_show_error_log_return::create();
+			show_error_log();
 			return _return_value;
 		}
 		case 0x2b724b09091c4b96ull: {
@@ -522,10 +521,11 @@ std::shared_ptr<vnx::Value> ProcessBase::vnx_call_switch(std::shared_ptr<const v
 			trigger_shutdown();
 			return _return_value;
 		}
-		case 0x757d61aa2ac74f7bull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Process_self_test_all>(_method);
-			self_test_all_async(_request_id);
-			return nullptr;
+		case 0xf34b9052419eb6caull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Process_ungrep_log>(_method);
+			auto _return_value = ::vnx::Process_ungrep_log_return::create();
+			ungrep_log();
+			return _return_value;
 		}
 	}
 	auto _ex = vnx::NoSuchMethod::create();

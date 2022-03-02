@@ -5,6 +5,10 @@
 #include <vnx/ModuleInfo.hxx>
 #include <vnx/Endpoint.hxx>
 #include <vnx/Hash64.hpp>
+#include <vnx/ModuleInfo_get_cpu_load.hxx>
+#include <vnx/ModuleInfo_get_cpu_load_return.hxx>
+#include <vnx/ModuleInfo_get_cpu_load_total.hxx>
+#include <vnx/ModuleInfo_get_cpu_load_total_return.hxx>
 #include <vnx/TypeCode.hpp>
 #include <vnx/Value.h>
 
@@ -271,6 +275,9 @@ std::shared_ptr<vnx::TypeCode> ModuleInfo::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::ModuleInfo);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ModuleInfo>(); };
+	type_code->methods.resize(2);
+	type_code->methods[0] = ::vnx::ModuleInfo_get_cpu_load::static_get_type_code();
+	type_code->methods[1] = ::vnx::ModuleInfo_get_cpu_load_total::static_get_type_code();
 	type_code->fields.resize(16);
 	{
 		auto& field = type_code->fields[0];
@@ -370,6 +377,24 @@ std::shared_ptr<vnx::TypeCode> ModuleInfo::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> ModuleInfo::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+		case 0xfc59e460d5536e4aull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInfo_get_cpu_load>(_method);
+			auto _return_value = ::vnx::ModuleInfo_get_cpu_load_return::create();
+			_return_value->_ret_0 = get_cpu_load();
+			return _return_value;
+		}
+		case 0xf76722d8c74ee1fdull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ModuleInfo_get_cpu_load_total>(_method);
+			auto _return_value = ::vnx::ModuleInfo_get_cpu_load_total_return::create();
+			_return_value->_ret_0 = get_cpu_load_total();
+			return _return_value;
+		}
+	}
+	return nullptr;
 }
 
 

@@ -19,32 +19,6 @@ public:
 	
 	BaseProxyClient(vnx::Hash64 service_addr);
 	
-	::vnx::Object vnx_get_config_object();
-	
-	::vnx::Variant vnx_get_config(const std::string& name = "");
-	
-	void vnx_set_config_object(const ::vnx::Object& config = ::vnx::Object());
-	
-	void vnx_set_config_object_async(const ::vnx::Object& config = ::vnx::Object());
-	
-	void vnx_set_config(const std::string& name = "", const ::vnx::Variant& value = ::vnx::Variant());
-	
-	void vnx_set_config_async(const std::string& name = "", const ::vnx::Variant& value = ::vnx::Variant());
-	
-	::vnx::TypeCode vnx_get_type_code();
-	
-	std::shared_ptr<const ::vnx::ModuleInfo> vnx_get_module_info();
-	
-	void vnx_restart();
-	
-	void vnx_restart_async();
-	
-	void vnx_stop();
-	
-	void vnx_stop_async();
-	
-	vnx::bool_t vnx_self_test();
-	
 	std::shared_ptr<const ::vnx::Session> login(const std::string& name = "", const std::string& password = "");
 	
 	void enable_import(const std::string& topic_name = "");
@@ -102,6 +76,32 @@ public:
 	void on_remote_login(std::shared_ptr<const ::vnx::Session> remote_session = nullptr);
 	
 	void on_remote_login_async(std::shared_ptr<const ::vnx::Session> remote_session = nullptr);
+	
+	::vnx::Object vnx_get_config_object();
+	
+	::vnx::Variant vnx_get_config(const std::string& name = "");
+	
+	void vnx_set_config_object(const ::vnx::Object& config = ::vnx::Object());
+	
+	void vnx_set_config_object_async(const ::vnx::Object& config = ::vnx::Object());
+	
+	void vnx_set_config(const std::string& name = "", const ::vnx::Variant& value = ::vnx::Variant());
+	
+	void vnx_set_config_async(const std::string& name = "", const ::vnx::Variant& value = ::vnx::Variant());
+	
+	::vnx::TypeCode vnx_get_type_code();
+	
+	std::shared_ptr<const ::vnx::ModuleInfo> vnx_get_module_info();
+	
+	void vnx_restart();
+	
+	void vnx_restart_async();
+	
+	void vnx_stop();
+	
+	void vnx_stop_async();
+	
+	vnx::bool_t vnx_self_test();
 	
 };
 

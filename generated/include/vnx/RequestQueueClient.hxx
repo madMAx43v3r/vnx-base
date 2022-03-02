@@ -17,6 +17,18 @@ public:
 	
 	RequestQueueClient(vnx::Hash64 service_addr);
 	
+	void purge();
+	
+	void purge_async();
+	
+	void clear();
+	
+	void clear_async();
+	
+	void forward(std::shared_ptr<const ::vnx::Request> request = nullptr);
+	
+	void forward_async(std::shared_ptr<const ::vnx::Request> request = nullptr);
+	
 	::vnx::Object vnx_get_config_object();
 	
 	::vnx::Variant vnx_get_config(const std::string& name = "");
@@ -42,18 +54,6 @@ public:
 	void vnx_stop_async();
 	
 	vnx::bool_t vnx_self_test();
-	
-	void purge();
-	
-	void purge_async();
-	
-	void clear();
-	
-	void clear_async();
-	
-	void forward(std::shared_ptr<const ::vnx::Request> request = nullptr);
-	
-	void forward_async(std::shared_ptr<const ::vnx::Request> request = nullptr);
 	
 };
 

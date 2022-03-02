@@ -3,6 +3,7 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Exception.hxx>
+#include <vnx/Exception_from_what_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
@@ -127,6 +128,12 @@ std::shared_ptr<vnx::TypeCode> Exception::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> Exception::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+	}
+	return nullptr;
 }
 
 

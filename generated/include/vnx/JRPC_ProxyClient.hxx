@@ -16,6 +16,10 @@ public:
 	
 	JRPC_ProxyClient(vnx::Hash64 service_addr);
 	
+	void select_service(const std::string& service_name = "");
+	
+	void select_service_async(const std::string& service_name = "");
+	
 	std::shared_ptr<const ::vnx::Session> login(const std::string& name = "", const std::string& password = "");
 	
 	void enable_import(const std::string& topic_name = "");
@@ -99,10 +103,6 @@ public:
 	void vnx_stop_async();
 	
 	vnx::bool_t vnx_self_test();
-	
-	void select_service(const std::string& service_name = "");
-	
-	void select_service_async(const std::string& service_name = "");
 	
 };
 

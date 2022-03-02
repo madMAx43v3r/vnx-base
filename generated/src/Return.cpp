@@ -6,6 +6,9 @@
 #include <vnx/Hash64.hpp>
 #include <vnx/Message.hxx>
 #include <vnx/Request.hxx>
+#include <vnx/Return_create_no_such_service_return_return.hxx>
+#include <vnx/Return_create_overflow_return_return.hxx>
+#include <vnx/Return_create_permission_denied_return_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
@@ -212,6 +215,12 @@ std::shared_ptr<vnx::TypeCode> Return::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> Return::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+	}
+	return nullptr;
 }
 
 

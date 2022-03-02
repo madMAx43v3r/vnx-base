@@ -73,6 +73,19 @@ JRPC_ProxyAsyncClient::JRPC_ProxyAsyncClient(vnx::Hash64 service_addr)
 {
 }
 
+uint64_t JRPC_ProxyAsyncClient::select_service(const std::string& service_name, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
+	auto _method = ::vnx::JRPC_Proxy_select_service::create();
+	_method->service_name = service_name;
+	const auto _request_id = ++vnx_next_id;
+	{
+		std::lock_guard<std::mutex> _lock(vnx_mutex);
+		vnx_pending[_request_id] = 0;
+		vnx_queue_select_service[_request_id] = std::make_pair(_callback, _error_callback);
+	}
+	vnx_request(_method, _request_id);
+	return _request_id;
+}
+
 uint64_t JRPC_ProxyAsyncClient::login(const std::string& name, const std::string& password, const std::function<void(std::shared_ptr<const ::vnx::Session>)>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
 	auto _method = ::vnx::ProxyInterface_login::create();
 	_method->name = name;
@@ -80,7 +93,7 @@ uint64_t JRPC_ProxyAsyncClient::login(const std::string& name, const std::string
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 0;
+		vnx_pending[_request_id] = 1;
 		vnx_queue_login[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -93,7 +106,7 @@ uint64_t JRPC_ProxyAsyncClient::enable_import(const std::string& topic_name, con
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 1;
+		vnx_pending[_request_id] = 2;
 		vnx_queue_enable_import[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -106,7 +119,7 @@ uint64_t JRPC_ProxyAsyncClient::disable_import(const std::string& topic_name, co
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 2;
+		vnx_pending[_request_id] = 3;
 		vnx_queue_disable_import[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -119,7 +132,7 @@ uint64_t JRPC_ProxyAsyncClient::enable_export(const std::string& topic_name, con
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 3;
+		vnx_pending[_request_id] = 4;
 		vnx_queue_enable_export[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -132,7 +145,7 @@ uint64_t JRPC_ProxyAsyncClient::disable_export(const std::string& topic_name, co
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 4;
+		vnx_pending[_request_id] = 5;
 		vnx_queue_disable_export[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -147,7 +160,7 @@ uint64_t JRPC_ProxyAsyncClient::enable_forward(const std::string& service_name, 
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 5;
+		vnx_pending[_request_id] = 6;
 		vnx_queue_enable_forward[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -160,7 +173,7 @@ uint64_t JRPC_ProxyAsyncClient::disable_forward(const std::string& service_name,
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 6;
+		vnx_pending[_request_id] = 7;
 		vnx_queue_disable_forward[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -175,7 +188,7 @@ uint64_t JRPC_ProxyAsyncClient::enable_tunnel(const ::vnx::Hash64& tunnel_addr, 
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 7;
+		vnx_pending[_request_id] = 8;
 		vnx_queue_enable_tunnel[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -188,7 +201,7 @@ uint64_t JRPC_ProxyAsyncClient::disable_tunnel(const ::vnx::Hash64& tunnel_addr,
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 8;
+		vnx_pending[_request_id] = 9;
 		vnx_queue_disable_tunnel[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -200,7 +213,7 @@ uint64_t JRPC_ProxyAsyncClient::wait_on_connect(const std::function<void(const :
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 9;
+		vnx_pending[_request_id] = 10;
 		vnx_queue_wait_on_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -212,7 +225,7 @@ uint64_t JRPC_ProxyAsyncClient::wait_on_disconnect(const std::function<void(cons
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 10;
+		vnx_pending[_request_id] = 11;
 		vnx_queue_wait_on_disconnect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -224,7 +237,7 @@ uint64_t JRPC_ProxyAsyncClient::on_connect(const std::function<void()>& _callbac
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 11;
+		vnx_pending[_request_id] = 12;
 		vnx_queue_on_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -236,7 +249,7 @@ uint64_t JRPC_ProxyAsyncClient::on_disconnect(const std::function<void()>& _call
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 12;
+		vnx_pending[_request_id] = 13;
 		vnx_queue_on_disconnect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -249,7 +262,7 @@ uint64_t JRPC_ProxyAsyncClient::on_remote_connect(const ::vnx::Hash64& process_i
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 13;
+		vnx_pending[_request_id] = 14;
 		vnx_queue_on_remote_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -263,7 +276,7 @@ uint64_t JRPC_ProxyAsyncClient::on_login(const std::string& name, const std::str
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 14;
+		vnx_pending[_request_id] = 15;
 		vnx_queue_on_login[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -276,7 +289,7 @@ uint64_t JRPC_ProxyAsyncClient::on_remote_login(std::shared_ptr<const ::vnx::Ses
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 15;
+		vnx_pending[_request_id] = 16;
 		vnx_queue_on_remote_login[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -288,7 +301,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_get_config_object(const std::function<void(c
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 16;
+		vnx_pending[_request_id] = 17;
 		vnx_queue_vnx_get_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -301,7 +314,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_get_config(const std::string& name, const st
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 17;
+		vnx_pending[_request_id] = 18;
 		vnx_queue_vnx_get_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -314,7 +327,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_set_config_object(const ::vnx::Object& confi
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 18;
+		vnx_pending[_request_id] = 19;
 		vnx_queue_vnx_set_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -328,7 +341,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_set_config(const std::string& name, const ::
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 19;
+		vnx_pending[_request_id] = 20;
 		vnx_queue_vnx_set_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -340,7 +353,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_get_type_code(const std::function<void(const
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 20;
+		vnx_pending[_request_id] = 21;
 		vnx_queue_vnx_get_type_code[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -352,7 +365,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_get_module_info(const std::function<void(std
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 21;
+		vnx_pending[_request_id] = 22;
 		vnx_queue_vnx_get_module_info[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -364,7 +377,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_restart(const std::function<void()>& _callba
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 22;
+		vnx_pending[_request_id] = 23;
 		vnx_queue_vnx_restart[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -376,7 +389,7 @@ uint64_t JRPC_ProxyAsyncClient::vnx_stop(const std::function<void()>& _callback,
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 23;
+		vnx_pending[_request_id] = 24;
 		vnx_queue_vnx_stop[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -388,21 +401,8 @@ uint64_t JRPC_ProxyAsyncClient::vnx_self_test(const std::function<void(const vnx
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 24;
-		vnx_queue_vnx_self_test[_request_id] = std::make_pair(_callback, _error_callback);
-	}
-	vnx_request(_method, _request_id);
-	return _request_id;
-}
-
-uint64_t JRPC_ProxyAsyncClient::select_service(const std::string& service_name, const std::function<void()>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
-	auto _method = ::vnx::JRPC_Proxy_select_service::create();
-	_method->service_name = service_name;
-	const auto _request_id = ++vnx_next_id;
-	{
-		std::lock_guard<std::mutex> _lock(vnx_mutex);
 		vnx_pending[_request_id] = 25;
-		vnx_queue_select_service[_request_id] = std::make_pair(_callback, _error_callback);
+		vnx_queue_vnx_self_test[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
 	return _request_id;
@@ -418,6 +418,18 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 	vnx_pending.erase(_iter);
 	switch(_index) {
 		case 0: {
+			const auto _iter = vnx_queue_select_service.find(_request_id);
+			if(_iter != vnx_queue_select_service.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_select_service.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 1: {
 			const auto _iter = vnx_queue_login.find(_request_id);
 			if(_iter != vnx_queue_login.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -429,7 +441,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 1: {
+		case 2: {
 			const auto _iter = vnx_queue_enable_import.find(_request_id);
 			if(_iter != vnx_queue_enable_import.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -441,7 +453,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 2: {
+		case 3: {
 			const auto _iter = vnx_queue_disable_import.find(_request_id);
 			if(_iter != vnx_queue_disable_import.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -453,7 +465,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 3: {
+		case 4: {
 			const auto _iter = vnx_queue_enable_export.find(_request_id);
 			if(_iter != vnx_queue_enable_export.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -465,7 +477,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 4: {
+		case 5: {
 			const auto _iter = vnx_queue_disable_export.find(_request_id);
 			if(_iter != vnx_queue_disable_export.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -477,7 +489,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 5: {
+		case 6: {
 			const auto _iter = vnx_queue_enable_forward.find(_request_id);
 			if(_iter != vnx_queue_enable_forward.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -489,7 +501,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 6: {
+		case 7: {
 			const auto _iter = vnx_queue_disable_forward.find(_request_id);
 			if(_iter != vnx_queue_disable_forward.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -501,7 +513,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 7: {
+		case 8: {
 			const auto _iter = vnx_queue_enable_tunnel.find(_request_id);
 			if(_iter != vnx_queue_enable_tunnel.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -513,7 +525,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 8: {
+		case 9: {
 			const auto _iter = vnx_queue_disable_tunnel.find(_request_id);
 			if(_iter != vnx_queue_disable_tunnel.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -525,7 +537,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 9: {
+		case 10: {
 			const auto _iter = vnx_queue_wait_on_connect.find(_request_id);
 			if(_iter != vnx_queue_wait_on_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -537,7 +549,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 10: {
+		case 11: {
 			const auto _iter = vnx_queue_wait_on_disconnect.find(_request_id);
 			if(_iter != vnx_queue_wait_on_disconnect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -549,7 +561,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 11: {
+		case 12: {
 			const auto _iter = vnx_queue_on_connect.find(_request_id);
 			if(_iter != vnx_queue_on_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -561,7 +573,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 12: {
+		case 13: {
 			const auto _iter = vnx_queue_on_disconnect.find(_request_id);
 			if(_iter != vnx_queue_on_disconnect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -573,7 +585,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 13: {
+		case 14: {
 			const auto _iter = vnx_queue_on_remote_connect.find(_request_id);
 			if(_iter != vnx_queue_on_remote_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -585,7 +597,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 14: {
+		case 15: {
 			const auto _iter = vnx_queue_on_login.find(_request_id);
 			if(_iter != vnx_queue_on_login.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -597,7 +609,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 15: {
+		case 16: {
 			const auto _iter = vnx_queue_on_remote_login.find(_request_id);
 			if(_iter != vnx_queue_on_remote_login.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -609,7 +621,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 16: {
+		case 17: {
 			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_config_object.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -621,7 +633,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 17: {
+		case 18: {
 			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_config.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -633,7 +645,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 18: {
+		case 19: {
 			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
 			if(_iter != vnx_queue_vnx_set_config_object.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -645,7 +657,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 19: {
+		case 20: {
 			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
 			if(_iter != vnx_queue_vnx_set_config.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -657,7 +669,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 20: {
+		case 21: {
 			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_type_code.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -669,7 +681,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 21: {
+		case 22: {
 			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_module_info.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -681,7 +693,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 22: {
+		case 23: {
 			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
 			if(_iter != vnx_queue_vnx_restart.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -693,7 +705,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 23: {
+		case 24: {
 			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
 			if(_iter != vnx_queue_vnx_stop.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -705,23 +717,11 @@ int32_t JRPC_ProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx
 			}
 			break;
 		}
-		case 24: {
+		case 25: {
 			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
 			if(_iter != vnx_queue_vnx_self_test.end()) {
 				const auto _callback = std::move(_iter->second.second);
 				vnx_queue_vnx_self_test.erase(_iter);
-				_lock.unlock();
-				if(_callback) {
-					_callback(_ex);
-				}
-			}
-			break;
-		}
-		case 25: {
-			const auto _iter = vnx_queue_select_service.find(_request_id);
-			if(_iter != vnx_queue_select_service.end()) {
-				const auto _callback = std::move(_iter->second.second);
-				vnx_queue_select_service.erase(_iter);
 				_lock.unlock();
 				if(_callback) {
 					_callback(_ex);
@@ -743,6 +743,19 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 	vnx_pending.erase(_iter);
 	switch(_index) {
 		case 0: {
+			const auto _iter = vnx_queue_select_service.find(_request_id);
+			if(_iter == vnx_queue_select_service.end()) {
+				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
+			}
+			const auto _callback = std::move(_iter->second.first);
+			vnx_queue_select_service.erase(_iter);
+			_lock.unlock();
+			if(_callback) {
+				_callback();
+			}
+			break;
+		}
+		case 1: {
 			const auto _iter = vnx_queue_login.find(_request_id);
 			if(_iter == vnx_queue_login.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -761,7 +774,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 1: {
+		case 2: {
 			const auto _iter = vnx_queue_enable_import.find(_request_id);
 			if(_iter == vnx_queue_enable_import.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -774,7 +787,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 2: {
+		case 3: {
 			const auto _iter = vnx_queue_disable_import.find(_request_id);
 			if(_iter == vnx_queue_disable_import.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -787,7 +800,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 3: {
+		case 4: {
 			const auto _iter = vnx_queue_enable_export.find(_request_id);
 			if(_iter == vnx_queue_enable_export.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -800,7 +813,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 4: {
+		case 5: {
 			const auto _iter = vnx_queue_disable_export.find(_request_id);
 			if(_iter == vnx_queue_disable_export.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -813,7 +826,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 5: {
+		case 6: {
 			const auto _iter = vnx_queue_enable_forward.find(_request_id);
 			if(_iter == vnx_queue_enable_forward.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -826,7 +839,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 6: {
+		case 7: {
 			const auto _iter = vnx_queue_disable_forward.find(_request_id);
 			if(_iter == vnx_queue_disable_forward.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -839,7 +852,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 7: {
+		case 8: {
 			const auto _iter = vnx_queue_enable_tunnel.find(_request_id);
 			if(_iter == vnx_queue_enable_tunnel.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -852,7 +865,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 8: {
+		case 9: {
 			const auto _iter = vnx_queue_disable_tunnel.find(_request_id);
 			if(_iter == vnx_queue_disable_tunnel.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -865,7 +878,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 9: {
+		case 10: {
 			const auto _iter = vnx_queue_wait_on_connect.find(_request_id);
 			if(_iter == vnx_queue_wait_on_connect.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -884,7 +897,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 10: {
+		case 11: {
 			const auto _iter = vnx_queue_wait_on_disconnect.find(_request_id);
 			if(_iter == vnx_queue_wait_on_disconnect.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -903,7 +916,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 11: {
+		case 12: {
 			const auto _iter = vnx_queue_on_connect.find(_request_id);
 			if(_iter == vnx_queue_on_connect.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -916,7 +929,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 12: {
+		case 13: {
 			const auto _iter = vnx_queue_on_disconnect.find(_request_id);
 			if(_iter == vnx_queue_on_disconnect.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -929,7 +942,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 13: {
+		case 14: {
 			const auto _iter = vnx_queue_on_remote_connect.find(_request_id);
 			if(_iter == vnx_queue_on_remote_connect.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -942,7 +955,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 14: {
+		case 15: {
 			const auto _iter = vnx_queue_on_login.find(_request_id);
 			if(_iter == vnx_queue_on_login.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -955,7 +968,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 15: {
+		case 16: {
 			const auto _iter = vnx_queue_on_remote_login.find(_request_id);
 			if(_iter == vnx_queue_on_remote_login.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -968,7 +981,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 16: {
+		case 17: {
 			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config_object.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -987,7 +1000,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 17: {
+		case 18: {
 			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1006,7 +1019,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 18: {
+		case 19: {
 			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config_object.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1019,7 +1032,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 19: {
+		case 20: {
 			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1032,7 +1045,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 20: {
+		case 21: {
 			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_type_code.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1051,7 +1064,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 21: {
+		case 22: {
 			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_module_info.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1070,7 +1083,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 22: {
+		case 23: {
 			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
 			if(_iter == vnx_queue_vnx_restart.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1083,7 +1096,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 23: {
+		case 24: {
 			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
 			if(_iter == vnx_queue_vnx_stop.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1096,7 +1109,7 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 			}
 			break;
 		}
-		case 24: {
+		case 25: {
 			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
 			if(_iter == vnx_queue_vnx_self_test.end()) {
 				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
@@ -1112,19 +1125,6 @@ int32_t JRPC_ProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sh
 				} else {
 					throw std::logic_error("JRPC_ProxyAsyncClient: invalid return value");
 				}
-			}
-			break;
-		}
-		case 25: {
-			const auto _iter = vnx_queue_select_service.find(_request_id);
-			if(_iter == vnx_queue_select_service.end()) {
-				throw std::runtime_error("JRPC_ProxyAsyncClient: callback not found");
-			}
-			const auto _callback = std::move(_iter->second.first);
-			vnx_queue_select_service.erase(_iter);
-			_lock.unlock();
-			if(_callback) {
-				_callback();
 			}
 			break;
 		}

@@ -46,6 +46,38 @@ RequestQueueClient::RequestQueueClient(vnx::Hash64 service_addr)
 {
 }
 
+void RequestQueueClient::purge() {
+	auto _method = ::vnx::RequestQueue_purge::create();
+	vnx_request(_method, false);
+}
+
+void RequestQueueClient::purge_async() {
+	auto _method = ::vnx::RequestQueue_purge::create();
+	vnx_request(_method, true);
+}
+
+void RequestQueueClient::clear() {
+	auto _method = ::vnx::RequestQueue_clear::create();
+	vnx_request(_method, false);
+}
+
+void RequestQueueClient::clear_async() {
+	auto _method = ::vnx::RequestQueue_clear::create();
+	vnx_request(_method, true);
+}
+
+void RequestQueueClient::forward(std::shared_ptr<const ::vnx::Request> request) {
+	auto _method = ::vnx::GatewayInterface_forward::create();
+	_method->request = request;
+	vnx_request(_method, false);
+}
+
+void RequestQueueClient::forward_async(std::shared_ptr<const ::vnx::Request> request) {
+	auto _method = ::vnx::GatewayInterface_forward::create();
+	_method->request = request;
+	vnx_request(_method, true);
+}
+
 ::vnx::Object RequestQueueClient::vnx_get_config_object() {
 	auto _method = ::vnx::ModuleInterface_vnx_get_config_object::create();
 	auto _return_value = vnx_request(_method, false);
@@ -151,38 +183,6 @@ vnx::bool_t RequestQueueClient::vnx_self_test() {
 	} else {
 		throw std::logic_error("RequestQueueClient: invalid return value");
 	}
-}
-
-void RequestQueueClient::purge() {
-	auto _method = ::vnx::RequestQueue_purge::create();
-	vnx_request(_method, false);
-}
-
-void RequestQueueClient::purge_async() {
-	auto _method = ::vnx::RequestQueue_purge::create();
-	vnx_request(_method, true);
-}
-
-void RequestQueueClient::clear() {
-	auto _method = ::vnx::RequestQueue_clear::create();
-	vnx_request(_method, false);
-}
-
-void RequestQueueClient::clear_async() {
-	auto _method = ::vnx::RequestQueue_clear::create();
-	vnx_request(_method, true);
-}
-
-void RequestQueueClient::forward(std::shared_ptr<const ::vnx::Request> request) {
-	auto _method = ::vnx::GatewayInterface_forward::create();
-	_method->request = request;
-	vnx_request(_method, false);
-}
-
-void RequestQueueClient::forward_async(std::shared_ptr<const ::vnx::Request> request) {
-	auto _method = ::vnx::GatewayInterface_forward::create();
-	_method->request = request;
-	vnx_request(_method, true);
 }
 
 

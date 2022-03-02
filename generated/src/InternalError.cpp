@@ -4,6 +4,7 @@
 #include <vnx/package.hxx>
 #include <vnx/InternalError.hxx>
 #include <vnx/Exception.hxx>
+#include <vnx/InternalError_from_what_return.hxx>
 
 #include <vnx/vnx.h>
 
@@ -129,6 +130,12 @@ std::shared_ptr<vnx::TypeCode> InternalError::static_create_type_code() {
 	}
 	type_code->build();
 	return type_code;
+}
+
+std::shared_ptr<vnx::Value> InternalError::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
+	switch(_method->get_type_hash()) {
+	}
+	return nullptr;
 }
 
 

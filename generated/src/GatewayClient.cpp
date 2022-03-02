@@ -42,6 +42,18 @@ GatewayClient::GatewayClient(vnx::Hash64 service_addr)
 {
 }
 
+void GatewayClient::forward(std::shared_ptr<const ::vnx::Request> request) {
+	auto _method = ::vnx::GatewayInterface_forward::create();
+	_method->request = request;
+	vnx_request(_method, false);
+}
+
+void GatewayClient::forward_async(std::shared_ptr<const ::vnx::Request> request) {
+	auto _method = ::vnx::GatewayInterface_forward::create();
+	_method->request = request;
+	vnx_request(_method, true);
+}
+
 ::vnx::Object GatewayClient::vnx_get_config_object() {
 	auto _method = ::vnx::ModuleInterface_vnx_get_config_object::create();
 	auto _return_value = vnx_request(_method, false);
@@ -147,18 +159,6 @@ vnx::bool_t GatewayClient::vnx_self_test() {
 	} else {
 		throw std::logic_error("GatewayClient: invalid return value");
 	}
-}
-
-void GatewayClient::forward(std::shared_ptr<const ::vnx::Request> request) {
-	auto _method = ::vnx::GatewayInterface_forward::create();
-	_method->request = request;
-	vnx_request(_method, false);
-}
-
-void GatewayClient::forward_async(std::shared_ptr<const ::vnx::Request> request) {
-	auto _method = ::vnx::GatewayInterface_forward::create();
-	_method->request = request;
-	vnx_request(_method, true);
 }
 
 
