@@ -9,7 +9,6 @@
 #include <vnx/Endpoint_bind_return.hxx>
 #include <vnx/Endpoint_connect.hxx>
 #include <vnx/Endpoint_connect_return.hxx>
-#include <vnx/Endpoint_from_url_return.hxx>
 #include <vnx/Endpoint_listen.hxx>
 #include <vnx/Endpoint_listen_return.hxx>
 #include <vnx/Endpoint_open.hxx>

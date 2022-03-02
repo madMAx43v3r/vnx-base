@@ -35,7 +35,6 @@ class Endpoint_bind;
 class Endpoint_bind_return;
 class Endpoint_connect;
 class Endpoint_connect_return;
-class Endpoint_from_url_return;
 class Endpoint_listen;
 class Endpoint_listen_return;
 class Endpoint_open;
@@ -43,7 +42,6 @@ class Endpoint_open_return;
 class Endpoint_to_url;
 class Endpoint_to_url_return;
 class Exception;
-class Exception_from_what_return;
 class FlowMessage;
 class Frame;
 class GatewayBase;
@@ -51,11 +49,9 @@ class GatewayInterface;
 class GatewayInterface_forward;
 class GatewayInterface_forward_return;
 class Generic;
-class Generic_from_data_return;
 class Hash128;
 class Hash64;
 class InternalError;
-class InternalError_from_what_return;
 class JRPC_Error;
 class JRPC_Failure;
 class JRPC_Notification;
@@ -213,9 +209,6 @@ class RequestQueue_clear_return;
 class RequestQueue_purge;
 class RequestQueue_purge_return;
 class Return;
-class Return_create_no_such_service_return_return;
-class Return_create_overflow_return_return;
-class Return_create_permission_denied_return_return;
 class RouterBase;
 class Sample;
 class ServerBase;
@@ -236,8 +229,6 @@ class TcpEndpoint_close;
 class TcpEndpoint_close_return;
 class TcpEndpoint_connect;
 class TcpEndpoint_connect_return;
-class TcpEndpoint_create_ex_return;
-class TcpEndpoint_from_url_return;
 class TcpEndpoint_listen;
 class TcpEndpoint_listen_return;
 class TcpEndpoint_open;
@@ -278,8 +269,6 @@ class UnixEndpoint_close;
 class UnixEndpoint_close_return;
 class UnixEndpoint_connect;
 class UnixEndpoint_connect_return;
-class UnixEndpoint_create_ex_return;
-class UnixEndpoint_from_url_return;
 class UnixEndpoint_listen;
 class UnixEndpoint_listen_return;
 class UnixEndpoint_open;
@@ -306,7 +295,6 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_bind;
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_bind_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_connect; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_connect_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_from_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_listen; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_listen_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_open; ///< \private
@@ -314,16 +302,13 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_open_
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Exception; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Exception_from_what_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_FlowMessage; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Frame; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayBase; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Generic; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Generic_from_data_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_InternalError; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_InternalError_from_what_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Error; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Failure; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_JRPC_Notification; ///< \private
@@ -477,9 +462,6 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_c
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RequestQueue_purge_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Return_create_no_such_service_return_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Return_create_overflow_return_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Return_create_permission_denied_return_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_RouterBase; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Sample; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ServerBase; ///< \private
@@ -500,8 +482,6 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_cl
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_close_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_connect; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_connect_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_create_ex_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_from_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_listen; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_listen_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_open; ///< \private
@@ -540,8 +520,6 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_c
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_close_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_connect; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_connect_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_create_ex_return; ///< \private
-VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_from_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_listen; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_listen_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_open; ///< \private
@@ -573,7 +551,6 @@ void read(TypeInput& in, ::vnx::Endpoint_bind& value, const TypeCode* type_code,
 void read(TypeInput& in, ::vnx::Endpoint_bind_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Endpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -581,7 +558,6 @@ void read(TypeInput& in, ::vnx::Endpoint_open_return& value, const TypeCode* typ
 void read(TypeInput& in, ::vnx::Endpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Exception& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Exception_from_what_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::FlowMessage& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Frame& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::GatewayBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -589,11 +565,9 @@ void read(TypeInput& in, ::vnx::GatewayInterface& value, const TypeCode* type_co
 void read(TypeInput& in, ::vnx::GatewayInterface_forward& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::GatewayInterface_forward_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Generic& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Generic_from_data_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Hash64& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::InternalError& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::InternalError_from_what_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::JRPC_Error& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::JRPC_Failure& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::JRPC_Notification& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -751,9 +725,6 @@ void read(TypeInput& in, ::vnx::RequestQueue_clear_return& value, const TypeCode
 void read(TypeInput& in, ::vnx::RequestQueue_purge& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::RequestQueue_purge_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Return_create_no_such_service_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Return_create_overflow_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Return_create_permission_denied_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::RouterBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Sample& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ServerBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -774,8 +745,6 @@ void read(TypeInput& in, ::vnx::TcpEndpoint_close& value, const TypeCode* type_c
 void read(TypeInput& in, ::vnx::TcpEndpoint_close_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::TcpEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::TcpEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -816,8 +785,6 @@ void read(TypeInput& in, ::vnx::UnixEndpoint_close& value, const TypeCode* type_
 void read(TypeInput& in, ::vnx::UnixEndpoint_close_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::UnixEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::UnixEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -845,7 +812,6 @@ void write(TypeOutput& out, const ::vnx::Endpoint_bind& value, const TypeCode* t
 void write(TypeOutput& out, const ::vnx::Endpoint_bind_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Endpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -853,7 +819,6 @@ void write(TypeOutput& out, const ::vnx::Endpoint_open_return& value, const Type
 void write(TypeOutput& out, const ::vnx::Endpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Exception& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Exception_from_what_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::FlowMessage& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Frame& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::GatewayBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -861,11 +826,9 @@ void write(TypeOutput& out, const ::vnx::GatewayInterface& value, const TypeCode
 void write(TypeOutput& out, const ::vnx::GatewayInterface_forward& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::GatewayInterface_forward_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Generic& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Generic_from_data_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Hash64& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::InternalError& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::InternalError_from_what_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::JRPC_Error& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::JRPC_Failure& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::JRPC_Notification& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1023,9 +986,6 @@ void write(TypeOutput& out, const ::vnx::RequestQueue_clear_return& value, const
 void write(TypeOutput& out, const ::vnx::RequestQueue_purge& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::RequestQueue_purge_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Return_create_no_such_service_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Return_create_overflow_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Return_create_permission_denied_return_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::RouterBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Sample& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ServerBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1046,8 +1006,6 @@ void write(TypeOutput& out, const ::vnx::TcpEndpoint_close& value, const TypeCod
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_close_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::TcpEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::TcpEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1088,8 +1046,6 @@ void write(TypeOutput& out, const ::vnx::UnixEndpoint_close& value, const TypeCo
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_close_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_connect_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::UnixEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::UnixEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_listen& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1117,7 +1073,6 @@ void read(std::istream& in, ::vnx::Endpoint_bind& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_bind_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_connect& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_connect_return& value); ///< \private
-void read(std::istream& in, ::vnx::Endpoint_from_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_listen& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_listen_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_open& value); ///< \private
@@ -1125,7 +1080,6 @@ void read(std::istream& in, ::vnx::Endpoint_open_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_to_url& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_to_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::Exception& value); ///< \private
-void read(std::istream& in, ::vnx::Exception_from_what_return& value); ///< \private
 void read(std::istream& in, ::vnx::FlowMessage& value); ///< \private
 void read(std::istream& in, ::vnx::Frame& value); ///< \private
 void read(std::istream& in, ::vnx::GatewayBase& value); ///< \private
@@ -1133,11 +1087,9 @@ void read(std::istream& in, ::vnx::GatewayInterface& value); ///< \private
 void read(std::istream& in, ::vnx::GatewayInterface_forward& value); ///< \private
 void read(std::istream& in, ::vnx::GatewayInterface_forward_return& value); ///< \private
 void read(std::istream& in, ::vnx::Generic& value); ///< \private
-void read(std::istream& in, ::vnx::Generic_from_data_return& value); ///< \private
 void read(std::istream& in, ::vnx::Hash128& value); ///< \private
 void read(std::istream& in, ::vnx::Hash64& value); ///< \private
 void read(std::istream& in, ::vnx::InternalError& value); ///< \private
-void read(std::istream& in, ::vnx::InternalError_from_what_return& value); ///< \private
 void read(std::istream& in, ::vnx::JRPC_Error& value); ///< \private
 void read(std::istream& in, ::vnx::JRPC_Failure& value); ///< \private
 void read(std::istream& in, ::vnx::JRPC_Notification& value); ///< \private
@@ -1295,9 +1247,6 @@ void read(std::istream& in, ::vnx::RequestQueue_clear_return& value); ///< \priv
 void read(std::istream& in, ::vnx::RequestQueue_purge& value); ///< \private
 void read(std::istream& in, ::vnx::RequestQueue_purge_return& value); ///< \private
 void read(std::istream& in, ::vnx::Return& value); ///< \private
-void read(std::istream& in, ::vnx::Return_create_no_such_service_return_return& value); ///< \private
-void read(std::istream& in, ::vnx::Return_create_overflow_return_return& value); ///< \private
-void read(std::istream& in, ::vnx::Return_create_permission_denied_return_return& value); ///< \private
 void read(std::istream& in, ::vnx::RouterBase& value); ///< \private
 void read(std::istream& in, ::vnx::Sample& value); ///< \private
 void read(std::istream& in, ::vnx::ServerBase& value); ///< \private
@@ -1318,8 +1267,6 @@ void read(std::istream& in, ::vnx::TcpEndpoint_close& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_close_return& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_connect& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_connect_return& value); ///< \private
-void read(std::istream& in, ::vnx::TcpEndpoint_create_ex_return& value); ///< \private
-void read(std::istream& in, ::vnx::TcpEndpoint_from_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_listen& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_listen_return& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_open& value); ///< \private
@@ -1360,8 +1307,6 @@ void read(std::istream& in, ::vnx::UnixEndpoint_close& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_close_return& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_connect& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_connect_return& value); ///< \private
-void read(std::istream& in, ::vnx::UnixEndpoint_create_ex_return& value); ///< \private
-void read(std::istream& in, ::vnx::UnixEndpoint_from_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_listen& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_listen_return& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_open& value); ///< \private
@@ -1389,7 +1334,6 @@ void write(std::ostream& out, const ::vnx::Endpoint_bind& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_bind_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_connect& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_connect_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::Endpoint_from_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_listen& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_listen_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_open& value); ///< \private
@@ -1397,7 +1341,6 @@ void write(std::ostream& out, const ::vnx::Endpoint_open_return& value); ///< \p
 void write(std::ostream& out, const ::vnx::Endpoint_to_url& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_to_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Exception& value); ///< \private
-void write(std::ostream& out, const ::vnx::Exception_from_what_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::FlowMessage& value); ///< \private
 void write(std::ostream& out, const ::vnx::Frame& value); ///< \private
 void write(std::ostream& out, const ::vnx::GatewayBase& value); ///< \private
@@ -1405,11 +1348,9 @@ void write(std::ostream& out, const ::vnx::GatewayInterface& value); ///< \priva
 void write(std::ostream& out, const ::vnx::GatewayInterface_forward& value); ///< \private
 void write(std::ostream& out, const ::vnx::GatewayInterface_forward_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Generic& value); ///< \private
-void write(std::ostream& out, const ::vnx::Generic_from_data_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Hash128& value); ///< \private
 void write(std::ostream& out, const ::vnx::Hash64& value); ///< \private
 void write(std::ostream& out, const ::vnx::InternalError& value); ///< \private
-void write(std::ostream& out, const ::vnx::InternalError_from_what_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::JRPC_Error& value); ///< \private
 void write(std::ostream& out, const ::vnx::JRPC_Failure& value); ///< \private
 void write(std::ostream& out, const ::vnx::JRPC_Notification& value); ///< \private
@@ -1567,9 +1508,6 @@ void write(std::ostream& out, const ::vnx::RequestQueue_clear_return& value); //
 void write(std::ostream& out, const ::vnx::RequestQueue_purge& value); ///< \private
 void write(std::ostream& out, const ::vnx::RequestQueue_purge_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Return& value); ///< \private
-void write(std::ostream& out, const ::vnx::Return_create_no_such_service_return_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::Return_create_overflow_return_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::Return_create_permission_denied_return_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::RouterBase& value); ///< \private
 void write(std::ostream& out, const ::vnx::Sample& value); ///< \private
 void write(std::ostream& out, const ::vnx::ServerBase& value); ///< \private
@@ -1590,8 +1528,6 @@ void write(std::ostream& out, const ::vnx::TcpEndpoint_close& value); ///< \priv
 void write(std::ostream& out, const ::vnx::TcpEndpoint_close_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_connect& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_connect_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::TcpEndpoint_create_ex_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::TcpEndpoint_from_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_listen& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_listen_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_open& value); ///< \private
@@ -1632,8 +1568,6 @@ void write(std::ostream& out, const ::vnx::UnixEndpoint_close& value); ///< \pri
 void write(std::ostream& out, const ::vnx::UnixEndpoint_close_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_connect& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_connect_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::UnixEndpoint_create_ex_return& value); ///< \private
-void write(std::ostream& out, const ::vnx::UnixEndpoint_from_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_listen& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_listen_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_open& value); ///< \private
@@ -1661,7 +1595,6 @@ void accept(Visitor& visitor, const ::vnx::Endpoint_bind& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_bind_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_connect& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_connect_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Endpoint_from_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_listen& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_listen_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_open& value); ///< \private
@@ -1669,7 +1602,6 @@ void accept(Visitor& visitor, const ::vnx::Endpoint_open_return& value); ///< \p
 void accept(Visitor& visitor, const ::vnx::Endpoint_to_url& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_to_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Exception& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Exception_from_what_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::FlowMessage& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Frame& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::GatewayBase& value); ///< \private
@@ -1677,11 +1609,9 @@ void accept(Visitor& visitor, const ::vnx::GatewayInterface& value); ///< \priva
 void accept(Visitor& visitor, const ::vnx::GatewayInterface_forward& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::GatewayInterface_forward_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Generic& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Generic_from_data_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Hash128& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Hash64& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::InternalError& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::InternalError_from_what_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::JRPC_Error& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::JRPC_Failure& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::JRPC_Notification& value); ///< \private
@@ -1839,9 +1769,6 @@ void accept(Visitor& visitor, const ::vnx::RequestQueue_clear_return& value); //
 void accept(Visitor& visitor, const ::vnx::RequestQueue_purge& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::RequestQueue_purge_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Return_create_no_such_service_return_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Return_create_overflow_return_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Return_create_permission_denied_return_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::RouterBase& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Sample& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ServerBase& value); ///< \private
@@ -1862,8 +1789,6 @@ void accept(Visitor& visitor, const ::vnx::TcpEndpoint_close& value); ///< \priv
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_close_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_connect& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_connect_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::TcpEndpoint_create_ex_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::TcpEndpoint_from_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_listen& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_listen_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_open& value); ///< \private
@@ -1904,8 +1829,6 @@ void accept(Visitor& visitor, const ::vnx::UnixEndpoint_close& value); ///< \pri
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_close_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_connect& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_connect_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::UnixEndpoint_create_ex_return& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::UnixEndpoint_from_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_listen& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_listen_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_open& value); ///< \private
@@ -2149,29 +2072,6 @@ struct type<::vnx::Endpoint_connect_return> {
 
 /// \private
 template<>
-struct type<::vnx::Endpoint_from_url_return> {
-	void read(TypeInput& in, ::vnx::Endpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Endpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Endpoint_from_url_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Endpoint_from_url_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Endpoint_from_url_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_from_url_return& value, bool special = false);
-};
-
-/// \private
-template<>
 struct type<::vnx::Endpoint_listen> {
 	void read(TypeInput& in, ::vnx::Endpoint_listen& value, const TypeCode* type_code, const uint16_t* code) {
 		vnx::read(in, value, type_code, code);
@@ -2333,29 +2233,6 @@ struct type<::vnx::Exception> {
 
 /// \private
 template<>
-struct type<::vnx::Exception_from_what_return> {
-	void read(TypeInput& in, ::vnx::Exception_from_what_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Exception_from_what_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Exception_from_what_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Exception_from_what_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Exception_from_what_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Exception_from_what_return& value, bool special = false);
-};
-
-/// \private
-template<>
 struct type<::vnx::FlowMessage> {
 	void read(TypeInput& in, ::vnx::FlowMessage& value, const TypeCode* type_code, const uint16_t* code) {
 		vnx::read(in, value, type_code, code);
@@ -2511,29 +2388,6 @@ struct type<::vnx::Generic> {
 
 /// \private
 template<>
-struct type<::vnx::Generic_from_data_return> {
-	void read(TypeInput& in, ::vnx::Generic_from_data_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Generic_from_data_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Generic_from_data_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Generic_from_data_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Generic_from_data_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Generic_from_data_return& value, bool special = false);
-};
-
-/// \private
-template<>
 struct type<::vnx::Hash128> {
 	void read(TypeInput& in, ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code) {
 		vnx::read(in, value, type_code, code);
@@ -2599,29 +2453,6 @@ struct type<::vnx::InternalError> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::InternalError& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::InternalError_from_what_return> {
-	void read(TypeInput& in, ::vnx::InternalError_from_what_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::InternalError_from_what_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::InternalError_from_what_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::InternalError_from_what_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::InternalError_from_what_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::InternalError_from_what_return& value, bool special = false);
 };
 
 /// \private
@@ -6210,75 +6041,6 @@ struct type<::vnx::Return> {
 
 /// \private
 template<>
-struct type<::vnx::Return_create_no_such_service_return_return> {
-	void read(TypeInput& in, ::vnx::Return_create_no_such_service_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Return_create_no_such_service_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Return_create_no_such_service_return_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Return_create_no_such_service_return_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Return_create_no_such_service_return_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Return_create_no_such_service_return_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::Return_create_overflow_return_return> {
-	void read(TypeInput& in, ::vnx::Return_create_overflow_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Return_create_overflow_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Return_create_overflow_return_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Return_create_overflow_return_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Return_create_overflow_return_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Return_create_overflow_return_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::Return_create_permission_denied_return_return> {
-	void read(TypeInput& in, ::vnx::Return_create_permission_denied_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Return_create_permission_denied_return_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Return_create_permission_denied_return_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Return_create_permission_denied_return_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Return_create_permission_denied_return_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Return_create_permission_denied_return_return& value, bool special = false);
-};
-
-/// \private
-template<>
 struct type<::vnx::RouterBase> {
 	void read(TypeInput& in, ::vnx::RouterBase& value, const TypeCode* type_code, const uint16_t* code) {
 		vnx::read(in, value, type_code, code);
@@ -6726,52 +6488,6 @@ struct type<::vnx::TcpEndpoint_connect_return> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_connect_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::TcpEndpoint_create_ex_return> {
-	void read(TypeInput& in, ::vnx::TcpEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::TcpEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::TcpEndpoint_create_ex_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::TcpEndpoint_create_ex_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::TcpEndpoint_create_ex_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_create_ex_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::TcpEndpoint_from_url_return> {
-	void read(TypeInput& in, ::vnx::TcpEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::TcpEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::TcpEndpoint_from_url_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::TcpEndpoint_from_url_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::TcpEndpoint_from_url_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_from_url_return& value, bool special = false);
 };
 
 /// \private
@@ -7686,52 +7402,6 @@ struct type<::vnx::UnixEndpoint_connect_return> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_connect_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::UnixEndpoint_create_ex_return> {
-	void read(TypeInput& in, ::vnx::UnixEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::UnixEndpoint_create_ex_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::UnixEndpoint_create_ex_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::UnixEndpoint_create_ex_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::UnixEndpoint_create_ex_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_create_ex_return& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::UnixEndpoint_from_url_return> {
-	void read(TypeInput& in, ::vnx::UnixEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::UnixEndpoint_from_url_return& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::UnixEndpoint_from_url_return& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::UnixEndpoint_from_url_return& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::UnixEndpoint_from_url_return& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_from_url_return& value, bool special = false);
 };
 
 /// \private

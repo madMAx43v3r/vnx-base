@@ -3,7 +3,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Generic.hxx>
-#include <vnx/Generic_from_data_return.hxx>
 #include <vnx/Value.h>
 #include <vnx/Variant.hpp>
 

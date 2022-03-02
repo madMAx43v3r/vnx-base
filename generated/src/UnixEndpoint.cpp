@@ -24,8 +24,6 @@
 #include <vnx/UnixEndpoint_close_return.hxx>
 #include <vnx/UnixEndpoint_connect.hxx>
 #include <vnx/UnixEndpoint_connect_return.hxx>
-#include <vnx/UnixEndpoint_create_ex_return.hxx>
-#include <vnx/UnixEndpoint_from_url_return.hxx>
 #include <vnx/UnixEndpoint_listen.hxx>
 #include <vnx/UnixEndpoint_listen_return.hxx>
 #include <vnx/UnixEndpoint_open.hxx>

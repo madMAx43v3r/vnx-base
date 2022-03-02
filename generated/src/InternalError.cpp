@@ -4,7 +4,6 @@
 #include <vnx/package.hxx>
 #include <vnx/InternalError.hxx>
 #include <vnx/Exception.hxx>
-#include <vnx/InternalError_from_what_return.hxx>
 
 #include <vnx/vnx.h>
 

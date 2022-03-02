@@ -24,8 +24,6 @@
 #include <vnx/TcpEndpoint_close_return.hxx>
 #include <vnx/TcpEndpoint_connect.hxx>
 #include <vnx/TcpEndpoint_connect_return.hxx>
-#include <vnx/TcpEndpoint_create_ex_return.hxx>
-#include <vnx/TcpEndpoint_from_url_return.hxx>
 #include <vnx/TcpEndpoint_listen.hxx>
 #include <vnx/TcpEndpoint_listen_return.hxx>
 #include <vnx/TcpEndpoint_open.hxx>

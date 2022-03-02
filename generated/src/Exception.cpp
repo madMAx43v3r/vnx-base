@@ -3,7 +3,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Exception.hxx>
-#include <vnx/Exception_from_what_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
