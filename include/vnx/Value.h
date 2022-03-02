@@ -59,11 +59,16 @@ public:
 	virtual std::string to_string() const;
 	virtual void from_string(const std::string& str);
 	
+	virtual std::shared_ptr<Value> vnx_call(std::shared_ptr<const Value> method);
+
 	virtual std::shared_ptr<const Value> vnx_decompress() const { return nullptr; }
 
 	friend std::ostream& operator<<(std::ostream& _out, const Value& _value);
 	friend std::istream& operator>>(std::istream& _in, Value& _value);
 	
+protected:
+	virtual std::shared_ptr<Value> vnx_call_switch(std::shared_ptr<const Value> method) { return nullptr; };
+
 };
 
 

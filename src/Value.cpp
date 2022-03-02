@@ -72,6 +72,17 @@ void Value::from_string(const std::string& str) {
 	read(stream);
 }
 
+std::shared_ptr<Value> Value::vnx_call(std::shared_ptr<const Value> method) {
+	if(auto object = std::dynamic_pointer_cast<const Object>(method)) {
+		// try to convert object to a native method type
+		method = object->to_value();
+		if(!method) {
+			return nullptr;
+		}
+	}
+	return vnx_call_switch(method);
+}
+
 std::shared_ptr<Value> create(Hash64 hash) {
 	const TypeCode* type_code = vnx::get_type_code(hash);
 	if(type_code) {
