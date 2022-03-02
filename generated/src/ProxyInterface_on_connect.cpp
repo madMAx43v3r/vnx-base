@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_on_connect::static_create_type_cod
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::ProxyInterface_on_connect);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ProxyInterface_on_connect>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::ProxyInterface_on_connect_return::static_get_type_code();
 	type_code->permission = "vnx.permission_e.INTERNAL";
 	type_code->build();

@@ -105,6 +105,7 @@ std::shared_ptr<vnx::TypeCode> Process_trigger_shutdown_return::static_create_ty
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::Process_trigger_shutdown_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Process_trigger_shutdown_return>(); };
+	type_code->methods.resize(0);
 	type_code->build();
 	return type_code;
 }

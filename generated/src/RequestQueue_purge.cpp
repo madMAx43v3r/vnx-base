@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> RequestQueue_purge::static_create_type_code() {
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::RequestQueue_purge);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<RequestQueue_purge>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::RequestQueue_purge_return::static_get_type_code();
 	type_code->permission = "vnx.permission_e.CONST_REQUEST";
 	type_code->build();

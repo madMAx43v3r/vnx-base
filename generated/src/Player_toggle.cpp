@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> Player_toggle::static_create_type_code() {
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::Player_toggle);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Player_toggle>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::Player_toggle_return::static_get_type_code();
 	type_code->build();
 	return type_code;

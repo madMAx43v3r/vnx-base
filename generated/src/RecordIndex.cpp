@@ -141,6 +141,7 @@ std::shared_ptr<vnx::TypeCode> RecordIndex::static_create_type_code() {
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<RecordIndex>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::record_index_entry_t::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(3);
 	{
 		auto& field = type_code->fields[0];

@@ -120,6 +120,7 @@ std::shared_ptr<vnx::TypeCode> TcpEndpoint_create_ex_return::static_create_type_
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::TcpEndpoint_create_ex_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TcpEndpoint_create_ex_return>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

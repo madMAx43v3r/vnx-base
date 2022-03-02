@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> Process_trigger_shutdown::static_create_type_code
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::Process_trigger_shutdown);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Process_trigger_shutdown>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::Process_trigger_shutdown_return::static_get_type_code();
 	type_code->permission = "vnx.permission_e.SHUTDOWN";
 	type_code->build();

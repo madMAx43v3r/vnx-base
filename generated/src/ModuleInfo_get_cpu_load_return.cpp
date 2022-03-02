@@ -119,6 +119,7 @@ std::shared_ptr<vnx::TypeCode> ModuleInfo_get_cpu_load_return::static_create_typ
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::ModuleInfo_get_cpu_load_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ModuleInfo_get_cpu_load_return>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

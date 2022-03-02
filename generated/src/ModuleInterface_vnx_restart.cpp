@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> ModuleInterface_vnx_restart::static_create_type_c
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::ModuleInterface_vnx_restart);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ModuleInterface_vnx_restart>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::ModuleInterface_vnx_restart_return::static_get_type_code();
 	type_code->permission = "vnx.permission_e.RESTART";
 	type_code->build();

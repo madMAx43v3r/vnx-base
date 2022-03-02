@@ -118,6 +118,7 @@ std::shared_ptr<vnx::TypeCode> RecordPointer::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::RecordPointer);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<RecordPointer>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

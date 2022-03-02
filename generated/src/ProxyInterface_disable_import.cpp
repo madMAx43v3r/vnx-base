@@ -120,6 +120,7 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_disable_import::static_create_type
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::ProxyInterface_disable_import);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ProxyInterface_disable_import>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::ProxyInterface_disable_import_return::static_get_type_code();
 	type_code->fields.resize(1);
 	{

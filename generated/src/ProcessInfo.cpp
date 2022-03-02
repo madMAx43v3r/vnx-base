@@ -164,6 +164,7 @@ std::shared_ptr<vnx::TypeCode> ProcessInfo::static_create_type_code() {
 	type_code->depends.resize(2);
 	type_code->depends[0] = ::vnx::TopicInfo::static_get_type_code();
 	type_code->depends[1] = ::vnx::ModuleInfo::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(5);
 	{
 		auto& field = type_code->fields[0];

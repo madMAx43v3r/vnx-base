@@ -171,6 +171,7 @@ std::shared_ptr<vnx::TypeCode> RecorderStatus::static_create_type_code() {
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<RecorderStatus>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::RecordHeader::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(6);
 	{
 		auto& field = type_code->fields[0];

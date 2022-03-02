@@ -123,6 +123,7 @@ std::shared_ptr<vnx::TypeCode> Session_has_permission_vnx::static_create_type_co
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Session_has_permission_vnx>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::permission_e::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->is_const = true;
 	type_code->return_type = ::vnx::Session_has_permission_vnx_return::static_get_type_code();
 	type_code->fields.resize(1);

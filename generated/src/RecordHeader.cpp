@@ -223,6 +223,7 @@ std::shared_ptr<vnx::TypeCode> RecordHeader::static_create_type_code() {
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<RecordHeader>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::record_topic_info_t::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(11);
 	{
 		auto& field = type_code->fields[0];

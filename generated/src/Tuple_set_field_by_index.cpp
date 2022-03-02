@@ -131,6 +131,7 @@ std::shared_ptr<vnx::TypeCode> Tuple_set_field_by_index::static_create_type_code
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::Tuple_set_field_by_index);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Tuple_set_field_by_index>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::Tuple_set_field_by_index_return::static_get_type_code();
 	type_code->fields.resize(2);
 	{

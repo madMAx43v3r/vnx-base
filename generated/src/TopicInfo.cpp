@@ -148,6 +148,7 @@ std::shared_ptr<vnx::TypeCode> TopicInfo::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::TopicInfo);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TopicInfo>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(4);
 	{
 		auto& field = type_code->fields[0];

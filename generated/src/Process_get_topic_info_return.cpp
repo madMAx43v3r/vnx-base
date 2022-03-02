@@ -122,6 +122,7 @@ std::shared_ptr<vnx::TypeCode> Process_get_topic_info_return::static_create_type
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Process_get_topic_info_return>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::TopicInfo::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

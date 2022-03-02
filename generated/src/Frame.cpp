@@ -182,6 +182,7 @@ std::shared_ptr<vnx::TypeCode> Frame::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::Message::static_get_type_code();
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Frame>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(7);
 	{
 		auto& field = type_code->fields[0];

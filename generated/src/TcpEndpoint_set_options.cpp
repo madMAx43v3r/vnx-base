@@ -120,6 +120,7 @@ std::shared_ptr<vnx::TypeCode> TcpEndpoint_set_options::static_create_type_code(
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::TcpEndpoint_set_options);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TcpEndpoint_set_options>(); };
+	type_code->methods.resize(0);
 	type_code->is_const = true;
 	type_code->return_type = ::vnx::TcpEndpoint_set_options_return::static_get_type_code();
 	type_code->fields.resize(1);

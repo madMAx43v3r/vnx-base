@@ -120,6 +120,7 @@ std::shared_ptr<vnx::TypeCode> Return_create_overflow_return_return::static_crea
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::Return_create_overflow_return_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Return_create_overflow_return_return>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

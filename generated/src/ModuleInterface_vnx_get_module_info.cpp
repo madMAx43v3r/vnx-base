@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> ModuleInterface_vnx_get_module_info::static_creat
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::ModuleInterface_vnx_get_module_info);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ModuleInterface_vnx_get_module_info>(); };
+	type_code->methods.resize(0);
 	type_code->is_const = true;
 	type_code->return_type = ::vnx::ModuleInterface_vnx_get_module_info_return::static_get_type_code();
 	type_code->build();

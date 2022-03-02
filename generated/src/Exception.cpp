@@ -119,6 +119,7 @@ std::shared_ptr<vnx::TypeCode> Exception::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::Exception);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Exception>(); };
+	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

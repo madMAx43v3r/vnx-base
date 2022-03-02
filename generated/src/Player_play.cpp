@@ -106,6 +106,7 @@ std::shared_ptr<vnx::TypeCode> Player_play::static_create_type_code() {
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::Player_play);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Player_play>(); };
+	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::Player_play_return::static_get_type_code();
 	type_code->build();
 	return type_code;

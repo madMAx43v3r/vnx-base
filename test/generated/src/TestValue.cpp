@@ -367,6 +367,7 @@ std::shared_ptr<vnx::TypeCode> TestValue::static_create_type_code() {
 	type_code->depends[0] = ::vnx::test::test_struct_t::static_get_type_code();
 	type_code->depends[1] = ::vnx::User::static_get_type_code();
 	type_code->depends[2] = ::vnx::permission_e::static_get_type_code();
+	type_code->methods.resize(0);
 	type_code->fields.resize(25);
 	{
 		auto& field = type_code->fields[0];
