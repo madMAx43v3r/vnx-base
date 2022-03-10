@@ -105,7 +105,6 @@ std::shared_ptr<vnx::TypeCode> Process_journal_log_return::static_create_type_co
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::Process_journal_log_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Process_journal_log_return>(); };
-	type_code->methods.resize(0);
 	type_code->build();
 	return type_code;
 }

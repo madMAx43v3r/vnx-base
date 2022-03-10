@@ -123,7 +123,6 @@ std::shared_ptr<vnx::TypeCode> Terminal_read_event::static_create_type_code() {
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Terminal_read_event>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::terminal_event_e::static_get_type_code();
-	type_code->methods.resize(0);
 	type_code->return_type = ::vnx::Terminal_read_event_return::static_get_type_code();
 	type_code->fields.resize(1);
 	{

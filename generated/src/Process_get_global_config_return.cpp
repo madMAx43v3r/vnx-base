@@ -120,7 +120,6 @@ std::shared_ptr<vnx::TypeCode> Process_get_global_config_return::static_create_t
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::Process_get_global_config_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Process_get_global_config_return>(); };
-	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

@@ -105,7 +105,6 @@ std::shared_ptr<vnx::TypeCode> UnixEndpoint_bind_return::static_create_type_code
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::UnixEndpoint_bind_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<UnixEndpoint_bind_return>(); };
-	type_code->methods.resize(0);
 	type_code->build();
 	return type_code;
 }

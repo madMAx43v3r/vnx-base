@@ -106,7 +106,6 @@ std::shared_ptr<vnx::TypeCode> Tuple_get_num_fields::static_create_type_code() {
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::Tuple_get_num_fields);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Tuple_get_num_fields>(); };
-	type_code->methods.resize(0);
 	type_code->is_const = true;
 	type_code->return_type = ::vnx::Tuple_get_num_fields_return::static_get_type_code();
 	type_code->build();

@@ -106,7 +106,6 @@ std::shared_ptr<vnx::TypeCode> JRPC_Response_is_response_object::static_create_t
 	type_code->is_method = true;
 	type_code->native_size = sizeof(::vnx::JRPC_Response_is_response_object);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<JRPC_Response_is_response_object>(); };
-	type_code->methods.resize(0);
 	type_code->is_const = true;
 	type_code->return_type = ::vnx::JRPC_Response_is_response_object_return::static_get_type_code();
 	type_code->build();

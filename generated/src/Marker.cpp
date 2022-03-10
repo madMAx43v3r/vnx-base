@@ -128,7 +128,6 @@ std::shared_ptr<vnx::TypeCode> Marker::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::Marker);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Marker>(); };
-	type_code->methods.resize(0);
 	type_code->fields.resize(2);
 	{
 		auto& field = type_code->fields[0];

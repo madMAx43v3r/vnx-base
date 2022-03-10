@@ -105,7 +105,6 @@ std::shared_ptr<vnx::TypeCode> Player_set_speed_return::static_create_type_code(
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::Player_set_speed_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Player_set_speed_return>(); };
-	type_code->methods.resize(0);
 	type_code->build();
 	return type_code;
 }

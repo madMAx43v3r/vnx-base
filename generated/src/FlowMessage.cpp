@@ -174,7 +174,6 @@ std::shared_ptr<vnx::TypeCode> FlowMessage::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::Message::static_get_type_code();
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<FlowMessage>(); };
-	type_code->methods.resize(0);
 	type_code->fields.resize(6);
 	{
 		auto& field = type_code->fields[0];

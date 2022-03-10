@@ -120,7 +120,6 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_login_return::static_create_type_c
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::ProxyInterface_login_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ProxyInterface_login_return>(); };
-	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];

@@ -223,7 +223,6 @@ std::shared_ptr<vnx::TypeCode> PlayerStatus::static_create_type_code() {
 	type_code->depends.resize(2);
 	type_code->depends[0] = ::vnx::TimeControl::static_get_type_code();
 	type_code->depends[1] = ::vnx::RecordHeader::static_get_type_code();
-	type_code->methods.resize(0);
 	type_code->fields.resize(11);
 	{
 		auto& field = type_code->fields[0];

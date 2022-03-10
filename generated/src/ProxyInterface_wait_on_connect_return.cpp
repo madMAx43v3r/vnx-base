@@ -120,7 +120,6 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_wait_on_connect_return::static_cre
 	type_code->is_return = true;
 	type_code->native_size = sizeof(::vnx::ProxyInterface_wait_on_connect_return);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<ProxyInterface_wait_on_connect_return>(); };
-	type_code->methods.resize(0);
 	type_code->fields.resize(1);
 	{
 		auto& field = type_code->fields[0];
