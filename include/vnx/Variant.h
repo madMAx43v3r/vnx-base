@@ -92,6 +92,14 @@ public:
 		return tmp;
 	}
 	
+	/// Returns serialized size in bytes
+	size_t size() const {
+		if(empty()) {
+			return 4;
+		}
+		return data.size();
+	}
+
 	/** \brief Computes a semantic 64-bit content hash
 	 * 
 	 * This hash is invariant against different byte order, different integer size and type,
