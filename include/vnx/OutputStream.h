@@ -235,6 +235,9 @@ public:
 	/// To keep track of which type codes have already been written to the stream (and at what byte position)
 	std::unordered_map<Hash64, int64_t> type_code_map;
 	
+	/// To disable writing type codes
+	bool disable_type_codes = false;
+
 };
 
 

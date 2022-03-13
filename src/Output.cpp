@@ -93,9 +93,8 @@ void SocketOutputStream::write(const void* buf, size_t len) {
 }
 
 bool TypeOutput::write_type_code(const TypeCode* type_code) {
-	if(type_code) {
-		auto iter = type_code_map.find(type_code->code_hash);
-		if(iter == type_code_map.end()) {
+	if(type_code && !disable_type_codes) {
+		if(!type_code_map.count(type_code->code_hash)) {
 			vnx::write(*this, *type_code);
 			return true;
 		}
