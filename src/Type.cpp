@@ -1177,8 +1177,10 @@ static GlobalTypeRegistry& get_global_type_registry() {
 }
 
 const TypeCode* register_type_code(std::shared_ptr<TypeCode> type_code) {
-	register_type_code(type_code->code_hash, type_code);
-	return register_type_code(type_code->type_hash, type_code);
+	if(type_code->is_native) {
+		register_type_code(type_code->type_hash, type_code);
+	}
+	return register_type_code(type_code->code_hash, type_code);
 }
 
 const TypeCode* register_type_code(Hash64 hash, std::shared_ptr<TypeCode> type_code) {
