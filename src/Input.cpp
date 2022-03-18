@@ -662,7 +662,7 @@ const TypeCode* read_type_code(TypeInput& in, const uint16_t* code) {
 	std::shared_ptr<TypeCode> type_code = std::make_shared<TypeCode>();
 	vnx::read(in, *type_code, nullptr, code);
 	type_code->build();
-	const TypeCode* out = vnx::register_type_code(type_code->code_hash, type_code);
+	const TypeCode* out = vnx::register_type_code(type_code);
 	in.type_code_map[type_code->code_hash] = out;
 	return out;
 }
