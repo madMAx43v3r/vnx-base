@@ -7,7 +7,7 @@
 
 #include <vnx/vnx.h>
 #include <vnx/Directory.h>
-#include <windows.h>
+#include <filesystem>
 
 
 namespace vnx{
@@ -48,89 +48,54 @@ void Directory::create(const std::string &path_) {
 }
 
 void Directory::create() {
-	size_t position = 0;
-	while(position < path.length()){
-		position = path.find_first_of("/\\", position);
-		if(position == std::string::npos) position = path.length();
-		std::string parent = path.substr(0, position);
-		if(!CreateDirectoryA(parent.c_str(), NULL)) {
-			const auto err = GetLastError();
-			if(err != ERROR_ALREADY_EXISTS) {
-				throw std::runtime_error("CreateDirectoryA() failed with: code " + std::to_string(err));
-			}
-		}
-		position++;
+	if (!path.empty()) {
+		std::filesystem::create_directories(path);
 	}
 }
 
 std::vector<std::shared_ptr<File>> Directory::files() const {
 	std::vector<std::shared_ptr<File>> result;
 
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind;
-
-	hFind = FindFirstFile((path + "/*").c_str(), &FindFileData);
-	if (hFind == INVALID_HANDLE_VALUE){
+	if (!std::filesystem::exists(path)) {
 		throw std::runtime_error("Error opening directory '" + path + "'");
 	}
 
-	do{
-		std::string name = FindFileData.cFileName;
-		if(name == "." || name == "..") continue;
-		bool isDir = ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0);
-		bool isFile = !isDir; //((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_NORMAL) != 0);
-
-		if(isFile){
-			result.push_back(std::make_shared<File>(get_path() + name));
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+		if (std::filesystem::is_regular_file(dir_entry)) {
+			result.push_back(std::make_shared<File>(dir_entry.path().string()));
 		}
-	}while(FindNextFile(hFind, &FindFileData) != 0);
+	}
 
-	FindClose(hFind);
 	return result;
 }
 
 std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 	std::vector<std::shared_ptr<Directory>> result;
 
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind;
-
-	hFind = FindFirstFile((path + "/*").c_str(), &FindFileData);
-	if (hFind == INVALID_HANDLE_VALUE){
+	if (!std::filesystem::exists(path)) {
 		throw std::runtime_error("Error opening directory '" + path + "'");
 	}
 
-	do{
-		std::string name = FindFileData.cFileName;
-		if(name == "." || name == "..") continue;
-		bool isDir = ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0);
-
-		if(isDir){
-			result.push_back(std::make_shared<Directory>(get_path() + name));
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+		if (std::filesystem::is_directory(dir_entry)) {
+			result.push_back(std::make_shared<Directory>(dir_entry.path().string()));
 		}
-	}while(FindNextFile(hFind, &FindFileData) != 0);
+	}
 
-	FindClose(hFind);
 	return result;
 }
 
 std::vector<std::shared_ptr<File>> Directory::all_files() const {
 	std::vector<std::shared_ptr<File>> result;
 
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind;
-
-	hFind = FindFirstFile((path + "/*").c_str(), &FindFileData);
-	if (hFind == INVALID_HANDLE_VALUE){
+	if (!std::filesystem::exists(path)) {
 		throw std::runtime_error("Error opening directory '" + path + "'");
 	}
 
-	do{
-		std::string name = FindFileData.cFileName;
-		result.push_back(std::make_shared<File>(get_path() + name));
-	}while(FindNextFile(hFind, &FindFileData) != 0);
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+        result.push_back(std::make_shared<File>(dir_entry.path().string()));
+    }
 
-	FindClose(hFind);
 	return result;
 }
 
