@@ -526,7 +526,7 @@ bool BaseProxy::rewire_connection() {
 	return false;
 }
 
-std::shared_ptr<const Session> BaseProxy::get_session() {
+std::shared_ptr<const Session> BaseProxy::get_session() const {
 	if(use_authentication) {
 		std::lock_guard<std::mutex> lock(mutex_session);
 		return session;
@@ -560,8 +560,10 @@ void BaseProxy::read_loop(std::shared_ptr<const Endpoint> endpoint)
 			// synchronize with main thread for socket
 			std::lock_guard<std::mutex> lock(mutex_socket);
 		}
-		if(socket < 0){
-			if(!rewire_connection()) break;
+		if(socket < 0) {
+			if(!rewire_connection()) {
+				break;
+			}
 			try {
 				proxy.on_connect();		// tell our module that we are connected now
 			} catch(...) {
@@ -609,10 +611,8 @@ void BaseProxy::process(std::shared_ptr<Frame> frame) noexcept {
 	num_frames_recv++;
 }
 
-void BaseProxy::process(std::shared_ptr<Request> request,
-						std::shared_ptr<const Session> session_,
-						std::shared_ptr<Pipe> service_pipe) noexcept
-{
+void BaseProxy::process(std::shared_ptr<Request> request, std::shared_ptr<Pipe> service_pipe) noexcept {
+	const auto session_ = get_session();
 	request->session = session_ ? session_->id : Hash64();
 
 	std::shared_ptr<Pipe> pipe;
@@ -646,9 +646,8 @@ void BaseProxy::process(std::shared_ptr<Request> request,
 	num_requests_recv++;
 }
 
-void BaseProxy::process(std::shared_ptr<Sample> sample,
-						std::shared_ptr<const Session> session_) noexcept
-{
+void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
+	const auto session_ = get_session();
 	const permission_e needed = permission_e::PUBLISH;
 	if(session_ && !session_->has_permission_vnx(needed)) {
 		log(WARN) << "Denied publish to topic '" << sample->topic->get_name() << "' due to missing: " << needed.to_string_value_full();

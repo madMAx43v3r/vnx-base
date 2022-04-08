@@ -29,6 +29,8 @@ interface ProxyInterface {
 	@Permission(PROXY_FORWARD)
 	void disable_tunnel(Hash64 tunnel_addr);
 	
+	Session* get_session() const;
+	
 	Hash64 wait_on_connect() const async;		// returns remote process id when connected
 	
 	Hash64 wait_on_disconnect() const async;	// returns remote process id of lost connection (if any)

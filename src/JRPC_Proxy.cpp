@@ -188,7 +188,7 @@ void JRPC_Proxy::read_socket_until_error(std::shared_ptr<Pipe> service_pipe){
 			// publish as Object, since we might not have the native type linked in
 			sample->value = params["value"].to<std::shared_ptr<Object>>();
 
-			process(sample, get_session());
+			process(sample);
 		}else if(is_request_or_notification){
 			std::shared_ptr<Request> request = Request::create();
 			request->flags |= Message::BLOCKING;
@@ -226,7 +226,7 @@ void JRPC_Proxy::read_socket_until_error(std::shared_ptr<Pipe> service_pipe){
 			}
 			request->method = method;
 
-			process(request, get_session(), service_pipe);
+			process(request, service_pipe);
 		}else if(is_result || is_failure){
 			std::shared_ptr<Return> return_msg;
 

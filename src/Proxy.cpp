@@ -138,10 +138,10 @@ void Proxy::read_socket_until_error(std::shared_ptr<Pipe> service_pipe) {
 					process(std::static_pointer_cast<Frame>(value));
 					break;
 				case Sample::VNX_TYPE_ID:
-					process(std::static_pointer_cast<Sample>(value), get_session());
+					process(std::static_pointer_cast<Sample>(value));
 					break;
 				case Request::VNX_TYPE_ID:
-					process(std::static_pointer_cast<Request>(value), get_session(), service_pipe);
+					process(std::static_pointer_cast<Request>(value), service_pipe);
 					break;
 				case Return::VNX_TYPE_ID:
 					process(std::static_pointer_cast<Return>(value));

@@ -95,12 +95,11 @@ protected:
 
 	void on_remote_login(std::shared_ptr<const Session> remote_session) override;
 
+	std::shared_ptr<const Session> get_session() const override;
+
 	using Super::handle; // brings the other overloads into scope
 
 protected:
-	// thread-safe copy of session
-	std::shared_ptr<const Session> get_session();
-	
 	// to be called by read_loop() only
 	std::shared_ptr<Pipe> add_return_pipe(	Hash64 src_mac, std::shared_ptr<Pipe> pipe,
 											int max_queue_ms, int max_queue_size, bool reconnect);
@@ -109,13 +108,10 @@ protected:
 	void process(std::shared_ptr<Frame> frame) noexcept;
 	
 	// to be called by read_loop() only
-	void process(	std::shared_ptr<Request> request,
-					std::shared_ptr<const Session> session,
-					std::shared_ptr<Pipe> service_pipe) noexcept;
+	void process(std::shared_ptr<Sample> sample) noexcept;
 
 	// to be called by read_loop() only
-	void process(	std::shared_ptr<Sample> sample,
-					std::shared_ptr<const Session> session) noexcept;
+	void process(std::shared_ptr<Request> request, std::shared_ptr<Pipe> service_pipe) noexcept;
 
 	// to be called by read_loop() only
 	void process(std::shared_ptr<Return> return_msg) noexcept;
@@ -125,10 +121,11 @@ protected:
 
 	std::shared_ptr<const Endpoint> endpoint;
 	SocketOutputStream stream_out;
+
 	std::mutex mutex_socket;
 	int socket = -1;				// only read loop modifies (after setup)
 	
-	std::mutex mutex_session;
+	mutable std::mutex mutex_session;
 	std::shared_ptr<const Session> session;					// only main thread modifies
 	std::shared_ptr<const Session> default_session;			// read-only (never modified after start)
 	std::shared_ptr<const Session> internal_session;		// read-only (never modified after start)
