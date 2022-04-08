@@ -50,6 +50,8 @@ public:
 	
 	void disable_tunnel_async(const ::vnx::Hash64& tunnel_addr = ::vnx::Hash64());
 	
+	std::shared_ptr<const ::vnx::Session> get_session();
+	
 	::vnx::Hash64 wait_on_connect();
 	
 	::vnx::Hash64 wait_on_disconnect();

@@ -39,6 +39,8 @@
 #include <vnx/ProxyInterface_enable_import_return.hxx>
 #include <vnx/ProxyInterface_enable_tunnel.hxx>
 #include <vnx/ProxyInterface_enable_tunnel_return.hxx>
+#include <vnx/ProxyInterface_get_session.hxx>
+#include <vnx/ProxyInterface_get_session_return.hxx>
 #include <vnx/ProxyInterface_login.hxx>
 #include <vnx/ProxyInterface_login_return.hxx>
 #include <vnx/ProxyInterface_on_connect.hxx>
@@ -196,12 +198,24 @@ uint64_t BaseProxyAsyncClient::disable_tunnel(const ::vnx::Hash64& tunnel_addr, 
 	return _request_id;
 }
 
+uint64_t BaseProxyAsyncClient::get_session(const std::function<void(std::shared_ptr<const ::vnx::Session>)>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
+	auto _method = ::vnx::ProxyInterface_get_session::create();
+	const auto _request_id = ++vnx_next_id;
+	{
+		std::lock_guard<std::mutex> _lock(vnx_mutex);
+		vnx_pending[_request_id] = 9;
+		vnx_queue_get_session[_request_id] = std::make_pair(_callback, _error_callback);
+	}
+	vnx_request(_method, _request_id);
+	return _request_id;
+}
+
 uint64_t BaseProxyAsyncClient::wait_on_connect(const std::function<void(const ::vnx::Hash64&)>& _callback, const std::function<void(const vnx::exception&)>& _error_callback) {
 	auto _method = ::vnx::ProxyInterface_wait_on_connect::create();
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 9;
+		vnx_pending[_request_id] = 10;
 		vnx_queue_wait_on_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -213,7 +227,7 @@ uint64_t BaseProxyAsyncClient::wait_on_disconnect(const std::function<void(const
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 10;
+		vnx_pending[_request_id] = 11;
 		vnx_queue_wait_on_disconnect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -225,7 +239,7 @@ uint64_t BaseProxyAsyncClient::on_connect(const std::function<void()>& _callback
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 11;
+		vnx_pending[_request_id] = 12;
 		vnx_queue_on_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -237,7 +251,7 @@ uint64_t BaseProxyAsyncClient::on_disconnect(const std::function<void()>& _callb
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 12;
+		vnx_pending[_request_id] = 13;
 		vnx_queue_on_disconnect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -250,7 +264,7 @@ uint64_t BaseProxyAsyncClient::on_remote_connect(const ::vnx::Hash64& process_id
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 13;
+		vnx_pending[_request_id] = 14;
 		vnx_queue_on_remote_connect[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -264,7 +278,7 @@ uint64_t BaseProxyAsyncClient::on_login(const std::string& name, const std::stri
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 14;
+		vnx_pending[_request_id] = 15;
 		vnx_queue_on_login[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -277,7 +291,7 @@ uint64_t BaseProxyAsyncClient::on_remote_login(std::shared_ptr<const ::vnx::Sess
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 15;
+		vnx_pending[_request_id] = 16;
 		vnx_queue_on_remote_login[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -289,7 +303,7 @@ uint64_t BaseProxyAsyncClient::vnx_get_config_object(const std::function<void(co
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 16;
+		vnx_pending[_request_id] = 17;
 		vnx_queue_vnx_get_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -302,7 +316,7 @@ uint64_t BaseProxyAsyncClient::vnx_get_config(const std::string& name, const std
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 17;
+		vnx_pending[_request_id] = 18;
 		vnx_queue_vnx_get_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -315,7 +329,7 @@ uint64_t BaseProxyAsyncClient::vnx_set_config_object(const ::vnx::Object& config
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 18;
+		vnx_pending[_request_id] = 19;
 		vnx_queue_vnx_set_config_object[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -329,7 +343,7 @@ uint64_t BaseProxyAsyncClient::vnx_set_config(const std::string& name, const ::v
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 19;
+		vnx_pending[_request_id] = 20;
 		vnx_queue_vnx_set_config[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -341,7 +355,7 @@ uint64_t BaseProxyAsyncClient::vnx_get_type_code(const std::function<void(const 
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 20;
+		vnx_pending[_request_id] = 21;
 		vnx_queue_vnx_get_type_code[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -353,7 +367,7 @@ uint64_t BaseProxyAsyncClient::vnx_get_module_info(const std::function<void(std:
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 21;
+		vnx_pending[_request_id] = 22;
 		vnx_queue_vnx_get_module_info[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -365,7 +379,7 @@ uint64_t BaseProxyAsyncClient::vnx_restart(const std::function<void()>& _callbac
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 22;
+		vnx_pending[_request_id] = 23;
 		vnx_queue_vnx_restart[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -377,7 +391,7 @@ uint64_t BaseProxyAsyncClient::vnx_stop(const std::function<void()>& _callback, 
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 23;
+		vnx_pending[_request_id] = 24;
 		vnx_queue_vnx_stop[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -389,7 +403,7 @@ uint64_t BaseProxyAsyncClient::vnx_self_test(const std::function<void(const vnx:
 	const auto _request_id = ++vnx_next_id;
 	{
 		std::lock_guard<std::mutex> _lock(vnx_mutex);
-		vnx_pending[_request_id] = 24;
+		vnx_pending[_request_id] = 25;
 		vnx_queue_vnx_self_test[_request_id] = std::make_pair(_callback, _error_callback);
 	}
 	vnx_request(_method, _request_id);
@@ -514,6 +528,18 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			break;
 		}
 		case 9: {
+			const auto _iter = vnx_queue_get_session.find(_request_id);
+			if(_iter != vnx_queue_get_session.end()) {
+				const auto _callback = std::move(_iter->second.second);
+				vnx_queue_get_session.erase(_iter);
+				_lock.unlock();
+				if(_callback) {
+					_callback(_ex);
+				}
+			}
+			break;
+		}
+		case 10: {
 			const auto _iter = vnx_queue_wait_on_connect.find(_request_id);
 			if(_iter != vnx_queue_wait_on_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -525,7 +551,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 10: {
+		case 11: {
 			const auto _iter = vnx_queue_wait_on_disconnect.find(_request_id);
 			if(_iter != vnx_queue_wait_on_disconnect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -537,7 +563,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 11: {
+		case 12: {
 			const auto _iter = vnx_queue_on_connect.find(_request_id);
 			if(_iter != vnx_queue_on_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -549,7 +575,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 12: {
+		case 13: {
 			const auto _iter = vnx_queue_on_disconnect.find(_request_id);
 			if(_iter != vnx_queue_on_disconnect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -561,7 +587,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 13: {
+		case 14: {
 			const auto _iter = vnx_queue_on_remote_connect.find(_request_id);
 			if(_iter != vnx_queue_on_remote_connect.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -573,7 +599,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 14: {
+		case 15: {
 			const auto _iter = vnx_queue_on_login.find(_request_id);
 			if(_iter != vnx_queue_on_login.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -585,7 +611,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 15: {
+		case 16: {
 			const auto _iter = vnx_queue_on_remote_login.find(_request_id);
 			if(_iter != vnx_queue_on_remote_login.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -597,7 +623,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 16: {
+		case 17: {
 			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_config_object.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -609,7 +635,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 17: {
+		case 18: {
 			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_config.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -621,7 +647,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 18: {
+		case 19: {
 			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
 			if(_iter != vnx_queue_vnx_set_config_object.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -633,7 +659,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 19: {
+		case 20: {
 			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
 			if(_iter != vnx_queue_vnx_set_config.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -645,7 +671,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 20: {
+		case 21: {
 			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_type_code.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -657,7 +683,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 21: {
+		case 22: {
 			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
 			if(_iter != vnx_queue_vnx_get_module_info.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -669,7 +695,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 22: {
+		case 23: {
 			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
 			if(_iter != vnx_queue_vnx_restart.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -681,7 +707,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 23: {
+		case 24: {
 			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
 			if(_iter != vnx_queue_vnx_stop.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -693,7 +719,7 @@ int32_t BaseProxyAsyncClient::vnx_purge_request(uint64_t _request_id, const vnx:
 			}
 			break;
 		}
-		case 24: {
+		case 25: {
 			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
 			if(_iter != vnx_queue_vnx_self_test.end()) {
 				const auto _callback = std::move(_iter->second.second);
@@ -842,6 +868,25 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			break;
 		}
 		case 9: {
+			const auto _iter = vnx_queue_get_session.find(_request_id);
+			if(_iter == vnx_queue_get_session.end()) {
+				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
+			}
+			const auto _callback = std::move(_iter->second.first);
+			vnx_queue_get_session.erase(_iter);
+			_lock.unlock();
+			if(_callback) {
+				if(auto _result = std::dynamic_pointer_cast<const ::vnx::ProxyInterface_get_session_return>(_value)) {
+					_callback(_result->_ret_0);
+				} else if(_value && !_value->is_void()) {
+					_callback(_value->get_field_by_index(0).to<std::shared_ptr<const ::vnx::Session>>());
+				} else {
+					throw std::logic_error("BaseProxyAsyncClient: invalid return value");
+				}
+			}
+			break;
+		}
+		case 10: {
 			const auto _iter = vnx_queue_wait_on_connect.find(_request_id);
 			if(_iter == vnx_queue_wait_on_connect.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -860,7 +905,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 10: {
+		case 11: {
 			const auto _iter = vnx_queue_wait_on_disconnect.find(_request_id);
 			if(_iter == vnx_queue_wait_on_disconnect.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -879,7 +924,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 11: {
+		case 12: {
 			const auto _iter = vnx_queue_on_connect.find(_request_id);
 			if(_iter == vnx_queue_on_connect.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -892,7 +937,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 12: {
+		case 13: {
 			const auto _iter = vnx_queue_on_disconnect.find(_request_id);
 			if(_iter == vnx_queue_on_disconnect.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -905,7 +950,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 13: {
+		case 14: {
 			const auto _iter = vnx_queue_on_remote_connect.find(_request_id);
 			if(_iter == vnx_queue_on_remote_connect.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -918,7 +963,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 14: {
+		case 15: {
 			const auto _iter = vnx_queue_on_login.find(_request_id);
 			if(_iter == vnx_queue_on_login.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -931,7 +976,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 15: {
+		case 16: {
 			const auto _iter = vnx_queue_on_remote_login.find(_request_id);
 			if(_iter == vnx_queue_on_remote_login.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -944,7 +989,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 16: {
+		case 17: {
 			const auto _iter = vnx_queue_vnx_get_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config_object.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -963,7 +1008,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 17: {
+		case 18: {
 			const auto _iter = vnx_queue_vnx_get_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_config.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -982,7 +1027,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 18: {
+		case 19: {
 			const auto _iter = vnx_queue_vnx_set_config_object.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config_object.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -995,7 +1040,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 19: {
+		case 20: {
 			const auto _iter = vnx_queue_vnx_set_config.find(_request_id);
 			if(_iter == vnx_queue_vnx_set_config.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -1008,7 +1053,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 20: {
+		case 21: {
 			const auto _iter = vnx_queue_vnx_get_type_code.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_type_code.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -1027,7 +1072,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 21: {
+		case 22: {
 			const auto _iter = vnx_queue_vnx_get_module_info.find(_request_id);
 			if(_iter == vnx_queue_vnx_get_module_info.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -1046,7 +1091,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 22: {
+		case 23: {
 			const auto _iter = vnx_queue_vnx_restart.find(_request_id);
 			if(_iter == vnx_queue_vnx_restart.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -1059,7 +1104,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 23: {
+		case 24: {
 			const auto _iter = vnx_queue_vnx_stop.find(_request_id);
 			if(_iter == vnx_queue_vnx_stop.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");
@@ -1072,7 +1117,7 @@ int32_t BaseProxyAsyncClient::vnx_callback_switch(uint64_t _request_id, std::sha
 			}
 			break;
 		}
-		case 24: {
+		case 25: {
 			const auto _iter = vnx_queue_vnx_self_test.find(_request_id);
 			if(_iter == vnx_queue_vnx_self_test.end()) {
 				throw std::runtime_error("BaseProxyAsyncClient: callback not found");

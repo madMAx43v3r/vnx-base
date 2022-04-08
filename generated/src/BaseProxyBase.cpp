@@ -40,6 +40,8 @@
 #include <vnx/ProxyInterface_enable_import_return.hxx>
 #include <vnx/ProxyInterface_enable_tunnel.hxx>
 #include <vnx/ProxyInterface_enable_tunnel_return.hxx>
+#include <vnx/ProxyInterface_get_session.hxx>
+#include <vnx/ProxyInterface_get_session_return.hxx>
 #include <vnx/ProxyInterface_login.hxx>
 #include <vnx/ProxyInterface_login_return.hxx>
 #include <vnx/ProxyInterface_on_connect.hxx>
@@ -391,7 +393,7 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	type_code->code_hash = vnx::Hash64(0x39f726354914de2eull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::BaseProxyBase);
-	type_code->methods.resize(25);
+	type_code->methods.resize(26);
 	type_code->methods[0] = ::vnx::ModuleInterface_vnx_get_config::static_get_type_code();
 	type_code->methods[1] = ::vnx::ModuleInterface_vnx_get_config_object::static_get_type_code();
 	type_code->methods[2] = ::vnx::ModuleInterface_vnx_get_module_info::static_get_type_code();
@@ -409,14 +411,15 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	type_code->methods[14] = ::vnx::ProxyInterface_enable_forward::static_get_type_code();
 	type_code->methods[15] = ::vnx::ProxyInterface_enable_import::static_get_type_code();
 	type_code->methods[16] = ::vnx::ProxyInterface_enable_tunnel::static_get_type_code();
-	type_code->methods[17] = ::vnx::ProxyInterface_login::static_get_type_code();
-	type_code->methods[18] = ::vnx::ProxyInterface_on_connect::static_get_type_code();
-	type_code->methods[19] = ::vnx::ProxyInterface_on_disconnect::static_get_type_code();
-	type_code->methods[20] = ::vnx::ProxyInterface_on_login::static_get_type_code();
-	type_code->methods[21] = ::vnx::ProxyInterface_on_remote_connect::static_get_type_code();
-	type_code->methods[22] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
-	type_code->methods[23] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
-	type_code->methods[24] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
+	type_code->methods[17] = ::vnx::ProxyInterface_get_session::static_get_type_code();
+	type_code->methods[18] = ::vnx::ProxyInterface_login::static_get_type_code();
+	type_code->methods[19] = ::vnx::ProxyInterface_on_connect::static_get_type_code();
+	type_code->methods[20] = ::vnx::ProxyInterface_on_disconnect::static_get_type_code();
+	type_code->methods[21] = ::vnx::ProxyInterface_on_login::static_get_type_code();
+	type_code->methods[22] = ::vnx::ProxyInterface_on_remote_connect::static_get_type_code();
+	type_code->methods[23] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
+	type_code->methods[24] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
+	type_code->methods[25] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
 	type_code->fields.resize(22);
 	{
 		auto& field = type_code->fields[0];
@@ -679,6 +682,12 @@ std::shared_ptr<vnx::Value> BaseProxyBase::vnx_call_switch(std::shared_ptr<const
 			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_enable_tunnel>(_method);
 			auto _return_value = ::vnx::ProxyInterface_enable_tunnel_return::create();
 			enable_tunnel(_args->tunnel_addr, _args->max_queue_ms, _args->max_queue_size);
+			return _return_value;
+		}
+		case 0x60cf186ca96171f6ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::ProxyInterface_get_session>(_method);
+			auto _return_value = ::vnx::ProxyInterface_get_session_return::create();
+			_return_value->_ret_0 = get_session();
 			return _return_value;
 		}
 		case 0xe1cd627631f1b2f1ull: {

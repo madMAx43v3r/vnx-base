@@ -149,6 +149,8 @@
 #include <vnx/ProxyInterface_enable_import_return.hxx>
 #include <vnx/ProxyInterface_enable_tunnel.hxx>
 #include <vnx/ProxyInterface_enable_tunnel_return.hxx>
+#include <vnx/ProxyInterface_get_session.hxx>
+#include <vnx/ProxyInterface_get_session_return.hxx>
 #include <vnx/ProxyInterface_login.hxx>
 #include <vnx/ProxyInterface_login_return.hxx>
 #include <vnx/ProxyInterface_on_connect.hxx>
@@ -2006,6 +2008,30 @@ void type<::vnx::ProxyInterface_enable_tunnel_return>::create_dynamic_code(std::
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::ProxyInterface_get_session>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_get_session;
+}
+
+void type<::vnx::ProxyInterface_get_session>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::ProxyInterface_get_session());
+}
+
+void type<::vnx::ProxyInterface_get_session>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_get_session& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::ProxyInterface_get_session_return>::get_type_code() {
+	return vnx::vnx_native_type_code_ProxyInterface_get_session_return;
+}
+
+void type<::vnx::ProxyInterface_get_session_return>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::ProxyInterface_get_session_return());
+}
+
+void type<::vnx::ProxyInterface_get_session_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_get_session_return& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
 const TypeCode* type<::vnx::ProxyInterface_login>::get_type_code() {
 	return vnx::vnx_native_type_code_ProxyInterface_login;
 }
@@ -3348,6 +3374,8 @@ static void register_all_types() {
 	vnx::register_type_code(::vnx::ProxyInterface_enable_import_return::static_create_type_code());
 	vnx::register_type_code(::vnx::ProxyInterface_enable_tunnel::static_create_type_code());
 	vnx::register_type_code(::vnx::ProxyInterface_enable_tunnel_return::static_create_type_code());
+	vnx::register_type_code(::vnx::ProxyInterface_get_session::static_create_type_code());
+	vnx::register_type_code(::vnx::ProxyInterface_get_session_return::static_create_type_code());
 	vnx::register_type_code(::vnx::ProxyInterface_login::static_create_type_code());
 	vnx::register_type_code(::vnx::ProxyInterface_login_return::static_create_type_code());
 	vnx::register_type_code(::vnx::ProxyInterface_on_connect::static_create_type_code());
@@ -3605,6 +3633,8 @@ const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import = v
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import_return = vnx::get_type_code(vnx::Hash64(0xf9ebb9446d8b47e5ull));
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel = vnx::get_type_code(vnx::Hash64(0x205fdc566e482078ull));
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel_return = vnx::get_type_code(vnx::Hash64(0x77be1651311405c7ull));
+const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_get_session = vnx::get_type_code(vnx::Hash64(0x60cf186ca96171f6ull));
+const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_get_session_return = vnx::get_type_code(vnx::Hash64(0x98cdb953e8233d03ull));
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login = vnx::get_type_code(vnx::Hash64(0xe1cd627631f1b2f1ull));
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login_return = vnx::get_type_code(vnx::Hash64(0x9cd4cd807b1b9e19ull));
 const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect = vnx::get_type_code(vnx::Hash64(0x62d6b28adfabac18ull));

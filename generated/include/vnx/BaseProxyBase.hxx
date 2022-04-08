@@ -84,6 +84,7 @@ protected:
 	virtual void disable_forward(const std::string& service_name) = 0;
 	virtual void enable_tunnel(const ::vnx::Hash64& tunnel_addr, const int32_t& max_queue_ms, const int32_t& max_queue_size) = 0;
 	virtual void disable_tunnel(const ::vnx::Hash64& tunnel_addr) = 0;
+	virtual std::shared_ptr<const ::vnx::Session> get_session() const = 0;
 	virtual void wait_on_connect_async(const vnx::request_id_t& _request_id) const = 0;
 	void wait_on_connect_async_return(const vnx::request_id_t& _request_id, const ::vnx::Hash64& _ret_0) const;
 	virtual void wait_on_disconnect_async(const vnx::request_id_t& _request_id) const = 0;

@@ -20,6 +20,8 @@
 #include <vnx/ProxyInterface_enable_import_return.hxx>
 #include <vnx/ProxyInterface_enable_tunnel.hxx>
 #include <vnx/ProxyInterface_enable_tunnel_return.hxx>
+#include <vnx/ProxyInterface_get_session.hxx>
+#include <vnx/ProxyInterface_get_session_return.hxx>
 #include <vnx/ProxyInterface_login.hxx>
 #include <vnx/ProxyInterface_login_return.hxx>
 #include <vnx/ProxyInterface_on_connect.hxx>

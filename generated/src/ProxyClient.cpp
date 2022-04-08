@@ -38,6 +38,8 @@
 #include <vnx/ProxyInterface_enable_import_return.hxx>
 #include <vnx/ProxyInterface_enable_tunnel.hxx>
 #include <vnx/ProxyInterface_enable_tunnel_return.hxx>
+#include <vnx/ProxyInterface_get_session.hxx>
+#include <vnx/ProxyInterface_get_session_return.hxx>
 #include <vnx/ProxyInterface_login.hxx>
 #include <vnx/ProxyInterface_login_return.hxx>
 #include <vnx/ProxyInterface_on_connect.hxx>
@@ -187,6 +189,18 @@ void ProxyClient::disable_tunnel_async(const ::vnx::Hash64& tunnel_addr) {
 	auto _method = ::vnx::ProxyInterface_disable_tunnel::create();
 	_method->tunnel_addr = tunnel_addr;
 	vnx_request(_method, true);
+}
+
+std::shared_ptr<const ::vnx::Session> ProxyClient::get_session() {
+	auto _method = ::vnx::ProxyInterface_get_session::create();
+	auto _return_value = vnx_request(_method, false);
+	if(auto _result = std::dynamic_pointer_cast<const ::vnx::ProxyInterface_get_session_return>(_return_value)) {
+		return _result->_ret_0;
+	} else if(_return_value && !_return_value->is_void()) {
+		return _return_value->get_field_by_index(0).to<std::shared_ptr<const ::vnx::Session>>();
+	} else {
+		throw std::logic_error("ProxyClient: invalid return value");
+	}
 }
 
 ::vnx::Hash64 ProxyClient::wait_on_connect() {

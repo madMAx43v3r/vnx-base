@@ -181,6 +181,8 @@ class ProxyInterface_enable_import;
 class ProxyInterface_enable_import_return;
 class ProxyInterface_enable_tunnel;
 class ProxyInterface_enable_tunnel_return;
+class ProxyInterface_get_session;
+class ProxyInterface_get_session_return;
 class ProxyInterface_login;
 class ProxyInterface_login_return;
 class ProxyInterface_on_connect;
@@ -434,6 +436,8 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_import_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_enable_tunnel_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_get_session; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_get_session_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_login_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_ProxyInterface_on_connect; ///< \private
@@ -697,6 +701,8 @@ void read(TypeInput& in, ::vnx::ProxyInterface_enable_import& value, const TypeC
 void read(TypeInput& in, ::vnx::ProxyInterface_enable_import_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ProxyInterface_enable_tunnel& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ProxyInterface_enable_tunnel_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::ProxyInterface_get_session& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::ProxyInterface_get_session_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ProxyInterface_login& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ProxyInterface_login_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ProxyInterface_on_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -958,6 +964,8 @@ void write(TypeOutput& out, const ::vnx::ProxyInterface_enable_import& value, co
 void write(TypeOutput& out, const ::vnx::ProxyInterface_enable_import_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ProxyInterface_enable_tunnel& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ProxyInterface_enable_tunnel_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::ProxyInterface_get_session& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::ProxyInterface_get_session_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ProxyInterface_login& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ProxyInterface_login_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ProxyInterface_on_connect& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1219,6 +1227,8 @@ void read(std::istream& in, ::vnx::ProxyInterface_enable_import& value); ///< \p
 void read(std::istream& in, ::vnx::ProxyInterface_enable_import_return& value); ///< \private
 void read(std::istream& in, ::vnx::ProxyInterface_enable_tunnel& value); ///< \private
 void read(std::istream& in, ::vnx::ProxyInterface_enable_tunnel_return& value); ///< \private
+void read(std::istream& in, ::vnx::ProxyInterface_get_session& value); ///< \private
+void read(std::istream& in, ::vnx::ProxyInterface_get_session_return& value); ///< \private
 void read(std::istream& in, ::vnx::ProxyInterface_login& value); ///< \private
 void read(std::istream& in, ::vnx::ProxyInterface_login_return& value); ///< \private
 void read(std::istream& in, ::vnx::ProxyInterface_on_connect& value); ///< \private
@@ -1480,6 +1490,8 @@ void write(std::ostream& out, const ::vnx::ProxyInterface_enable_import& value);
 void write(std::ostream& out, const ::vnx::ProxyInterface_enable_import_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::ProxyInterface_enable_tunnel& value); ///< \private
 void write(std::ostream& out, const ::vnx::ProxyInterface_enable_tunnel_return& value); ///< \private
+void write(std::ostream& out, const ::vnx::ProxyInterface_get_session& value); ///< \private
+void write(std::ostream& out, const ::vnx::ProxyInterface_get_session_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::ProxyInterface_login& value); ///< \private
 void write(std::ostream& out, const ::vnx::ProxyInterface_login_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::ProxyInterface_on_connect& value); ///< \private
@@ -1741,6 +1753,8 @@ void accept(Visitor& visitor, const ::vnx::ProxyInterface_enable_import& value);
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_enable_import_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_enable_tunnel& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_enable_tunnel_return& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::ProxyInterface_get_session& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::ProxyInterface_get_session_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_login& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_login_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ProxyInterface_on_connect& value); ///< \private
@@ -5399,6 +5413,52 @@ struct type<::vnx::ProxyInterface_enable_tunnel_return> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_enable_tunnel_return& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::ProxyInterface_get_session> {
+	void read(TypeInput& in, ::vnx::ProxyInterface_get_session& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::ProxyInterface_get_session& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::ProxyInterface_get_session& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::ProxyInterface_get_session& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::ProxyInterface_get_session& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_get_session& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::ProxyInterface_get_session_return> {
+	void read(TypeInput& in, ::vnx::ProxyInterface_get_session_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::ProxyInterface_get_session_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::ProxyInterface_get_session_return& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::ProxyInterface_get_session_return& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::ProxyInterface_get_session_return& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::ProxyInterface_get_session_return& value, bool special = false);
 };
 
 /// \private
