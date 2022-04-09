@@ -280,6 +280,7 @@ void write_config_file(const std::string& file_path, const vnx::Object& config) 
 	std::ofstream stream(file_path, std::ios::out);
 	vnx::PrettyPrinter out(stream);
 	vnx::accept(out, config);
+	stream << std::endl;
 }
 
 
