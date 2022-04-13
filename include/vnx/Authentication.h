@@ -49,6 +49,8 @@ public:
 
 	void logout(Hash64 session_id);
 
+	void add_user(std::shared_ptr<const User> user);
+
 	std::shared_ptr<User> get_user(const std::string &name) const;
 
 	std::shared_ptr<const Session> get_session(Hash64 session_id) const;

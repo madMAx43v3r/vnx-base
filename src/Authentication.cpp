@@ -175,6 +175,14 @@ void AuthenticationServer::logout(Hash64 session_id){
 }
 
 
+void AuthenticationServer::add_user(std::shared_ptr<const User> user){
+	std::lock_guard<std::mutex> lock(mutex);
+	if(user) {
+		users[user->name] = *user;
+	}
+}
+
+
 std::shared_ptr<User> AuthenticationServer::get_user(const std::string &name) const{
 	std::lock_guard<std::mutex> lock(mutex);
 	auto iter = users.find(name);
