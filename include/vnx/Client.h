@@ -40,7 +40,7 @@ public:
 	~Client();
 	
 	/// Sets a custom session to be used for requests.
-	void vnx_set_session(Hash64 id);
+	void vnx_set_session(Hash64 id = Hash64());
 
 	/// Sets a tunnel address for sending requests to.
 	void vnx_set_tunnel(Hash64 tunnel_addr);
