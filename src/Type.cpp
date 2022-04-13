@@ -1026,13 +1026,8 @@ void read(TypeInput& in, TypeCode& value, const TypeCode* type_code, const uint1
 		read_dynamic(in, value.permission); i++;
 	}
 	for(; i < N; ++i) {
-		if(is_alt) {
-			const uint16_t code = CODE_ALT_DYNAMIC;
-			vnx::skip(in, nullptr, &code);
-		} else {
-			const uint16_t code = CODE_DYNAMIC;
-			vnx::skip(in, nullptr, &code);
-		}
+		const uint16_t code = is_alt ? CODE_ALT_DYNAMIC : CODE_DYNAMIC;
+		vnx::skip(in, nullptr, &code);
 	}
 	for(Hash64 code_hash : parents) {
 		value.parents.push_back(in.get_type_code(code_hash));
