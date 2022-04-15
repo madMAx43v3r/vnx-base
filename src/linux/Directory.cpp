@@ -62,14 +62,16 @@ void Directory::create(const std::string &path_) {
 void Directory::create() {
 	size_t position = 0;
 	while(position < path.length()) {
-		position = path.find("/", position);
+		position = path.find('/', position);
 		if(position == std::string::npos) {
 			position = path.length();
 		}
 		const auto parent = path.substr(0, position);
-		if(::mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)) {
-			if(errno != EEXIST) {
-				throw std::runtime_error("mkdir() failed with: " + std::string(::strerror(errno)));
+		if(!parent.empty()) {
+			if(::mkdir(parent.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)) {
+				if(errno != EEXIST) {
+					throw std::runtime_error("mkdir() failed with: " + std::string(::strerror(errno)));
+				}
 			}
 		}
 		position++;
