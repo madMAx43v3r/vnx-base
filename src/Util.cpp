@@ -83,6 +83,17 @@ uint64_t rand64() {
 	return generator();
 }
 
+std::string to_hex_string(const void* data, const size_t length) {
+	static const char map[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	std::string str;
+	str.resize(length * 2);
+	for(size_t i = 0; i < length; ++i) {
+		str[(length - i - 1) * 2] = map[((const uint8_t*)data)[i] >> 4];
+		str[(length - i - 1) * 2 + 1] = map[((const uint8_t*)data)[i] & 0x0F];
+	}
+	return str;
+}
+
 
 std::string input_password(const std::string &prompt){
 #ifdef _WIN32
