@@ -17,7 +17,6 @@
 #ifndef INCLUDE_VNX_MEMORY_H
 #define INCLUDE_VNX_MEMORY_H
 
-#include <vnx/package.hxx>
 #include <vnx/Type.h>
 #include <vnx/InputStream.h>
 #include <vnx/OutputStream.h>
@@ -33,66 +32,28 @@ namespace vnx {
 class Memory {
 public:
 	struct chunk_t {
-	private:
-		static constexpr size_t SHORT_SIZE = 2 * sizeof(void*);
-		static constexpr size_t SHORT_BIT = size_t(1) << (sizeof(size_t) * 8 - 1);
+		size_t size = 0;
+		char* data = nullptr;
+		chunk_t* next = nullptr;
 		
-	public:
-		chunk_t() {
-			data_ = nullptr;
-			next_ = nullptr;
+		chunk_t(size_t num_bytes) {
+			size = num_bytes;
+			data = (char*)::malloc(num_bytes);
 		}
-		
-		size_t size() const { return size_ & ~SHORT_BIT; }
-		
-		bool is_short() const { return size_ & SHORT_BIT; }
-		
-		char* data() { return (is_short() ? mem_ : data_); }
-		const char* data() const { return (is_short() ? mem_ : data_); }
-		
-		chunk_t* next() { return (is_short() ? 0 : next_); }
-		const chunk_t* next() const { return (is_short() ? 0 : next_); }
-		
-	private:
-		size_t size_ = 0;
-		
-		union {
-			struct {
-				char* data_;
-				chunk_t* next_;
-			};
-			char mem_[SHORT_SIZE];
-		};
-		
-		void alloc(size_t num_bytes, bool allow_short = false);
-		
-		void free();
-		
-		friend class Memory;
-		
+		~chunk_t() {
+			::free(data);
+			data = nullptr;
+		}
 	};
 	
-	Memory() {}
+	Memory() = default;
 	
 	~Memory() {
 		clear();
 	}
 	
-	/// Performs deep-copy
-	Memory(const Memory& other) {
-		*this = other;
-	}
-	
-	/// Performs deep-copy
-	Memory& operator=(const Memory& other);
-	
-	bool operator==(const Memory& other) const;
-	
-	bool operator!=(const Memory& other) const;
-	
-	bool operator<(const Memory& other) const;
-	
-	bool operator>(const Memory& other) const;
+	Memory(const Memory&) = delete;
+	Memory& operator=(const Memory&) = delete;
 	
 	bool empty() const {
 		return front_ == nullptr;
@@ -126,11 +87,7 @@ public:
 	
 private:
 	chunk_t* front_ = nullptr;
-	
-	union {
-		chunk_t first_;
-		chunk_t* back_;
-	};
+	chunk_t* back_ = nullptr;
 	
 };
 
@@ -169,18 +126,18 @@ public:
 		if(!chunk) {
 			return 0;
 		}
-		const size_t left = chunk->size() - offset;
+		const size_t left = chunk->size - offset;
 		if(len > left) {
 			len = left;
 		}
-		::memcpy(buf, chunk->data() + offset, len);
+		::memcpy(buf, chunk->data + offset, len);
 		offset += len;
-		if(offset >= chunk->size()) {
-			chunk = chunk->next();
+		if(offset >= chunk->size) {
+			chunk = chunk->next;
 			pos += offset;
 			offset = 0;
 		}
-		return int64_t(len);
+		return len;
 	}
 
 	int64_t get_input_pos() const override {

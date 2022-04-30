@@ -124,9 +124,7 @@ int main() {
 		Memory memory;
 		::memcpy(memory.add_chunk(test_string.size()), test_string.c_str(), test_string.size());
 		::memcpy(memory.add_chunk(test_string.size()), test_string.c_str(), test_string.size());
-		const Variant tmp(memory);
-		test_skip(tmp);
-		expect(tmp.to<Memory>().as_string(), (test_string + test_string));
+		expect(memory.as_string(), (test_string + test_string));
 	VNX_TEST_END()
 	
 	VNX_TEST_BEGIN("hash128")

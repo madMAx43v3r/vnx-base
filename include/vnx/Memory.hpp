@@ -20,29 +20,4 @@
 #include <vnx/Memory.h>
 
 
-namespace vnx {
-
-inline
-void Memory::chunk_t::alloc(size_t num_bytes, bool allow_short) {
-	if(num_bytes & SHORT_BIT) {
-		throw std::runtime_error("num_bytes & SHORT_BIT != 0");
-	}
-	size_ = num_bytes;
-	if(num_bytes > SHORT_SIZE || !allow_short) {
-		data_ = (char*)::malloc(num_bytes);
-	} else {
-		size_ |= SHORT_BIT;
-	}
-}
-
-inline
-void Memory::chunk_t::free() {
-	if(!is_short()) {
-		::free(data_);
-	}
-}
-
-
-} // vnx
-
 #endif /* INCLUDE_VNX_MEMORY_HPP_ */

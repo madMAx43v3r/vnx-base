@@ -46,7 +46,10 @@ std::shared_ptr<Binary> Binary::create() {
 }
 
 std::shared_ptr<Value> Binary::clone() const {
-	return std::make_shared<Binary>(*this);
+	auto copy = std::make_shared<Binary>();
+	MemoryOutputStream stream(&copy->data);
+	data.write(stream);
+	return copy;
 }
 
 void Binary::read(TypeInput& in, const TypeCode* type_code, const uint16_t* code) {

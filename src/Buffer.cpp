@@ -29,9 +29,9 @@ Buffer& Buffer::operator=(const Memory& other) {
 	size_t offset = 0;
 	const auto* chunk = other.front();
 	while(chunk) {
-		::memcpy(data(offset), chunk->data(), chunk->size());
-		offset += chunk->size();
-		chunk = chunk->next();
+		::memcpy(data(offset), chunk->data, chunk->size);
+		offset += chunk->size;
+		chunk = chunk->next;
 	}
 	return *this;
 }
