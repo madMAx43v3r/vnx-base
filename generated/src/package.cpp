@@ -255,7 +255,6 @@
 #include <vnx/Buffer.hpp>
 #include <vnx/Hash128.hpp>
 #include <vnx/Hash64.hpp>
-#include <vnx/Memory.hpp>
 #include <vnx/Object.hpp>
 #include <vnx/TopicPtr.hpp>
 #include <vnx/TypeCode.hpp>
@@ -783,18 +782,6 @@ void type<::vnx::Marker>::create_dynamic_code(std::vector<uint16_t>& code) {
 void type<::vnx::Marker>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Marker& value, bool special) {
 	code.push_back(CODE_OBJECT);
 }
-
-const TypeCode* type<::vnx::Memory>::get_type_code() {
-	return nullptr;
-}
-
-void type<::vnx::Memory>::create_dynamic_code(std::vector<uint16_t>& code) {
-	create_dynamic_code(code, ::vnx::Memory());
-}
-
-void type<::vnx::Memory>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Memory& value, bool special) {
-	const std::vector<int> tmp = {12, 1};
-	code.insert(code.end(), tmp.begin(), tmp.end());}
 
 const TypeCode* type<::vnx::Message>::get_type_code() {
 	return vnx::vnx_native_type_code_Message;

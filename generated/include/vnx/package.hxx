@@ -74,7 +74,6 @@ class LogMsg;
 class LogMsg_get_output;
 class LogMsg_get_output_return;
 class Marker;
-class Memory;
 class Message;
 class ModuleInfo;
 class ModuleInfo_get_cpu_load;
@@ -594,7 +593,6 @@ void read(TypeInput& in, ::vnx::LogMsg& value, const TypeCode* type_code, const 
 void read(TypeInput& in, ::vnx::LogMsg_get_output& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::LogMsg_get_output_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Marker& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Memory& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Message& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ModuleInfo& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::ModuleInfo_get_cpu_load& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -857,7 +855,6 @@ void write(TypeOutput& out, const ::vnx::LogMsg& value, const TypeCode* type_cod
 void write(TypeOutput& out, const ::vnx::LogMsg_get_output& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::LogMsg_get_output_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Marker& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Memory& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Message& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ModuleInfo& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::ModuleInfo_get_cpu_load& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1120,7 +1117,6 @@ void read(std::istream& in, ::vnx::LogMsg& value); ///< \private
 void read(std::istream& in, ::vnx::LogMsg_get_output& value); ///< \private
 void read(std::istream& in, ::vnx::LogMsg_get_output_return& value); ///< \private
 void read(std::istream& in, ::vnx::Marker& value); ///< \private
-void read(std::istream& in, ::vnx::Memory& value); ///< \private
 void read(std::istream& in, ::vnx::Message& value); ///< \private
 void read(std::istream& in, ::vnx::ModuleInfo& value); ///< \private
 void read(std::istream& in, ::vnx::ModuleInfo_get_cpu_load& value); ///< \private
@@ -1383,7 +1379,6 @@ void write(std::ostream& out, const ::vnx::LogMsg& value); ///< \private
 void write(std::ostream& out, const ::vnx::LogMsg_get_output& value); ///< \private
 void write(std::ostream& out, const ::vnx::LogMsg_get_output_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Marker& value); ///< \private
-void write(std::ostream& out, const ::vnx::Memory& value); ///< \private
 void write(std::ostream& out, const ::vnx::Message& value); ///< \private
 void write(std::ostream& out, const ::vnx::ModuleInfo& value); ///< \private
 void write(std::ostream& out, const ::vnx::ModuleInfo_get_cpu_load& value); ///< \private
@@ -1646,7 +1641,6 @@ void accept(Visitor& visitor, const ::vnx::LogMsg& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::LogMsg_get_output& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::LogMsg_get_output_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Marker& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Memory& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Message& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ModuleInfo& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::ModuleInfo_get_cpu_load& value); ///< \private
@@ -2967,29 +2961,6 @@ struct type<::vnx::Marker> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Marker& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::Memory> {
-	void read(TypeInput& in, ::vnx::Memory& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Memory& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Memory& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Memory& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Memory& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Memory& value, bool special = false);
 };
 
 /// \private
