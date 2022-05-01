@@ -54,7 +54,6 @@
 #include <vnx/Buffer.hpp>
 #include <vnx/Config.hpp>
 #include <vnx/Hash64.hpp>
-#include <vnx/Hash128.hpp>
 #include <vnx/Input.hpp>
 #include <vnx/Memory.hpp>
 #include <vnx/Object.hpp>

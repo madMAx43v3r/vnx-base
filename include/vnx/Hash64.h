@@ -25,8 +25,6 @@
 
 namespace vnx {
 
-class Hash128;
-
 /// Class to hold and compute a 64-bit hash
 class VNX_BASE_EXPORT Hash64 {
 public:
@@ -39,8 +37,6 @@ public:
 	explicit Hash64(uint64_t hash) : value(hash) {}
 	
 	explicit Hash64(const std::string& name);
-	
-	explicit Hash64(const Hash128& hash);
 	
 	Hash64(const void* data, size_t length);
 	
@@ -87,6 +83,11 @@ namespace std {
 	template<> struct hash<vnx::Hash64> {
 		size_t operator()(const vnx::Hash64& x) const {
 			return x.value;
+		}
+	};
+	template<> struct hash<std::pair<vnx::Hash64, vnx::Hash64>> {
+		size_t operator()(const std::pair<vnx::Hash64, vnx::Hash64>& x) const {
+			return x.first.value ^ x.second.value;
 		}
 	};
 } // std

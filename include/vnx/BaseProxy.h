@@ -144,7 +144,7 @@ protected:
 	std::unordered_map<Hash64, uint64_t> forward_table;				// [service => counter]
 	std::map<Hash64, std::string> forward_names;					// [dst_mac => service name]
 	std::unordered_map<Hash64, std::shared_ptr<Pipe>> request_pipes;	// [service => pipe]
-	std::unordered_set<Hash128> outgoing;							// (src_mac, dst_mac)
+	std::unordered_set<std::pair<Hash64, Hash64>> outgoing;			// (src_mac, dst_mac)
 	
 	std::atomic<size_t> num_frames_send {0};
 	std::atomic<size_t> num_frames_recv {0};
@@ -189,16 +189,16 @@ private:
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_connect;
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_disconnect;
 
-	std::unordered_map<Hash128, uint64_t> channel_map;							// for topics [(src_mac, topic) => seq_num]
+	std::unordered_map<std::pair<Hash64, Hash64>, uint64_t> channel_map;		// for topics [(src_mac, topic) => seq_num]
 
 	std::mutex mutex_request_map;
 	std::unordered_map<Hash64, std::map<uint64_t, std::shared_ptr<const Request>>> request_map;  // [src_mac => [request_id => Request]]
 
 	// all below belong to read_loop()
 	bool is_error = false;
-	std::unordered_set<Hash128> incoming;										// map of incoming connections (src_mac, dst_mac)
+	std::unordered_set<std::pair<Hash64, Hash64>> incoming;						// map of incoming connections (src_mac, dst_mac)
 	std::unordered_map<Hash64, std::shared_ptr<Pipe>> return_map;				// to keep track of return pipes
-	std::unordered_map<Hash128, std::shared_ptr<const Sample>> recv_buffer;		// last known sample per channel
+	std::unordered_map<std::pair<Hash64, Hash64>, std::shared_ptr<const Sample>> recv_buffer;		// last known sample per channel
 
 };
 

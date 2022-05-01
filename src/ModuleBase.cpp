@@ -193,7 +193,7 @@ void ModuleBase::handle(std::shared_ptr<const Message> msg)
 				return;
 			}
 			// check the sequence number for duplicate samples
-			uint64_t& last_seq = seq_map[Hash128(sample->src_mac, sample->topic->get_hash())];
+			uint64_t& last_seq = seq_map[std::make_pair(sample->src_mac, sample->topic->get_hash())];
 			const bool is_resend = (msg->flags & RESEND) && sample->seq_num == last_seq;
 			if(sample->seq_num > last_seq || is_resend) {
 				last_seq = std::max(sample->seq_num, last_seq);
@@ -296,7 +296,7 @@ void ModuleBase::handle(std::shared_ptr<const Task> task) {
 void ModuleBase::handle(std::shared_ptr<const FlowMessage> msg) {
 	if(msg->flow_code == FlowMessage::CLOSE) {
 		// delete corresponding seq_map entry if any
-		auto iter = seq_map.find(Hash128(msg->src_mac, msg->dst_mac));
+		auto iter = seq_map.find(std::make_pair(msg->src_mac, msg->dst_mac));
 		if(iter != seq_map.end()) {
 			seq_map.erase(iter);
 		}

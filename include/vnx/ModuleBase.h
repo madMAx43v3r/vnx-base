@@ -20,7 +20,6 @@
 #include <vnx/TimeUtil.h>
 #include <vnx/Task.h>
 #include <vnx/Stream.h>
-#include <vnx/Hash128.h>
 #include <vnx/Publisher.h>
 #include <vnx/Subscriber.h>
 #include <vnx/AsyncClient.h>
@@ -288,7 +287,7 @@ private:
 	const Hash64 module_id;
 	TimeControl time_state;
 	std::shared_ptr<Publisher> publisher;
-	std::unordered_map<Hash128, uint64_t> seq_map;
+	std::unordered_map<std::pair<Hash64, Hash64>, uint64_t> seq_map;
 	std::set<std::shared_ptr<Timer>> timers;
 	std::shared_ptr<Pipe> task_pipe;
 	std::map<std::string, std::string> type_map;

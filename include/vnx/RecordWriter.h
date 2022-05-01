@@ -86,7 +86,7 @@ private:
 	int64_t last_sample_time = 0;
 	
 	std::unordered_map<TopicPtr, record_topic_info_t> topic_map;
-	std::unordered_map<Hash128, channel_t> channel_map;
+	std::unordered_map<std::pair<Hash64, Hash64>, channel_t> channel_map;
 	
 };
 

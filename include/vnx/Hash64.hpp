@@ -19,7 +19,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Hash64.h>
-#include <vnx/Hash128.h>
 #include <vnx/Util.h>
 #include <vnx/Input.hpp>
 #include <vnx/Output.hpp>
@@ -31,9 +30,6 @@ namespace vnx {
 
 inline
 Hash64::Hash64(const std::string& name) : value(hash64(name)) {}
-
-inline
-Hash64::Hash64(const Hash128& hash) : Hash64(hash.A(), hash.B()) {}
 
 inline
 Hash64::Hash64(const void* data, size_t length) {
@@ -72,34 +68,6 @@ std::string Hash64::to_hex_string() const {
 
 inline
 void read(TypeInput& in, Hash64& value, const TypeCode* type_code, const uint16_t* code) {
-	if(code) {
-		switch(code[0]) {
-			case CODE_ARRAY:
-				if(code[2] == CODE_UINT64) {
-					switch(code[1]) {
-						case 2: {
-							Hash128 hash;
-							read(in, hash, type_code, code);
-							value = Hash64(hash);
-							return;
-						}
-					}
-				}
-				break;
-			case CODE_ALT_ARRAY:
-				if(code[2] == CODE_ALT_UINT64) {
-					switch(code[1]) {
-						case 0x200: {
-							Hash128 hash;
-							read(in, hash, type_code, code);
-							value = Hash64(hash);
-							return;
-						}
-					}
-				}
-				break;
-		}
-	}
 	read(in, value.value, type_code, code);
 }
 

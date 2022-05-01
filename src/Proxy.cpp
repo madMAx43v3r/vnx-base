@@ -94,7 +94,7 @@ void Proxy::handle(std::shared_ptr<const FlowMessage> flow_msg) {
 			outgoing.emplace(flow_msg->src_mac, flow_msg->dst_mac);
 		}
 		if(flow_msg->flow_code == FlowMessage::CLOSE) {
-			outgoing.erase(Hash128(flow_msg->src_mac, flow_msg->dst_mac));
+			outgoing.erase(std::make_pair(flow_msg->src_mac, flow_msg->dst_mac));
 		}
 	}
 }

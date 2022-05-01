@@ -226,16 +226,14 @@ int main() {
 	VNX_TEST_END()
 	
 	VNX_TEST_BEGIN("hash128_comparison")
-		Variant A(Hash128::rand());
-		Variant B(Hash128::rand());
+		Variant A(std::make_pair(Hash64::rand(), Hash64::rand()));
+		Variant B(std::make_pair(Hash64::rand(), Hash64::rand()));
 		test_comparison(A);
 		test_comparison(B);
 		test_calc_hash(A);
 		test_calc_hash(B);
 		expect(A.is_integral(), false);
 		expect(B.is_integral(), false);
-		expect(A.is_array(), true);
-		expect(B.is_array(), true);
 		expect(A == B, false);
 		expect(A != B, true);
 	VNX_TEST_END()

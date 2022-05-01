@@ -165,7 +165,7 @@ void BaseProxy::handle(std::shared_ptr<const Sample> sample) {
 	}
 	if(sample->topic) {
 		// check for re-send
-		last_seq_num = &channel_map[Hash128(sample->src_mac, sample->topic->get_hash())];
+		last_seq_num = &channel_map[std::make_pair(sample->src_mac, sample->topic->get_hash())];
 		if(sample->seq_num == *last_seq_num) {
 			copy->flags |= Message::RESEND;
 			copy->value = nullptr;		// re-send without data
@@ -189,8 +189,7 @@ void BaseProxy::handle(std::shared_ptr<const Sample> sample) {
 	}
 }
 
-std::shared_ptr<const Return> BaseProxy::handle(std::shared_ptr<const Request> request)
-{
+std::shared_ptr<const Return> BaseProxy::handle(std::shared_ptr<const Request> request) {
 	if(	   request->dst_mac == service_addr
 		|| request->dst_mac == public_service_addr)
 	{
@@ -383,10 +382,10 @@ void BaseProxy::on_disconnect() {
 	// close open connections
 	for(const auto& entry : outgoing) {
 		auto flow_msg = FlowMessage::create();
-		flow_msg->src_mac = entry.B();
-		flow_msg->dst_mac = entry.A();
+		flow_msg->src_mac = entry.second;
+		flow_msg->dst_mac = entry.first;
 		flow_msg->flow_code = FlowMessage::CLOSE;
-		send_msg(entry.A(), flow_msg);
+		send_msg(entry.first, flow_msg);
 	}
 	
 	outgoing.clear();
@@ -590,10 +589,10 @@ void BaseProxy::read_loop(std::shared_ptr<const Endpoint> endpoint)
 		// close open connections
 		for(const auto& entry : incoming) {
 			auto flow_msg = FlowMessage::create();
-			flow_msg->src_mac = entry.A();
-			flow_msg->dst_mac = entry.B();
+			flow_msg->src_mac = entry.first;
+			flow_msg->dst_mac = entry.second;
 			flow_msg->flow_code = FlowMessage::CLOSE;
-			send_msg(entry.B(), flow_msg);
+			send_msg(entry.second, flow_msg);
 		}
 		incoming.clear();
 		recv_buffer.clear();
@@ -654,7 +653,7 @@ void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
 		return;
 	}
 	if(sample->topic) {
-		auto& last = recv_buffer[Hash128(sample->src_mac, sample->topic->get_hash())];
+		auto& last = recv_buffer[std::make_pair(sample->src_mac, sample->topic->get_hash())];
 		// check for re-send
 		if((sample->flags & Message::RESEND) && last) {
 			sample->value = last->value;
@@ -753,7 +752,7 @@ void BaseProxy::process(std::shared_ptr<FlowMessage> flow_msg) noexcept {
 			flow_msg->stream = public_service_addr;
 			send_msg(flow_msg->dst_mac, flow_msg);
 		}
-		incoming.erase(Hash128(flow_msg->src_mac, flow_msg->dst_mac));
+		incoming.erase(std::make_pair(flow_msg->src_mac, flow_msg->dst_mac));
 		log(DEBUG) << "Got FlowMessage CLOSE from " << flow_msg->src_mac << " to " << flow_msg->dst_mac;
 	}
 }

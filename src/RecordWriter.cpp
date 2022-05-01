@@ -80,7 +80,7 @@ void RecordWriter::write(std::shared_ptr<const Sample> sample) {
 	
 	const auto topic_hash = sample->topic->get_hash();
 	record_topic_info_t& topic_info = topic_map[sample->topic];
-	channel_t& channel = channel_map[Hash128(sample->src_mac, topic_hash)];
+	channel_t& channel = channel_map[std::make_pair(sample->src_mac, topic_hash)];
 
 	// check for resent messages
 	if(sample->seq_num > channel.seq_num || channel.output_pos < 0) {

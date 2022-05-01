@@ -127,13 +127,6 @@ int main() {
 		expect(memory.as_string(), (test_string + test_string));
 	VNX_TEST_END()
 	
-	VNX_TEST_BEGIN("hash128")
-		const Hash128 hash = Hash128::rand();
-		const Variant tmp(hash);
-		test_skip(tmp);
-		expect(tmp.to<Hash128>(), hash);
-	VNX_TEST_END()
-	
 	VNX_TEST_BEGIN("string")
 		const Variant tmp(test_string);
 		test_skip(tmp);
