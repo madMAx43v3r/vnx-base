@@ -49,7 +49,6 @@ class GatewayInterface;
 class GatewayInterface_forward;
 class GatewayInterface_forward_return;
 class Generic;
-class Hash128;
 class Hash64;
 class InternalError;
 class JRPC_Error;
@@ -568,7 +567,6 @@ void read(TypeInput& in, ::vnx::GatewayInterface& value, const TypeCode* type_co
 void read(TypeInput& in, ::vnx::GatewayInterface_forward& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::GatewayInterface_forward_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Generic& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void read(TypeInput& in, ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Hash64& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::InternalError& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::JRPC_Error& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -830,7 +828,6 @@ void write(TypeOutput& out, const ::vnx::GatewayInterface& value, const TypeCode
 void write(TypeOutput& out, const ::vnx::GatewayInterface_forward& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::GatewayInterface_forward_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Generic& value, const TypeCode* type_code, const uint16_t* code); ///< \private
-void write(TypeOutput& out, const ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Hash64& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::InternalError& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::JRPC_Error& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1092,7 +1089,6 @@ void read(std::istream& in, ::vnx::GatewayInterface& value); ///< \private
 void read(std::istream& in, ::vnx::GatewayInterface_forward& value); ///< \private
 void read(std::istream& in, ::vnx::GatewayInterface_forward_return& value); ///< \private
 void read(std::istream& in, ::vnx::Generic& value); ///< \private
-void read(std::istream& in, ::vnx::Hash128& value); ///< \private
 void read(std::istream& in, ::vnx::Hash64& value); ///< \private
 void read(std::istream& in, ::vnx::InternalError& value); ///< \private
 void read(std::istream& in, ::vnx::JRPC_Error& value); ///< \private
@@ -1354,7 +1350,6 @@ void write(std::ostream& out, const ::vnx::GatewayInterface& value); ///< \priva
 void write(std::ostream& out, const ::vnx::GatewayInterface_forward& value); ///< \private
 void write(std::ostream& out, const ::vnx::GatewayInterface_forward_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Generic& value); ///< \private
-void write(std::ostream& out, const ::vnx::Hash128& value); ///< \private
 void write(std::ostream& out, const ::vnx::Hash64& value); ///< \private
 void write(std::ostream& out, const ::vnx::InternalError& value); ///< \private
 void write(std::ostream& out, const ::vnx::JRPC_Error& value); ///< \private
@@ -1616,7 +1611,6 @@ void accept(Visitor& visitor, const ::vnx::GatewayInterface& value); ///< \priva
 void accept(Visitor& visitor, const ::vnx::GatewayInterface_forward& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::GatewayInterface_forward_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Generic& value); ///< \private
-void accept(Visitor& visitor, const ::vnx::Hash128& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Hash64& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::InternalError& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::JRPC_Error& value); ///< \private
@@ -2392,29 +2386,6 @@ struct type<::vnx::Generic> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Generic& value, bool special = false);
-};
-
-/// \private
-template<>
-struct type<::vnx::Hash128> {
-	void read(TypeInput& in, ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::read(in, value, type_code, code);
-	}
-	void write(TypeOutput& out, const ::vnx::Hash128& value, const TypeCode* type_code, const uint16_t* code) {
-		vnx::write(out, value, type_code, code);
-	}
-	void read(std::istream& in, ::vnx::Hash128& value) {
-		vnx::read(in, value);
-	}
-	void write(std::ostream& out, const ::vnx::Hash128& value) {
-		vnx::write(out, value);
-	}
-	void accept(Visitor& visitor, const ::vnx::Hash128& value) {
-		vnx::accept(visitor, value);
-	}
-	const TypeCode* get_type_code();
-	void create_dynamic_code(std::vector<uint16_t>& code);
-	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Hash128& value, bool special = false);
 };
 
 /// \private

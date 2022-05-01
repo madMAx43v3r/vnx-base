@@ -253,7 +253,6 @@
 #include <vnx/terminal_event_e.hxx>
 #include <vnx/thread_priority_e.hxx>
 #include <vnx/Buffer.hpp>
-#include <vnx/Hash128.hpp>
 #include <vnx/Hash64.hpp>
 #include <vnx/Object.hpp>
 #include <vnx/TopicPtr.hpp>
@@ -506,18 +505,6 @@ void type<::vnx::Generic>::create_dynamic_code(std::vector<uint16_t>& code) {
 void type<::vnx::Generic>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Generic& value, bool special) {
 	code.push_back(CODE_OBJECT);
 }
-
-const TypeCode* type<::vnx::Hash128>::get_type_code() {
-	return nullptr;
-}
-
-void type<::vnx::Hash128>::create_dynamic_code(std::vector<uint16_t>& code) {
-	create_dynamic_code(code, ::vnx::Hash128());
-}
-
-void type<::vnx::Hash128>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Hash128& value, bool special) {
-	const std::vector<int> tmp = {11, 2, 4};
-	code.insert(code.end(), tmp.begin(), tmp.end());}
 
 const TypeCode* type<::vnx::Hash64>::get_type_code() {
 	return nullptr;
