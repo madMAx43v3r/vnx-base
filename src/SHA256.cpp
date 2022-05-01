@@ -11,7 +11,7 @@
 #include <vnx/SHA256.h>
 #include <vnx/Util.h>
 #include <cstring>
-#include <fstream>
+#include <cstdio>
 
 
 namespace vnx {
