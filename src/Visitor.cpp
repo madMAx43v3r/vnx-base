@@ -30,8 +30,45 @@ void Visitor::enum_value(uint32_t value, const std::string& name) {
 	}
 }
 
+void Visitor::map_begin(size_t size) {
+	list_begin(size);
+}
+
+void Visitor::map_key(size_t index) {
+	if(index) {
+		list_end(2);
+	}
+	list_begin(2);
+	list_element(0);
+}
+
+void Visitor::map_value(size_t index) {
+	list_element(1);
+}
+
+void Visitor::map_end(size_t size) {
+	if(size) {
+		list_end(2);
+	}
+	list_end(size);
+}
+
+void Visitor::type_begin(size_t num_fields, const std::string* type_name) {
+	map_begin(num_fields);
+}
+
+void Visitor::type_field(const std::string& field, size_t index) {
+	map_key(index);
+	visit(field);
+	map_value(index);
+}
+
+void Visitor::type_end(size_t num_fields, const std::string* type_name) {
+	map_end(num_fields);
+}
+
 void Visitor::type_begin(const TypeCode& type) {
-	type_begin(type.fields.size(), type.name);
+	type_begin(type.fields.size(), &type.name);
 }
 
 void Visitor::type_field(const TypeField& field, size_t index) {
@@ -39,7 +76,7 @@ void Visitor::type_field(const TypeField& field, size_t index) {
 }
 
 void Visitor::type_end(const TypeCode& type) {
-	type_end(type.fields.size(), type.name);
+	type_end(type.fields.size(), &type.name);
 }
 
 
@@ -100,12 +137,12 @@ void DefaultPrinter::list_end(size_t size) {
 	stack--;
 }
 
-void DefaultPrinter::type_begin(size_t num_fields, const std::string& type_name) {
+void DefaultPrinter::type_begin(size_t num_fields, const std::string* type_name) {
 	out << '{';
 	stack++;
-	if(!type_name.empty()) {
+	if(type_name) {
 		type_field("__type", 0);
-		visit(type_name);
+		visit(*type_name);
 		if(num_fields) {
 			out << ", ";
 		}
@@ -119,7 +156,7 @@ void DefaultPrinter::type_field(const std::string& field, size_t index) {
 	out << '"' << field << "\": ";
 }
 
-void DefaultPrinter::type_end(size_t num_fields, const std::string& type_name) {
+void DefaultPrinter::type_end(size_t num_fields, const std::string* type_name) {
 	out << '}';
 	stack--;
 }

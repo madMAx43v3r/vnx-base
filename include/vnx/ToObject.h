@@ -43,9 +43,9 @@ public:
 	void list_element(size_t index) override;
 	void list_end(size_t size) override;
 
-	void type_begin(size_t num_fields, const std::string& type_name) override;
+	void type_begin(size_t num_fields, const std::string* type_name) override;
 	void type_field(const std::string& field, size_t index) override;
-	void type_end(size_t num_fields, const std::string& type_name) override;
+	void type_end(size_t num_fields, const std::string* type_name) override;
 
 private:
 	template<typename T>

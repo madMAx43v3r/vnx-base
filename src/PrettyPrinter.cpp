@@ -60,12 +60,12 @@ void PrettyPrinter::list_end(size_t size) {
 	if(out) *out << ']';
 }
 
-void PrettyPrinter::type_begin(size_t num_fields, const std::string& type_name) {
+void PrettyPrinter::type_begin(size_t num_fields, const std::string* type_name) {
 	stack++;
 	if(out) *out << '{';
-	if(!type_name.empty()) {
+	if(type_name) {
 		type_field("__type", 0);
-		visit(type_name);
+		visit(*type_name);
 		if(num_fields) {
 			if(out) { *out << ','; }
 		}
@@ -83,10 +83,10 @@ void PrettyPrinter::type_field(const std::string& field, size_t index) {
 	}
 }
 
-void PrettyPrinter::type_end(size_t num_fields, const std::string& type_name) {
+void PrettyPrinter::type_end(size_t num_fields, const std::string* type_name) {
 	stack--;
 	if(out) {
-		if(num_fields > 0 || !type_name.empty()) {
+		if(num_fields > 0 || type_name) {
 			*out << std::endl;
 			add_indentation();
 		}

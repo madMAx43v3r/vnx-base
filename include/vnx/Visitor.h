@@ -48,9 +48,14 @@ public:
 	virtual void list_element(size_t index) = 0;
 	virtual void list_end(size_t size) = 0;
 	
-	virtual void type_begin(size_t num_fields, const std::string& type_name = std::string()) = 0;
-	virtual void type_field(const std::string& field, size_t index) = 0;
-	virtual void type_end(size_t num_fields, const std::string& type_name = std::string()) = 0;
+	virtual void map_begin(size_t size);								///< By default calls list_begin(size)
+	virtual void map_key(size_t index);									///< By default calls list_begin(2) + list_element(1)
+	virtual void map_value(size_t index);								///< By default calls list_element(1)
+	virtual void map_end(size_t size);									///< By default calls list_end(size)
+
+	virtual void type_begin(size_t num_fields, const std::string* type_name = nullptr);		///< By default calls map_begin(num_fields)
+	virtual void type_field(const std::string& field, size_t index);						///< By default calls map_key() + map_value()
+	virtual void type_end(size_t num_fields, const std::string* type_name = nullptr);		///< By default calls map_end(num_fields)
 	
 	/** \brief Called for enum values.
 	 * 
@@ -126,18 +131,16 @@ void accept(Visitor& visitor, const std::set<T>& set) {
 
 template<typename K, typename V>
 void accept(Visitor& visitor, const std::map<K, V>& map) {
-	visitor.list_begin(map.size());
+	visitor.map_begin(map.size());
 	size_t i = 0;
 	for(const auto& entry : map) {
-		visitor.list_element(i++);
-		visitor.list_begin(2);
-		visitor.list_element(0);
+		visitor.map_key(i);
 		vnx::type<K>().accept(visitor, entry.first);
-		visitor.list_element(1);
+		visitor.map_value(i);
 		vnx::type<V>().accept(visitor, entry.second);
-		visitor.list_end(2);
+		i++;
 	}
-	visitor.list_end(map.size());
+	visitor.map_end(map.size());
 }
 
 template<typename K, typename V>

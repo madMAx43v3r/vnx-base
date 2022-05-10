@@ -104,7 +104,7 @@ void ToObject::list_end(size_t size) {
 	stack.back().value = std::move(value);
 }
 
-void ToObject::type_begin(size_t num_fields, const std::string& type_name) {
+void ToObject::type_begin(size_t num_fields, const std::string* type_name) {
 	// nothing to do
 }
 
@@ -117,7 +117,7 @@ void ToObject::type_field(const std::string& field, size_t index) {
 	stack.emplace_back(field);
 }
 
-void ToObject::type_end(size_t num_fields, const std::string& type_name) {
+void ToObject::type_end(size_t num_fields, const std::string* type_name) {
 	if(num_fields) {
 		const auto entry = std::move(stack.back());
 		stack.pop_back();

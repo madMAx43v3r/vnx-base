@@ -230,17 +230,14 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 					size = flip_bytes(size);
 					value_code = code + flip_bytes(code[1]);
 				}
-				visitor.list_begin(size);
+				visitor.map_begin(size);
 				for(uint32_t i = 0; i < size; ++i) {
-					visitor.list_element(i);
-					visitor.list_begin(2);
-					visitor.list_element(0);
+					visitor.map_key(i);
 					accept(visitor, in, type_code, key_code, field, nullptr);
-					visitor.list_element(1);
+					visitor.map_value(i);
 					accept(visitor, in, type_code, value_code, field, nullptr);
-					visitor.list_end(2);
 				}
-				visitor.list_end(size);
+				visitor.map_end(size);
 				return;
 			}
 			case CODE_TYPE_CODE:
