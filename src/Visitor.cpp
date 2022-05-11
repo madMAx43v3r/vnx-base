@@ -38,6 +38,7 @@ void Visitor::map_key(size_t index) {
 	if(index) {
 		list_end(2);
 	}
+	list_element(index);
 	list_begin(2);
 	list_element(0);
 }
