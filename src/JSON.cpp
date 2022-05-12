@@ -109,6 +109,7 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 		return nullptr;
 	}
 	bool is_number = false;
+	bool is_hex = false;
 	bool is_float = false;
 	bool is_negative = false;
 	bool has_exp = false;
@@ -127,6 +128,8 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 		} else if((c == 'e' || c == 'E') && is_number && !has_exp) {
 			is_float = true;
 			has_exp = true;
+		} else if(c == 'x' && is_number && !is_hex) {
+			is_hex = true;
 		} else if(!std::isspace(c)) {
 			is_number = false;
 			break;
@@ -142,9 +145,9 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 			var = tmp;
 		} else {
 			if(is_negative) {
-				var = int64_t(std::stoll(value));
+				var = int64_t(std::stoll(value, nullptr, is_hex ? 16 : 10));
 			} else {
-				var = uint64_t(std::stoull(value));
+				var = uint64_t(std::stoull(value, nullptr, is_hex ? 16 : 10));
 			}
 		}
 	} else {
