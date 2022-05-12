@@ -114,6 +114,8 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 	bool is_negative = false;
 	bool has_exp = false;
 	bool has_exp_sign = false;
+
+	size_t length = 0;
 	for(const char c : value) {
 		if(std::isdigit(c)) {
 			is_number = true;
@@ -125,16 +127,24 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 			has_exp_sign = true;
 		} else if((c == '.' || c == ',') && is_number && !is_float) {
 			is_float = true;
-		} else if((c == 'e' || c == 'E') && is_number && !has_exp) {
+		} else if((c == 'e' || c == 'E') && is_number && !has_exp && !is_hex) {
 			is_float = true;
 			has_exp = true;
-		} else if(c == 'x' && is_number && !is_hex) {
+		} else if(c == 'x' && is_number && !is_hex && length == 1) {
 			is_hex = true;
-		} else if(!std::isspace(c)) {
+		} else if(is_hex) {
+			const auto h = std::tolower(c);
+			if(h < 97 && h > 102) {
+				is_number = false;
+				break;
+			}
+		} else {
 			is_number = false;
 			break;
 		}
+		length++;
 	}
+
 	Variant var;
 	if(is_number) {
 		if(is_float) {

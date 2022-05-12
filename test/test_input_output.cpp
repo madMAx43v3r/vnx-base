@@ -362,6 +362,8 @@ int main() {
 			expect(value, 1);
 			vnx::from_string("-1", value);
 			expect(value, -1);
+			vnx::from_string("+1", value);
+			expect(value, 1);
 			vnx::from_string("null", value);
 			expect(value, int32_t(0));
 		}
@@ -457,6 +459,13 @@ int main() {
 			expect(vector[0], "1");
 			expect(vector[1], "2");
 			expect(vector[2], "3");
+		}
+		{
+			vnx::Variant value;
+			vnx::from_string("0xabcdefABCDEF", value);
+			expect(value.to<uint64_t>(), uint64_t(0xabcdefABCDEF));
+			vnx::from_string("0x1abcdefABCDEF1", value);
+			expect(value.to<uint64_t>(), uint64_t(0x1abcdefABCDEF1));
 		}
 	VNX_TEST_END()
 	
