@@ -131,10 +131,6 @@ if(MSVC)
 	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS ON)
 	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 	
-	target_link_libraries(vnx_base wsock32)
-endif()
-
-if(WIN32)
 	target_link_libraries(vnx_base ws2_32)
 endif()
 
