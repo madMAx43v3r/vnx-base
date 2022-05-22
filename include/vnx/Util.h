@@ -86,9 +86,9 @@ std::vector<std::string> string_split(const std::string& str, char sep, bool cle
 uint64_t rand64();
 
 /// Converts a binary string to a hex string, with constant length. (Without leading "0x")
-std::string to_hex_string(const void* data, const size_t length);
+std::string to_hex_string(const void* data, const size_t length, bool big_endian = false);
 
-/// Converts an integer to a hex string, without leading zeros. (Without leading "0x")
+/// Converts an integer to a hex string (big endian), without leading zeros. (Without leading "0x")
 template<typename T>
 std::string to_hex_string(const T& value) {
 	std::stringstream ss;
