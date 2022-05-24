@@ -18,7 +18,9 @@ int main(int argc, char** argv) {
 
 	std::map<std::string, std::string> options;
 	options["u"] = "user";
+	options["p"] = "passwd";
 	options["user"] = "user name";
+	options["passwd"] = "password";
 
 	vnx::set_config("log_level", "2");
 
@@ -59,14 +61,14 @@ int main(int argc, char** argv) {
 		vnx::Directory dir(output_path);
 		dir.create();
 
-		std::string new_pass[2];
-		new_pass[0] = vnx::input_password("New Password: ");
-		new_pass[1] = vnx::input_password("Repeat Password: ");
-
-		if(new_pass[0] != new_pass[1]) {
-			throw std::logic_error("passwords did not match");
+		std::string new_pass;
+		if(!vnx::read_config("passwd", new_pass)) {
+			new_pass = vnx::input_password("New Password: ");
+			if(vnx::input_password("Repeat Password: ") != new_pass) {
+				throw std::logic_error("passwords did not match");
+			}
 		}
-		passwd[user] = vnx::get_auth_server()->final_hash(vnx::sha256_str(new_pass[0]));
+		passwd[user] = vnx::get_auth_server()->final_hash(vnx::sha256_str(new_pass));
 
 		std::ofstream stream(file_path, std::ofstream::out);
 		vnx::PrettyPrinter printer(stream);
