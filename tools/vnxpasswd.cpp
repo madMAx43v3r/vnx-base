@@ -28,10 +28,7 @@ int main(int argc, char** argv) {
 		if(config.empty()) {
 			throw std::logic_error("missing 'config' argument");
 		}
-		if(config.size() > 1) {
-			throw std::logic_error("only one 'config' argument allowed");
-		}
-		const std::string output_path = config[0] + "vnx/authentication/";
+		const std::string output_path = config.back() + "vnx/authentication/";
 		const std::string file_path = output_path + "passwd";
 
 		std::string user;
