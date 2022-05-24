@@ -9,6 +9,9 @@
 #include <vnx/SHA256.h>
 #include <vnx/User.hxx>
 
+#if __cplusplus >= 201703L
+#include <filesystem>
+#endif
 
 
 int main(int argc, char** argv) {
@@ -70,6 +73,9 @@ int main(int argc, char** argv) {
 		vnx::accept(printer, passwd);
 		stream.close();
 
+#if __cplusplus >= 201703L
+		std::filesystem::permissions(file_path, std::filesystem::perms::owner_read | std::filesystem::perms::owner_write);
+#endif
 		std::cerr << "Updated '" << file_path << "'" << std::endl;
 	}
 	catch(const std::exception& ex) {
