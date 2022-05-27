@@ -21,7 +21,9 @@
 #include <vnx/Output.h>
 #include <vnx/Variant.h>
 
-extern std::string _vnx_test_name;
+#include <vnx_base_export.h>
+
+VNX_BASE_EXPORT extern std::string _vnx_test_name;
 
 #define VNX_TEST_BEGIN(name) {\
 	const std::string _vnx_test_domain = _vnx_test_name;\
