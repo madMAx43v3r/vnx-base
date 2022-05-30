@@ -68,6 +68,9 @@ int main(int argc, char** argv) {
 				throw std::logic_error("passwords did not match");
 			}
 		}
+		if(new_pass.size() < 6) {
+			throw std::logic_error("password too short (needs to be >= 6)");
+		}
 		passwd[user] = vnx::get_auth_server()->final_hash(vnx::sha256_str(new_pass));
 
 		std::ofstream stream(file_path, std::ofstream::out);
