@@ -48,23 +48,25 @@ int main(int argc, char** argv) {
 		vnx::TypeInput in(&stream);
 		
 		try {
-			while(std::shared_ptr<const vnx::Value> value = vnx::read(in)) {
-				if(auto decompressed = value->vnx_decompress()) {
-					value = decompressed;
-				}
-				if(type_only) {
-					auto binary = std::dynamic_pointer_cast<const vnx::Binary>(value);
-					if(binary) {
-						std::cout << binary->type_code->name << std::endl;
-					} else {
-						std::cout << value->get_type_name() << std::endl;
+			while(true) {
+				if(std::shared_ptr<const vnx::Value> value = vnx::read(in)) {
+					if(auto decompressed = value->vnx_decompress()) {
+						value = decompressed;
 					}
-				} else if(compact) {
-					std::cout << *value << std::endl;
-				} else {
-					vnx::PrettyPrinter printer(std::cout);
-					value->accept(printer);
-					std::cout << std::endl;
+					if(type_only) {
+						auto binary = std::dynamic_pointer_cast<const vnx::Binary>(value);
+						if(binary) {
+							std::cout << binary->type_code->name << std::endl;
+						} else {
+							std::cout << value->get_type_name() << std::endl;
+						}
+					} else if(compact) {
+						std::cout << *value << std::endl;
+					} else {
+						vnx::PrettyPrinter printer(std::cout);
+						value->accept(printer);
+						std::cout << std::endl;
+					}
 				}
 			}
 		} catch(std::underflow_error& ) {
