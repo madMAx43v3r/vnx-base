@@ -119,7 +119,7 @@ void BaseProxy::main() {
 		on_connect();	// in this case we are already connected
 	}
 	
-	set_timer_millis(1000, std::bind(&BaseProxy::print_stats, this));
+	set_timer_millis(60000, std::bind(&BaseProxy::print_stats, this));
 	
 	std::thread read_thread(&BaseProxy::read_loop, this, vnx::clone(endpoint));
 	
