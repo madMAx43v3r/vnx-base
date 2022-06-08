@@ -253,7 +253,8 @@ public:
 	 * This function blocks until all \p len bytes are read into the buffer \p buf.
 	 * Used to read large chunks of data, potentially bypassing the buffer.
 	 */
-	void read(char* buf, size_t len) {
+	void read(void* buf_, size_t len) {
+		char* buf = (char*)buf_;
 		const size_t left = end - pos;
 		if(len < VNX_BUFFER_SIZE/2 || len < left) {
 			// for small chunks just take it from the buffer if enough bytes are available
