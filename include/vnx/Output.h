@@ -67,7 +67,7 @@ inline int write_value(void* buf, const float64_t& value) {
 
 /// Directly writes a static array to the buffer address \p buf.
 template<typename T, size_t N>
-int write_value(char* buf, const std::array<T, N>& array) {
+int write_value(void* buf, const std::array<T, N>& array) {
 	const int size = sizeof(array);
 	::memcpy(buf, array.data(), size);
 	return size;
