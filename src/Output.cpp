@@ -340,7 +340,7 @@ void write_float(std::ostream& out, const T& value) {
 	if(std::isnan(value) || std::isinf(value)) {
 		vnx::write(out, nullptr);
 	} else {
-		out << value;
+		out << std::to_string(value);
 	}
 }
 
