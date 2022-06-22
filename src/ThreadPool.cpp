@@ -33,8 +33,7 @@ ThreadPool::ThreadPool(int num_threads_, int max_queue_size_)
 	}
 }
 
-ThreadPool::~ThreadPool()
-{
+ThreadPool::~ThreadPool() {
 	close();
 }
 
