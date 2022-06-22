@@ -38,6 +38,8 @@ public:
 	 */
 	ThreadPool(int num_threads_, int max_queue_size_ = 0);
 	
+	~ThreadPool();
+
 	/// Adds a new task to the queue. (thread-safe)
 	void add_task(const std::function<void()>& func);
 	

@@ -33,6 +33,11 @@ ThreadPool::ThreadPool(int num_threads_, int max_queue_size_)
 	}
 }
 
+ThreadPool::~ThreadPool()
+{
+	close();
+}
+
 void ThreadPool::add_task(const std::function<void()>& func) {
 	if(num_threads > 0) {
 		{
