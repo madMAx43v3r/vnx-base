@@ -193,20 +193,18 @@ bool File::is_symlink() const {
 
 void File::flush() {
 	out.flush();
-	if(p_file) {
-		if(::fflush(p_file)) {
-			throw std::runtime_error("fflush('" + path + "') failed with: " + std::string(::strerror(errno)));
-		}
+	if(::fflush(p_file)) {
+		throw std::runtime_error("fflush('" + path + "') failed with: " + std::string(::strerror(errno)));
 	}
 }
 
 void File::close() {
-	out.flush();
 	if(p_file) {
+		out.flush();
 		if(::fclose(p_file)) {
 			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
 		}
-		p_file = 0;
+		p_file = nullptr;
 	}
 }
 
