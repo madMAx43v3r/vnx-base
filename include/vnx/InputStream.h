@@ -84,7 +84,7 @@ public:
 	}
 	
 private:
-	::FILE* file = 0;
+	::FILE* file = nullptr;
 	
 };
 

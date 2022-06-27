@@ -71,10 +71,16 @@ size_t BasicInputStream::read(void* buf, size_t len) {
 }
 
 size_t FileInputStream::read(void* buf, size_t len) {
+	if(!file) {
+		return 0;
+	}
 	return ::fread(buf, 1, len, file);
 }
 
 int64_t FileInputStream::get_input_pos() const {
+	if(!file) {
+		return 0;
+	}
 	const auto pos = vnx::ftell(file);
 	if(pos < 0) {
 		throw std::runtime_error("ftell() failed with: " + std::string(strerror(errno)));

@@ -205,6 +205,8 @@ void File::close() {
 			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
 		}
 		p_file = nullptr;
+		stream_in.reset(nullptr);
+		stream_out.reset(nullptr);
 	}
 }
 
