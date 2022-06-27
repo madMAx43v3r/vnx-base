@@ -19,8 +19,9 @@
 
 #include <vnx/File.h>
 
-#include <cstdio>
+#ifndef _WIN32
 #include <dirent.h>
+#endif
 
 
 namespace vnx {
@@ -48,7 +49,7 @@ public:
 	void open(const std::string& path_);
 	
 	/// Opens directory with path given before. Closes directory beforehand if still open.
-	void open();
+	void open() const;
 	
 	/// Creates the directory and all intermediate directories and resets the path.
 	void create(const std::string &path_);
@@ -83,13 +84,14 @@ public:
 	std::string get_name() const;
 	
 	/// Closes the directory. Safe to call multiple times or on an empty object.
-	void close();
+	void close() const;
 	
 private:
-#ifndef _WIN32
-	::DIR* p_dir = 0;
-#endif
 	std::string path;
+
+#ifndef _WIN32
+	mutable ::DIR* p_dir = nullptr;
+#endif
 	
 };
 

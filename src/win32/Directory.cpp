@@ -7,6 +7,7 @@
 
 #include <vnx/vnx.h>
 #include <vnx/Directory.h>
+
 #include <filesystem>
 
 
@@ -37,7 +38,7 @@ void Directory::open(const std::string &path_) {
 	open();
 }
 
-void Directory::open() {
+void Directory::open() const {
 	close();
 	// nothing to do
 }
@@ -116,7 +117,7 @@ std::string Directory::get_name() const {
 	return result;
 }
 
-void Directory::close() {
+void Directory::close() const {
 	// nothing to do
 }
 

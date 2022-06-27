@@ -16,6 +16,7 @@
 
 #include <vnx/vnx.h>
 #include <vnx/Directory.h>
+
 #include <sys/stat.h>
 
 
@@ -46,7 +47,7 @@ void Directory::open(const std::string& path_) {
 	open();
 }
 
-void Directory::open() {
+void Directory::open() const {
 	close();
 	p_dir = ::opendir(path.c_str());
 	if(!p_dir) {
@@ -80,10 +81,7 @@ void Directory::create() {
 
 std::vector<std::shared_ptr<File>> Directory::files() const {
 	std::vector<std::shared_ptr<File>> result;
-	if(!p_dir) {
-		return result;
-	}
-	::rewinddir(p_dir);
+	open();
 	while(true) {
 		::dirent* entry = ::readdir(p_dir);
 		if(!entry) {
@@ -98,10 +96,7 @@ std::vector<std::shared_ptr<File>> Directory::files() const {
 
 std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 	std::vector<std::shared_ptr<Directory>> result;
-	if(!p_dir) {
-		return result;
-	}
-	::rewinddir(p_dir);
+	open();
 	while(true) {
 		::dirent* entry = ::readdir(p_dir);
 		if(!entry) {
@@ -119,10 +114,7 @@ std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 
 std::vector<std::shared_ptr<File>> Directory::all_files() const {
 	std::vector<std::shared_ptr<File>> result;
-	if(!p_dir) {
-		return result;
-	}
-	::rewinddir(p_dir);
+	open();
 	while(true) {
 		::dirent* entry = ::readdir(p_dir);
 		if(!entry) {
@@ -150,7 +142,7 @@ std::string Directory::get_name() const {
 	return result;
 }
 
-void Directory::close() {
+void Directory::close() const {
 	if(p_dir) {
 		if(::closedir(p_dir) != 0) {
 			throw std::runtime_error("closedir('" + path + "') failed with: " + std::string(::strerror(errno)));
