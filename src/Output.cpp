@@ -449,20 +449,12 @@ void write_to_file(const std::string& file_name, const Value& value)
 		Directory dir(dir_name);
 		dir.create();
 	}
-	const std::string tmp_file_name = file_name + ".tmp";
-	{
-		File file;
-		file.open(tmp_file_name, "wb");
-		file.write_header();
-		write(file.out, value);
-		file.close();
-	}
-#ifdef _WIN32
-	std::remove(file_name.c_str());
-#endif
-	if(::rename(tmp_file_name.c_str(), file_name.c_str())) {
-		throw std::runtime_error("rename('" + tmp_file_name + "', '" + file_name + "') failed with: " + std::string(strerror(errno)));
-	}
+	File file;
+	file.open(file_name + ".tmp", "wb");
+	file.write_header();
+	write(file.out, value);
+	file.close();
+	file.rename(file_name);
 }
 
 void write_to_file(const std::string& file_name, std::shared_ptr<const Value> value)

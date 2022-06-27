@@ -130,9 +130,12 @@ public:
 	/// Flushes output buffer and then closes file. Safe to call multiple times or on an empty object.
 	void close();
 	
-	/// Deletes the file, closes file first if still open.
+	/// Deletes the file, closes file first if still open. (non-existent file is ignored)
 	void remove();
 	
+	/// Renames file to the new given file path. (will close file first if still open)
+	void rename(const std::string& new_path);
+
 	/// Returns internal file pointer
 	::FILE* get_handle() const { return p_file; }
 	

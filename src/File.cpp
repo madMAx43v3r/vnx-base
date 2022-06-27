@@ -212,9 +212,22 @@ void File::close() {
 
 void File::remove() {
 	close();
-	if(::remove(path.c_str())) {
-		throw std::runtime_error("remove('" + path + "') failed with: " + std::string(::strerror(errno)));
+	if(exists()) {
+		if(std::remove(path.c_str())) {
+			throw std::runtime_error("remove('" + path + "') failed with: " + std::string(::strerror(errno)));
+		}
 	}
+}
+
+void File::rename(const std::string& new_path) {
+	close();
+#ifdef _WIN32
+	vnx::File(new_path).remove();
+#endif
+	if(std::rename(path.c_str(), new_path.c_str())) {
+		throw std::runtime_error("rename('" + path + "', '" + new_path + "') failed with: " + std::string(strerror(errno)));
+	}
+	path = new_path;
 }
 
 
