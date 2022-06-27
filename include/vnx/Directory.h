@@ -19,9 +19,7 @@
 
 #include <vnx/File.h>
 
-#ifndef _WIN32
 #include <dirent.h>
-#endif
 
 
 namespace vnx {
