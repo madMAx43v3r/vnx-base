@@ -95,12 +95,15 @@ size_t FileSectionInputStream::read(void* buf, size_t len) {
 			len = left;
 		}
 	}
-	const auto num_bytes = ::pread(fd, buf, std::min(len, buffer_size), offset + pos);
+	if(buffer_size) {
+		len = std::min(len, buffer_size);
+		buffer_size <<= 2;
+	}
+	const auto num_bytes = ::pread(fd, buf, len, offset + pos);
 	if(num_bytes < 0) {
 		throw std::runtime_error("pread() failed with: " + std::string(strerror(errno)));
 	}
 	pos += num_bytes;
-	buffer_size *= 2;
 	return num_bytes;
 }
 

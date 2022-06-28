@@ -98,7 +98,7 @@ public:
 	 * @param offset_ Byte offset from beginning of file
 	 * @param length_ Size of section to read, -1 = remaining
 	 */
-	FileSectionInputStream(::FILE* file_, int64_t offset_ = 0, int64_t length_ = -1, size_t buffer_size_ = VNX_BUFFER_SIZE) {
+	FileSectionInputStream(::FILE* file_, int64_t offset_ = 0, int64_t length_ = -1, size_t buffer_size_ = 0) {
 		reset(file_, offset_, length_, buffer_size_);
 	}
 	
@@ -110,7 +110,7 @@ public:
 	 * @param offset_ Byte offset from beginning of file
 	 * @param length_ Size of section to read, -1 = remaining
 	 */
-	void reset(::FILE* file_, int64_t offset_ = 0, int64_t length_ = -1, size_t buffer_size_ = VNX_BUFFER_SIZE);
+	void reset(::FILE* file_, int64_t offset_ = 0, int64_t length_ = -1, size_t buffer_size_ = 0);
 	
 private:
 	int fd = -1;
