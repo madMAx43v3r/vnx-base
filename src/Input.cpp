@@ -95,11 +95,12 @@ size_t FileSectionInputStream::read(void* buf, size_t len) {
 			len = left;
 		}
 	}
-	const auto num_bytes = ::pread(fd, buf, len, offset + pos);
+	const auto num_bytes = ::pread(fd, buf, std::min(len, buffer_size), offset + pos);
 	if(num_bytes < 0) {
 		throw std::runtime_error("pread() failed with: " + std::string(strerror(errno)));
 	}
 	pos += num_bytes;
+	buffer_size *= 2;
 	return num_bytes;
 }
 
@@ -107,7 +108,7 @@ int64_t FileSectionInputStream::get_input_pos() const {
 	return int64_t(offset + pos);
 }
 
-void FileSectionInputStream::reset(::FILE* file_, int64_t offset_, int64_t length_) {
+void FileSectionInputStream::reset(::FILE* file_, int64_t offset_, int64_t length_, size_t buffer_size_) {
 	if(file_) {
 		fd = ::fileno(file_);
 		offset = offset_;
@@ -117,6 +118,7 @@ void FileSectionInputStream::reset(::FILE* file_, int64_t offset_, int64_t lengt
 		offset = 0;
 		length = 0;
 	}
+	buffer_size = buffer_size_;
 	pos = 0;
 }
 
