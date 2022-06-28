@@ -201,6 +201,7 @@ void File::flush() {
 void File::close() {
 	if(p_file) {
 		out.flush();
+		unlock();
 		if(::fclose(p_file)) {
 			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
 		}

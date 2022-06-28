@@ -136,8 +136,11 @@ public:
 	/// Renames file to the new given file path. (will close file first if still open)
 	void rename(const std::string& new_path);
 
-	/// Locks the file for exclusive access
+	/// Locks the entire file for exclusive access
 	void lock_exclusive();
+
+	/// Unlocks a previous file lock (called automatically on close)
+	void unlock();
 
 	/// Returns internal file pointer
 	::FILE* get_handle() const { return p_file; }
@@ -145,6 +148,7 @@ public:
 private:
 	std::string path;
 	::FILE* p_file = nullptr;
+	bool is_locked = false;
 	
 	FileInputStream stream_in;
 	FileOutputStream stream_out;
