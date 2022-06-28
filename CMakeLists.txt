@@ -24,6 +24,7 @@ if(WIN32)
 		src/win32/Endpoint.cpp
 		src/win32/Process.cpp
 		src/win32/Terminal.cpp
+		src/win32/File.cpp
 	)
 else()
 	list(APPEND PLATFORM_SOURCE_FILES
@@ -31,6 +32,7 @@ else()
 		src/linux/Endpoint.cpp
 		src/linux/Process.cpp
 		src/linux/Terminal.cpp
+		src/linux/File.cpp
 	)
 endif()
 
