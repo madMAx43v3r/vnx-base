@@ -7,7 +7,9 @@
 
 #include <vnx/File.h>
 
+#include <windows.h>
 #include <fileapi.h>
+#include <io.h>
 
 
 namespace vnx {
