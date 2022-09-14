@@ -60,14 +60,14 @@ public:
 	 * Returned files are not opened.
 	 * Directory needs to be open before this call, otherwise an empty vector is returned.
 	 */
-	std::vector<std::shared_ptr<File>> files() const;
+	std::vector<std::shared_ptr<File>> files(bool hidden = false, bool system = false) const;
 	
 	/** \brief Returns a list of sub-directories in this directory.
 	 * 
 	 * Returned directories are not opened.
 	 * Directory needs to be open before this call, otherwise an empty vector is returned.
 	 */
-	std::vector<std::shared_ptr<Directory>> directories() const;
+	std::vector<std::shared_ptr<Directory>> directories(bool hidden = false, bool system = false) const;
 	
 	/** \brief Returns a list of files and sub-directories in this directory.
 	 * 

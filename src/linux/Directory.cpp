@@ -79,7 +79,7 @@ void Directory::create() {
 	}
 }
 
-std::vector<std::shared_ptr<File>> Directory::files() const {
+std::vector<std::shared_ptr<File>> Directory::files(bool hidden, bool system) const {
 	std::vector<std::shared_ptr<File>> result;
 	open();
 	while(true) {
@@ -88,13 +88,15 @@ std::vector<std::shared_ptr<File>> Directory::files() const {
 			break;
 		}
 		if(entry->d_type == DT_REG) {
-			result.push_back(std::make_shared<File>(get_path() + entry->d_name));
+			if(hidden || entry->d_name[0] != '.') {
+				result.push_back(std::make_shared<File>(get_path() + entry->d_name));
+			}
 		}
 	}
 	return result;
 }
 
-std::vector<std::shared_ptr<Directory>> Directory::directories() const {
+std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool system) const {
 	std::vector<std::shared_ptr<Directory>> result;
 	open();
 	while(true) {
@@ -104,7 +106,7 @@ std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 		}
 		if(entry->d_type == DT_DIR) {
 			const std::string name(entry->d_name);
-			if(name != "." && name != "..") {
+			if(name != "." && name != ".." && (hidden || name[0] != '.')) {
 				result.push_back(std::make_shared<Directory>(get_path() + name));
 			}
 		}

@@ -54,7 +54,7 @@ void Directory::create() {
 	}
 }
 
-std::vector<std::shared_ptr<File>> Directory::files() const {
+std::vector<std::shared_ptr<File>> Directory::files(bool hidden, bool system) const {
 	std::vector<std::shared_ptr<File>> result;
 
 	if (!std::filesystem::exists(path)) {
@@ -63,14 +63,19 @@ std::vector<std::shared_ptr<File>> Directory::files() const {
 
 	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
 		if (std::filesystem::is_regular_file(dir_entry)) {
-			result.push_back(std::make_shared<File>(dir_entry.path().string()));
+			DWORD attributes = GetFileAttributes(dir_entry.path().string().c_str());
+			if ((hidden || !(attributes & FILE_ATTRIBUTE_HIDDEN))
+				&& (system || !(attributes & FILE_ATTRIBUTE_SYSTEM)))
+			{
+				result.push_back(std::make_shared<File>(dir_entry.path().string()));
+			}
 		}
 	}
 
 	return result;
 }
 
-std::vector<std::shared_ptr<Directory>> Directory::directories() const {
+std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool system) const {
 	std::vector<std::shared_ptr<Directory>> result;
 
 	if (!std::filesystem::exists(path)) {
@@ -80,7 +85,9 @@ std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
 		if (std::filesystem::is_directory(dir_entry)) {
 			DWORD attributes = GetFileAttributes(dir_entry.path().string().c_str());
-			if (!(attributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM))) {
+			if ((hidden || !(attributes & FILE_ATTRIBUTE_HIDDEN))
+				&& (system || !(attributes & FILE_ATTRIBUTE_SYSTEM)))
+			{
 				result.push_back(std::make_shared<Directory>(dir_entry.path().string()));
 			}
 		}
