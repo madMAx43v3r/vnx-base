@@ -79,7 +79,10 @@ std::vector<std::shared_ptr<Directory>> Directory::directories() const {
 
 	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
 		if (std::filesystem::is_directory(dir_entry)) {
-			result.push_back(std::make_shared<Directory>(dir_entry.path().string()));
+			DWORD attributes = GetFileAttributes(dir_entry.path().string().c_str());
+			if (!(attributes & (FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM))) {
+				result.push_back(std::make_shared<Directory>(dir_entry.path().string()));
+			}
 		}
 	}
 
