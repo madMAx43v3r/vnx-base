@@ -6,13 +6,14 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+add_compile_options(-Wall)
 
 find_package(Threads REQUIRED)
 
 find_program(CCACHE_FOUND ccache)
 if(CCACHE_FOUND)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=auto")
+	add_compile_options(-fdiagnostics-color=auto)
 	set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_FOUND}")
 endif()
 
