@@ -166,7 +166,7 @@ std::string sha256_str(const std::string &input){
 	ctx.update((const unsigned char*)input.c_str(), input.length());
 	ctx.final(digest);
 
-	return to_hex_string(digest, SHA256::DIGEST_SIZE, false);
+	return to_hex_string(digest, SHA256::DIGEST_SIZE, false, true);
 }
 
 
