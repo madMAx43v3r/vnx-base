@@ -83,8 +83,10 @@ uint64_t rand64() {
 	return generator();
 }
 
-std::string to_hex_string(const void* data, const size_t length, bool big_endian) {
-	static const char map[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+std::string to_hex_string(const void* data, const size_t length, bool big_endian, bool lower_case) {
+	static const char map_lower[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	static const char map_upper[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	const char* map = lower_case ? map_lower : map_upper;
 	std::string str;
 	str.resize(length * 2);
 	for(size_t i = 0; i < length; ++i) {
