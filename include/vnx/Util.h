@@ -82,6 +82,9 @@ std::string string_subs(std::string str, const std::string& from, const std::str
  */
 std::vector<std::string> string_split(const std::string& str, char sep, bool clean = false);
 
+/// Compares two strings, case insensitive
+bool string_iequals(const std::string& L, const std::string& R);
+
 /// Returns a very good 64-bit random number. (Initialized with nano-second timestamp)
 uint64_t rand64();
 

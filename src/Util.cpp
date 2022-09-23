@@ -71,6 +71,18 @@ std::vector<std::string> string_split(const std::string& str, char sep, bool cle
 	return res;
 }
 
+bool string_iequals(const std::string& L, const std::string& R) {
+    if(R.size() != L.size()) {
+        return false;
+    }
+    for(size_t i = 0; i < L.size(); ++i) {
+        if(std::tolower(L[i]) != std::tolower(R[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 uint64_t rand64() {
 	static std::mutex mutex;
 	static bool is_init = false;
