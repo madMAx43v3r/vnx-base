@@ -246,6 +246,30 @@ void read(TypeInput& in, vnx::optional<T>& value, const TypeCode* type_code, con
 	value.reset(tmp.release());
 }
 
+template<typename T>
+void read(std::istream& in, vnx::optional<T>& value);
+
+template<typename T, size_t N>
+void read(std::istream& in, std::array<T, N>& vector);
+
+template<typename T>
+void read(std::istream& in, std::vector<T>& vector);
+
+template<typename T>
+void read(std::istream& in, std::list<T>& list);
+
+template<typename K, typename V>
+void read(std::istream& in, std::pair<K, V>& pair);
+
+template<typename... T>
+void read(std::istream& in, std::tuple<T...>& tuple);
+
+template<typename T>
+void read(std::istream& in, std::set<T>& set);
+
+template<typename K, typename V>
+void read(std::istream& in, std::map<K, V>& map);
+
 /** \brief Reads a static array from the JSON stream
  *
  * Example: [1, 2, 3] \n
@@ -372,8 +396,15 @@ void read(std::istream& in, std::set<T>& set) {
  */
 template<typename K, typename V>
 void read(std::istream& in, std::map<K, V>& map) {
-	const Variant tmp = read(in);
-	tmp.to(map);
+	read(in).to(map);
+}
+
+template<typename T>
+void read(std::istream& in, vnx::optional<T>& value) {
+	const auto tmp = read(in);
+	if(!tmp.is_null()) {
+		value = tmp.to<T>();
+	}
 }
 
 /** \brief Reads a matrix from the JSON stream.
