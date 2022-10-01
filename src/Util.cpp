@@ -26,6 +26,8 @@
 #include <windows.h>
 #undef ERROR
 #else
+#include <unistd.h>
+#include <limits.h>
 #include <termios.h>
 #endif
 
@@ -113,7 +115,6 @@ std::string to_hex_string(const void* data, const size_t length, bool big_endian
 	return str;
 }
 
-
 std::string input_password(const std::string &prompt){
 #ifdef _WIN32
 	HANDLE console = GetStdHandle(STD_INPUT_HANDLE);
@@ -147,6 +148,23 @@ std::string input_password(const std::string &prompt){
 	tcsetattr(0, TCSANOW, &saved_attributes);
 #endif
 	return result;
+}
+
+std::string get_host_name() {
+#ifdef _WIN32
+	TCHAR infoBuf[1024] = {};
+	DWORD bufCharCount = sizeof(infoBuf);
+	if(!GetComputerName(infoBuf, &bufCharCount)) {
+		throw std::runtime_error("GetComputerName() failed");
+	}
+	return std::string(infoBuf, bufCharCount);
+#else
+	char hostname[HOST_NAME_MAX + 1] = {};
+	if(::gethostname(hostname, HOST_NAME_MAX)) {
+		throw std::runtime_error("gethostname() failed");
+	}
+	return std::string(hostname);
+#endif
 }
 
 
