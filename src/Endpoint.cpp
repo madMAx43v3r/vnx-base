@@ -89,6 +89,10 @@ void Endpoint::listen(const int32_t& socket) const {
 	throw std::logic_error("not implemented");
 }
 
+void Endpoint::shutdown(const int32_t& socket, const int32_t& mode) const {
+	throw std::logic_error("not implemented");
+}
+
 int32_t Endpoint::accept(const int32_t& socket) const {
 	throw std::logic_error("not implemented");
 	return -1;
@@ -127,6 +131,12 @@ std::shared_ptr<const UnixEndpoint> UnixEndpoint::from_url(const std::string& ur
 void UnixEndpoint::listen(const int32_t& socket) const {
 	if(::listen(socket, listen_queue_size) < 0) {
 		throw std::runtime_error("listen() failed with: " + get_socket_error_text());
+	}
+}
+
+void UnixEndpoint::shutdown(const int32_t& socket, const int32_t& mode) const {
+	if(::shutdown(socket, mode) < 0) {
+		throw std::runtime_error("shutdown() failed with: " + get_socket_error_text());
 	}
 }
 
@@ -211,6 +221,12 @@ void TcpEndpoint::connect(const int32_t& socket) const {
 void TcpEndpoint::listen(const int32_t& socket) const {
 	if(::listen(socket, listen_queue_size) < 0) {
 		throw std::runtime_error("listen() failed with: " + get_socket_error_text());
+	}
+}
+
+void TcpEndpoint::shutdown(const int32_t& socket, const int32_t& mode) const {
+	if(::shutdown(socket, mode) < 0) {
+		throw std::runtime_error("shutdown() failed with: " + get_socket_error_text());
 	}
 }
 
