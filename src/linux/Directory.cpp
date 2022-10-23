@@ -17,6 +17,7 @@
 #include <vnx/vnx.h>
 #include <vnx/Directory.h>
 
+#include <stdlib.h>
 #include <sys/stat.h>
 
 
@@ -87,9 +88,19 @@ std::vector<std::shared_ptr<File>> Directory::files(bool hidden, bool system) co
 		if(!entry) {
 			break;
 		}
+		const std::string name(entry->d_name);
+		const std::string full_path = get_path() + name;
+
 		if(entry->d_type == DT_REG) {
-			if(hidden || entry->d_name[0] != '.') {
-				result.push_back(std::make_shared<File>(get_path() + entry->d_name));
+			if(hidden || name[0] != '.') {
+				result.push_back(std::make_shared<File>(full_path));
+			}
+		} else if(entry->d_type == DT_LNK) {
+			char resolved[PATH_MAX] = {};
+			if(::realpath(full_path.c_str(), resolved)) {
+				if(vnx::File(resolved).is_regular()) {
+					result.push_back(std::make_shared<File>(resolved));
+				}
 			}
 		}
 	}
@@ -104,10 +115,19 @@ std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool
 		if(!entry) {
 			break;
 		}
+		const std::string name(entry->d_name);
+		const std::string full_path = get_path() + name;
+
 		if(entry->d_type == DT_DIR) {
-			const std::string name(entry->d_name);
 			if(name != "." && name != ".." && (hidden || name[0] != '.')) {
-				result.push_back(std::make_shared<Directory>(get_path() + name));
+				result.push_back(std::make_shared<Directory>(full_path));
+			}
+		} else if(entry->d_type == DT_LNK) {
+			char resolved[PATH_MAX] = {};
+			if(::realpath(full_path.c_str(), resolved)) {
+				if(vnx::File(resolved).is_directory()) {
+					result.push_back(std::make_shared<Directory>(resolved));
+				}
 			}
 		}
 	}
