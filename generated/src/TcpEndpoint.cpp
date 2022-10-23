@@ -14,6 +14,8 @@
 #include <vnx/Endpoint_listen_return.hxx>
 #include <vnx/Endpoint_open.hxx>
 #include <vnx/Endpoint_open_return.hxx>
+#include <vnx/Endpoint_shutdown.hxx>
+#include <vnx/Endpoint_shutdown_return.hxx>
 #include <vnx/Endpoint_to_url.hxx>
 #include <vnx/Endpoint_to_url_return.hxx>
 #include <vnx/TcpEndpoint_accept.hxx>
@@ -30,6 +32,8 @@
 #include <vnx/TcpEndpoint_open_return.hxx>
 #include <vnx/TcpEndpoint_set_options.hxx>
 #include <vnx/TcpEndpoint_set_options_return.hxx>
+#include <vnx/TcpEndpoint_shutdown.hxx>
+#include <vnx/TcpEndpoint_shutdown_return.hxx>
 #include <vnx/TcpEndpoint_to_url.hxx>
 #include <vnx/TcpEndpoint_to_url_return.hxx>
 
@@ -229,21 +233,23 @@ std::shared_ptr<vnx::TypeCode> TcpEndpoint::static_create_type_code() {
 	type_code->parents.resize(1);
 	type_code->parents[0] = ::vnx::Endpoint::static_get_type_code();
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TcpEndpoint>(); };
-	type_code->methods.resize(14);
+	type_code->methods.resize(16);
 	type_code->methods[0] = ::vnx::Endpoint_accept::static_get_type_code();
 	type_code->methods[1] = ::vnx::Endpoint_bind::static_get_type_code();
 	type_code->methods[2] = ::vnx::Endpoint_connect::static_get_type_code();
 	type_code->methods[3] = ::vnx::Endpoint_listen::static_get_type_code();
 	type_code->methods[4] = ::vnx::Endpoint_open::static_get_type_code();
-	type_code->methods[5] = ::vnx::Endpoint_to_url::static_get_type_code();
-	type_code->methods[6] = ::vnx::TcpEndpoint_accept::static_get_type_code();
-	type_code->methods[7] = ::vnx::TcpEndpoint_bind::static_get_type_code();
-	type_code->methods[8] = ::vnx::TcpEndpoint_close::static_get_type_code();
-	type_code->methods[9] = ::vnx::TcpEndpoint_connect::static_get_type_code();
-	type_code->methods[10] = ::vnx::TcpEndpoint_listen::static_get_type_code();
-	type_code->methods[11] = ::vnx::TcpEndpoint_open::static_get_type_code();
-	type_code->methods[12] = ::vnx::TcpEndpoint_set_options::static_get_type_code();
-	type_code->methods[13] = ::vnx::TcpEndpoint_to_url::static_get_type_code();
+	type_code->methods[5] = ::vnx::Endpoint_shutdown::static_get_type_code();
+	type_code->methods[6] = ::vnx::Endpoint_to_url::static_get_type_code();
+	type_code->methods[7] = ::vnx::TcpEndpoint_accept::static_get_type_code();
+	type_code->methods[8] = ::vnx::TcpEndpoint_bind::static_get_type_code();
+	type_code->methods[9] = ::vnx::TcpEndpoint_close::static_get_type_code();
+	type_code->methods[10] = ::vnx::TcpEndpoint_connect::static_get_type_code();
+	type_code->methods[11] = ::vnx::TcpEndpoint_listen::static_get_type_code();
+	type_code->methods[12] = ::vnx::TcpEndpoint_open::static_get_type_code();
+	type_code->methods[13] = ::vnx::TcpEndpoint_set_options::static_get_type_code();
+	type_code->methods[14] = ::vnx::TcpEndpoint_shutdown::static_get_type_code();
+	type_code->methods[15] = ::vnx::TcpEndpoint_to_url::static_get_type_code();
 	type_code->fields.resize(9);
 	{
 		auto& field = type_code->fields[0];
@@ -342,6 +348,12 @@ std::shared_ptr<vnx::Value> TcpEndpoint::vnx_call_switch(std::shared_ptr<const v
 			_return_value->_ret_0 = open();
 			return _return_value;
 		}
+		case 0xbf9866d0d9ce44eaull: {
+			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_shutdown>(_method);
+			auto _return_value = ::vnx::Endpoint_shutdown_return::create();
+			shutdown(_args->socket, _args->mode);
+			return _return_value;
+		}
 		case 0x4362b4ad51f861f5ull: {
 			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_to_url>(_method);
 			auto _return_value = ::vnx::Endpoint_to_url_return::create();
@@ -388,6 +400,12 @@ std::shared_ptr<vnx::Value> TcpEndpoint::vnx_call_switch(std::shared_ptr<const v
 			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_set_options>(_method);
 			auto _return_value = ::vnx::TcpEndpoint_set_options_return::create();
 			set_options(_args->socket);
+			return _return_value;
+		}
+		case 0x72386bdf9e0aed47ull: {
+			auto _args = std::static_pointer_cast<const ::vnx::TcpEndpoint_shutdown>(_method);
+			auto _return_value = ::vnx::TcpEndpoint_shutdown_return::create();
+			shutdown(_args->socket, _args->mode);
 			return _return_value;
 		}
 		case 0xfec9e2aacd9f89daull: {

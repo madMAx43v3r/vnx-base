@@ -39,6 +39,8 @@ class Endpoint_listen;
 class Endpoint_listen_return;
 class Endpoint_open;
 class Endpoint_open_return;
+class Endpoint_shutdown;
+class Endpoint_shutdown_return;
 class Endpoint_to_url;
 class Endpoint_to_url_return;
 class Exception;
@@ -235,6 +237,8 @@ class TcpEndpoint_open;
 class TcpEndpoint_open_return;
 class TcpEndpoint_set_options;
 class TcpEndpoint_set_options_return;
+class TcpEndpoint_shutdown;
+class TcpEndpoint_shutdown_return;
 class TcpEndpoint_to_url;
 class TcpEndpoint_to_url_return;
 class TerminalBase;
@@ -275,6 +279,8 @@ class UnixEndpoint_open;
 class UnixEndpoint_open_return;
 class UnixEndpoint_set_options;
 class UnixEndpoint_set_options_return;
+class UnixEndpoint_shutdown;
+class UnixEndpoint_shutdown_return;
 class UnixEndpoint_to_url;
 class UnixEndpoint_to_url_return;
 class User;
@@ -299,6 +305,8 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_liste
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_listen_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_open; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_open_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_shutdown; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_shutdown_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_Exception; ///< \private
@@ -490,6 +498,8 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_op
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_open_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_set_options; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_set_options_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_shutdown; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_shutdown_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_to_url; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_to_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_TerminalBase; ///< \private
@@ -528,6 +538,8 @@ VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_o
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_open_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_set_options; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_set_options_return; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_shutdown; ///< \private
+VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_shutdown_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_to_url; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_to_url_return; ///< \private
 VNX_EXPORT extern const vnx::TypeCode* const vnx_native_type_code_User; ///< \private
@@ -557,6 +569,8 @@ void read(TypeInput& in, ::vnx::Endpoint_listen& value, const TypeCode* type_cod
 void read(TypeInput& in, ::vnx::Endpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::Endpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::Endpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Endpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::Exception& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -753,6 +767,8 @@ void read(TypeInput& in, ::vnx::TcpEndpoint_open& value, const TypeCode* type_co
 void read(TypeInput& in, ::vnx::TcpEndpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_set_options& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_set_options_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::TcpEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::TcpEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TcpEndpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::TerminalBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -793,6 +809,8 @@ void read(TypeInput& in, ::vnx::UnixEndpoint_open& value, const TypeCode* type_c
 void read(TypeInput& in, ::vnx::UnixEndpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_set_options& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_set_options_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::UnixEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void read(TypeInput& in, ::vnx::UnixEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::UnixEndpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void read(TypeInput& in, ::vnx::User& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -818,6 +836,8 @@ void write(TypeOutput& out, const ::vnx::Endpoint_listen& value, const TypeCode*
 void write(TypeOutput& out, const ::vnx::Endpoint_listen_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_open& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::Endpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::Endpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Endpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::Exception& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1014,6 +1034,8 @@ void write(TypeOutput& out, const ::vnx::TcpEndpoint_open& value, const TypeCode
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_set_options& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_set_options_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::TcpEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::TcpEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TcpEndpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::TerminalBase& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1054,6 +1076,8 @@ void write(TypeOutput& out, const ::vnx::UnixEndpoint_open& value, const TypeCod
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_open_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_set_options& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_set_options_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::UnixEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code); ///< \private
+void write(TypeOutput& out, const ::vnx::UnixEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_to_url& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::UnixEndpoint_to_url_return& value, const TypeCode* type_code, const uint16_t* code); ///< \private
 void write(TypeOutput& out, const ::vnx::User& value, const TypeCode* type_code, const uint16_t* code); ///< \private
@@ -1079,6 +1103,8 @@ void read(std::istream& in, ::vnx::Endpoint_listen& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_listen_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_open& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_open_return& value); ///< \private
+void read(std::istream& in, ::vnx::Endpoint_shutdown& value); ///< \private
+void read(std::istream& in, ::vnx::Endpoint_shutdown_return& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_to_url& value); ///< \private
 void read(std::istream& in, ::vnx::Endpoint_to_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::Exception& value); ///< \private
@@ -1275,6 +1301,8 @@ void read(std::istream& in, ::vnx::TcpEndpoint_open& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_open_return& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_set_options& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_set_options_return& value); ///< \private
+void read(std::istream& in, ::vnx::TcpEndpoint_shutdown& value); ///< \private
+void read(std::istream& in, ::vnx::TcpEndpoint_shutdown_return& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_to_url& value); ///< \private
 void read(std::istream& in, ::vnx::TcpEndpoint_to_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::TerminalBase& value); ///< \private
@@ -1315,6 +1343,8 @@ void read(std::istream& in, ::vnx::UnixEndpoint_open& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_open_return& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_set_options& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_set_options_return& value); ///< \private
+void read(std::istream& in, ::vnx::UnixEndpoint_shutdown& value); ///< \private
+void read(std::istream& in, ::vnx::UnixEndpoint_shutdown_return& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_to_url& value); ///< \private
 void read(std::istream& in, ::vnx::UnixEndpoint_to_url_return& value); ///< \private
 void read(std::istream& in, ::vnx::User& value); ///< \private
@@ -1340,6 +1370,8 @@ void write(std::ostream& out, const ::vnx::Endpoint_listen& value); ///< \privat
 void write(std::ostream& out, const ::vnx::Endpoint_listen_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_open& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_open_return& value); ///< \private
+void write(std::ostream& out, const ::vnx::Endpoint_shutdown& value); ///< \private
+void write(std::ostream& out, const ::vnx::Endpoint_shutdown_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_to_url& value); ///< \private
 void write(std::ostream& out, const ::vnx::Endpoint_to_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::Exception& value); ///< \private
@@ -1536,6 +1568,8 @@ void write(std::ostream& out, const ::vnx::TcpEndpoint_open& value); ///< \priva
 void write(std::ostream& out, const ::vnx::TcpEndpoint_open_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_set_options& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_set_options_return& value); ///< \private
+void write(std::ostream& out, const ::vnx::TcpEndpoint_shutdown& value); ///< \private
+void write(std::ostream& out, const ::vnx::TcpEndpoint_shutdown_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_to_url& value); ///< \private
 void write(std::ostream& out, const ::vnx::TcpEndpoint_to_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::TerminalBase& value); ///< \private
@@ -1576,6 +1610,8 @@ void write(std::ostream& out, const ::vnx::UnixEndpoint_open& value); ///< \priv
 void write(std::ostream& out, const ::vnx::UnixEndpoint_open_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_set_options& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_set_options_return& value); ///< \private
+void write(std::ostream& out, const ::vnx::UnixEndpoint_shutdown& value); ///< \private
+void write(std::ostream& out, const ::vnx::UnixEndpoint_shutdown_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_to_url& value); ///< \private
 void write(std::ostream& out, const ::vnx::UnixEndpoint_to_url_return& value); ///< \private
 void write(std::ostream& out, const ::vnx::User& value); ///< \private
@@ -1601,6 +1637,8 @@ void accept(Visitor& visitor, const ::vnx::Endpoint_listen& value); ///< \privat
 void accept(Visitor& visitor, const ::vnx::Endpoint_listen_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_open& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_open_return& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::Endpoint_shutdown& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::Endpoint_shutdown_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_to_url& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Endpoint_to_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::Exception& value); ///< \private
@@ -1797,6 +1835,8 @@ void accept(Visitor& visitor, const ::vnx::TcpEndpoint_open& value); ///< \priva
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_open_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_set_options& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_set_options_return& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::TcpEndpoint_shutdown& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::TcpEndpoint_shutdown_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_to_url& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TcpEndpoint_to_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::TerminalBase& value); ///< \private
@@ -1837,6 +1877,8 @@ void accept(Visitor& visitor, const ::vnx::UnixEndpoint_open& value); ///< \priv
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_open_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_set_options& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_set_options_return& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::UnixEndpoint_shutdown& value); ///< \private
+void accept(Visitor& visitor, const ::vnx::UnixEndpoint_shutdown_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_to_url& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::UnixEndpoint_to_url_return& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::User& value); ///< \private
@@ -2162,6 +2204,52 @@ struct type<::vnx::Endpoint_open_return> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_open_return& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::Endpoint_shutdown> {
+	void read(TypeInput& in, ::vnx::Endpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::Endpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::Endpoint_shutdown& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::Endpoint_shutdown& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::Endpoint_shutdown& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_shutdown& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::Endpoint_shutdown_return> {
+	void read(TypeInput& in, ::vnx::Endpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::Endpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::Endpoint_shutdown_return& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::Endpoint_shutdown_return& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::Endpoint_shutdown_return& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_shutdown_return& value, bool special = false);
 };
 
 /// \private
@@ -6632,6 +6720,52 @@ struct type<::vnx::TcpEndpoint_set_options_return> {
 
 /// \private
 template<>
+struct type<::vnx::TcpEndpoint_shutdown> {
+	void read(TypeInput& in, ::vnx::TcpEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::TcpEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::TcpEndpoint_shutdown& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::TcpEndpoint_shutdown& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::TcpEndpoint_shutdown& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_shutdown& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::TcpEndpoint_shutdown_return> {
+	void read(TypeInput& in, ::vnx::TcpEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::TcpEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::TcpEndpoint_shutdown_return& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::TcpEndpoint_shutdown_return& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::TcpEndpoint_shutdown_return& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_shutdown_return& value, bool special = false);
+};
+
+/// \private
+template<>
 struct type<::vnx::TcpEndpoint_to_url> {
 	void read(TypeInput& in, ::vnx::TcpEndpoint_to_url& value, const TypeCode* type_code, const uint16_t* code) {
 		vnx::read(in, value, type_code, code);
@@ -7542,6 +7676,52 @@ struct type<::vnx::UnixEndpoint_set_options_return> {
 	const TypeCode* get_type_code();
 	void create_dynamic_code(std::vector<uint16_t>& code);
 	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_set_options_return& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::UnixEndpoint_shutdown> {
+	void read(TypeInput& in, ::vnx::UnixEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::UnixEndpoint_shutdown& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::UnixEndpoint_shutdown& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::UnixEndpoint_shutdown& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::UnixEndpoint_shutdown& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_shutdown& value, bool special = false);
+};
+
+/// \private
+template<>
+struct type<::vnx::UnixEndpoint_shutdown_return> {
+	void read(TypeInput& in, ::vnx::UnixEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::read(in, value, type_code, code);
+	}
+	void write(TypeOutput& out, const ::vnx::UnixEndpoint_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+		vnx::write(out, value, type_code, code);
+	}
+	void read(std::istream& in, ::vnx::UnixEndpoint_shutdown_return& value) {
+		vnx::read(in, value);
+	}
+	void write(std::ostream& out, const ::vnx::UnixEndpoint_shutdown_return& value) {
+		vnx::write(out, value);
+	}
+	void accept(Visitor& visitor, const ::vnx::UnixEndpoint_shutdown_return& value) {
+		vnx::accept(visitor, value);
+	}
+	const TypeCode* get_type_code();
+	void create_dynamic_code(std::vector<uint16_t>& code);
+	void create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_shutdown_return& value, bool special = false);
 };
 
 /// \private

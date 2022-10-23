@@ -35,6 +35,7 @@ public:
 	virtual void bind(const int32_t& socket = 0) const;
 	virtual void connect(const int32_t& socket = 0) const;
 	virtual void listen(const int32_t& socket = 0) const;
+	virtual void shutdown(const int32_t& socket = 0, const int32_t& mode = 0) const;
 	virtual int32_t accept(const int32_t& socket = 0) const;
 	virtual std::string to_url() const;
 	static std::shared_ptr<const ::vnx::Endpoint> from_url(const std::string& url = "");

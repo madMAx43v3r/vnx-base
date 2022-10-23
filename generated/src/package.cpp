@@ -14,6 +14,8 @@
 #include <vnx/Endpoint_listen_return.hxx>
 #include <vnx/Endpoint_open.hxx>
 #include <vnx/Endpoint_open_return.hxx>
+#include <vnx/Endpoint_shutdown.hxx>
+#include <vnx/Endpoint_shutdown_return.hxx>
 #include <vnx/Endpoint_to_url.hxx>
 #include <vnx/Endpoint_to_url_return.hxx>
 #include <vnx/Exception.hxx>
@@ -205,6 +207,8 @@
 #include <vnx/TcpEndpoint_open_return.hxx>
 #include <vnx/TcpEndpoint_set_options.hxx>
 #include <vnx/TcpEndpoint_set_options_return.hxx>
+#include <vnx/TcpEndpoint_shutdown.hxx>
+#include <vnx/TcpEndpoint_shutdown_return.hxx>
 #include <vnx/TcpEndpoint_to_url.hxx>
 #include <vnx/TcpEndpoint_to_url_return.hxx>
 #include <vnx/TerminalBase.hxx>
@@ -243,6 +247,8 @@
 #include <vnx/UnixEndpoint_open_return.hxx>
 #include <vnx/UnixEndpoint_set_options.hxx>
 #include <vnx/UnixEndpoint_set_options_return.hxx>
+#include <vnx/UnixEndpoint_shutdown.hxx>
+#include <vnx/UnixEndpoint_shutdown_return.hxx>
 #include <vnx/UnixEndpoint_to_url.hxx>
 #include <vnx/UnixEndpoint_to_url_return.hxx>
 #include <vnx/User.hxx>
@@ -407,6 +413,30 @@ void type<::vnx::Endpoint_open_return>::create_dynamic_code(std::vector<uint16_t
 }
 
 void type<::vnx::Endpoint_open_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_open_return& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Endpoint_shutdown>::get_type_code() {
+	return vnx::vnx_native_type_code_Endpoint_shutdown;
+}
+
+void type<::vnx::Endpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::Endpoint_shutdown());
+}
+
+void type<::vnx::Endpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_shutdown& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::Endpoint_shutdown_return>::get_type_code() {
+	return vnx::vnx_native_type_code_Endpoint_shutdown_return;
+}
+
+void type<::vnx::Endpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::Endpoint_shutdown_return());
+}
+
+void type<::vnx::Endpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Endpoint_shutdown_return& value, bool special) {
 	code.push_back(CODE_OBJECT);
 }
 
@@ -2594,6 +2624,30 @@ void type<::vnx::TcpEndpoint_set_options_return>::create_dynamic_code(std::vecto
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::TcpEndpoint_shutdown>::get_type_code() {
+	return vnx::vnx_native_type_code_TcpEndpoint_shutdown;
+}
+
+void type<::vnx::TcpEndpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::TcpEndpoint_shutdown());
+}
+
+void type<::vnx::TcpEndpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_shutdown& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::TcpEndpoint_shutdown_return>::get_type_code() {
+	return vnx::vnx_native_type_code_TcpEndpoint_shutdown_return;
+}
+
+void type<::vnx::TcpEndpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::TcpEndpoint_shutdown_return());
+}
+
+void type<::vnx::TcpEndpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::TcpEndpoint_shutdown_return& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
 const TypeCode* type<::vnx::TcpEndpoint_to_url>::get_type_code() {
 	return vnx::vnx_native_type_code_TcpEndpoint_to_url;
 }
@@ -3050,6 +3104,30 @@ void type<::vnx::UnixEndpoint_set_options_return>::create_dynamic_code(std::vect
 	code.push_back(CODE_OBJECT);
 }
 
+const TypeCode* type<::vnx::UnixEndpoint_shutdown>::get_type_code() {
+	return vnx::vnx_native_type_code_UnixEndpoint_shutdown;
+}
+
+void type<::vnx::UnixEndpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::UnixEndpoint_shutdown());
+}
+
+void type<::vnx::UnixEndpoint_shutdown>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_shutdown& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
+const TypeCode* type<::vnx::UnixEndpoint_shutdown_return>::get_type_code() {
+	return vnx::vnx_native_type_code_UnixEndpoint_shutdown_return;
+}
+
+void type<::vnx::UnixEndpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::UnixEndpoint_shutdown_return());
+}
+
+void type<::vnx::UnixEndpoint_shutdown_return>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::UnixEndpoint_shutdown_return& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
+
 const TypeCode* type<::vnx::UnixEndpoint_to_url>::get_type_code() {
 	return vnx::vnx_native_type_code_UnixEndpoint_to_url;
 }
@@ -3213,6 +3291,8 @@ static void register_all_types() {
 	vnx::register_type_code(::vnx::Endpoint_listen_return::static_create_type_code());
 	vnx::register_type_code(::vnx::Endpoint_open::static_create_type_code());
 	vnx::register_type_code(::vnx::Endpoint_open_return::static_create_type_code());
+	vnx::register_type_code(::vnx::Endpoint_shutdown::static_create_type_code());
+	vnx::register_type_code(::vnx::Endpoint_shutdown_return::static_create_type_code());
 	vnx::register_type_code(::vnx::Endpoint_to_url::static_create_type_code());
 	vnx::register_type_code(::vnx::Endpoint_to_url_return::static_create_type_code());
 	vnx::register_type_code(::vnx::Exception::static_create_type_code());
@@ -3404,6 +3484,8 @@ static void register_all_types() {
 	vnx::register_type_code(::vnx::TcpEndpoint_open_return::static_create_type_code());
 	vnx::register_type_code(::vnx::TcpEndpoint_set_options::static_create_type_code());
 	vnx::register_type_code(::vnx::TcpEndpoint_set_options_return::static_create_type_code());
+	vnx::register_type_code(::vnx::TcpEndpoint_shutdown::static_create_type_code());
+	vnx::register_type_code(::vnx::TcpEndpoint_shutdown_return::static_create_type_code());
 	vnx::register_type_code(::vnx::TcpEndpoint_to_url::static_create_type_code());
 	vnx::register_type_code(::vnx::TcpEndpoint_to_url_return::static_create_type_code());
 	vnx::register_type_code(::vnx::TerminalBase::static_create_type_code());
@@ -3442,6 +3524,8 @@ static void register_all_types() {
 	vnx::register_type_code(::vnx::UnixEndpoint_open_return::static_create_type_code());
 	vnx::register_type_code(::vnx::UnixEndpoint_set_options::static_create_type_code());
 	vnx::register_type_code(::vnx::UnixEndpoint_set_options_return::static_create_type_code());
+	vnx::register_type_code(::vnx::UnixEndpoint_shutdown::static_create_type_code());
+	vnx::register_type_code(::vnx::UnixEndpoint_shutdown_return::static_create_type_code());
 	vnx::register_type_code(::vnx::UnixEndpoint_to_url::static_create_type_code());
 	vnx::register_type_code(::vnx::UnixEndpoint_to_url_return::static_create_type_code());
 	vnx::register_type_code(::vnx::User::static_create_type_code());
@@ -3472,6 +3556,8 @@ const vnx::TypeCode* const vnx_native_type_code_Endpoint_listen = vnx::get_type_
 const vnx::TypeCode* const vnx_native_type_code_Endpoint_listen_return = vnx::get_type_code(vnx::Hash64(0x5765b381ffdc12c9ull));
 const vnx::TypeCode* const vnx_native_type_code_Endpoint_open = vnx::get_type_code(vnx::Hash64(0x1f54c9a1e8f45beeull));
 const vnx::TypeCode* const vnx_native_type_code_Endpoint_open_return = vnx::get_type_code(vnx::Hash64(0x31fcc6e6d6a4a33dull));
+const vnx::TypeCode* const vnx_native_type_code_Endpoint_shutdown = vnx::get_type_code(vnx::Hash64(0xbf9866d0d9ce44eaull));
+const vnx::TypeCode* const vnx_native_type_code_Endpoint_shutdown_return = vnx::get_type_code(vnx::Hash64(0x497fec0ad7fced1full));
 const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url = vnx::get_type_code(vnx::Hash64(0x4362b4ad51f861f5ull));
 const vnx::TypeCode* const vnx_native_type_code_Endpoint_to_url_return = vnx::get_type_code(vnx::Hash64(0xea6d552f1acb0570ull));
 const vnx::TypeCode* const vnx_native_type_code_Exception = vnx::get_type_code(vnx::Hash64(0x5cd32aac8621de11ull));
@@ -3663,6 +3749,8 @@ const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_open = vnx::get_type
 const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_open_return = vnx::get_type_code(vnx::Hash64(0x133ab6a412f2f26ull));
 const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_set_options = vnx::get_type_code(vnx::Hash64(0x8458afe05a08ddffull));
 const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_set_options_return = vnx::get_type_code(vnx::Hash64(0xfacc1773ba706804ull));
+const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_shutdown = vnx::get_type_code(vnx::Hash64(0x72386bdf9e0aed47ull));
+const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_shutdown_return = vnx::get_type_code(vnx::Hash64(0x4cd7688b73900f6eull));
 const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_to_url = vnx::get_type_code(vnx::Hash64(0xfec9e2aacd9f89daull));
 const vnx::TypeCode* const vnx_native_type_code_TcpEndpoint_to_url_return = vnx::get_type_code(vnx::Hash64(0x622dba7c7d9e90d2ull));
 const vnx::TypeCode* const vnx_native_type_code_TerminalBase = vnx::get_type_code(vnx::Hash64(0xa4ce75801916357bull));
@@ -3701,6 +3789,8 @@ const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_open = vnx::get_typ
 const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_open_return = vnx::get_type_code(vnx::Hash64(0x7b651bef28679fb4ull));
 const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_set_options = vnx::get_type_code(vnx::Hash64(0xfe0e1f6533406d6dull));
 const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_set_options_return = vnx::get_type_code(vnx::Hash64(0x12c66fb35a92bc92ull));
+const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_shutdown = vnx::get_type_code(vnx::Hash64(0x1b49ca39a60992ecull));
+const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_shutdown_return = vnx::get_type_code(vnx::Hash64(0xa93f3a28ce63d1dbull));
 const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_to_url = vnx::get_type_code(vnx::Hash64(0xd8c317990838a866ull));
 const vnx::TypeCode* const vnx_native_type_code_UnixEndpoint_to_url_return = vnx::get_type_code(vnx::Hash64(0x34808dc5a9174922ull));
 const vnx::TypeCode* const vnx_native_type_code_User = vnx::get_type_code(vnx::Hash64(0x500d208d47b945a2ull));

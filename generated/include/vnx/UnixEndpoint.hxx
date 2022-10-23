@@ -35,6 +35,7 @@ public:
 	virtual void bind(const int32_t& socket = 0) const override;
 	virtual void connect(const int32_t& socket = 0) const override;
 	virtual void listen(const int32_t& socket = 0) const override;
+	virtual void shutdown(const int32_t& socket = 0, const int32_t& mode = 0) const override;
 	virtual void set_options(const int32_t& socket = 0) const;
 	virtual int32_t accept(const int32_t& socket = 0) const override;
 	virtual std::string to_url() const override;
