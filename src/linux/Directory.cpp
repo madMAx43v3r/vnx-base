@@ -91,17 +91,26 @@ std::vector<std::shared_ptr<File>> Directory::files(bool hidden, bool system) co
 		const std::string name(entry->d_name);
 		const std::string full_path = get_path() + name;
 
-		if(entry->d_type == DT_REG) {
-			if(hidden || name[0] != '.') {
-				result.push_back(std::make_shared<File>(full_path));
-			}
-		} else if(entry->d_type == DT_LNK) {
-			char resolved[PATH_MAX] = {};
-			if(::realpath(full_path.c_str(), resolved)) {
-				if(vnx::File(resolved).is_regular()) {
-					result.push_back(std::make_shared<File>(resolved));
+		switch(entry->d_type) {
+			case DT_REG:
+				if(hidden || name[0] != '.') {
+					result.push_back(std::make_shared<File>(full_path));
 				}
+				break;
+			case DT_LNK: {
+				char resolved[PATH_MAX + 1] = {};
+				if(::realpath(full_path.c_str(), resolved)) {
+					if(vnx::File(resolved).is_regular()) {
+						result.push_back(std::make_shared<File>(resolved));
+					}
+				}
+				break;
 			}
+			case DT_UNKNOWN:
+				if(vnx::File(full_path).is_regular()) {
+					result.push_back(std::make_shared<File>(full_path));
+				}
+				break;
 		}
 	}
 	return result;
@@ -118,17 +127,26 @@ std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool
 		const std::string name(entry->d_name);
 		const std::string full_path = get_path() + name;
 
-		if(entry->d_type == DT_DIR) {
-			if(name != "." && name != ".." && (hidden || name[0] != '.')) {
-				result.push_back(std::make_shared<Directory>(full_path));
-			}
-		} else if(entry->d_type == DT_LNK) {
-			char resolved[PATH_MAX] = {};
-			if(::realpath(full_path.c_str(), resolved)) {
-				if(vnx::File(resolved).is_directory()) {
-					result.push_back(std::make_shared<Directory>(resolved));
+		switch(entry->d_type) {
+			case DT_REG:
+				if(name != "." && name != ".." && (hidden || name[0] != '.')) {
+					result.push_back(std::make_shared<Directory>(full_path));
 				}
+				break;
+			case DT_LNK: {
+				char resolved[PATH_MAX + 1] = {};
+				if(::realpath(full_path.c_str(), resolved)) {
+					if(vnx::File(resolved).is_directory()) {
+						result.push_back(std::make_shared<Directory>(resolved));
+					}
+				}
+				break;
 			}
+			case DT_UNKNOWN:
+				if(vnx::File(full_path).is_directory()) {
+					result.push_back(std::make_shared<Directory>(full_path));
+				}
+				break;
 		}
 	}
 	return result;
