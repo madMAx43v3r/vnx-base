@@ -128,7 +128,7 @@ std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool
 		const std::string full_path = get_path() + name;
 
 		switch(entry->d_type) {
-			case DT_REG:
+			case DT_DIR:
 				if(name != "." && name != ".." && (hidden || name[0] != '.')) {
 					result.push_back(std::make_shared<Directory>(full_path));
 				}
