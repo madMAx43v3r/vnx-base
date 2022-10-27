@@ -41,10 +41,12 @@ void ThreadPool::add_task(const std::function<void()>& func) {
 	if(num_threads > 0) {
 		{
 			std::unique_lock<std::mutex> lock(mutex);
-			while(max_queue_size > 0 && queue.size() >= size_t(max_queue_size)) {
+			while(do_run && max_queue_size > 0 && queue.size() >= size_t(max_queue_size)) {
 				reverse_condition.wait(lock);
 			}
-			queue.push(func);
+			if(do_run) {
+				queue.push(func);
+			}
 		}
 		condition.notify_one();
 	} else if(num_threads < 0) {
