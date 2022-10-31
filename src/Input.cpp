@@ -623,6 +623,9 @@ void read(TypeInput& in, std::string& string, const TypeCode* type_code, const u
 				case CODE_ALT_STRING:
 					size = flip_bytes(size);
 			}
+			if(size > in.max_list_size) {
+				throw std::logic_error("string size > max_list_size: " + std::to_string(size));
+			}
 			string.resize(size);
 			in.read(&string[0], size);		// since C++11 this is guaranteed to be valid
 			return;

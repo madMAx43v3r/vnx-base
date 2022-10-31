@@ -342,6 +342,9 @@ size_t get_matrix_size(std::vector<size_t>& dims, const uint16_t* code);
 template<typename T>
 void read_matrix(TypeInput& in, std::vector<T>& data, std::vector<size_t>& dims, const uint16_t* code) {
 	const auto total_size = get_matrix_size(dims, code);
+	if(total_size > in.max_list_size) {
+		throw std::logic_error("matrix size > max_list_size: " + std::to_string(total_size));
+	}
 	data.resize(total_size);
 	const uint16_t* value_code = code + 2 + dims.size();
 	for(size_t i = 0; i < total_size; ++i) {
@@ -466,6 +469,9 @@ void read_vector(TypeInput& in, T& vector, const TypeCode* type_code, const uint
 		default:
 			size = 1;
 			value_code = code;
+	}
+	if(size > in.max_list_size) {
+		throw std::logic_error("vector size > max_list_size: " + std::to_string(size));
 	}
 	vector.resize(size);
 	if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
