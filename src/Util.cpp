@@ -167,5 +167,29 @@ std::string get_host_name() {
 #endif
 }
 
+#ifdef _WIN32
+class SetTerminate
+{
+	public:
+		SetTerminate()
+		{
+			std::set_terminate([]() {
+				try {
+					std::rethrow_exception(std::current_exception());
+				}
+				catch (const std::exception& e) {
+					std::cerr << "Caught exception: " << e.what() << std::endl;
+				}
+				catch (...) {
+					std::cerr << "Unhandled exception of unknown type" << std::endl;
+				}
+
+				std::abort();
+			});
+		}
+};
+
+SetTerminate setTerminate;
+#endif
 
 } // vnx
