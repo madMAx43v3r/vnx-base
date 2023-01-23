@@ -85,6 +85,13 @@ void ThreadPool::wait() {
 	}
 }
 
+void ThreadPool::sync() {
+	std::unique_lock<std::mutex> lock(mutex);
+	while(num_running || queue.size()) {
+		reverse_condition.wait(lock);
+	}
+}
+
 void ThreadPool::close() {
 	exit();
 	wait();
@@ -95,7 +102,9 @@ void ThreadPool::main(const int64_t thread_id) {
 		std::function<void()> func;
 		{
 			std::unique_lock<std::mutex> lock(mutex);
+
 			while(do_run && queue.empty()) {
+				reverse_condition.notify_one();		// notify about previous task done
 				condition.wait(lock);
 			}
 			if(do_run) {
@@ -104,10 +113,10 @@ void ThreadPool::main(const int64_t thread_id) {
 			} else {
 				break;
 			}
+			num_running++;
 		}
 		reverse_condition.notify_one();
 		
-		num_running++;
 		try {
 			if(func) {
 				func();
@@ -121,14 +130,13 @@ void ThreadPool::main(const int64_t thread_id) {
 			break;
 		}
 	}
-	{
-		std::lock_guard<std::mutex> lock(mutex);
-		const auto iter = threads.find(thread_id);
-		if(iter != threads.end()) {
-			iter->second.detach();
-			threads.erase(iter);
-			reverse_condition.notify_all();
-		}
+	std::lock_guard<std::mutex> lock(mutex);
+
+	const auto iter = threads.find(thread_id);
+	if(iter != threads.end()) {
+		iter->second.detach();
+		threads.erase(iter);
+		reverse_condition.notify_all();
 	}
 }
 
