@@ -104,7 +104,7 @@ void ThreadPool::main(const int64_t thread_id) {
 			std::unique_lock<std::mutex> lock(mutex);
 
 			while(do_run && queue.empty()) {
-				reverse_condition.notify_one();		// notify about previous task done
+				reverse_condition.notify_all();		// notify about previous task done
 				condition.wait(lock);
 			}
 			if(do_run) {
@@ -115,7 +115,7 @@ void ThreadPool::main(const int64_t thread_id) {
 			}
 			num_running++;
 		}
-		reverse_condition.notify_one();
+		reverse_condition.notify_all();
 		
 		try {
 			if(func) {
