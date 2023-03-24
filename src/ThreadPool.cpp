@@ -130,14 +130,16 @@ void ThreadPool::main(const int64_t thread_id) {
 			break;
 		}
 	}
-	std::lock_guard<std::mutex> lock(mutex);
+	{
+		std::lock_guard<std::mutex> lock(mutex);
 
-	const auto iter = threads.find(thread_id);
-	if(iter != threads.end()) {
-		iter->second.detach();
-		threads.erase(iter);
-		reverse_condition.notify_all();
+		const auto iter = threads.find(thread_id);
+		if(iter != threads.end()) {
+			iter->second.detach();
+			threads.erase(iter);
+		}
 	}
+	reverse_condition.notify_all();
 }
 
 
