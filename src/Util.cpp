@@ -115,6 +115,22 @@ std::string to_hex_string(const void* data, const size_t length, bool big_endian
 	return str;
 }
 
+std::vector<uint8_t> from_hex_string(const std::string& str) {
+	size_t off = 0;
+	if(str.substr(0, 2) == "0x") {
+		off = 2;
+	}
+	const auto length = str.size() - off;
+	if(length % 2) {
+		throw std::logic_error("from_hex_string(): length not multiple of 2: " + std::to_string(length));
+	}
+	std::vector<uint8_t> out(length / 2);
+	for(size_t i = 0; i < out.size(); ++i) {
+		out[i] = std::stoul(str.substr(off + i * 2, 2), nullptr, 16);
+	}
+	return out;
+}
+
 std::string input_password(const std::string &prompt){
 #ifdef _WIN32
 	HANDLE console = GetStdHandle(STD_INPUT_HANDLE);
