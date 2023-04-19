@@ -20,11 +20,13 @@
 #include <vnx/TcpEndpoint.hxx>
 
 #include <mutex>
+#include <memory>
 
 #ifdef _WIN32
 #include <winsock2.h>
 #else
 #include <netdb.h>
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
@@ -33,22 +35,35 @@
 
 namespace vnx {
 
-static ::sockaddr_in get_sockaddr_byhostname(const std::string& host_name, int port) {
-	::sockaddr_in addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(port);
-	{
-		static std::mutex mutex;
-		std::lock_guard<std::mutex> lock(mutex);
+static std::unique_ptr<sockaddr_in> resolve_sockaddr_in(const std::string& host_name, int port) {
+	static std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
 
-		::hostent* host = ::gethostbyname(host_name.c_str());
-		if(!host) {
-			throw std::runtime_error("could not resolve: '" + host_name + "'");
-		}
-		memcpy(&addr.sin_addr.s_addr, host->h_addr_list[0], host->h_length);
+	::hostent* host = ::gethostbyname(host_name.c_str());
+	if(!host || !host->h_addr_list[0]) {
+		throw std::runtime_error("could not resolve: '" + host_name + "'");
 	}
-	return addr;
+	switch(host->h_addrtype) {
+		case AF_INET: {
+			auto out = new sockaddr_in();
+			::memset(out, 0, sizeof(sockaddr_in));
+			out->sin_family = host->h_addrtype;
+			out->sin_port = ::htons(port);
+			::memcpy(&out->sin_addr, host->h_addr_list[0], host->h_length);
+			return std::unique_ptr<sockaddr_in>(out);
+		}
+		case AF_INET6: {
+			auto out = new sockaddr_in6();
+			::memset(out, 0, sizeof(sockaddr_in6));
+			out->sin6_family = host->h_addrtype;
+			out->sin6_port = ::htons(port);
+			::memcpy(&out->sin6_addr, host->h_addr_list[0], host->h_length);
+			return std::unique_ptr<sockaddr_in>((sockaddr_in*)out);
+		}
+		default:
+			throw std::runtime_error("invalid host->h_addrtype");
+	}
+	return nullptr;
 }
 
 static void set_socket_options(int sock, int send_buffer_size, int receive_buffer_size) {
@@ -223,15 +238,15 @@ void TcpEndpoint::bind(const int32_t& socket) const {
 	if(setsockopt(socket, SOL_SOCKET, SO_REUSEADDR, (char*)&enable, sizeof(int)) < 0) {
 		throw std::runtime_error("setsockopt(SO_REUSEADDR) failed with: " + get_socket_error_text());
 	}
-	::sockaddr_in addr = get_sockaddr_byhostname(host_name, port);
-	if(::bind(socket, (::sockaddr*)&addr, sizeof(addr)) < 0) {
+	auto addr = resolve_sockaddr_in(host_name, port);
+	if(::bind(socket, (::sockaddr*)addr.get(), addr->sin_family == AF_INET6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in)) < 0) {
 		throw std::runtime_error("bind() failed with: " + get_socket_error_text());
 	}
 }
 
 void TcpEndpoint::connect(const int32_t& socket) const {
-	::sockaddr_in addr = get_sockaddr_byhostname(host_name, port);
-	if(::connect(socket, (::sockaddr*)&addr, sizeof(addr)) < 0) {
+	auto addr = resolve_sockaddr_in(host_name, port);
+	if(::connect(socket, (::sockaddr*)addr.get(), addr->sin_family == AF_INET6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in)) < 0) {
 		throw std::runtime_error("connect() failed with: " + get_socket_error_text());
 	}
 }
