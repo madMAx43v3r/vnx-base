@@ -131,6 +131,9 @@ std::string get_socket_error_text();
 /// Get this machines host name
 std::string get_host_name();
 
+/// Get peer address for socket
+std::string get_peer_address(int sock);
+
 
 } // vnx
 

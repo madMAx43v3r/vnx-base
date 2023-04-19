@@ -71,6 +71,24 @@ static void set_tcp_socket_options(int sock, bool tcp_keepalive, bool tcp_no_del
 	}
 }
 
+std::string get_peer_address(int sock) {
+	::sockaddr_storage sock_addr = {};
+	::socklen_t addr_len = sizeof(sock_addr);
+	::getpeername(sock, (::sockaddr*)&sock_addr, &addr_len);
+
+	char address[INET6_ADDRSTRLEN] = {};
+	const auto p_sock_addr = (const ::sockaddr*)&sock_addr;
+	switch(p_sock_addr->sa_family) {
+		case AF_INET:
+			::inet_ntop(AF_INET, &((::sockaddr_in*)p_sock_addr)->sin_addr, address, sizeof(address));
+			break;
+		case AF_INET6:
+			::inet_ntop(AF_INET6, &((::sockaddr_in6*)p_sock_addr)->sin6_addr, address, sizeof(address));
+			break;
+	}
+	return std::string(address);
+}
+
 
 int32_t Endpoint::open() const {
 	throw std::logic_error("not implemented");
