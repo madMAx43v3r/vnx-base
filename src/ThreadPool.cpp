@@ -72,6 +72,11 @@ size_t ThreadPool::get_num_running() const {
 	return num_running;
 }
 
+size_t ThreadPool::get_num_pending_total() const {
+	std::lock_guard<std::mutex> lock(mutex);
+	return num_running + queue.size();
+}
+
 void ThreadPool::exit() {
 	std::lock_guard<std::mutex> lock(mutex);
 	do_run = false;
