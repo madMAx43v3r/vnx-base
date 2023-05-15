@@ -581,7 +581,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 }
 
 
-size_t get_matrix_size(std::vector<size_t>& dims, const uint16_t* code) {
+size_t read_matrix_size(std::vector<size_t>& dims, const uint16_t* code) {
 	switch(code[0]) {
 		case CODE_MATRIX:
 			dims.resize(code[1]);
