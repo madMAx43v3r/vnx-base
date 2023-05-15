@@ -476,18 +476,26 @@ void read_vector(TypeInput& in, T& vector, const TypeCode* type_code, const uint
 	if(size > in.max_list_size) {
 		throw std::logic_error("vector size > max_list_size: " + std::to_string(size));
 	}
-	if(in.safe_read) {
-		for(uint32_t i = 0; i < size; ++i) {
-			typename T::value_type tmp;
-			vnx::type<typename T::value_type>().read(in, tmp, type_code, value_code);
-			vector.push_back(tmp);
+	if(!in.safe_read) {
+		vector.resize(size);
+	}
+	if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
+		if(in.safe_read) {
+			for(size_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
+				const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE);
+				vector.resize(i + chunk_size);
+				in.read((char*)&vector[i], chunk_size);
+			}
+		} else {
+			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
 		}
 	} else {
-		vector.resize(size);
-		if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
-			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
-		} else {
-			for(uint32_t i = 0; i < size; ++i) {
+		for(uint32_t i = 0; i < size; ++i) {
+			if(in.safe_read) {
+				typename T::value_type tmp;
+				vnx::type<typename T::value_type>().read(in, tmp, type_code, value_code);
+				vector.push_back(tmp);
+			} else {
 				vnx::type<typename T::value_type>().read(in, vector[i], type_code, value_code);
 			}
 		}
