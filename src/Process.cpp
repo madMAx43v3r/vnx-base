@@ -161,12 +161,19 @@ parse_args(const std::vector<std::string>& args, const std::map<std::string, std
 	return result;
 }
 
+#ifdef _WIN32
+BOOL CtrlHandler(DWORD fdwCtrlType)
+{
+	signal_handler(0);
+	::usleep(30e6);
+	return FALSE;
+}
+#endif
+
 void init(const std::string& process_name, int argc, char** argv, std::map<std::string, std::string> options) {
-	
-	std::signal(SIGINT, signal_handler);
-	std::signal(SIGTERM, signal_handler);
 
 #ifdef _WIN32
+	SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE);
 	{
 		WSADATA data;
 		const int wsaret = WSAStartup(MAKEWORD(1, 1), &data);
@@ -183,6 +190,9 @@ void init(const std::string& process_name, int argc, char** argv, std::map<std::
 		mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
 		SetConsoleMode(console_out, mode);
 	}
+#else
+	std::signal(SIGINT, signal_handler);
+	std::signal(SIGTERM, signal_handler);
 #endif
 	
 	options["h"] = "help";
