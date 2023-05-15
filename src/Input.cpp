@@ -627,8 +627,8 @@ void read(TypeInput& in, std::string& string, const TypeCode* type_code, const u
 				throw std::logic_error("string size > max_list_size: " + std::to_string(size));
 			}
 			if(in.safe_read) {
-				for(size_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
-					const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE);
+				for(uint32_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
+					const auto chunk_size = std::min<uint32_t>(size - i, VNX_BUFFER_SIZE);
 					string.resize(i + chunk_size);
 					in.read(&string[i], chunk_size);		// since C++11 this is guaranteed to be valid
 				}
