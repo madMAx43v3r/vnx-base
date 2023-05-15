@@ -345,6 +345,9 @@ void read_matrix(TypeInput& in, std::vector<T>& data, std::vector<size_t>& dims,
 	if(total_size > in.max_list_size) {
 		throw std::logic_error("matrix size > max_list_size: " + std::to_string(total_size));
 	}
+	if(in.safe_read) {
+		throw std::logic_error("CODE_MATRIX does not support safe_read");
+	}
 	data.resize(total_size);
 	const uint16_t* value_code = code + 2 + dims.size();
 	for(size_t i = 0; i < total_size; ++i) {
@@ -473,12 +476,20 @@ void read_vector(TypeInput& in, T& vector, const TypeCode* type_code, const uint
 	if(size > in.max_list_size) {
 		throw std::logic_error("vector size > max_list_size: " + std::to_string(size));
 	}
-	vector.resize(size);
-	if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
-		in.read((char*)vector.data(), size * sizeof(typename T::value_type));
-	} else {
+	if(in.safe_read) {
 		for(uint32_t i = 0; i < size; ++i) {
-			vnx::type<typename T::value_type>().read(in, vector[i], type_code, value_code);
+			typename T::value_type tmp;
+			vnx::type<typename T::value_type>().read(in, tmp, type_code, value_code);
+			vector.push_back(tmp);
+		}
+	} else {
+		vector.resize(size);
+		if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
+			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
+		} else {
+			for(uint32_t i = 0; i < size; ++i) {
+				vnx::type<typename T::value_type>().read(in, vector[i], type_code, value_code);
+			}
 		}
 	}
 }
