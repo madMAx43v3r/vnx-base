@@ -330,17 +330,14 @@ template<typename T>
 void read(TypeInput& in, vnx::optional<T>& value, const TypeCode* type_code, const uint16_t* code);
 
 template<typename T>
-void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const uint16_t* value_code, const uint32_t size) {
-	if(size > in.max_list_size) {
-		throw std::logic_error("vector size > max_list_size: " + std::to_string(size));
-	}
+void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const uint16_t* value_code, const size_t size) {
 	if(!in.safe_read) {
 		vector.resize(size);
 	}
 	if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
 		if(in.safe_read) {
-			for(uint32_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
-				const auto chunk_size = std::min<uint32_t>(size - i, VNX_BUFFER_SIZE);
+			for(size_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
+				const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE);
 				vector.resize(i + chunk_size);
 				in.read((char*)&vector[i], chunk_size);
 			}
@@ -348,7 +345,7 @@ void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const
 			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
 		}
 	} else {
-		for(uint32_t i = 0; i < size; ++i) {
+		for(size_t i = 0; i < size; ++i) {
 			if(in.safe_read) {
 				typename T::value_type tmp;
 				vnx::type<typename T::value_type>().read(in, tmp, type_code, value_code);
@@ -363,6 +360,9 @@ void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const
 /// Returns dimension array and total size of a matrix (CODE_MATRIX)
 size_t read_matrix_size(std::vector<size_t>& dims, const uint16_t* code);
 
+/// Returns dimension array and total size of an image (CODE_IMAGE)
+size_t read_image_size(TypeInput& in, std::vector<size_t>& size, const uint16_t* code);
+
 /** \brief Reads a dynamically allocated N-dimensional matrix from the input stream.
  *
  * Compatible with CODE_MATRIX.
@@ -375,6 +375,36 @@ void read_matrix(TypeInput& in, std::vector<T>& data, std::vector<size_t>& dims,
 	const auto total_size = read_matrix_size(dims, code);
 	const uint16_t* value_code = code + 2 + dims.size();
 	read_vector_data(in, data, nullptr, value_code, total_size);
+}
+
+/// Check for given matrix dimensions, returns true if matching.
+template<size_t N>
+bool check_matrix_size(const std::array<size_t, N>& dims, const uint16_t* code) {
+	switch(code[0]) {
+		case CODE_MATRIX:
+			if(code[1] != N) {
+				return false;
+			}
+			for(size_t i = 0; i < N; ++i) {
+				if(dims[i] != code[2 + i]) {
+					return false;
+				}
+			}
+			break;
+		case CODE_ALT_MATRIX:
+			if(flip_bytes(code[1]) != N) {
+				return false;
+			}
+			for(size_t i = 0; i < N; ++i) {
+				if(dims[i] != flip_bytes(code[2 + i])) {
+					return false;
+				}
+			}
+			break;
+		default:
+			return false;
+	}
+	return true;
 }
 
 /**
@@ -414,7 +444,11 @@ void read_array(TypeInput& in, T& array, const TypeCode* type_code, const uint16
 		case CODE_MATRIX:
 		case CODE_ALT_MATRIX: {
 			std::vector<size_t> dims;
-			size = read_matrix_size(dims, code);
+			const auto size_ = read_matrix_size(dims, code);
+			if(size_ > VNX_MAX_SIZE) {
+				throw std::logic_error("read_array(): CODE_MATRIX too big");
+			}
+			size = size_;
 			value_code = code + 2 + dims.size();
 			break;
 		}
@@ -451,7 +485,7 @@ void read(TypeInput& in, std::array<T, N>& array, const TypeCode* type_code, con
 
 /** \brief Reads a dynamically allocated array (ContiguousContainer) from the input stream.
  * 
- * Compatible with CODE_ARRAY, CODE_LIST, CODE_MATRIX and CODE_DYNAMIC.
+ * Compatible with CODE_ARRAY, CODE_LIST, CODE_MATRIX, CODE_IMAGE and CODE_DYNAMIC.
  * Tries to read a single value if possible otherwise.
  */
 template<typename T>
@@ -482,15 +516,29 @@ void read_vector(TypeInput& in, T& vector, const TypeCode* type_code, const uint
 		case CODE_MATRIX:
 		case CODE_ALT_MATRIX: {
 			std::vector<size_t> dims;
-			size = read_matrix_size(dims, code);
+			const auto size_ = read_matrix_size(dims, code);
+			if(size_ > VNX_MAX_SIZE) {
+				throw std::logic_error("read_vector(): CODE_MATRIX too big");
+			}
+			size = size_;
 			value_code = code + 2 + dims.size();
 			break;
 		}
+		case CODE_IMAGE:
+		case CODE_ALT_IMAGE: {
+			std::vector<size_t> dims;
+			const auto size_ = read_image_size(in, dims, code);
+			if(size_ > VNX_MAX_SIZE) {
+				throw std::logic_error("read_vector(): CODE_IMAGE too big");
+			}
+			size = size_;
+			value_code = code + 2;
+			break;
+		}
 		case CODE_DYNAMIC:
-		case CODE_ALT_DYNAMIC: {
+		case CODE_ALT_DYNAMIC:
 			read_dynamic(in, vector);
 			return;
-		}
 		default:
 			size = 1;
 			value_code = code;
@@ -601,6 +649,9 @@ void read(TypeInput& in, std::unordered_map<K, V, C>& map, const TypeCode* type_
  */
 template<typename T, size_t N>
 void read_matrix(TypeInput& in, T* data, const std::array<size_t, N>& size, const uint16_t* code) {
+	if(N == 0) {
+		throw std::logic_error("CODE_MATRIX: N = 0");
+	}
 	size_t total_size = 1;
 	for(size_t i = 0; i < N; ++i) {
 		total_size *= size[i];
@@ -636,51 +687,22 @@ void read_matrix(TypeInput& in, T* data, const std::array<size_t, N>& size, cons
 	skip(in, nullptr, code);
 }
 
-/** \brief Reads the size of a N-dimensional image from the input stream.
- * 
- * The image in the data needs to match the requested number of dimensions \p N,
- * if it does not a size of all zero is returned.
- * Compatible with CODE_IMAGE.
- * 
- * @param size Size of the image in the following data.
- */
-template<size_t N>
-bool read_image_size(TypeInput& in, std::array<size_t, N>& size, const uint16_t* code) {
-	if(	(code[0] == CODE_IMAGE && code[1] == N)
-		|| (code[0] == CODE_ALT_IMAGE && flip_bytes(code[1]) == N))
-	{
-		const char* buf = in.read(4 * N);
-		for(size_t i = 0; i < N; ++i) {
-			uint32_t size_ = 0;
-			read_value(buf + 4 * i, size_);
-			if(code[0] == CODE_IMAGE) {
-				size[i] = size_;
-			} else {
-				size[i] = flip_bytes(size_);
-			}
-		}
-		return true;
-	}
-	size.fill(0);
-	skip(in, nullptr, code);
-	return false;
-}
-
 /** \brief Reads the data of a N-dimensional image from the input stream.
  * 
- * The image in the data needs to match the requested number of dimensions \p N,
- * if it does not the data is skipped and the output \p data is left untouched.
  * Compatible with CODE_IMAGE.
  * 
  * @param data Pointer to pre-allocated array of size \p size.
  * 			Can be a nullptr, in which case the data is skipped.
  * @param size Size of the image previously read by read_image_size().
  */
-template<typename T, size_t N>
-void read_image_data(TypeInput& in, T* data, const std::array<size_t, N>& size, const uint16_t* code) {
+template<typename T>
+void read_image_data(TypeInput& in, T* data, const std::vector<uint32_t>& size, const uint16_t* code) {
+	if(size.empty()) {
+		throw std::logic_error("CODE_IMAGE: N = 0");
+	}
 	size_t total_size = 1;
-	for(size_t i = 0; i < N; ++i) {
-		total_size *= size[i];
+	for(auto dim : size) {
+		total_size *= dim;
 	}
 	const uint16_t* value_code = code + 2;
 	if(data) {

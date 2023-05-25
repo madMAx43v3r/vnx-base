@@ -388,7 +388,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 					size = flip_bytes(size);
 				}
 				const uint16_t* value_code = code + 1;
-				const size_t value_size = get_value_size(value_code, type_code);
+				const auto value_size = get_value_size(value_code, type_code);
 				if(value_size) {
 					copy_bytes(in, out, size * value_size);
 				} else {
@@ -461,22 +461,10 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			}
 			case CODE_MATRIX:
 			case CODE_ALT_MATRIX: {
-				size_t N = code[1];
-				if(code[0] == CODE_ALT_MATRIX) {
-					N = flip_bytes(code[1]);
-				}
-				size_t total_size = 1;
-				if(code[0] == CODE_MATRIX) {
-					for(size_t i = 0; i < N; ++i) {
-						total_size *= code[2 + i];
-					}
-				} else {
-					for(size_t i = 0; i < N; ++i) {
-						total_size *= flip_bytes(code[2 + i]);
-					}
-				}
-				const uint16_t* value_code = code + 2 + N;
-				const size_t value_size = get_value_size(value_code, type_code);
+				std::vector<size_t> dims;
+				const auto total_size = read_matrix_size(dims, code);
+				const uint16_t* value_code = code + 2 + dims.size();
+				const auto value_size = get_value_size(value_code, type_code);
 				if(value_size) {
 					const char* src = in.read(total_size * value_size);
 					if(out) {
@@ -491,26 +479,15 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			}
 			case CODE_IMAGE:
 			case CODE_ALT_IMAGE: {
-				size_t N = code[1];
-				if(code[0] == CODE_ALT_IMAGE) {
-					N = flip_bytes(code[1]);
-				}
-				const char* buf = in.read(4 * N);
-				size_t total_size = 1;
-				for(size_t i = 0; i < N; ++i) {
-					uint32_t size = 0;
-					read_value(buf + 4 * i, size);
-					if(code[0] == CODE_IMAGE) {
-						total_size *= size;
-					} else {
-						total_size *= flip_bytes(size);
+				std::vector<size_t> dims;
+				const auto total_size = read_image_size(in, dims, code);
+				if(out) {
+					for(auto dim : dims) {
+						write(*out, uint32_t(dim));
 					}
 				}
-				if(out) {
-					out->write(buf, 4 * N);
-				}
 				const uint16_t* value_code = code + 2;
-				const size_t value_size = get_value_size(value_code, type_code);
+				const auto value_size = get_value_size(value_code, type_code);
 				if(value_size) {
 					copy_bytes(in, out, total_size * value_size);
 				} else {
@@ -596,12 +573,41 @@ size_t read_matrix_size(std::vector<size_t>& dims, const uint16_t* code) {
 			}
 			break;
 		default:
-			dims.clear();
-			return 0;
+			throw std::logic_error("read_matrix_size(): invalid code");
+	}
+	if(dims.empty()) {
+		throw std::logic_error("CODE_MATRIX: N = 0");
 	}
 	size_t total_size = 1;
 	for(auto dim : dims) {
 		total_size *= dim;
+	}
+	return total_size;
+}
+
+size_t read_image_size(TypeInput& in, std::vector<size_t>& size, const uint16_t* code) {
+	size_t N = 0;
+	switch(code[0]) {
+		case CODE_IMAGE: N = code[1]; break;
+		case CODE_ALT_IMAGE: N = flip_bytes(code[1]); break;
+		default:
+			throw std::logic_error("read_image_size(): invalid code");
+	}
+	if(N == 0) {
+		throw std::logic_error("CODE_IMAGE: N = 0");
+	}
+	size.resize(N);
+
+	size_t total_size = 1;
+	const char* buf = in.read(4 * N);
+	for(size_t i = 0; i < N; ++i) {
+		uint32_t size_ = 0;
+		read_value(buf + 4 * i, size_);
+		if(code[0] == CODE_ALT_IMAGE) {
+			size_ = flip_bytes(size_);
+		}
+		size[i] = size_;
+		total_size *= size_;
 	}
 	return total_size;
 }
@@ -622,9 +628,6 @@ void read(TypeInput& in, std::string& string, const TypeCode* type_code, const u
 				case CODE_ALT_LIST:
 				case CODE_ALT_STRING:
 					size = flip_bytes(size);
-			}
-			if(size > in.max_list_size) {
-				throw std::logic_error("string size > max_list_size: " + std::to_string(size));
 			}
 			if(in.safe_read) {
 				for(uint32_t i = 0; i < size; i += VNX_BUFFER_SIZE) {

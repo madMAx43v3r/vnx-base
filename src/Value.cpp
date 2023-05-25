@@ -266,17 +266,15 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 			}
 			case CODE_MATRIX:
 			case CODE_ALT_MATRIX: {
-				const size_t N = (code[0] == CODE_MATRIX ? code[1] : flip_bytes(code[1]));
-				size_t total_size = 1;
+				std::vector<size_t> dims;
+				const size_t total_size = read_matrix_size(dims, code);
 				bool is_array = true;
-				for(size_t i = 0; i < N; ++i) {
-					const size_t size = (code[0] == CODE_MATRIX ? code[2 + i] : flip_bytes(code[2 + i]));
-					total_size *= size;
-					if(i > 0 && size != 1) {
+				for(size_t i = 0; i < dims.size(); ++i) {
+					if(i > 0 && dims[i] != 1) {
 						is_array = false;
 					}
 				}
-				const uint16_t* value_code = code + 2 + N;
+				const uint16_t* value_code = code + 2 + dims.size();
 				const size_t value_size = get_value_size(value_code, type_code);
 				if(is_array) {
 					visitor.list_begin(total_size);
@@ -288,12 +286,12 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 				} else {
 					visitor.type_begin(2);
 					visitor.type_field("size", 0);
-					visitor.list_begin(N);
-					for(size_t i = 0; i < N; ++i) {
+					visitor.list_begin(dims.size());
+					for(size_t i = 0; i < dims.size(); ++i) {
 						visitor.list_element(i);
 						visitor.visit((code[0] == CODE_MATRIX ? code[2 + i] : flip_bytes(code[2 + i])));
 					}
-					visitor.list_end(N);
+					visitor.list_end(dims.size());
 					visitor.type_field("data", 1);
 					visitor.list_begin(total_size);
 					for(size_t i = 0; i < total_size; ++i) {
@@ -307,28 +305,16 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 			}
 			case CODE_IMAGE:
 			case CODE_ALT_IMAGE: {
-				const size_t N = (code[0] == CODE_IMAGE ? code[1] : flip_bytes(code[1]));
-				size_t total_size = 1;
-				std::vector<uint32_t> size(N);
-				{
-					const char* buf = in.read(4 * N);
-					for(size_t i = 0; i < N; ++i) {
-						read_value(buf + 4 * i, size[i]);
-						if(code[0] == CODE_IMAGE) {
-							total_size *= size[i];
-						} else {
-							total_size *= flip_bytes(size[i]);
-						}
-					}
-				}
+				std::vector<size_t> dims;
+				const size_t total_size = read_image_size(in, dims, code);
 				visitor.type_begin(2);
 				visitor.type_field("size", 0);
-				visitor.list_begin(N);
-				for(size_t i = 0; i < N; ++i) {
+				visitor.list_begin(dims.size());
+				for(size_t i = 0; i < dims.size(); ++i) {
 					visitor.list_element(i);
-					visitor.visit(size[i]);
+					visitor.visit(dims[i]);
 				}
-				visitor.list_end(N);
+				visitor.list_end(dims.size());
 				visitor.type_field("data", 1);
 				const uint16_t* value_code = code + 2;
 				visitor.list_begin(total_size);

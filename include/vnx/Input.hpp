@@ -453,19 +453,6 @@ void read_matrix(std::istream& in, T* data, const std::array<size_t, N>& size) {
 	}
 }
 
-template<size_t N>
-void read_image_size(std::istream& in, std::array<size_t, N>& size) {
-	// not implemented yet
-	for(size_t i = 0; i < N; ++i) {
-		size[i] = 0;
-	}
-}
-
-template<typename T, size_t N>
-void read_image_data(std::istream& in, T* data, const std::array<size_t, N>& size) {
-	// not implemented yet
-}
-
 template<typename T>
 void type<T>::read(std::istream& in, T& value) {
 	vnx::read(in, value);
