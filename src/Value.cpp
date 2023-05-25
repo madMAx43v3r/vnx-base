@@ -184,6 +184,21 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 				}
 				const uint16_t* value_code = code + 2;
 				const size_t value_size = get_value_size(value_code, type_code);
+
+				switch(value_code[0]) {
+					case CODE_UINT8:
+					case CODE_ALT_UINT8:
+						if(visitor.enable_binary) {
+							std::vector<uint8_t> data(size);
+							if(p_buf) {
+								::memcpy(data.data(), p_buf, size);
+							} else {
+								in.read(data.data(), data.size());
+							}
+							visitor.visit(data);
+							return;
+						}
+				}
 				visitor.list_begin(size);
 				for(size_t i = 0; i < size; ++i) {
 					visitor.list_element(i);
@@ -200,22 +215,29 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 						std::string str;
 						read(in, str, type_code, code);
 						visitor.visit(str);
+						return;
+					}
+					case CODE_UINT8:
+					case CODE_ALT_UINT8:
+						if(visitor.enable_binary) {
+							std::vector<uint8_t> data;
+							read(in, data, type_code, code);
+							visitor.visit(data);
+							return;
+						}
 						break;
-					}
-					default: {
-						uint32_t size;
-						read(in, size);
-						if(code[0] == CODE_ALT_LIST) {
-							size = flip_bytes(size);
-						}
-						visitor.list_begin(size);
-						for(uint32_t i = 0; i < size; ++i) {
-							visitor.list_element(i);
-							accept(visitor, in, type_code, code + 1, field, nullptr);
-						}
-						visitor.list_end(size);
-					}
 				}
+				uint32_t size;
+				read(in, size);
+				if(code[0] == CODE_ALT_LIST) {
+					size = flip_bytes(size);
+				}
+				visitor.list_begin(size);
+				for(uint32_t i = 0; i < size; ++i) {
+					visitor.list_element(i);
+					accept(visitor, in, type_code, code + 1, field, nullptr);
+				}
+				visitor.list_end(size);
 				return;
 			}
 			case CODE_MAP:
