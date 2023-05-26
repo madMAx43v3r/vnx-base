@@ -696,7 +696,7 @@ void read_matrix(TypeInput& in, T* data, const std::array<size_t, N>& size, cons
  * @param size Size of the image previously read by read_image_size().
  */
 template<typename T>
-void read_image_data(TypeInput& in, T* data, const std::vector<uint32_t>& size, const uint16_t* code) {
+void read_image_data(TypeInput& in, T* data, const std::vector<size_t>& size, const uint16_t* code) {
 	if(size.empty()) {
 		throw std::logic_error("CODE_IMAGE: N = 0");
 	}

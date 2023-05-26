@@ -286,11 +286,12 @@ int main() {
 			MemoryInputStream stream(&data);
 			TypeInput in(&stream);
 			int32_t tmp[6] = {};
-			std::array<size_t, 2> size = {99, 99};
-			read_image_size<2>(in, size, code);
+			std::vector<size_t> size;
+			read_image_size(in, size, code);
+			expect(size.size(), size_t(2));
 			expect(size[0], size_t(2));
 			expect(size[1], size_t(3));
-			read_image_data<int32_t, 2>(in, tmp, size, code);
+			read_image_data<int32_t>(in, tmp, size, code);
 			for(int i = 0; i < 6; ++i) {
 				expect(tmp[i], value[i]);
 			}
@@ -298,12 +299,9 @@ int main() {
 		{
 			MemoryInputStream stream(&data);
 			TypeInput in(&stream);
-			std::array<size_t, 3> size = {99, 99, 99};
-			read_image_size<3>(in, size, code);
-			expect(size[0], size_t(0));
-			expect(size[1], size_t(0));
-			expect(size[2], size_t(0));
-			read_image_data<int32_t, 3>(in, 0, size, code);
+			std::vector<size_t> size;
+			read_image_size(in, size, code);
+			read_image_data<int32_t>(in, 0, size, code);
 		}
 	VNX_TEST_END()
 	
