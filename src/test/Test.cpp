@@ -42,7 +42,7 @@ void fail(const std::string& test_name, const std::exception& exception) {
 }
 
 void exit() {
-	std::cerr << std::endl << "PASSED " << num_passed << "/" << (num_passed + num_failed) << std::endl;
+	std::cerr << "PASSED " << num_passed << "/" << (num_passed + num_failed) << std::endl;
 	if(num_failed > 0) {
 		::exit(-1);
 	} else {
