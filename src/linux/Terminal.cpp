@@ -8,6 +8,7 @@
 #include <vnx/vnx.h>
 #include <vnx/Terminal.h>
 #include <termios.h>
+#include <limits>
 
 
 namespace vnx {
@@ -19,15 +20,19 @@ void Terminal::read_loop_impl(Hash64 service_addr) {
 	TerminalClient terminal(service_addr);
 
 	while(vnx::do_run()) {
-		char c = std::getchar();
+		const auto c = std::getchar();
 		if(c == EOF){
 			break;
 		}else if(c == 27){
 			// ESC
-			char c2 = getchar();
-			if(c2 == '['){
-				char c3 = getchar();
-				if(c3 == 'A'){
+			const auto c2 = getchar();
+			if(c2 == EOF){
+				break;
+			}else if(c2 == '['){
+				const auto c3 = getchar();
+				if(c3 == EOF){
+					break;
+				}else if(c3 == 'A'){
 					terminal.read_event_async(terminal_event_e::KEY_ARROWUP);
 				}else if(c3 == 'B'){
 					terminal.read_event_async(terminal_event_e::KEY_ARROWDOWN);
@@ -54,7 +59,7 @@ void Terminal::read_loop_impl(Hash64 service_addr) {
 			terminal.read_event_async(terminal_event_e::KEY_BACKSPACE);
 		}else if(c == '\t'){
 			terminal.read_event_async(terminal_event_e::KEY_TAB);
-		}else{
+		}else if(c >= 0 && c <= std::numeric_limits<int8_t>::max()){
 			terminal.read_char(c);
 		}
 	}
