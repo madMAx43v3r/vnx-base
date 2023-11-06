@@ -29,7 +29,6 @@ ThreadPool::ThreadPool(int num_threads_, int max_queue_size_)
 		for(int i = 0; i < num_threads; ++i) {
 			threads[i] = std::thread(&ThreadPool::main, this, i);
 		}
-		next_thread_id = num_threads;
 	}
 }
 
@@ -37,7 +36,8 @@ ThreadPool::~ThreadPool() {
 	close();
 }
 
-void ThreadPool::add_task(const std::function<void()>& func) {
+int64_t ThreadPool::add_task(const std::function<void()>& func) {
+	int64_t job = -1;
 	if(num_threads > 0) {
 		{
 			std::unique_lock<std::mutex> lock(mutex);
@@ -45,15 +45,18 @@ void ThreadPool::add_task(const std::function<void()>& func) {
 				reverse_condition.wait(lock);
 			}
 			if(do_run) {
-				queue.push(func);
+				job = next_job_id++;
+				queue.emplace(func, job);
+				pending_jobs.insert(job);
 			}
 		}
 		condition.notify_one();
 	} else if(num_threads < 0) {
 		std::lock_guard<std::mutex> lock(mutex);
-		queue.push(func);
-		const auto thread_id = next_thread_id++;
-		threads[thread_id] = std::thread(&ThreadPool::main, this, thread_id);
+		job = next_job_id++;
+		queue.emplace(func, job);
+		pending_jobs.insert(job);
+		threads[job] = std::thread(&ThreadPool::main, this, job);
 	} else if(func) {
 		try {
 			func();
@@ -61,6 +64,7 @@ void ThreadPool::add_task(const std::function<void()>& func) {
 			vnx::log_warn() << "ThreadPool: " << ex.what();
 		}
 	}
+	return job;
 }
 
 size_t ThreadPool::get_num_pending() const {
@@ -97,23 +101,54 @@ void ThreadPool::sync() {
 	}
 }
 
+void ThreadPool::sync(const int64_t barrier) {
+	std::unique_lock<std::mutex> lock(mutex);
+	while(true) {
+		if(!pending_jobs.empty() && barrier >= *pending_jobs.begin()) {
+			reverse_condition.wait(lock);
+		} else {
+			break;
+		}
+	}
+}
+
+void ThreadPool::sync(const std::vector<int64_t>& jobs) {
+	std::unique_lock<std::mutex> lock(mutex);
+	bool do_wait = true;
+	while(do_wait) {
+		do_wait = false;
+		for(const auto& job : jobs) {
+			if(pending_jobs.count(job)) {
+				do_wait = true;
+				reverse_condition.wait(lock);
+				break;
+			}
+		}
+	}
+}
+
 void ThreadPool::close() {
 	exit();
 	wait();
 }
 
-void ThreadPool::main(const int64_t thread_id) {
+void ThreadPool::main(const int64_t thread_id)
+{
+	std::pair<std::function<void()>, int64_t> entry;
+	entry.second = -1;
+
 	while(do_run) {
-		std::function<void()> func;
 		{
 			std::unique_lock<std::mutex> lock(mutex);
+
+			pending_jobs.erase(entry.second);
 
 			while(do_run && queue.empty()) {
 				reverse_condition.notify_all();		// notify about previous task done
 				condition.wait(lock);
 			}
 			if(do_run) {
-				func = std::move(queue.front());
+				entry = std::move(queue.front());
 				queue.pop();
 			} else {
 				break;
@@ -123,8 +158,8 @@ void ThreadPool::main(const int64_t thread_id) {
 		reverse_condition.notify_all();
 		
 		try {
-			if(func) {
-				func();
+			if(entry.first) {
+				entry.first();
 			}
 		} catch(const std::exception& ex) {
 			vnx::log_warn() << "ThreadPool: " << ex.what();
@@ -137,6 +172,8 @@ void ThreadPool::main(const int64_t thread_id) {
 	}
 	{
 		std::lock_guard<std::mutex> lock(mutex);
+
+		pending_jobs.erase(entry.second);
 
 		const auto iter = threads.find(thread_id);
 		if(iter != threads.end()) {

@@ -41,7 +41,7 @@ public:
 	~ThreadPool();
 
 	/// Adds a new task to the queue. (thread-safe)
-	void add_task(const std::function<void()>& func);
+	int64_t add_task(const std::function<void()>& func);
 	
 	/// Returns number of pending tasks (ie. which are in the queue)
 	size_t get_num_pending() const;
@@ -61,6 +61,12 @@ public:
 	/// Wait for all tasks to finish.
 	void sync();
 
+	/// Wait for all jobs up to and including barrier to finish.
+	void sync(const int64_t barrier);
+
+	/// Wait for a set of jobs to finish.
+	void sync(const std::vector<int64_t>& jobs);
+
 	/// exit() + wait() (thread-safe)
 	void close();
 	
@@ -75,12 +81,13 @@ private:
 	mutable std::condition_variable condition;
 	mutable std::condition_variable reverse_condition;
 	
+	std::set<int64_t> pending_jobs;
 	std::map<int64_t, std::thread> threads;
-	std::queue<std::function<void()>> queue;
-	
+	std::queue<std::pair<std::function<void()>, int64_t>> queue;
+
 	int num_threads = 0;
 	int max_queue_size = 0;
-	int64_t next_thread_id = 0;
+	int64_t next_job_id = 0;
 	std::atomic<size_t> num_running {0};
 	
 };
