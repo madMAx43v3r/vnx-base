@@ -17,6 +17,7 @@
 #ifndef INCLUDE_VNX_THREADPOOL_H_
 #define INCLUDE_VNX_THREADPOOL_H_
 
+#include <set>
 #include <map>
 #include <atomic>
 #include <queue>
