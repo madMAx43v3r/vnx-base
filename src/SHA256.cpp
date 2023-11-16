@@ -55,6 +55,7 @@ static const uint32_t SHA256_K[64] = //UL = uint32
     *(((uint8_t*)(str)) + 1) = (uint8_t) ((x) >> 16);       \
     *(((uint8_t*)(str)) + 0) = (uint8_t) ((x) >> 24);       \
 }
+
 #define SHA2_PACK32(str, x)                   \
 {                                             \
     *(x) =   ((uint32_t) *(((uint8_t*)(str)) + 3)      )    \
@@ -67,22 +68,22 @@ static const uint32_t SHA256_K[64] = //UL = uint32
 void SHA256::transform(const uint8_t* message, const uint32_t block_nb) {
 	uint32_t w[64];
 	uint32_t wv[8];
-	uint32_t t1, t2;
-	const uint8_t* sub_block;
-	for(int i = 0; i < (int) block_nb; i++) {
-		sub_block = message + (i << 6);
+
+	for(uint32_t i = 0; i < block_nb; i++)
+	{
+		const uint8_t* sub_block = message + (i * 64);
 		for(int j = 0; j < 16; j++) {
-			SHA2_PACK32(&sub_block[j << 2], &w[j]);
+			SHA2_PACK32(sub_block + (j * 4), &w[j]);
 		}
 		for(int j = 16; j < 64; j++) {
-			w[j] =  SHA256_F4(w[j -  2]) + w[j -  7] + SHA256_F3(w[j - 15]) + w[j - 16];
+			w[j] = SHA256_F4(w[j - 2]) + w[j - 7] + SHA256_F3(w[j - 15]) + w[j - 16];
 		}
 		for(int j = 0; j < 8; j++) {
 			wv[j] = m_h[j];
 		}
 		for(int j = 0; j < 64; j++) {
-			t1 = wv[7] + SHA256_F2(wv[4]) + SHA2_CH(wv[4], wv[5], wv[6]) + SHA256_K[j] + w[j];
-			t2 = SHA256_F1(wv[0]) + SHA2_MAJ(wv[0], wv[1], wv[2]);
+			const uint32_t t1 = wv[7] + SHA256_F2(wv[4]) + SHA2_CH(wv[4], wv[5], wv[6]) + SHA256_K[j] + w[j];
+			const uint32_t t2 = SHA256_F1(wv[0]) + SHA2_MAJ(wv[0], wv[1], wv[2]);
 			wv[7] = wv[6];
 			wv[6] = wv[5];
 			wv[5] = wv[4];
