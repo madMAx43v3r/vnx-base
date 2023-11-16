@@ -18,6 +18,7 @@
 #include <vnx/Sample.hxx>
 #include <vnx/Marker.hxx>
 #include <vnx/permission_e.hxx>
+#include <vnx/SHA256.h>
 
 #include <vnx/test/Test.h>
 #include <vnx/test/TestValue.hxx>
@@ -870,6 +871,13 @@ int main() {
 			const bool test = code[0] == CODE_STRUCT && type_code->depends[code[1]]->type_hash == test_struct_t::VNX_TYPE_HASH;
 			expect(is_equivalent<test_struct_t>{}(code, type_code), test);
 		}
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("sha256")
+	{
+		expect(vnx::sha256_str("", true), std::string("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"));
+		expect(vnx::sha256_str("abc", true), std::string("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"));
 	}
 	VNX_TEST_END()
 

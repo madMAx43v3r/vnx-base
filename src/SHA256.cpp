@@ -7,17 +7,16 @@
  *      Author: jaw
  */
 
-
 #include <vnx/SHA256.h>
 #include <vnx/Util.h>
+
 #include <cstring>
 #include <cstdio>
 
 
 namespace vnx {
 
-
-const SHA256::uint32 SHA256::sha256_k[64] = //UL = uint32
+static const uint32_t SHA256_K[64] = //UL = uint32
 {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -37,55 +36,52 @@ const SHA256::uint32 SHA256::sha256_k[64] = //UL = uint32
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
 };
 
-
 #define SHA2_SHFR(x, n)    (x >> n)
 #define SHA2_ROTR(x, n)   ((x >> n) | (x << ((sizeof(x) << 3) - n)))
 #define SHA2_ROTL(x, n)   ((x << n) | (x >> ((sizeof(x) << 3) - n)))
+
 #define SHA2_CH(x, y, z)  ((x & y) ^ (~x & z))
 #define SHA2_MAJ(x, y, z) ((x & y) ^ (x & z) ^ (y & z))
+
 #define SHA256_F1(x) (SHA2_ROTR(x,  2) ^ SHA2_ROTR(x, 13) ^ SHA2_ROTR(x, 22))
 #define SHA256_F2(x) (SHA2_ROTR(x,  6) ^ SHA2_ROTR(x, 11) ^ SHA2_ROTR(x, 25))
 #define SHA256_F3(x) (SHA2_ROTR(x,  7) ^ SHA2_ROTR(x, 18) ^ SHA2_SHFR(x,  3))
 #define SHA256_F4(x) (SHA2_ROTR(x, 17) ^ SHA2_ROTR(x, 19) ^ SHA2_SHFR(x, 10))
+
 #define SHA2_UNPACK32(x, str)                 \
 {                                             \
-    *(((unsigned char*)(str)) + 3) = (SHA256::uint8) ((x)      );       \
-    *(((unsigned char*)(str)) + 2) = (SHA256::uint8) ((x) >>  8);       \
-    *(((unsigned char*)(str)) + 1) = (SHA256::uint8) ((x) >> 16);       \
-    *(((unsigned char*)(str)) + 0) = (SHA256::uint8) ((x) >> 24);       \
+    *(((uint8_t*)(str)) + 3) = (uint8_t) ((x)      );       \
+    *(((uint8_t*)(str)) + 2) = (uint8_t) ((x) >>  8);       \
+    *(((uint8_t*)(str)) + 1) = (uint8_t) ((x) >> 16);       \
+    *(((uint8_t*)(str)) + 0) = (uint8_t) ((x) >> 24);       \
 }
 #define SHA2_PACK32(str, x)                   \
 {                                             \
-    *(x) =   ((SHA256::uint32) *(((unsigned char*)(str)) + 3)      )    \
-           | ((SHA256::uint32) *(((unsigned char*)(str)) + 2) <<  8)    \
-           | ((SHA256::uint32) *(((unsigned char*)(str)) + 1) << 16)    \
-           | ((SHA256::uint32) *(((unsigned char*)(str)) + 0) << 24);   \
+    *(x) =   ((uint32_t) *(((uint8_t*)(str)) + 3)      )    \
+           | ((uint32_t) *(((uint8_t*)(str)) + 2) <<  8)    \
+           | ((uint32_t) *(((uint8_t*)(str)) + 1) << 16)    \
+           | ((uint32_t) *(((uint8_t*)(str)) + 0) << 24);   \
 }
 
 
-
-
-
-void SHA256::transform(const unsigned char *message, unsigned int block_nb){
-	uint32 w[64];
-	uint32 wv[8];
-	uint32 t1, t2;
-	const unsigned char *sub_block;
-	int i;
-	int j;
-	for (i = 0; i < (int) block_nb; i++) {
+void SHA256::transform(const uint8_t* message, const uint32_t block_nb) {
+	uint32_t w[64];
+	uint32_t wv[8];
+	uint32_t t1, t2;
+	const uint8_t* sub_block;
+	for(int i = 0; i < (int) block_nb; i++) {
 		sub_block = message + (i << 6);
-		for (j = 0; j < 16; j++) {
+		for(int j = 0; j < 16; j++) {
 			SHA2_PACK32(&sub_block[j << 2], &w[j]);
 		}
-		for (j = 16; j < 64; j++) {
+		for(int j = 16; j < 64; j++) {
 			w[j] =  SHA256_F4(w[j -  2]) + w[j -  7] + SHA256_F3(w[j - 15]) + w[j - 16];
 		}
-		for (j = 0; j < 8; j++) {
+		for(int j = 0; j < 8; j++) {
 			wv[j] = m_h[j];
 		}
-		for (j = 0; j < 64; j++) {
-			t1 = wv[7] + SHA256_F2(wv[4]) + SHA2_CH(wv[4], wv[5], wv[6]) + sha256_k[j] + w[j];
+		for(int j = 0; j < 64; j++) {
+			t1 = wv[7] + SHA256_F2(wv[4]) + SHA2_CH(wv[4], wv[5], wv[6]) + SHA256_K[j] + w[j];
 			t2 = SHA256_F1(wv[0]) + SHA2_MAJ(wv[0], wv[1], wv[2]);
 			wv[7] = wv[6];
 			wv[6] = wv[5];
@@ -96,14 +92,13 @@ void SHA256::transform(const unsigned char *message, unsigned int block_nb){
 			wv[1] = wv[0];
 			wv[0] = t1 + t2;
 		}
-		for (j = 0; j < 8; j++) {
+		for(int j = 0; j < 8; j++) {
 			m_h[j] += wv[j];
 		}
 	}
 }
 
-
-void SHA256::init(){
+void SHA256::init() {
 	m_h[0] = 0x6a09e667;
 	m_h[1] = 0xbb67ae85;
 	m_h[2] = 0x3c6ef372;
@@ -116,8 +111,7 @@ void SHA256::init(){
 	m_tot_len = 0;
 }
 
-
-void SHA256::update(const unsigned char *message, unsigned int len){
+void SHA256::update(const uint8_t *message, const uint32_t len) {
 	unsigned int block_nb;
 	unsigned int new_len, rem_len, tmp_len;
 	const unsigned char *shifted_message;
@@ -139,8 +133,7 @@ void SHA256::update(const unsigned char *message, unsigned int len){
 	m_tot_len += (block_nb + 1) << 6;
 }
 
-
-void SHA256::final(unsigned char *digest){
+void SHA256::finalize(uint8_t* digest) {
 	unsigned int block_nb;
 	unsigned int pm_len;
 	unsigned int len_b;
@@ -158,15 +151,15 @@ void SHA256::final(unsigned char *digest){
 }
 
 
-std::string sha256_str(const std::string &input){
+std::string sha256_str(const std::string& input, const bool lower_case) {
 	unsigned char digest[SHA256::DIGEST_SIZE] = {};
 
 	SHA256 ctx;
 	ctx.init();
 	ctx.update((const unsigned char*)input.c_str(), input.length());
-	ctx.final(digest);
+	ctx.finalize(digest);
 
-	return to_hex_string(digest, SHA256::DIGEST_SIZE, false, true);
+	return to_hex_string(digest, SHA256::DIGEST_SIZE, false, lower_case);
 }
 
 
