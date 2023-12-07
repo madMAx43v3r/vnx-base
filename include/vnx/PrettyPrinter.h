@@ -20,6 +20,8 @@
 #include <vnx/Visitor.h>
 #include <vnx/Output.h>
 
+#include <sstream>
+
 
 namespace vnx {
 
@@ -64,6 +66,21 @@ protected:
 	size_t resume = 0;
 	
 };
+
+
+template<typename T>
+void pretty_print(std::ostream& out, const T& value) {
+	PrettyPrinter visitor(out);
+	vnx::type<T>().accept(visitor, value);
+}
+
+template<typename T>
+std::string pretty_print_str(const T& value) {
+	std::ostringstream ss;
+	PrettyPrinter visitor(ss);
+	vnx::type<T>().accept(visitor, value);
+	return ss.str();
+}
 
 
 } // vnx
