@@ -28,42 +28,40 @@ namespace vnx {
 /// Directly writes a value to the buffer address \p buf.
 /// @{
 inline int write_value(void* buf, const bool& value) {
-	const uint8_t value_ = value;
-	memcpy(buf, &value_, sizeof(uint8_t)); return 1;
+	*((uint8_t*)buf) = value; return 1;
 }
 inline int write_value(void* buf, const uint8_t& value) {
-	memcpy(buf, &value, sizeof(uint8_t)); return 1;
+	*((uint8_t*)buf) = value; return 1;
 }
 inline int write_value(void* buf, const uint16_t& value) {
-	memcpy(buf, &value, sizeof(uint16_t)); return 2;
+	memcpy(buf, &value, 2); return 2;
 }
 inline int write_value(void* buf, const uint32_t& value) {
-	memcpy(buf, &value, sizeof(uint32_t)); return 4;
+	memcpy(buf, &value, 4); return 4;
 }
 inline int write_value(void* buf, const uint64_t& value) {
-	memcpy(buf, &value, sizeof(uint64_t)); return 8;
+	memcpy(buf, &value, 8); return 8;
 }
 inline int write_value(void* buf, const char& value) {
-	const int8_t value_ = value;
-	memcpy(buf, &value_, sizeof(int8_t)); return 1;
+	*((uint8_t*)buf) = value; return 1;
 }
 inline int write_value(void* buf, const int8_t& value) {
-	memcpy(buf, &value, sizeof(int8_t)); return 1;
+	*((uint8_t*)buf) = value; return 1;
 }
 inline int write_value(void* buf, const int16_t& value) {
-	memcpy(buf, &value, sizeof(int16_t)); return 2;
+	memcpy(buf, &value, 2); return 2;
 }
 inline int write_value(void* buf, const int32_t& value) {
-	memcpy(buf, &value, sizeof(int32_t)); return 4;
+	memcpy(buf, &value, 4); return 4;
 }
 inline int write_value(void* buf, const int64_t& value) {
-	memcpy(buf, &value, sizeof(int64_t)); return 8;
+	memcpy(buf, &value, 8); return 8;
 }
 inline int write_value(void* buf, const float32_t& value) {
-	memcpy(buf, &value, sizeof(float32_t)); return 4;
+	memcpy(buf, &value, 4); return 4;
 }
 inline int write_value(void* buf, const float64_t& value) {
-	memcpy(buf, &value, sizeof(float64_t)); return 8;
+	memcpy(buf, &value, 8); return 8;
 }
 /// @}
 
@@ -78,40 +76,40 @@ int write_value(void* buf, const std::array<T, N>& array) {
 /// Directly writes a value to the stream.
 /// @{
 inline void write(TypeOutput& out, const bool& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(uint8_t)), value);
+	write_value(out.write(1), value);
 }
 inline void write(TypeOutput& out, const uint8_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(uint8_t)), value);
+	write_value(out.write(1), value);
 }
 inline void write(TypeOutput& out, const uint16_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(uint16_t)), value);
+	write_value(out.write(2), value);
 }
 inline void write(TypeOutput& out, const uint32_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(uint32_t)), value);
+	write_value(out.write(4), value);
 }
 inline void write(TypeOutput& out, const uint64_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(uint64_t)), value);
+	write_value(out.write(8), value);
 }
 inline void write(TypeOutput& out, const char& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(int8_t)), value);
+	write_value(out.write(1), value);
 }
 inline void write(TypeOutput& out, const int8_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(int8_t)), value);
+	write_value(out.write(1), value);
 }
 inline void write(TypeOutput& out, const int16_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(int16_t)), value);
+	write_value(out.write(2), value);
 }
 inline void write(TypeOutput& out, const int32_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(int32_t)), value);
+	write_value(out.write(4), value);
 }
 inline void write(TypeOutput& out, const int64_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(int64_t)), value);
+	write_value(out.write(8), value);
 }
 inline void write(TypeOutput& out, const float32_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(float32_t)), value);
+	write_value(out.write(4), value);
 }
 inline void write(TypeOutput& out, const float64_t& value, const TypeCode* type_code = nullptr, const uint16_t* code = nullptr) {
-	write_value(out.write(sizeof(float64_t)), value);
+	write_value(out.write(8), value);
 }
 /// @}
 

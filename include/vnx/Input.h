@@ -49,17 +49,17 @@ VNX_EXPORT uint16_t read_byte_code(TypeInput& in, uint16_t* code);
 
 /// Converts little-endian to big-endian and big-endian to little-endian.
 /// @{
-inline bool flip_bytes(const bool& value) { return (value != 0); }
-inline uint8_t flip_bytes(const uint8_t& value) { return value; }
-inline uint16_t flip_bytes(const uint16_t& value) { return (value >> 8) | (value << 8); }
-inline uint32_t flip_bytes(const uint32_t& value) { return uint32_t(flip_bytes(uint16_t(value >> 16))) | (uint32_t(flip_bytes(uint16_t(value))) << 16); }
-inline uint64_t flip_bytes(const uint64_t& value) { return uint64_t(flip_bytes(uint32_t(value >> 32))) | (uint64_t(flip_bytes(uint32_t(value))) << 32); }
-inline char flip_bytes(const char& value) { return value; }
-inline int8_t flip_bytes(const int8_t& value) { return value; }
-inline int16_t flip_bytes(const int16_t& value) { return int16_t(flip_bytes(uint16_t(value))); }
-inline int32_t flip_bytes(const int32_t& value) { return int32_t(flip_bytes(uint32_t(value))); }
-inline int64_t flip_bytes(const int64_t& value) { return int64_t(flip_bytes(uint64_t(value))); }
-inline Hash64 flip_bytes(const Hash64& value) { return Hash64(flip_bytes(uint64_t(value))); }
+inline bool flip_bytes(const bool& value) 			{ return (value != 0); }
+inline uint8_t flip_bytes(const uint8_t& value) 	{ return value; }
+inline uint16_t flip_bytes(const uint16_t& value) 	{ return (value >> 8) | (value << 8); }
+inline uint32_t flip_bytes(const uint32_t& value) 	{ return uint32_t(flip_bytes(uint16_t(value >> 16))) | (uint32_t(flip_bytes(uint16_t(value))) << 16); }
+inline uint64_t flip_bytes(const uint64_t& value) 	{ return uint64_t(flip_bytes(uint32_t(value >> 32))) | (uint64_t(flip_bytes(uint32_t(value))) << 32); }
+inline char flip_bytes(const char& value) 			{ return value; }
+inline int8_t flip_bytes(const int8_t& value) 		{ return value; }
+inline int16_t flip_bytes(const int16_t& value) 	{ return int16_t(flip_bytes(uint16_t(value))); }
+inline int32_t flip_bytes(const int32_t& value) 	{ return int32_t(flip_bytes(uint32_t(value))); }
+inline int64_t flip_bytes(const int64_t& value) 	{ return int64_t(flip_bytes(uint64_t(value))); }
+inline Hash64 flip_bytes(const Hash64& value) 		{ return Hash64(flip_bytes(uint64_t(value))); }
 
 inline float32_t flip_bytes(const float32_t& value) {
 	uint32_t tmp;
@@ -80,44 +80,44 @@ inline float64_t flip_bytes(const float64_t& value) {
 }
 /// @}
 
+/** \brief Reads a value directly from the buffer.
+ *
+ * Used when it's known that a value of said type is in the buffer.
+ */
+/// @{
+inline void read_value(const void* buf, bool& value) 		{ value = *((const uint8_t*)buf); }
+inline void read_value(const void* buf, uint8_t& value) 	{ value = *((const uint8_t*)buf); }
+inline void read_value(const void* buf, uint16_t& value) 	{ ::memcpy(&value, buf, 2); }
+inline void read_value(const void* buf, uint32_t& value) 	{ ::memcpy(&value, buf, 4); }
+inline void read_value(const void* buf, uint64_t& value) 	{ ::memcpy(&value, buf, 8); }
+inline void read_value(const void* buf, char& value) 		{ value = *((const int8_t*)buf); }
+inline void read_value(const void* buf, int8_t& value) 		{ value = *((const int8_t*)buf); }
+inline void read_value(const void* buf, int16_t& value) 	{ ::memcpy(&value, buf, 2); }
+inline void read_value(const void* buf, int32_t& value) 	{ ::memcpy(&value, buf, 4); }
+inline void read_value(const void* buf, int64_t& value) 	{ ::memcpy(&value, buf, 8); }
+inline void read_value(const void* buf, float32_t& value) 	{ ::memcpy(&value, buf, 4); }
+inline void read_value(const void* buf, float64_t& value) 	{ ::memcpy(&value, buf, 8); }
+inline void read_value(const void* buf, Hash64& value) 		{ uint64_t tmp; ::memcpy(&tmp, buf, 8); value = Hash64(tmp); }
+/// @}
+
 /** \brief Reads a value directly from the stream.
  * 
  * Used when it's known that a value of said type is to follow.
  */
 /// @{
-inline void read(TypeInput& in, bool& value) { value = *((uint8_t*)in.read(sizeof(uint8_t))); }
-inline void read(TypeInput& in, uint8_t& value) { value = *((uint8_t*)in.read(sizeof(uint8_t))); }
-inline void read(TypeInput& in, uint16_t& value) { value = *((uint16_t*)in.read(sizeof(uint16_t))); }
-inline void read(TypeInput& in, uint32_t& value) { value = *((uint32_t*)in.read(sizeof(uint32_t))); }
-inline void read(TypeInput& in, uint64_t& value) { value = *((uint64_t*)in.read(sizeof(uint64_t))); }
-inline void read(TypeInput& in, char& value) { value = *((int8_t*)in.read(sizeof(int8_t))); }
-inline void read(TypeInput& in, int8_t& value) { value = *((int8_t*)in.read(sizeof(int8_t))); }
-inline void read(TypeInput& in, int16_t& value) { value = *((int16_t*)in.read(sizeof(int16_t))); }
-inline void read(TypeInput& in, int32_t& value) { value = *((int32_t*)in.read(sizeof(int32_t))); }
-inline void read(TypeInput& in, int64_t& value) { value = *((int64_t*)in.read(sizeof(int64_t))); }
-inline void read(TypeInput& in, float32_t& value) { value = *((float32_t*)in.read(sizeof(float32_t))); }
-inline void read(TypeInput& in, float64_t& value) { value = *((float64_t*)in.read(sizeof(float64_t))); }
-inline void read(TypeInput& in, Hash64& value) { value = Hash64(*((uint64_t*)in.read(sizeof(uint64_t)))); }
-/// @}
-
-/** \brief Reads a value directly from the buffer.
- * 
- * Used when it's known that a value of said type is in the buffer.
- */
-/// @{
-inline void read_value(const void* buf, bool& value) { value = *((uint8_t*)buf); }
-inline void read_value(const void* buf, uint8_t& value) { value = *((uint8_t*)buf); }
-inline void read_value(const void* buf, uint16_t& value) { value = *((uint16_t*)buf); }
-inline void read_value(const void* buf, uint32_t& value) { value = *((uint32_t*)buf); }
-inline void read_value(const void* buf, uint64_t& value) { value = *((uint64_t*)buf); }
-inline void read_value(const void* buf, char& value) { value = *((int8_t*)buf); }
-inline void read_value(const void* buf, int8_t& value) { value = *((int8_t*)buf); }
-inline void read_value(const void* buf, int16_t& value) { value = *((int16_t*)buf); }
-inline void read_value(const void* buf, int32_t& value) { value = *((int32_t*)buf); }
-inline void read_value(const void* buf, int64_t& value) { value = *((int64_t*)buf); }
-inline void read_value(const void* buf, float32_t& value) { value = *((float32_t*)buf); }
-inline void read_value(const void* buf, float64_t& value) { value = *((float64_t*)buf); }
-inline void read_value(const void* buf, Hash64& value) { value = Hash64(*((uint64_t*)buf)); }
+inline void read(TypeInput& in, bool& value) 		{ value = *((const uint8_t*)in.read(1)); }
+inline void read(TypeInput& in, uint8_t& value) 	{ value = *((const uint8_t*)in.read(1)); }
+inline void read(TypeInput& in, uint16_t& value) 	{ ::memcpy(&value, in.read(2), 2); }
+inline void read(TypeInput& in, uint32_t& value) 	{ ::memcpy(&value, in.read(4), 4); }
+inline void read(TypeInput& in, uint64_t& value) 	{ ::memcpy(&value, in.read(8), 8); }
+inline void read(TypeInput& in, char& value) 		{ value = *((const int8_t*)in.read(1)); }
+inline void read(TypeInput& in, int8_t& value) 		{ value = *((const int8_t*)in.read(1)); }
+inline void read(TypeInput& in, int16_t& value) 	{ ::memcpy(&value, in.read(2), 2); }
+inline void read(TypeInput& in, int32_t& value) 	{ ::memcpy(&value, in.read(4), 4); }
+inline void read(TypeInput& in, int64_t& value) 	{ ::memcpy(&value, in.read(8), 8); }
+inline void read(TypeInput& in, float32_t& value) 	{ ::memcpy(&value, in.read(4), 4); }
+inline void read(TypeInput& in, float64_t& value) 	{ ::memcpy(&value, in.read(8), 8); }
+inline void read(TypeInput& in, Hash64& value) 		{ read_value(in.read(8), value); }
 /// @}
 
 /** \brief Reads a value of type \p code from the buffer.
@@ -128,30 +128,30 @@ inline void read_value(const void* buf, Hash64& value) { value = Hash64(*((uint6
 template<typename T>
 int read_value(const void* buf, T& value, const uint16_t* code) {
 	switch(code[0]) {
-		case CODE_NULL: value = T(); return 0;
-		case CODE_BOOL:
-		case CODE_UINT8: value = T(*((const uint8_t*)buf)); return 1;
-		case CODE_UINT16: value = T(*((const uint16_t*)buf)); return 2;
-		case CODE_UINT32: value = T(*((const uint32_t*)buf)); return 4;
-		case CODE_UINT64: value = T(*((const uint64_t*)buf)); return 8;
-		case CODE_INT8: value = T(*((const int8_t*)buf)); return 1;
-		case CODE_INT16: value = T(*((const int16_t*)buf)); return 2;
-		case CODE_INT32: value = T(*((const int32_t*)buf)); return 4;
-		case CODE_INT64: value = T(*((const int64_t*)buf)); return 8;
-		case CODE_FLOAT: value = T(*((const float32_t*)buf)); return 4;
-		case CODE_DOUBLE: value = T(*((const float64_t*)buf)); return 8;
+		case CODE_NULL: 		value = T(); return 0;
 		case CODE_ALT_BOOL:
-		case CODE_ALT_UINT8: value = T(flip_bytes(*((const uint8_t*)buf))); return 1;
-		case CODE_ALT_UINT16: value = T(flip_bytes(*((const uint16_t*)buf))); return 2;
-		case CODE_ALT_UINT32: value = T(flip_bytes(*((const uint32_t*)buf))); return 4;
-		case CODE_ALT_UINT64: value = T(flip_bytes(*((const uint64_t*)buf))); return 8;
-		case CODE_ALT_INT8: value = T(flip_bytes(*((const int8_t*)buf))); return 1;
-		case CODE_ALT_INT16: value = T(flip_bytes(*((const int16_t*)buf))); return 2;
-		case CODE_ALT_INT32: value = T(flip_bytes(*((const int32_t*)buf))); return 4;
-		case CODE_ALT_INT64: value = T(flip_bytes(*((const int64_t*)buf))); return 8;
-		case CODE_ALT_FLOAT: value = T(flip_bytes(*((const float32_t*)buf))); return 4;
-		case CODE_ALT_DOUBLE: value = T(flip_bytes(*((const float64_t*)buf))); return 8;
-		default: value = T();
+		case CODE_BOOL:			{ bool tmp;      read_value(buf, tmp); value = T(tmp); return 1; }
+		case CODE_ALT_UINT8:
+		case CODE_UINT8: 		{ uint8_t tmp;   read_value(buf, tmp); value = T(tmp); return 1; }
+		case CODE_UINT16: 		{ uint16_t tmp;  read_value(buf, tmp); value = T(tmp); return 2; }
+		case CODE_UINT32: 		{ uint32_t tmp;  read_value(buf, tmp); value = T(tmp); return 4; }
+		case CODE_UINT64: 		{ uint64_t tmp;  read_value(buf, tmp); value = T(tmp); return 8; }
+		case CODE_ALT_INT8:
+		case CODE_INT8: 		{ int8_t tmp;    read_value(buf, tmp); value = T(tmp); return 1; }
+		case CODE_INT16: 		{ int16_t tmp;   read_value(buf, tmp); value = T(tmp); return 2; }
+		case CODE_INT32: 		{ int32_t tmp;   read_value(buf, tmp); value = T(tmp); return 4; }
+		case CODE_INT64: 		{ int64_t tmp;   read_value(buf, tmp); value = T(tmp); return 8; }
+		case CODE_FLOAT: 		{ float32_t tmp; read_value(buf, tmp); value = T(tmp); return 4; }
+		case CODE_DOUBLE: 		{ float64_t tmp; read_value(buf, tmp); value = T(tmp); return 8; }
+		case CODE_ALT_UINT16: 	{ uint16_t tmp;  read_value(buf, tmp); value = T(flip_bytes(tmp)); return 2; }
+		case CODE_ALT_UINT32: 	{ uint32_t tmp;  read_value(buf, tmp); value = T(flip_bytes(tmp)); return 4; }
+		case CODE_ALT_UINT64: 	{ uint64_t tmp;  read_value(buf, tmp); value = T(flip_bytes(tmp)); return 8; }
+		case CODE_ALT_INT16: 	{ int16_t tmp;   read_value(buf, tmp); value = T(flip_bytes(tmp)); return 2; }
+		case CODE_ALT_INT32: 	{ int32_t tmp;   read_value(buf, tmp); value = T(flip_bytes(tmp)); return 4; }
+		case CODE_ALT_INT64: 	{ int64_t tmp;   read_value(buf, tmp); value = T(flip_bytes(tmp)); return 8; }
+		case CODE_ALT_FLOAT: 	{ float32_t tmp; read_value(buf, tmp); value = T(flip_bytes(tmp)); return 4; }
+		case CODE_ALT_DOUBLE: 	{ float64_t tmp; read_value(buf, tmp); value = T(flip_bytes(tmp)); return 8; }
+		default: 				value = T();
 	}
 	return 0;
 }
@@ -198,29 +198,29 @@ void read_dynamic_value(TypeInput& in, T& value);
 template<typename T>
 void read_value(TypeInput& in, T& value, const TypeCode* type_code, const uint16_t* code) {
 	switch(code[0]) {
-		case CODE_NULL: value = T(); return;
-		case CODE_BOOL:
-		case CODE_UINT8: value = *((const uint8_t*)in.read(sizeof(uint8_t))); return;
-		case CODE_UINT16: value = *((const uint16_t*)in.read(sizeof(uint16_t))); return;
-		case CODE_UINT32: value = *((const uint32_t*)in.read(sizeof(uint32_t))); return;
-		case CODE_UINT64: value = *((const uint64_t*)in.read(sizeof(uint64_t))); return;
-		case CODE_INT8: value = *((const int8_t*)in.read(sizeof(int8_t))); return;
-		case CODE_INT16: value = *((const int16_t*)in.read(sizeof(int16_t))); return;
-		case CODE_INT32: value = *((const int32_t*)in.read(sizeof(int32_t))); return;
-		case CODE_INT64: value = *((const int64_t*)in.read(sizeof(int64_t))); return;
-		case CODE_FLOAT: value = *((const float32_t*)in.read(sizeof(float32_t))); return;
-		case CODE_DOUBLE: value = *((const float64_t*)in.read(sizeof(float64_t))); return;
+		case CODE_NULL: 	value = T(); return;
 		case CODE_ALT_BOOL:
-		case CODE_ALT_UINT8: value = flip_bytes(*((const uint8_t*)in.read(sizeof(uint8_t)))); return;
-		case CODE_ALT_UINT16: value = flip_bytes(*((const uint16_t*)in.read(sizeof(uint16_t)))); return;
-		case CODE_ALT_UINT32: value = flip_bytes(*((const uint32_t*)in.read(sizeof(uint32_t)))); return;
-		case CODE_ALT_UINT64: value = flip_bytes(*((const uint64_t*)in.read(sizeof(uint64_t)))); return;
-		case CODE_ALT_INT8: value = flip_bytes(*((const int8_t*)in.read(sizeof(int8_t)))); return;
-		case CODE_ALT_INT16: value = flip_bytes(*((const int16_t*)in.read(sizeof(int16_t)))); return;
-		case CODE_ALT_INT32: value = flip_bytes(*((const int32_t*)in.read(sizeof(int32_t)))); return;
-		case CODE_ALT_INT64: value = flip_bytes(*((const int64_t*)in.read(sizeof(int64_t)))); return;
-		case CODE_ALT_FLOAT: value = flip_bytes(*((const float32_t*)in.read(sizeof(float32_t)))); return;
-		case CODE_ALT_DOUBLE: value = flip_bytes(*((const float64_t*)in.read(sizeof(float64_t)))); return;
+		case CODE_ALT_INT8:
+		case CODE_ALT_UINT8:
+		case CODE_BOOL:
+		case CODE_INT8:
+		case CODE_UINT8: 	read_value(in.read(1), value, code); return;
+		case CODE_ALT_UINT16:
+		case CODE_ALT_INT16:
+		case CODE_INT16:
+		case CODE_UINT16: 	read_value(in.read(2), value, code); return;
+		case CODE_ALT_UINT32:
+		case CODE_ALT_INT32:
+		case CODE_ALT_FLOAT:
+		case CODE_INT32:
+		case CODE_FLOAT:
+		case CODE_UINT32: 	read_value(in.read(4), value, code); return;
+		case CODE_ALT_UINT64:
+		case CODE_ALT_INT64:
+		case CODE_ALT_DOUBLE:
+		case CODE_INT64:
+		case CODE_DOUBLE:
+		case CODE_UINT64: 	read_value(in.read(8), value, code); return;
 		case CODE_DYNAMIC:
 		case CODE_ALT_DYNAMIC: read_dynamic_value(in, value); return;
 		case CODE_OPTIONAL:
