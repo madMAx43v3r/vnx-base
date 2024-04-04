@@ -37,7 +37,7 @@ else()
 	)
 endif()
 
-add_library(vnx_base SHARED
+list(APPEND SRC_FILES
 	${GENERATED_SOURCE_FILES}
 	${PLATFORM_SOURCE_FILES}
 	src/test/Test.cpp
@@ -108,16 +108,28 @@ add_library(vnx_base SHARED
 	src/RequestQueue.cpp
 )
 
+add_library(vnx_base SHARED
+	${SRC_FILES}
+)
+add_library(vnx_base_static STATIC
+	${SRC_FILES}
+)
+
 include(GenerateExportHeader)
 GENERATE_EXPORT_HEADER(vnx_base)
 
 target_include_directories(vnx_base
 	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
 )
+target_include_directories(vnx_base_static
+	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 target_link_libraries(vnx_base Threads::Threads)
+target_link_libraries(vnx_base_static Threads::Threads)
 
 target_compile_definitions(vnx_base PUBLIC NOGDI NOMINMAX)
+target_compile_definitions(vnx_base_static PUBLIC NOGDI NOMINMAX)
 
 if(MSVC)
 	include(FetchContent)
@@ -133,6 +145,7 @@ if(MSVC)
 	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 	
 	target_link_libraries(vnx_base ws2_32)
+	target_link_libraries(vnx_base_static ws2_32)
 endif()
 
 if(VNX_BUILD_TESTS)
@@ -155,6 +168,7 @@ install(DIRECTORY include/vnx generated/include/vnx DESTINATION include)
 install(DIRECTORY interface/ modules/ DESTINATION interface/vnx)
 
 install(TARGETS vnx_base DESTINATION lib${LIBSUFFIX})
+install(TARGETS vnx_base_static DESTINATION lib${LIBSUFFIX})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/vnx_base_export.h DESTINATION include)
 
