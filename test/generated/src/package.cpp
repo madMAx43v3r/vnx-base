@@ -43,7 +43,7 @@ namespace vnx {
 namespace test {
 
 
-static void register_all_types() {
+void register_all_types() {
 	vnx::register_type_code(::vnx::test::TestValue::static_create_type_code());
 	vnx::register_type_code(::vnx::test::test_struct_t::static_create_type_code());
 }

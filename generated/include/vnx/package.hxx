@@ -18,6 +18,8 @@
 
 namespace vnx {
 
+void register_all_types();
+
 VNX_EXPORT extern vnx::TopicPtr log_out;
 VNX_EXPORT extern vnx::TopicPtr module_info;
 VNX_EXPORT extern vnx::TopicPtr shutdown;

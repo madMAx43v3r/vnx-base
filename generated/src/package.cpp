@@ -3277,7 +3277,7 @@ vnx::TopicPtr time_control = vnx::get_topic("vnx", "time_control");
 vnx::TopicPtr time_sync = vnx::get_topic("vnx", "time_sync");
 vnx::TopicPtr topic_info = vnx::get_topic("vnx", "topic_info");
 
-static void register_all_types() {
+void register_all_types() {
 	vnx::register_type_code(::vnx::BaseProxyBase::static_create_type_code());
 	vnx::register_type_code(::vnx::BaseServerBase::static_create_type_code());
 	vnx::register_type_code(::vnx::Endpoint::static_create_type_code());

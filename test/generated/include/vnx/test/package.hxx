@@ -20,6 +20,8 @@
 namespace vnx {
 namespace test {
 
+void register_all_types();
+
 
 class TestValue;
 struct test_struct_t;
