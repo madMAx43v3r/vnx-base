@@ -3,8 +3,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/LogMsg.hxx>
-#include <vnx/LogMsg_get_output.hxx>
-#include <vnx/LogMsg_get_output_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
@@ -174,8 +172,6 @@ std::shared_ptr<vnx::TypeCode> LogMsg::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::LogMsg);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<LogMsg>(); };
-	type_code->methods.resize(1);
-	type_code->methods[0] = ::vnx::LogMsg_get_output::static_get_type_code();
 	type_code->fields.resize(6);
 	{
 		auto& field = type_code->fields[0];
@@ -220,12 +216,6 @@ std::shared_ptr<vnx::TypeCode> LogMsg::static_create_type_code() {
 
 std::shared_ptr<vnx::Value> LogMsg::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
 	switch(_method->get_type_hash()) {
-		case 0x1f325019a98c0f8dull: {
-			auto _args = std::static_pointer_cast<const ::vnx::LogMsg_get_output>(_method);
-			auto _return_value = ::vnx::LogMsg_get_output_return::create();
-			_return_value->_ret_0 = get_output();
-			return _return_value;
-		}
 	}
 	return nullptr;
 }

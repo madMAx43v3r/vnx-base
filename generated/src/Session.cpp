@@ -4,12 +4,6 @@
 #include <vnx/package.hxx>
 #include <vnx/Session.hxx>
 #include <vnx/Hash64.hpp>
-#include <vnx/Session_has_permission.hxx>
-#include <vnx/Session_has_permission_return.hxx>
-#include <vnx/Session_has_permission_vnx.hxx>
-#include <vnx/Session_has_permission_vnx_return.hxx>
-#include <vnx/Session_is_anonymous.hxx>
-#include <vnx/Session_is_anonymous_return.hxx>
 #include <vnx/Value.h>
 #include <vnx/permission_e.hxx>
 
@@ -156,10 +150,6 @@ std::shared_ptr<vnx::TypeCode> Session::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::Session);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Session>(); };
-	type_code->methods.resize(3);
-	type_code->methods[0] = ::vnx::Session_has_permission::static_get_type_code();
-	type_code->methods[1] = ::vnx::Session_has_permission_vnx::static_get_type_code();
-	type_code->methods[2] = ::vnx::Session_is_anonymous::static_get_type_code();
 	type_code->fields.resize(4);
 	{
 		auto& field = type_code->fields[0];
@@ -191,24 +181,6 @@ std::shared_ptr<vnx::TypeCode> Session::static_create_type_code() {
 
 std::shared_ptr<vnx::Value> Session::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
 	switch(_method->get_type_hash()) {
-		case 0x895700aa9f82278cull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Session_has_permission>(_method);
-			auto _return_value = ::vnx::Session_has_permission_return::create();
-			_return_value->_ret_0 = has_permission(_args->perm);
-			return _return_value;
-		}
-		case 0x9b7575f5ebcba714ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Session_has_permission_vnx>(_method);
-			auto _return_value = ::vnx::Session_has_permission_vnx_return::create();
-			_return_value->_ret_0 = has_permission_vnx(_args->perm);
-			return _return_value;
-		}
-		case 0xa6613bfe0c1226e0ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Session_is_anonymous>(_method);
-			auto _return_value = ::vnx::Session_is_anonymous_return::create();
-			_return_value->_ret_0 = is_anonymous();
-			return _return_value;
-		}
 	}
 	return nullptr;
 }

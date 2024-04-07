@@ -5,8 +5,6 @@
 #include <vnx/JRPC_Failure.hxx>
 #include <vnx/JRPC_Error.hxx>
 #include <vnx/JRPC_Response.hxx>
-#include <vnx/JRPC_Response_is_response_object.hxx>
-#include <vnx/JRPC_Response_is_response_object_return.hxx>
 
 #include <vnx/vnx.h>
 
@@ -145,8 +143,6 @@ std::shared_ptr<vnx::TypeCode> JRPC_Failure::static_create_type_code() {
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<JRPC_Failure>(); };
 	type_code->depends.resize(1);
 	type_code->depends[0] = ::vnx::JRPC_Error::static_get_type_code();
-	type_code->methods.resize(1);
-	type_code->methods[0] = ::vnx::JRPC_Response_is_response_object::static_get_type_code();
 	type_code->fields.resize(3);
 	{
 		auto& field = type_code->fields[0];
@@ -172,12 +168,6 @@ std::shared_ptr<vnx::TypeCode> JRPC_Failure::static_create_type_code() {
 
 std::shared_ptr<vnx::Value> JRPC_Failure::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
 	switch(_method->get_type_hash()) {
-		case 0xb998712aff138e21ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::JRPC_Response_is_response_object>(_method);
-			auto _return_value = ::vnx::JRPC_Response_is_response_object_return::create();
-			_return_value->_ret_0 = is_response_object();
-			return _return_value;
-		}
 	}
 	return nullptr;
 }

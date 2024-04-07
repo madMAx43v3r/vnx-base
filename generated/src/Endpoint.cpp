@@ -3,20 +3,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/Endpoint.hxx>
-#include <vnx/Endpoint_accept.hxx>
-#include <vnx/Endpoint_accept_return.hxx>
-#include <vnx/Endpoint_bind.hxx>
-#include <vnx/Endpoint_bind_return.hxx>
-#include <vnx/Endpoint_connect.hxx>
-#include <vnx/Endpoint_connect_return.hxx>
-#include <vnx/Endpoint_listen.hxx>
-#include <vnx/Endpoint_listen_return.hxx>
-#include <vnx/Endpoint_open.hxx>
-#include <vnx/Endpoint_open_return.hxx>
-#include <vnx/Endpoint_shutdown.hxx>
-#include <vnx/Endpoint_shutdown_return.hxx>
-#include <vnx/Endpoint_to_url.hxx>
-#include <vnx/Endpoint_to_url_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
@@ -162,14 +148,6 @@ std::shared_ptr<vnx::TypeCode> Endpoint::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::Endpoint);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<Endpoint>(); };
-	type_code->methods.resize(7);
-	type_code->methods[0] = ::vnx::Endpoint_accept::static_get_type_code();
-	type_code->methods[1] = ::vnx::Endpoint_bind::static_get_type_code();
-	type_code->methods[2] = ::vnx::Endpoint_connect::static_get_type_code();
-	type_code->methods[3] = ::vnx::Endpoint_listen::static_get_type_code();
-	type_code->methods[4] = ::vnx::Endpoint_open::static_get_type_code();
-	type_code->methods[5] = ::vnx::Endpoint_shutdown::static_get_type_code();
-	type_code->methods[6] = ::vnx::Endpoint_to_url::static_get_type_code();
 	type_code->fields.resize(4);
 	{
 		auto& field = type_code->fields[0];
@@ -205,48 +183,6 @@ std::shared_ptr<vnx::TypeCode> Endpoint::static_create_type_code() {
 
 std::shared_ptr<vnx::Value> Endpoint::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
 	switch(_method->get_type_hash()) {
-		case 0x6b14b11386336a88ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_accept>(_method);
-			auto _return_value = ::vnx::Endpoint_accept_return::create();
-			_return_value->_ret_0 = accept(_args->socket);
-			return _return_value;
-		}
-		case 0xf4cb30bb0b382bc3ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_bind>(_method);
-			auto _return_value = ::vnx::Endpoint_bind_return::create();
-			bind(_args->socket);
-			return _return_value;
-		}
-		case 0xeb6f6f23b9cc504cull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_connect>(_method);
-			auto _return_value = ::vnx::Endpoint_connect_return::create();
-			connect(_args->socket);
-			return _return_value;
-		}
-		case 0xb4ce343ca89d6718ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_listen>(_method);
-			auto _return_value = ::vnx::Endpoint_listen_return::create();
-			listen(_args->socket);
-			return _return_value;
-		}
-		case 0x1f54c9a1e8f45beeull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_open>(_method);
-			auto _return_value = ::vnx::Endpoint_open_return::create();
-			_return_value->_ret_0 = open();
-			return _return_value;
-		}
-		case 0xbf9866d0d9ce44eaull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_shutdown>(_method);
-			auto _return_value = ::vnx::Endpoint_shutdown_return::create();
-			shutdown(_args->socket, _args->mode);
-			return _return_value;
-		}
-		case 0x4362b4ad51f861f5ull: {
-			auto _args = std::static_pointer_cast<const ::vnx::Endpoint_to_url>(_method);
-			auto _return_value = ::vnx::Endpoint_to_url_return::create();
-			_return_value->_ret_0 = to_url();
-			return _return_value;
-		}
 	}
 	return nullptr;
 }

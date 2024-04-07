@@ -3,8 +3,6 @@
 
 #include <vnx/package.hxx>
 #include <vnx/TimeControl.hxx>
-#include <vnx/TimeControl_get_time_micros.hxx>
-#include <vnx/TimeControl_get_time_micros_return.hxx>
 #include <vnx/Value.h>
 
 #include <vnx/vnx.h>
@@ -170,8 +168,6 @@ std::shared_ptr<vnx::TypeCode> TimeControl::static_create_type_code() {
 	type_code->is_class = true;
 	type_code->native_size = sizeof(::vnx::TimeControl);
 	type_code->create_value = []() -> std::shared_ptr<vnx::Value> { return std::make_shared<TimeControl>(); };
-	type_code->methods.resize(1);
-	type_code->methods[0] = ::vnx::TimeControl_get_time_micros::static_get_type_code();
 	type_code->fields.resize(6);
 	{
 		auto& field = type_code->fields[0];
@@ -218,12 +214,6 @@ std::shared_ptr<vnx::TypeCode> TimeControl::static_create_type_code() {
 
 std::shared_ptr<vnx::Value> TimeControl::vnx_call_switch(std::shared_ptr<const vnx::Value> _method) {
 	switch(_method->get_type_hash()) {
-		case 0x26272ec20735b52eull: {
-			auto _args = std::static_pointer_cast<const ::vnx::TimeControl_get_time_micros>(_method);
-			auto _return_value = ::vnx::TimeControl_get_time_micros_return::create();
-			_return_value->_ret_0 = get_time_micros();
-			return _return_value;
-		}
 	}
 	return nullptr;
 }
