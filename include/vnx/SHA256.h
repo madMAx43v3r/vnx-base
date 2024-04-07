@@ -19,6 +19,8 @@ namespace vnx {
 
 class SHA256 {
 public:
+	SHA256();
+
 	void init();
 
 	void update(const uint8_t* message, const uint32_t len);

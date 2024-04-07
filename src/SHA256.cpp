@@ -99,6 +99,10 @@ void SHA256::transform(const uint8_t* message, const uint32_t block_nb) {
 	}
 }
 
+SHA256::SHA256() {
+	init();
+}
+
 void SHA256::init() {
 	m_h[0] = 0x6a09e667;
 	m_h[1] = 0xbb67ae85;
@@ -156,7 +160,6 @@ std::string sha256_str(const std::string& input, const bool lower_case) {
 	unsigned char digest[SHA256::DIGEST_SIZE] = {};
 
 	SHA256 ctx;
-	ctx.init();
 	ctx.update((const unsigned char*)input.c_str(), input.length());
 	ctx.finalize(digest);
 
