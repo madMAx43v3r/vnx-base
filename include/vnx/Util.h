@@ -88,6 +88,9 @@ bool string_iequals(const std::string& L, const std::string& R);
 /// Returns a very good 64-bit random number. (Initialized with nano-second timestamp)
 uint64_t rand64();
 
+/// Returns crypto-graphically secure random bytes (using /dev/random)
+void secure_random_bytes(void* data, const size_t length);
+
 /// Converts a binary string to a hex string, with constant length. (Without leading "0x")
 std::string to_hex_string(const void* data, const size_t length, bool big_endian = false, bool lower_case = false);
 
