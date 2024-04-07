@@ -882,6 +882,17 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("secure_random_bytes")
+	{
+		std::vector<uint8_t> buf(32);
+		vnx::secure_random_bytes(buf.data(), buf.size());
+		expect(buf == std::vector<uint8_t>(32), false);
+
+		std::vector<uint8_t> buf1(32);
+		vnx::secure_random_bytes(buf1.data(), buf1.size());
+		expect(buf == buf1, false);
+	}
+	VNX_TEST_END()
+
 	vnx::test::exit();
-	
 }
