@@ -5,9 +5,19 @@ add_library(vnx_test SHARED
 	${GENERATED_SOURCE_FILES}
 )
 
+include(GenerateExportHeader)
+GENERATE_EXPORT_HEADER(vnx_test)
+
 target_include_directories(vnx_test
-	PUBLIC generated/include
+	PUBLIC generated/include ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+target_compile_definitions(vnx_test PUBLIC VNX_TEST_EXPORT_ENABLE)
+
+if(MSVC)
+	set_target_properties(vnx_test PROPERTIES ENABLE_EXPORTS ON)
+	set_target_properties(vnx_test PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
 
 target_link_libraries(vnx_test vnx_base)
 
