@@ -32,7 +32,6 @@ extern "C"
 #endif
 BOOLEAN NTAPI RtlGenRandom(PVOID RandomBuffer, ULONG RandomBufferLength);
 #pragma comment(lib, "advapi32.lib")
-#endif
 
 
 namespace vnx {
