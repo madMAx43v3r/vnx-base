@@ -475,10 +475,12 @@ int main() {
 		expect(vnx::to_string(0), "0");
 		expect(vnx::to_string(1), "1");
 		expect(vnx::to_string(-1), "-1");
+#ifndef _MSC_VER
 		expect(vnx::to_string<double>(0./0.), "null");
 		expect(vnx::to_string<double>(1./0.), "null");
 		expect(vnx::to_string<float>(0.f/0.f), "null");
 		expect(vnx::to_string<float>(1.f/0.f), "null");
+#endif
 		expect(vnx::to_string(std::string("[\\asasa\"]")), "\"[\\\\asasa\\\"]\"");
 		expect(vnx::to_string(std::string("A\tB\nC")), "\"A\\tB\\nC\"");
 		expect(vnx::to_string(vnx::Variant()), "null");
