@@ -38,7 +38,7 @@ namespace vnx {
 
 void secure_random_bytes(void* data, const size_t length)
 {
-	if(!RtlGenRandom((PVOID)data, (ULONG)length))) {
+	if(!RtlGenRandom((PVOID)data, (ULONG)length)) {
 		throw std::runtime_error("RtlGenRandom() failed");
 	}
 }
