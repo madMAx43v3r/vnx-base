@@ -7,7 +7,9 @@ endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_compile_options(-Wall)
+if(NOT WIN32)
+	add_compile_options(-Wall)
+endif()
 
 find_package(Threads REQUIRED)
 
@@ -129,7 +131,7 @@ target_link_libraries(vnx_base Threads::Threads)
 target_link_libraries(vnx_base_static Threads::Threads)
 
 target_compile_definitions(vnx_base PUBLIC NOGDI NOMINMAX)
-target_compile_definitions(vnx_base_static PUBLIC NOGDI NOMINMAX)
+target_compile_definitions(vnx_base_static PUBLIC NOGDI NOMINMAX VNX_BASE_STATIC_DEFINE)
 
 if(MSVC)
 	include(FetchContent)
@@ -140,6 +142,7 @@ if(MSVC)
 	FetchContent_MakeAvailable(dirent)
 	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
 	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
+	target_include_directories(vnx_base_static PUBLIC ${dirent_INCLUDE_DIR})
 	
 	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS ON)
 	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
