@@ -4,6 +4,12 @@
 #ifndef INCLUDE_vnx_test_TestValue_HXX_
 #define INCLUDE_vnx_test_TestValue_HXX_
 
+#ifdef _MSC_VER
+#include <vnx_test_export.h>
+#else
+#define VNX_TEST_EXPORT
+#endif
+
 #include <vnx/test/package.hxx>
 #include <vnx/User.hxx>
 #include <vnx/Value.h>
