@@ -63,12 +63,9 @@ public:
 private:
 	uint64_t crc;
 	
-	static const uint64_t poly;
 	static const uint64_t table[256];
 	
 };
-
-inline const uint64_t CRC64::poly = 0xC96C5795D7870F42ull;
 
 inline const uint64_t CRC64::table[256] = {
 	0x0ull, 0xb32e4cbe03a75f6full, 0xf4843657a840a05bull, 0x47aa7ae9abe7ff34ull, 0x7bd0c384ff8f5e33ull, 0xc8fe8f3afc28015cull, 0x8f54f5d357cffe68ull, 0x3c7ab96d5468a107ull, 0xf7a18709ff1ebc66ull, 0x448fcbb7fcb9e309ull, 0x325b15e575e1c3dull, 0xb00bfde054f94352ull, 0x8c71448d0091e255ull, 0x3f5f08330336bd3aull, 0x78f572daa8d1420eull, 0xcbdb3e64ab761d61ull,
