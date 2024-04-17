@@ -630,10 +630,11 @@ void read(TypeInput& in, std::string& string, const TypeCode* type_code, const u
 					size = flip_bytes(size);
 			}
 			if(in.safe_read) {
-				for(uint32_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
+				for(uint32_t i = 0; i < size;) {
 					const auto chunk_size = std::min<uint32_t>(size - i, VNX_BUFFER_SIZE);
 					string.resize(i + chunk_size);
 					in.read(&string[i], chunk_size);		// since C++11 this is guaranteed to be valid
+					i += chunk_size;
 				}
 			} else {
 				string.resize(size);

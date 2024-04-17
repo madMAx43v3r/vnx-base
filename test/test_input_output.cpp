@@ -896,5 +896,48 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("safe_read")
+	{
+		{
+			vnx::Memory buffer;
+			vnx::MemoryOutputStream ostream(&buffer);
+			vnx::TypeOutput out(&ostream);
+
+			std::string data;
+			for(int i = 0; i < 4096; ++i) {
+				data += "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+			}
+			vnx::write_dynamic(out, data);
+
+			vnx::MemoryInputStream istream(&buffer);
+			vnx::TypeInput in(&istream);
+			in.safe_read = true;
+
+			std::string tmp;
+			vnx::read_dynamic(in, tmp);
+			expect(tmp == data, true);
+		}
+		{
+			vnx::Memory buffer;
+			vnx::MemoryOutputStream ostream(&buffer);
+			vnx::TypeOutput out(&ostream);
+
+			std::vector<uint32_t> data;
+			for(int i = 0; i < 16 * 1024; ++i) {
+				data.push_back(i);
+			}
+			vnx::write_dynamic(out, data);
+
+			vnx::MemoryInputStream istream(&buffer);
+			vnx::TypeInput in(&istream);
+			in.safe_read = true;
+
+			std::vector<uint32_t> tmp;
+			vnx::read_dynamic(in, tmp);
+			expect(tmp == data, true);
+		}
+	}
+	VNX_TEST_END()
+
 	vnx::test::exit();
 }

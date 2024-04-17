@@ -331,15 +331,18 @@ void read(TypeInput& in, vnx::optional<T>& value, const TypeCode* type_code, con
 
 template<typename T>
 void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const uint16_t* value_code, const size_t size) {
-	if(!in.safe_read) {
+	if(in.safe_read) {
+		vector.clear();
+	} else {
 		vector.resize(size);
 	}
 	if(is_equivalent<typename T::value_type>{}(value_code, type_code)) {
 		if(in.safe_read) {
-			for(size_t i = 0; i < size; i += VNX_BUFFER_SIZE) {
-				const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE);
+			for(size_t i = 0; i < size;) {
+				const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE / sizeof(typename T::value_type));
 				vector.resize(i + chunk_size);
-				in.read((char*)&vector[i], chunk_size);
+				in.read((char*)&vector[i], chunk_size * sizeof(typename T::value_type));
+				i += chunk_size;
 			}
 		} else {
 			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
