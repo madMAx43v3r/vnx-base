@@ -136,11 +136,11 @@ std::vector<uint8_t> from_hex_string(const std::string& str) {
 	}
 	const auto length = str.size() - off;
 	if(length % 2) {
-		throw std::logic_error("from_hex_string(): length not multiple of 2: " + std::to_string(length));
+		throw std::logic_error("from_hex_string(): length not multiple of two: " + std::to_string(length));
 	}
 	std::vector<uint8_t> out(length / 2);
 	for(size_t i = 0; i < out.size(); ++i) {
-		out[i] = hex_char_to_int<uint8_t>(str[i * 2]) * 16 + hex_char_to_int<uint8_t>(str[i * 2 + 1]);
+		out[i] = hex_char_to_int<uint8_t>(str[off + i * 2]) * 16 + hex_char_to_int<uint8_t>(str[off + i * 2 + 1]);
 	}
 	return out;
 }

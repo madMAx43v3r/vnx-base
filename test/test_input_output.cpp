@@ -941,6 +941,7 @@ int main() {
 
 	VNX_TEST_BEGIN("from_hex_string")
 	{
+		expect(vnx::from_hex_string("0x"), std::vector<uint8_t>{});
 		expect(vnx::from_hex_string("00"), std::vector<uint8_t>{0x00});
 		expect(vnx::from_hex_string("0xAA"), std::vector<uint8_t>{0xAA});
 		expect(vnx::from_hex_string("0x00FF"), std::vector<uint8_t>{0x00, 0xFF});
