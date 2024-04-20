@@ -115,6 +115,20 @@ std::string to_hex_string(const void* data, const size_t length, bool big_endian
 	return str;
 }
 
+template<typename T>
+T hex_char_to_int(const char c) {
+	if(c >= '0' && c <= '9') {
+		return c - '0';
+	}
+	if(c >= 'a' && c <= 'f') {
+		return 10 + (c - 'a');
+	}
+	if(c >= 'A' && c <= 'F') {
+		return 10 + (c - 'A');
+	}
+	throw std::logic_error("invalid hex char: " + std::string{c});
+}
+
 std::vector<uint8_t> from_hex_string(const std::string& str) {
 	size_t off = 0;
 	if(str.substr(0, 2) == "0x") {
@@ -126,7 +140,7 @@ std::vector<uint8_t> from_hex_string(const std::string& str) {
 	}
 	std::vector<uint8_t> out(length / 2);
 	for(size_t i = 0; i < out.size(); ++i) {
-		out[i] = std::stoul(str.substr(off + i * 2, 2), nullptr, 16);
+		out[i] = hex_char_to_int<uint8_t>(str[i * 2]) * 16 + hex_char_to_int<uint8_t>(str[i * 2 + 1]);
 	}
 	return out;
 }

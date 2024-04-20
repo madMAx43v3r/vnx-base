@@ -939,5 +939,15 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("from_hex_string")
+	{
+		expect(vnx::from_hex_string("00"), std::vector<uint8_t>{0x00});
+		expect(vnx::from_hex_string("0xAA"), std::vector<uint8_t>{0xAA});
+		expect(vnx::from_hex_string("0x00FF"), std::vector<uint8_t>{0x00, 0xFF});
+		expect(vnx::from_hex_string("0x0123456789abcdefABCDEF"), std::vector<uint8_t>{0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0xAB, 0xCD, 0xEF});
+		expect(vnx::from_hex_string("0x00123456789abcdefABCDEF0"), std::vector<uint8_t>{0x00, 0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xfA, 0xBC, 0xDE, 0xF0});
+	}
+	VNX_TEST_END()
+
 	vnx::test::exit();
 }
