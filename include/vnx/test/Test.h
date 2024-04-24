@@ -58,7 +58,7 @@ void pass(const std::string& test_name);
 
 void fail(const std::string& test_name, const std::exception& exception);
 
-void exit();
+int done();
 
 	
 } // test
