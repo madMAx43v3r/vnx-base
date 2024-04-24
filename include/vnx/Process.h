@@ -67,6 +67,9 @@ void wait();
 /// Trigger shutdown and wait for the the whole process and all modules to finish and shutdown.
 void close();
 
+/// Clear all global memory
+void static_cleanup();
+
 /// Get the local process name.
 std::string get_process_name();
 

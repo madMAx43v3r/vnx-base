@@ -65,6 +65,9 @@ std::vector<std::shared_ptr<Topic>> get_all_topics(std::shared_ptr<Topic> domain
  */
 std::shared_ptr<Topic> remap_topic(std::shared_ptr<Topic> topic, const std::map<TopicPtr, TopicPtr>& map);
 
+/// clear global memory
+void topic_shutdown();
+
 
 /** \brief Topic is used to distribute (ie. publish) samples to a number of subscribers.
  * 

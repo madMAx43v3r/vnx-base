@@ -179,6 +179,12 @@ public:
 		return p_topic;
 	}
 	
+	void clear() {
+		std::lock_guard<std::recursive_mutex> lock(mutex);
+		topic_map.clear();
+		root = nullptr;
+	}
+
 private:
 	std::recursive_mutex mutex;
 	std::shared_ptr<Topic> root;
@@ -241,6 +247,10 @@ std::shared_ptr<Topic> remap_topic(	std::shared_ptr<Topic> topic,
 		prefix = prefix->get_parent();
 	}
 	return topic;
+}
+
+void topic_shutdown() {
+	get_global_topic_map().clear();
 }
 
 

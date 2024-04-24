@@ -80,7 +80,7 @@ static void shutdown_thread() {
 		}
 	}
 	process::instance.close();		// close and wait for instance to be deleted
-	process::auth_server = nullptr;
+	vnx::static_cleanup();
 #ifdef _WIN32
 	WSACleanup();
 #endif
@@ -170,8 +170,8 @@ BOOL CtrlHandler(DWORD fdwCtrlType)
 }
 #endif
 
-void init(const std::string& process_name, int argc, char** argv, std::map<std::string, std::string> options) {
-
+void init(const std::string& process_name, int argc, char** argv, std::map<std::string, std::string> options)
+{
 #ifdef _WIN32
 	SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE);
 	{
@@ -375,6 +375,11 @@ void wait() {
 void close() {
 	trigger_shutdown();
 	wait();
+}
+
+void static_cleanup() {
+	process::auth_server = nullptr;
+	vnx::topic_shutdown();
 }
 
 std::string get_process_name() {
