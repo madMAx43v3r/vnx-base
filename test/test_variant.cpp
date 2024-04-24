@@ -476,6 +476,7 @@ int main() {
 	}
 	VNX_TEST_END()
 
-	vnx::test::exit();
-	
+	vnx::static_cleanup();
+
+	return vnx::test::done();
 }

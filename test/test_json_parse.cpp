@@ -10,8 +10,6 @@
 
 int main(int argc, char** argv)
 {
-	vnx::init("test_json_parse", argc, argv);
-
 	while(vnx::do_run())
 	{
 		vnx::Variant var;
@@ -26,7 +24,9 @@ int main(int argc, char** argv)
 		std::cout << std::endl;
 	}
 
-	vnx::close();
+	vnx::static_cleanup();
+
+	return 0;
 }
 
 

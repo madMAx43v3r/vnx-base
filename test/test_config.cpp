@@ -237,6 +237,5 @@ int main(int argc, char** argv) {
 
 	vnx::close();
 	
-	vnx::test::exit();
-	
+	return vnx::test::done();
 }
