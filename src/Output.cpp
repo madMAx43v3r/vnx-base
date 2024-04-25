@@ -83,7 +83,7 @@ int64_t VectorOutputStream::get_output_pos() const {
 }
 
 void SocketOutputStream::write(const void* buf, size_t len) {
-	const auto* pos = (const uint8_t*)buf;
+	const auto* pos = (const char*)buf;
 	while(len > 0) {
 #ifdef _WIN32
 		ssize_t res = ::send(fd, pos, len, 0);
