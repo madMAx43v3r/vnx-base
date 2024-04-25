@@ -128,7 +128,7 @@ public:
 	PointerInputStream() = default;
 	
 	PointerInputStream(const void* data_, size_t size_)
-		:	data((const char*)data_),
+		:	data((const uint8_t*)data_),
 			size(size_)
 	{}
 	
@@ -139,7 +139,7 @@ public:
 	}
 	
 	void reset(const void* data_, size_t size_) {
-		data = (const char*)data_;
+		data = (const uint8_t*)data_;
 		size = size_;
 		pos = 0;
 	}
@@ -152,7 +152,7 @@ public:
 	}
 	
 private:
-	const char* data = 0;
+	const uint8_t* data = 0;
 	size_t size = 0;
 	size_t pos = 0;
 	
@@ -228,7 +228,7 @@ public:
 	 * Reads new data from the stream if available bytes are less than \p len.
 	 * Argument \p len cannot be larger than the buffer size, which is VNX_BUFFER_SIZE.
 	 */
-	const char* read(size_t len) {
+	const uint8_t* read(size_t len) {
 		if(len > VNX_BUFFER_SIZE) {
 			throw std::invalid_argument("read(): buffer too small");
 		}
@@ -244,7 +244,7 @@ public:
 			}
 			end += num_bytes;
 		}
-		const char* res = buffer + pos;
+		const auto* res = buffer + pos;
 		pos += len;
 		return res;
 	}
@@ -255,7 +255,7 @@ public:
 	 * Used to read large chunks of data, potentially bypassing the buffer.
 	 */
 	void read(void* buf_, size_t len) {
-		char* buf = (char*)buf_;
+		auto* buf = (uint8_t*)buf_;
 		const size_t left = end - pos;
 		if(len < VNX_BUFFER_SIZE/2 || len < left) {
 			// for small chunks just take it from the buffer if enough bytes are available
@@ -309,12 +309,12 @@ public:
 	}
 	
 	/// Direct buffer access, relative to current position, see get_num_avail() and fetch().
-	const char& operator[](size_t i) const {
+	const uint8_t& operator[](size_t i) const {
 		return buffer[pos + i];
 	}
 
 private:
-	char buffer[VNX_BUFFER_SIZE];
+	uint8_t buffer[VNX_BUFFER_SIZE];
 	InputStream* stream = 0;
 	size_t pos = 0;
 	size_t end = 0;

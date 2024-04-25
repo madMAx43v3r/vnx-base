@@ -275,10 +275,10 @@ void skip(TypeInput& in, const TypeCode* type_code, const uint16_t* code) {
 }
 
 void copy_bytes(TypeInput& in, TypeOutput* out, size_t num_bytes) {
-	char buffer[VNX_BUFFER_SIZE];
+	uint8_t buffer[VNX_BUFFER_SIZE];
 	while(num_bytes) {
 		const size_t len = num_bytes > VNX_BUFFER_SIZE ? VNX_BUFFER_SIZE : num_bytes;
-		char* p_out = nullptr;
+		uint8_t* p_out = nullptr;
 		if(out) {
 			p_out = out->write(len);
 		} else {
@@ -304,7 +304,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			case CODE_ALT_BOOL:
 			case CODE_ALT_INT8:
 			case CODE_ALT_UINT8: {
-				const char* src = in.read(1);
+				const auto* src = in.read(1);
 				if(out) {
 					out->write(src, 1);
 				}
@@ -314,7 +314,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			case CODE_UINT16:
 			case CODE_ALT_INT16:
 			case CODE_ALT_UINT16:{
-				const char* src = in.read(2);
+				const auto* src = in.read(2);
 				if(out) {
 					out->write(src, 2);
 				}
@@ -326,7 +326,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			case CODE_ALT_INT32:
 			case CODE_ALT_UINT32:
 			case CODE_ALT_FLOAT: {
-				const char* src = in.read(4);
+				const auto* src = in.read(4);
 				if(out) {
 					out->write(src, 4);
 				}
@@ -338,7 +338,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 			case CODE_ALT_INT64:
 			case CODE_ALT_UINT64:
 			case CODE_ALT_DOUBLE: {
-				const char* src = in.read(8);
+				const auto* src = in.read(8);
 				if(out) {
 					out->write(src, 8);
 				}
@@ -366,7 +366,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 				const uint16_t* value_code = code + 2;
 				const size_t value_size = get_value_size(value_code, type_code);
 				if(value_size) {
-					const char* src = in.read(size * value_size);
+					const auto* src = in.read(size * value_size);
 					if(out) {
 						::memcpy(out->write(size * value_size), src, size * value_size);
 					}
@@ -466,7 +466,7 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 				const uint16_t* value_code = code + 2 + dims.size();
 				const auto value_size = get_value_size(value_code, type_code);
 				if(value_size) {
-					const char* src = in.read(total_size * value_size);
+					const auto* src = in.read(total_size * value_size);
 					if(out) {
 						::memcpy(out->write(total_size * value_size), src, total_size * value_size);
 					}
@@ -547,9 +547,9 @@ void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint1
 		}
 		type_code = type_code->depends[code[1]];
 	}
-	const char* src = in.read(type_code->total_field_size);
+	const auto* src = in.read(type_code->total_field_size);
 	if(out) {
-		char* dst = out->write(type_code->total_field_size);
+		auto* dst = out->write(type_code->total_field_size);
 		::memcpy(dst, src, type_code->total_field_size);
 	}
 	for(const TypeField* field : type_code->ext_fields) {
@@ -599,7 +599,7 @@ size_t read_image_size(TypeInput& in, std::vector<size_t>& size, const uint16_t*
 	size.resize(N);
 
 	size_t total_size = 1;
-	const char* buf = in.read(4 * N);
+	const auto* buf = in.read(4 * N);
 	for(size_t i = 0; i < N; ++i) {
 		uint32_t size_ = 0;
 		read_value(buf + 4 * i, size_);
@@ -679,7 +679,7 @@ uint16_t read_byte_code(TypeInput& in, uint16_t* code) {
 	if(code_size > VNX_MAX_BYTE_CODE_SIZE) {
 		throw std::runtime_error("read_byte_code(): dynamic code size > VNX_MAX_BYTE_CODE_SIZE");
 	}
-	in.read((char*)code, code_size * sizeof(uint16_t));
+	in.read(code, code_size * sizeof(uint16_t));
 	validate_code(code, nullptr, code_size);
 	return code_size;
 }

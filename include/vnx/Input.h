@@ -161,7 +161,7 @@ int read_value(const void* buf, T& value, const uint16_t* code) {
  * Directly compatible with CODE_ARRAY.
  */
 template<typename T, size_t N>
-int read_value(const char* buf, std::array<T, N>& array, const uint16_t* code) {
+int read_value(const uint8_t* buf, std::array<T, N>& array, const uint16_t* code) {
 	size_t size = 0;
 	switch(code[0]) {
 		case CODE_ARRAY: size = code[1]; break;
@@ -341,11 +341,11 @@ void read_vector_data(TypeInput& in, T& vector, const TypeCode* type_code, const
 			for(size_t i = 0; i < size;) {
 				const auto chunk_size = std::min<size_t>(size - i, VNX_BUFFER_SIZE / sizeof(typename T::value_type));
 				vector.resize(i + chunk_size);
-				in.read((char*)&vector[i], chunk_size * sizeof(typename T::value_type));
+				in.read(&vector[i], chunk_size * sizeof(typename T::value_type));
 				i += chunk_size;
 			}
 		} else {
-			in.read((char*)vector.data(), size * sizeof(typename T::value_type));
+			in.read(vector.data(), size * sizeof(typename T::value_type));
 		}
 	} else {
 		for(size_t i = 0; i < size; ++i) {
@@ -465,7 +465,7 @@ void read_array(TypeInput& in, T& array, const TypeCode* type_code, const uint16
 			value_code = code;
 	}
 	if(size && size <= array.size() && is_equivalent<typename T::value_type>{}(value_code, type_code)) {
-		in.read((char*)array.data(), size * sizeof(typename T::value_type));
+		in.read(array.data(), size * sizeof(typename T::value_type));
 	} else {
 		for(size_t i = 0; i < size; ++i) {
 			if(i < array.size()) {
@@ -675,7 +675,7 @@ void read_matrix(TypeInput& in, T* data, const std::array<size_t, N>& size, cons
 		if(is_same) {
 			const uint16_t* value_code = code + 2 + N;
 			if(is_equivalent<T>{}(value_code, nullptr)) {
-				in.read((char*)data, total_size * sizeof(T));
+				in.read(data, total_size * sizeof(T));
 			} else {
 				for(size_t i = 0; i < total_size; ++i) {
 					vnx::type<T>().read(in, data[i], nullptr, value_code);
@@ -710,7 +710,7 @@ void read_image_data(TypeInput& in, T* data, const std::vector<size_t>& size, co
 	const uint16_t* value_code = code + 2;
 	if(data) {
 		if(is_equivalent<T>{}(value_code, nullptr)) {
-			in.read((char*)data, total_size * sizeof(T));
+			in.read(data, total_size * sizeof(T));
 		} else {
 			for(size_t i = 0; i < total_size; ++i) {
 				vnx::type<T>().read(in, data[i], nullptr, value_code);
@@ -774,7 +774,7 @@ void read_dynamic_list_data(TypeInput& in, T* data, const uint16_t* code, const 
 	if((code[0] == CODE_LIST || code[0] == CODE_ALT_LIST) && data) {
 		const uint16_t* value_code = code + 1;
 		if(is_equivalent<T>{}(value_code, nullptr)) {
-			in.read((char*)data, size * sizeof(T));
+			in.read(data, size * sizeof(T));
 		} else {
 			for(uint32_t i = 0; i < size; ++i) {
 				vnx::type<T>().read(in, data[i], nullptr, value_code);

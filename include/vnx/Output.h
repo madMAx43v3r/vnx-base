@@ -402,7 +402,7 @@ void write_image(TypeOutput& out, const T* data, const std::array<size_t, N>& si
 		}
 		total_size *= size[i];
 	}
-	char* buf = out.write(4 * N);
+	auto* buf = out.write(4 * N);
 	for(size_t i = 0; i < N; ++i) {
 		write_value(buf + 4 * i, (uint32_t)size[i]);
 	}
@@ -647,7 +647,7 @@ std::string to_string_value(TypeInput& in, const TypeCode* type_code, const uint
 
 template<typename T>
 void write_class_header(TypeOutput& out) {
-	char* const buf = out.write(10);
+	auto* const buf = out.write(10);
 	write_value(buf, uint16_t(CODE_TYPE));
 	write_value(buf + 2, uint64_t(T::VNX_CODE_HASH));
 }

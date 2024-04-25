@@ -34,7 +34,7 @@
 namespace vnx {
 
 void BasicOutputStream::write(const void* buf, size_t len) {
-	const char* pos = (const char*)buf;
+	const auto* pos = (const uint8_t*)buf;
 	while(len > 0) {
 		ssize_t res = ::write(fd, pos, len);
 		if(res <= 0) {
@@ -83,7 +83,7 @@ int64_t VectorOutputStream::get_output_pos() const {
 }
 
 void SocketOutputStream::write(const void* buf, size_t len) {
-	const char* pos = (const char*)buf;
+	const auto* pos = (const uint8_t*)buf;
 	while(len > 0) {
 #ifdef _WIN32
 		ssize_t res = ::send(fd, pos, len, 0);
@@ -193,84 +193,84 @@ void write(TypeOutput& out, const std::string& string, const TypeCode* type_code
 }
 
 void write_dynamic(TypeOutput& out, const bool& value) {
-	char* buf = out.write(4 + 1);
+	auto* buf = out.write(4 + 1);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_BOOL);
 	write_value(buf + 4, (uint8_t)value);
 }
 
 void write_dynamic(TypeOutput& out, const uint8_t& value) {
-	char* buf = out.write(4 + 1);
+	auto* buf = out.write(4 + 1);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_UINT8);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const uint16_t& value) {
-	char* buf = out.write(4 + 2);
+	auto* buf = out.write(4 + 2);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_UINT16);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const uint32_t& value) {
-	char* buf = out.write(4 + 4);
+	auto* buf = out.write(4 + 4);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_UINT32);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const uint64_t& value) {
-	char* buf = out.write(4 + 8);
+	auto* buf = out.write(4 + 8);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_UINT64);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const char& value) {
-	char* buf = out.write(4 + 1);
+	auto* buf = out.write(4 + 1);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_INT8);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const int8_t& value) {
-	char* buf = out.write(4 + 1);
+	auto* buf = out.write(4 + 1);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_INT8);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const int16_t& value) {
-	char* buf = out.write(4 + 2);
+	auto* buf = out.write(4 + 2);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_INT16);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const int32_t& value) {
-	char* buf = out.write(4 + 4);
+	auto* buf = out.write(4 + 4);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_INT32);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const int64_t& value) {
-	char* buf = out.write(4 + 8);
+	auto* buf = out.write(4 + 8);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_INT64);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const float32_t& value) {
-	char* buf = out.write(4 + 4);
+	auto* buf = out.write(4 + 4);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_FLOAT);
 	write_value(buf + 4, value);
 }
 
 void write_dynamic(TypeOutput& out, const float64_t& value) {
-	char* buf = out.write(4 + 8);
+	auto* buf = out.write(4 + 8);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_DOUBLE);
 	write_value(buf + 4, value);
@@ -297,7 +297,7 @@ void write_dynamic(TypeOutput& out, const ssize_t& value) {
 #endif
 
 void write_dynamic_null(TypeOutput& out) {
-	char* buf = out.write(4);
+	auto* buf = out.write(4);
 	write_value(buf, (uint16_t)1);
 	write_value(buf + 2, (uint16_t)CODE_NULL);
 }
@@ -311,7 +311,7 @@ void write_padding(TypeOutput& out, size_t size) {
 	size -= 6;
 	write(out, uint16_t(CODE_PADDING));
 	write(out, uint32_t(size));
-	char buf[1024] = {};
+	uint8_t buf[1024] = {};
 	while(size > 0) {
 		size_t len = sizeof(buf);
 		if(len > size) {
@@ -336,7 +336,7 @@ void write_byte_code(TypeOutput& out, const uint16_t* code, size_t code_size) {
 }
 
 void write_class_header(TypeOutput& out, const TypeCode* type_code) {
-	char* const buf = out.write(10);
+	auto* const buf = out.write(10);
 	write_value(buf, uint16_t(CODE_TYPE));
 	write_value(buf + 2, uint64_t(type_code->code_hash));
 }

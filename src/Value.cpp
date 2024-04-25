@@ -108,7 +108,7 @@ void accept(Visitor& visitor, const std::nullptr_t& value) {
 }
 
 template<typename T>
-void accept_integral(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const char* p_buf) {
+void accept_integral(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const uint8_t* p_buf) {
 	T v = 0;
 	if(!p_buf || !field || field->is_extended) {
 		read(in, v, type_code, code);
@@ -119,7 +119,7 @@ void accept_integral(Visitor& visitor, TypeInput& in, const TypeCode* type_code,
 }
 
 static
-void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const char* p_buf) {
+void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const uint8_t* p_buf) {
 	if(code) {
 		switch(code[0]) {
 			case CODE_NULL:
@@ -399,9 +399,9 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 		type_code = type_code->depends[code[1]];
 	}
 	
-	std::vector<char> buf(type_code->total_field_size);
+	std::vector<uint8_t> buf(type_code->total_field_size);
 	{
-		const char* data = in.read(type_code->total_field_size);
+		const auto* data = in.read(type_code->total_field_size);
 		::memcpy(buf.data(), data, type_code->total_field_size);
 	}
 	if(type_code->is_enum) {
@@ -861,7 +861,7 @@ void calc_hash_array(TypeInput& in, size_t size, const uint16_t* code, T& func) 
 			if(size < VNX_BUFFER_SIZE) {
 				func.update(in.read(size), size);
 			} else {
-				std::vector<char> buf(size);
+				std::vector<uint8_t> buf(size);
 				in.read(buf.data(), size);
 				func.update(buf.data(), size);
 			}
@@ -904,7 +904,7 @@ void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
 			uint16_t tmp;
 			vnx::read(in, tmp);
 			tmp = vnx::flip_bytes(tmp);
-			func.update((const char*)&tmp, sizeof(tmp));
+			func.update(&tmp, sizeof(tmp));
 			return;
 		}
 		case CODE_ALT_INT32:
@@ -913,7 +913,7 @@ void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
 			uint32_t tmp;
 			vnx::read(in, tmp);
 			tmp = vnx::flip_bytes(tmp);
-			func.update((const char*)&tmp, sizeof(tmp));
+			func.update(&tmp, sizeof(tmp));
 			return;
 		}
 		case CODE_ALT_INT64:
@@ -922,7 +922,7 @@ void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
 			uint64_t tmp;
 			vnx::read(in, tmp);
 			tmp = vnx::flip_bytes(tmp);
-			func.update((const char*)&tmp, sizeof(tmp));
+			func.update(&tmp, sizeof(tmp));
 			return;
 		}
 		case CODE_STRING:
@@ -1007,7 +1007,7 @@ void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
 		case CODE_ALT_ANY: {
 			if(auto value = vnx::read(in)) {
 				const auto type_hash = value->get_type_hash();
-				func.update((const char*)&type_hash.value, sizeof(type_hash.value));
+				func.update(&type_hash.value, sizeof(type_hash.value));
 			}
 			return;
 		}
@@ -1036,7 +1036,7 @@ void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
 			return;
 		}
 		default:
-			func.update((const char*)code, sizeof(uint16_t));
+			func.update(code, sizeof(uint16_t));
 	}
 }
 

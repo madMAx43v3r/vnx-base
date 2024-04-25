@@ -143,14 +143,14 @@ public:
 	 * Get a pointer to at least \p len number of bytes in the buffer.
 	 * Will flush the buffer to the stream if not enough space available.
 	 */
-	char* write(size_t len) {
+	uint8_t* write(size_t len) {
 		if(len > VNX_BUFFER_SIZE) {
 			throw std::invalid_argument("write(): buffer too small");
 		}
 		if(VNX_BUFFER_SIZE - pos < len) {
 			flush();
 		}
-		char* res = buffer + pos;
+		auto* res = buffer + pos;
 		pos += len;
 		return res;
 	}
@@ -205,7 +205,7 @@ public:
 	}
 
 private:
-	char buffer[VNX_BUFFER_SIZE];
+	uint8_t buffer[VNX_BUFFER_SIZE];
 	OutputStream* stream = 0;
 	size_t pos = 0;
 	

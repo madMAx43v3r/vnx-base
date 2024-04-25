@@ -50,9 +50,9 @@ public:
 		update(str.c_str(), str.size());
 	}
 	
-	void update(const char* buf, size_t len) {
+	void update(const void* buf, const size_t len) {
 		for(size_t i = 0; i < len; ++i) {
-			crc = table[(buf[i] ^ crc) & 0xFF] ^ (crc >> 8);
+			crc = table[(((const uint8_t*)buf)[i] ^ crc) & 0xFF] ^ (crc >> 8);
 		}
 	}
 	
