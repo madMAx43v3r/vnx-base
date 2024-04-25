@@ -28,8 +28,6 @@ namespace vnx {
  */
 class Visitor {
 public:
-	bool enable_binary = false;		// visit CODE_ARRAY, CODE_LIST of UINT8 via std::vector<uint8_t>
-
 	virtual ~Visitor() {}
 	
 	virtual void visit_null() = 0;
@@ -45,7 +43,7 @@ public:
 	virtual void visit(const float32_t& value) = 0;
 	virtual void visit(const float64_t& value) = 0;
 	virtual void visit(const std::string& value) = 0;
-	virtual void visit(const std::vector<uint8_t>& value) {}
+	virtual void visit(const uint8_t* data, const size_t length);
 	
 	virtual void list_begin(size_t size) = 0;
 	virtual void list_element(size_t index) = 0;
@@ -99,6 +97,11 @@ void accept(Visitor& visitor, const std::array<T, N>& array) {
 	visitor.list_end(N);
 }
 
+template<size_t N>
+void accept(Visitor& visitor, const std::array<uint8_t, N>& array) {
+	visitor.visit(array.data(), array.size());
+}
+
 template<typename T>
 void accept(Visitor& visitor, const std::vector<T>& vector) {
 	visitor.list_begin(vector.size());
@@ -107,6 +110,10 @@ void accept(Visitor& visitor, const std::vector<T>& vector) {
 		vnx::type<T>().accept(visitor, vector[i]);
 	}
 	visitor.list_end(vector.size());
+}
+
+inline void accept(Visitor& visitor, const std::vector<uint8_t>& vector) {
+	visitor.visit(vector.data(), vector.size());
 }
 
 template<typename T>

@@ -30,6 +30,15 @@ void Visitor::enum_value(uint32_t value, const std::string& name) {
 	}
 }
 
+void Visitor::visit(const uint8_t* data, const size_t length) {
+	list_begin(length);
+	for(size_t i = 0; i < length; ++i) {
+		list_element(i);
+		visit(data[i]);
+	}
+	list_end(length);
+}
+
 void Visitor::map_begin(size_t size) {
 	list_begin(size);
 }
