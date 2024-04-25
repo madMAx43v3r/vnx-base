@@ -256,7 +256,7 @@ void read(TypeInput& in, ::vnx::LogMsg& value, const TypeCode* type_code, const 
 			}
 		}
 	}
-	const char* const _buf = in.read(type_code->total_field_size);
+	const auto* const _buf = in.read(type_code->total_field_size);
 	if(type_code->is_matched) {
 		if(const auto* const _field = type_code->field_map[0]) {
 			vnx::read_value(_buf + _field->offset, value.time, _field->code.data());
@@ -291,7 +291,7 @@ void write(TypeOutput& out, const ::vnx::LogMsg& value, const TypeCode* type_cod
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	char* const _buf = out.write(16);
+	auto* const _buf = out.write(16);
 	vnx::write_value(_buf + 0, value.time);
 	vnx::write_value(_buf + 8, value.level);
 	vnx::write_value(_buf + 12, value.display_level);

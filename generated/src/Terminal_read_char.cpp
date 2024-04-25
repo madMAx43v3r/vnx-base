@@ -169,7 +169,7 @@ void read(TypeInput& in, ::vnx::Terminal_read_char& value, const TypeCode* type_
 			}
 		}
 	}
-	const char* const _buf = in.read(type_code->total_field_size);
+	const auto* const _buf = in.read(type_code->total_field_size);
 	if(type_code->is_matched) {
 		if(const auto* const _field = type_code->field_map[0]) {
 			vnx::read_value(_buf + _field->offset, value.c, _field->code.data());
@@ -195,7 +195,7 @@ void write(TypeOutput& out, const ::vnx::Terminal_read_char& value, const TypeCo
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	char* const _buf = out.write(1);
+	auto* const _buf = out.write(1);
 	vnx::write_value(_buf + 0, value.c);
 }
 

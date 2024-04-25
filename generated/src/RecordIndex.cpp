@@ -208,7 +208,7 @@ void read(TypeInput& in, ::vnx::RecordIndex& value, const TypeCode* type_code, c
 			}
 		}
 	}
-	const char* const _buf = in.read(type_code->total_field_size);
+	const auto* const _buf = in.read(type_code->total_field_size);
 	if(type_code->is_matched) {
 		if(const auto* const _field = type_code->field_map[0]) {
 			vnx::read_value(_buf + _field->offset, value.prev_block, _field->code.data());
@@ -238,7 +238,7 @@ void write(TypeOutput& out, const ::vnx::RecordIndex& value, const TypeCode* typ
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	char* const _buf = out.write(16);
+	auto* const _buf = out.write(16);
 	vnx::write_value(_buf + 0, value.prev_block);
 	vnx::write_value(_buf + 8, value.next_block);
 	vnx::write(out, value.index, type_code, type_code->fields[2].code.data());

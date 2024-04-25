@@ -211,7 +211,7 @@ void read(TypeInput& in, ::vnx::record_topic_info_t& value, const TypeCode* type
 			}
 		}
 	}
-	const char* const _buf = in.read(type_code->total_field_size);
+	const auto* const _buf = in.read(type_code->total_field_size);
 	if(type_code->is_matched) {
 		if(const auto* const _field = type_code->field_map[1]) {
 			vnx::read_value(_buf + _field->offset, value.num_bytes, _field->code.data());
@@ -244,7 +244,7 @@ void write(TypeOutput& out, const ::vnx::record_topic_info_t& value, const TypeC
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	char* const _buf = out.write(24);
+	auto* const _buf = out.write(24);
 	vnx::write_value(_buf + 0, value.num_bytes);
 	vnx::write_value(_buf + 8, value.num_samples);
 	vnx::write_value(_buf + 16, value.num_samples_lost);
