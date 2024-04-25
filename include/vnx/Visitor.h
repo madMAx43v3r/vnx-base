@@ -28,6 +28,10 @@ namespace vnx {
  */
 class Visitor {
 public:
+	bool binary_hexstr = false;			///< if to visit binary data as hex string
+	bool hexstr_prefix = false;			///< if to to prefix hex strings with 0x
+	bool hexstr_lower_case = false;
+
 	virtual ~Visitor() {}
 	
 	virtual void visit_null() = 0;

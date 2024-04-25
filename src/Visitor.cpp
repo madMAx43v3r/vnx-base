@@ -31,12 +31,16 @@ void Visitor::enum_value(uint32_t value, const std::string& name) {
 }
 
 void Visitor::visit(const uint8_t* data, const size_t length) {
-	list_begin(length);
-	for(size_t i = 0; i < length; ++i) {
-		list_element(i);
-		visit(data[i]);
+	if(binary_hexstr) {
+		visit((hexstr_prefix ? "0x" : "") + to_hex_string(data, length, false, hexstr_lower_case));
+	} else {
+		list_begin(length);
+		for(size_t i = 0; i < length; ++i) {
+			list_element(i);
+			visit(data[i]);
+		}
+		list_end(length);
 	}
-	list_end(length);
 }
 
 void Visitor::map_begin(size_t size) {

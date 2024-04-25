@@ -14,6 +14,7 @@ namespace vnx {
 PrettyPrinter::PrettyPrinter(std::ostream& out)
 	:	out(&out)
 {
+	binary_hexstr = true;
 }
 
 void PrettyPrinter::visit_null() { if(out) *out << "null"; }
