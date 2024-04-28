@@ -205,7 +205,9 @@ class SetTerminate
 		{
 			std::set_terminate([]() {
 				try {
-					std::rethrow_exception(std::current_exception());
+					if(auto ex = std::current_exception()) {
+						std::rethrow_exception(ex);
+					}
 				}
 				catch (const std::exception& e) {
 					std::cerr << "Caught exception: " << e.what() << std::endl;
