@@ -141,6 +141,7 @@ if(MSVC)
 		GIT_REPOSITORY https://github.com/tronkko/dirent.git
 		GIT_TAG "a318cee5adaed3dec654773fd0a02723d844461c"
 	)
+	set(DIRENT_BUILD_TESTS "off" CACHE STRING "")
 	FetchContent_MakeAvailable(dirent)
 	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
 	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
