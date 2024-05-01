@@ -132,6 +132,14 @@ void ThreadPool::close() {
 	wait();
 }
 
+void ThreadPool::detach() {
+	exit();
+	for(auto& entry : threads) {
+		entry.second.detach();
+	}
+	threads.clear();
+}
+
 void ThreadPool::main(const int64_t thread_id)
 {
 	std::pair<std::function<void()>, int64_t> entry;

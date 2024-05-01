@@ -71,6 +71,9 @@ public:
 	/// exit() + wait() (thread-safe)
 	void close();
 	
+	/// exit() + detach (thread-safe)
+	void detach();
+
 protected:
 	std::atomic_bool do_run {true};
 	
