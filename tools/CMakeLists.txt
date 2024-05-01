@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.6)
-project(vnx-tools)
 
 add_executable(echo_crc64_table echo_crc64_table.cpp)
 add_executable(vnxdump vnxdump.cpp)
