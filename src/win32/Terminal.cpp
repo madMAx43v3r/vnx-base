@@ -87,6 +87,7 @@ void Terminal::set_terminal_mode(){
 	HANDLE console = GetStdHandle(STD_INPUT_HANDLE);
 	GetConsoleMode(console, &saved_attributes);
 	SetConsoleMode(console, saved_attributes & ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT));
+	SetConsoleOutputCP(CP_UTF8);
 }
 
 
