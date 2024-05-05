@@ -119,7 +119,9 @@ void accept_integral(Visitor& visitor, TypeInput& in, const TypeCode* type_code,
 }
 
 static
-void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const uint8_t* p_buf) {
+void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const uint8_t* p_buf)
+{
+	const bool is_extended = !p_buf || !field || field->is_extended;
 	if(code) {
 		switch(code[0]) {
 			case CODE_NULL:
@@ -187,9 +189,7 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 				switch(value_code[0]) {
 					case CODE_UINT8:
 					case CODE_ALT_UINT8:
-						if(p_buf) {
-							visitor.visit((const uint8_t*)p_buf, size);
-						} else {
+						if(is_extended) {
 							if(size <= VNX_BUFFER_SIZE) {
 								visitor.visit(in.read(size), size);
 							} else {
@@ -197,6 +197,8 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 								in.read(data.data(), data.size());
 								visitor.visit(data.data(), data.size());
 							}
+						} else {
+							visitor.visit((const uint8_t*)p_buf, size);
 						}
 						return;
 				}
@@ -205,7 +207,7 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 				visitor.list_begin(size);
 				for(size_t i = 0; i < size; ++i) {
 					visitor.list_element(i);
-					accept(visitor, in, type_code, value_code, field, p_buf ? p_buf + i * value_size : nullptr);
+					accept(visitor, in, type_code, value_code, field, is_extended ? nullptr : p_buf + i * value_size);
 				}
 				visitor.list_end(size);
 				return;
@@ -303,7 +305,7 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 					visitor.list_begin(total_size);
 					for(size_t i = 0; i < total_size; ++i) {
 						visitor.list_element(i);
-						accept(visitor, in, type_code, value_code, field, p_buf ? p_buf + i * value_size : nullptr);
+						accept(visitor, in, type_code, value_code, field, is_extended ? nullptr : p_buf + i * value_size);
 					}
 					visitor.list_end(total_size);
 				} else {
@@ -319,7 +321,7 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 					visitor.list_begin(total_size);
 					for(size_t i = 0; i < total_size; ++i) {
 						visitor.list_element(i);
-						accept(visitor, in, type_code, value_code, field, p_buf ? p_buf + i * value_size : nullptr);
+						accept(visitor, in, type_code, value_code, field, is_extended ? nullptr : p_buf + i * value_size);
 					}
 					visitor.list_end(total_size);
 					visitor.type_end(2);
