@@ -24,7 +24,11 @@ namespace vnx {
 
 
 std::string get_socket_error_text() {
-	return std::string(std::strerror(errno)) + " (" + std::to_string(errno) + ")";
+	return get_socket_error_text(errno);
+}
+
+std::string get_socket_error_text(const int error) {
+	return std::string(std::strerror(error)) + " (" + std::to_string(error) + ")";
 }
 
 

@@ -248,6 +248,16 @@ void TcpEndpoint::bind(const int32_t& socket) const {
 void TcpEndpoint::connect(const int32_t& socket) const {
 	auto addr = resolve_sockaddr_in(host_name, port);
 	if(::connect(socket, (::sockaddr*)addr.get(), addr->sin_family == AF_INET6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in)) < 0) {
+		if(non_blocking) {
+#ifdef _WIN32
+			if(WSAGetLastError() == WSAEINPROGRESS)
+#else
+			if(errno == EINPROGRESS)
+#endif
+			{
+				return;
+			}
+		}
 		throw std::runtime_error("connect() failed with: " + get_socket_error_text());
 	}
 }

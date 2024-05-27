@@ -18,6 +18,10 @@ std::string get_socket_error_text() {
 	return std::to_string(WSAGetLastError());
 }
 
+std::string get_socket_error_text(const int error) {
+	return std::to_string(error);
+}
+
 
 void set_socket_nonblocking(int fd) {
 	u_long mode = 1;

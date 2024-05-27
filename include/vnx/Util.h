@@ -131,6 +131,8 @@ void set_socket_nonblocking(int fd);
 /// Get error text for last errno
 std::string get_socket_error_text();
 
+std::string get_socket_error_text(const int code);
+
 /// Get this machines host name
 std::string get_host_name();
 
