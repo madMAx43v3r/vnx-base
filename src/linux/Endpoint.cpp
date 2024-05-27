@@ -12,9 +12,7 @@
 #include <arpa/inet.h>
 
 
-
-namespace vnx{
-
+namespace vnx {
 
 ::sockaddr_un get_sockaddr_bypath(const std::string& domain_path) {
 	::sockaddr_un addr;

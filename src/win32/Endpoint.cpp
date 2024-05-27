@@ -7,11 +7,9 @@
 #include <ws2tcpip.h>
 
 
+namespace vnx {
 
-namespace vnx{
-
-
-unsigned int get_port_bypath(const std::string &path){
+unsigned int get_port_bypath(const std::string &path) {
 	return (std::hash<std::string>{}(path) % 10000) + 30000;
 }
 
