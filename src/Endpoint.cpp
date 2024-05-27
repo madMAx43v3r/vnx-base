@@ -250,7 +250,7 @@ void TcpEndpoint::connect(const int32_t& socket) const {
 	if(::connect(socket, (::sockaddr*)addr.get(), addr->sin_family == AF_INET6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in)) < 0) {
 		if(non_blocking) {
 #ifdef _WIN32
-			if(WSAGetLastError() == WSAEINPROGRESS)
+			if(WSAGetLastError() == WSAEWOULDBLOCK)
 #else
 			if(errno == EINPROGRESS)
 #endif
