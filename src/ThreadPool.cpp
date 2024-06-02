@@ -168,6 +168,7 @@ void ThreadPool::main(const int64_t thread_id)
 		try {
 			if(entry.first) {
 				entry.first();
+				entry.first = std::function<void()>();
 			}
 		} catch(const std::exception& ex) {
 			vnx::log_warn() << "ThreadPool: " << ex.what();
