@@ -38,7 +38,7 @@ void Terminal::read_loop_impl(Hash64 service_addr)
 
 	while(vnx::do_run())
 	{
-		if(!poll_fd_ex(0, POLLIN, 100)) {
+		if(!poll_fd_ex(::fileno(stdin), POLLIN, 100)) {
 			continue;
 		}
 		const auto c = std::getchar();
