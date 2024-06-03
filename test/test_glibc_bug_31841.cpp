@@ -16,12 +16,15 @@ int main()
 		std::getchar();
 	});
 
+	// make sure getchar() is called first
+	usleep(100000);
+
 	std::thread close_thread([]() {
 		// _IO_un_link() will lock `list_all_lock` and get stuck on _IO_flockfile(stdin)
 		fclose(stdin);
 	});
 
-	// make sure the threads have started
+	// make sure fclose() has been called
 	usleep(100000);
 
 	// will get stuck here trying to lock `list_all_lock` in _IO_link_in()
