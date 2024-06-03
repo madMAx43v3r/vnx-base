@@ -7,8 +7,24 @@
 
 #include <vnx/vnx.h>
 #include <vnx/Terminal.h>
-#include <termios.h>
 #include <limits>
+
+#include <termios.h>
+#include <sys/poll.h>
+
+
+static int poll_fd_ex(const int fd, const int events, const int timeout_ms)
+{
+	::pollfd entry = {};
+	entry.fd = fd;
+	entry.events = events;
+
+	const auto ret = ::poll(&entry, 1, timeout_ms);
+	if(ret < 0) {
+		throw std::runtime_error("poll() failed with: " + std::string(std::strerror(errno)));
+	}
+	return ret;
+}
 
 
 namespace vnx {
@@ -16,20 +32,25 @@ namespace vnx {
 termios Terminal::saved_attributes = {0};
 
 
-void Terminal::read_loop_impl(Hash64 service_addr) {
+void Terminal::read_loop_impl(Hash64 service_addr)
+{
 	TerminalClient terminal(service_addr);
 
-	while(vnx::do_run()) {
+	while(vnx::do_run())
+	{
+		if(!poll_fd_ex(0, POLLIN, 100)) {
+			continue;
+		}
 		const auto c = std::getchar();
 		if(c == EOF){
 			break;
 		}else if(c == 27){
 			// ESC
-			const auto c2 = getchar();
+			const auto c2 = std::getchar();
 			if(c2 == EOF){
 				break;
 			}else if(c2 == '['){
-				const auto c3 = getchar();
+				const auto c3 = std::getchar();
 				if(c3 == EOF){
 					break;
 				}else if(c3 == 'A'){
@@ -45,7 +66,7 @@ void Terminal::read_loop_impl(Hash64 service_addr) {
 				}else if(c3 == 'F'){
 					terminal.read_event_async(terminal_event_e::KEY_END);
 				}else if(c3 == '3'){
-					char c4 = getchar();
+					char c4 = std::getchar();
 					if(c4 == '~'){
 						terminal.read_event_async(terminal_event_e::KEY_DEL);
 					}
