@@ -32,3 +32,6 @@ target_link_libraries(test_config vnx_test)
 
 add_executable(test_json_parse test_json_parse.cpp)
 target_link_libraries(test_json_parse vnx_base)
+
+add_executable(test_glibc_bug_31841 test_glibc_bug_31841.cpp)
+target_link_libraries(test_glibc_bug_31841 Threads::Threads)
