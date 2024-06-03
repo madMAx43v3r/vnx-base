@@ -12,14 +12,19 @@
 int main()
 {
 	std::thread read_thread([]() {
-		std::getchar();		// blocking read on stdin
+		// blocking read on stdin
+		std::getchar();
 	});
 
 	std::thread close_thread([]() {
-		// try to close stdin, will lock list_all_lock and block on _IO_flockfile(stdin)
-		close(0);
+		// _IO_un_link() will lock `list_all_lock` and get stuck on _IO_flockfile(stdin)
+		fclose(stdin);
 	});
 
+	// make sure the threads have started
+	usleep(100000);
+
+	// will get stuck here trying to lock `list_all_lock` in _IO_link_in()
 	std::ofstream out("out.txt");
 	out << "test" << std::endl;
 	out.close();
