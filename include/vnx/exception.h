@@ -54,6 +54,9 @@ private:
 
 class permission_denied : public std::runtime_error {
 public:
+	permission_denied()
+		:	runtime_error("permission denied") {}
+
 	permission_denied(const std::string& perm)
 		:	runtime_error("permission denied (" + perm + ")") {}
 
