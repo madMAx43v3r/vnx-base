@@ -243,10 +243,10 @@ protected:
 	/// %Process a resent Sample (special cases only)
 	virtual void handle_resend(std::shared_ptr<const Sample> sample) {}
 
-	/// Call handle() function for a Sample (internal use and special cases only)
+	/// Call handle() function for a Sample (internal use and special cases only) [thread-safe internally only]
 	virtual void vnx_handle_switch(std::shared_ptr<const Value> value) = 0;
 
-	/// Call service function for a Request (internal use and special cases only)
+	/// Call service function for a Request (internal use and special cases only) [thread-safe internally only]
 	virtual std::shared_ptr<Value> vnx_call_switch(std::shared_ptr<const Value> method, const vnx::request_id_t& request_id) = 0;
 
 	/// Sends a Return back to the client [thread-safe]

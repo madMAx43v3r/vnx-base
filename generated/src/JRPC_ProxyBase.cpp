@@ -723,7 +723,6 @@ std::shared_ptr<vnx::Value> JRPC_ProxyBase::vnx_call_switch(std::shared_ptr<cons
 		}
 	}
 	auto _ex = vnx::NoSuchMethod::create();
-	_ex->dst_mac = vnx_request ? vnx_request->dst_mac : vnx::Hash64();
 	_ex->method = _method->get_type_name();
 	return _ex;
 }
