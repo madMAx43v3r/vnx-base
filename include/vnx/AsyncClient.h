@@ -49,6 +49,7 @@ public:
 	
 	/// Returns the number of pending requests
 	size_t vnx_get_num_pending() const {
+		std::lock_guard<std::mutex> _lock(vnx_mutex);
 		return vnx_pending.size();
 	}
 	
