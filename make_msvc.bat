@@ -4,5 +4,5 @@
 
 mkdir build
 
-cmake -B build -G Ninja -D CMAKE_BUILD_TYPE="Release" -D VNX_BUILD_TOOLS=ON
+cmake -B build -G Ninja -D CMAKE_BUILD_TYPE="Release" -D VNX_BUILD_TOOLS=ON -D VNX_BUILD_TESTS=ON
 cmake --build build -- -k0
