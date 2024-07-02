@@ -10,3 +10,4 @@ cd build
 
 ./test/test_config -c ../test/config/ > /dev/null
 
+echo "ALL TESTS PASSED!"
