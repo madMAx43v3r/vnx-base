@@ -58,10 +58,10 @@ std::vector<std::shared_ptr<File>> Directory::files(bool hidden, bool system) co
 	std::vector<std::shared_ptr<File>> result;
 
 	if (!std::filesystem::exists(path)) {
-		throw std::runtime_error("Error opening directory '" + path + "'");
+		throw std::runtime_error("failed to open directory '" + path + "'");
 	}
 
-	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path + '\\')) {
 		if (std::filesystem::is_regular_file(dir_entry)) {
 			DWORD attributes = GetFileAttributes(dir_entry.path().string().c_str());
 			if ((hidden || !(attributes & FILE_ATTRIBUTE_HIDDEN))
@@ -79,10 +79,10 @@ std::vector<std::shared_ptr<Directory>> Directory::directories(bool hidden, bool
 	std::vector<std::shared_ptr<Directory>> result;
 
 	if (!std::filesystem::exists(path)) {
-		throw std::runtime_error("Error opening directory '" + path + "'");
+		throw std::runtime_error("failed to open directory '" + path + "'");
 	}
 
-	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path + '\\')) {
 		if (std::filesystem::is_directory(dir_entry)) {
 			DWORD attributes = GetFileAttributes(dir_entry.path().string().c_str());
 			if ((hidden || !(attributes & FILE_ATTRIBUTE_HIDDEN))
@@ -100,10 +100,10 @@ std::vector<std::shared_ptr<File>> Directory::all_files() const {
 	std::vector<std::shared_ptr<File>> result;
 
 	if (!std::filesystem::exists(path)) {
-		throw std::runtime_error("Error opening directory '" + path + "'");
+		throw std::runtime_error("failed to open directory '" + path + "'");
 	}
 
-	for (auto const& dir_entry : std::filesystem::directory_iterator(path)) {
+	for (auto const& dir_entry : std::filesystem::directory_iterator(path + '\\')) {
         result.push_back(std::make_shared<File>(dir_entry.path().string()));
     }
 
@@ -112,16 +112,19 @@ std::vector<std::shared_ptr<File>> Directory::all_files() const {
 
 std::string Directory::get_path() const {
 	std::string result = path;
-	if(!result.empty()) {
+	if(!result.empty() && result.back() != '/' && result.back() != '\\') {
 		result += '\\';
 	}
 	return result;
 }
 
 std::string Directory::get_name() const {
+	if(path.size() == 2 && path[1] == ':') {
+		return path;
+	}
 	std::string result = path;
 	const size_t pos = result.find_last_of("/\\");
-	if(pos != std::string::npos && pos != 0) {
+	if(pos != std::string::npos) {
 		result = result.substr(pos + 1);
 	}
 	return result;

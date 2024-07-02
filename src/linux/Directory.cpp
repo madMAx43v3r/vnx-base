@@ -167,16 +167,19 @@ std::vector<std::shared_ptr<File>> Directory::all_files() const {
 
 std::string Directory::get_path() const {
 	std::string result = path;
-	if(!result.empty()) {
+	if(!result.empty() && result.back() != '/') {
 		result += '/';
 	}
 	return result;
 }
 
 std::string Directory::get_name() const {
+	if(path == "/") {
+		return path;
+	}
 	std::string result = path;
 	const size_t pos = result.find_last_of('/');
-	if(pos != std::string::npos && pos != 0) {
+	if(pos != std::string::npos) {
 		result = result.substr(pos + 1);
 	}
 	return result;
