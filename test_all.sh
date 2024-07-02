@@ -2,9 +2,11 @@
 
 set -e
 
-./build/test/test_input_output > /dev/null
+cd build
 
-./build/test/test_variant > /dev/null
+./test/test_input_output > /dev/null
 
-./build/test/test_config -c test/config/ > /dev/null
+./test/test_variant > /dev/null
+
+./test/test_config -c ../test/config/ > /dev/null
 
