@@ -119,6 +119,9 @@ std::string Directory::get_path() const {
 }
 
 std::string Directory::get_name() const {
+	if(path == "/" || path == "\\") {
+		return path;
+	}
 	if(path.size() == 2 && path[1] == ':') {
 		return path;
 	}
