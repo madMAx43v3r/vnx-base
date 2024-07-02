@@ -19,7 +19,7 @@ if(MSVC)
 	set_target_properties(vnx_test PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
-target_link_libraries(vnx_test vnx_base)
+target_link_libraries(vnx_test vnx_base_static)
 
 add_executable(test_input_output test_input_output.cpp)
 target_link_libraries(test_input_output vnx_test)
@@ -31,7 +31,7 @@ add_executable(test_config test_config.cpp)
 target_link_libraries(test_config vnx_test)
 
 add_executable(test_json_parse test_json_parse.cpp)
-target_link_libraries(test_json_parse vnx_base)
+target_link_libraries(test_json_parse vnx_base_static)
 
 # add_executable(test_glibc_bug_31841 test_glibc_bug_31841.cpp)
 # target_link_libraries(test_glibc_bug_31841 Threads::Threads)
