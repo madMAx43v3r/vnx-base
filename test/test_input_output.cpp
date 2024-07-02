@@ -1026,6 +1026,39 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("File::get_extension()")
+	{
+		{
+			vnx::File file("test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("/test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("/tmp/test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("C:/test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("C:\\test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("C:/tmp/test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+		{
+			vnx::File file("C:\\tmp\\test.dat");
+			expect(file.get_extension(), ".dat");
+		}
+	}
+	VNX_TEST_END()
+
 	vnx::static_cleanup();
 
 	return vnx::test::done();
