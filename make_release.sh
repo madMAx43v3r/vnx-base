@@ -9,7 +9,7 @@ cd build
 if [ `uname -o` == "Msys" ]; then
 	cmake -G "MSYS Makefiles" -D VNX_BUILD_TOOLS=ON -D CMAKE_BUILD_TYPE=Release ..
 else
-	cmake -D VNX_BUILD_TOOLS=ON ..
+	cmake -D VNX_BUILD_TOOLS=ON -D CMAKE_BUILD_TYPE=Release ..
 fi
 
 make -j$MAKE_NCPU $@
