@@ -20,6 +20,7 @@
 #include <vnx/permission_e.hxx>
 #include <vnx/SHA256.h>
 #include <vnx/File.h>
+#include <vnx/Directory.h>
 
 #include <vnx/test/Test.h>
 #include <vnx/test/TestValue.hxx>
@@ -1056,6 +1057,102 @@ int main() {
 			vnx::File file("C:\\tmp\\test.dat");
 			expect(file.get_extension(), ".dat");
 		}
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("Directory::get_path()")
+	{
+#ifdef _WIN32
+		{
+			vnx::Directory dir("\\");
+			expect(dir.get_path(), "\\");
+		}
+		{
+			vnx::Directory dir("\\\\\\");
+			expect(dir.get_path(), "\\");
+		}
+		{
+			vnx::Directory dir("C:");
+			expect(dir.get_path(), "C:\\");
+		}
+		{
+			vnx::Directory dir("C:\\");
+			expect(dir.get_path(), "C:\\");
+		}
+		{
+			vnx::Directory dir("C:\\tmp");
+			expect(dir.get_path(), "C:\\tmp\\");
+		}
+		{
+			vnx::Directory dir("C:\\tmp\\\\\\");
+			expect(dir.get_path(), "C:\\tmp\\");
+		}
+#else
+		{
+			vnx::Directory dir("/");
+			expect(dir.get_path(), "/");
+		}
+		{
+			vnx::Directory dir("///");
+			expect(dir.get_path(), "/");
+		}
+		{
+			vnx::Directory dir("/tmp");
+			expect(dir.get_path(), "/tmp/");
+		}
+		{
+			vnx::Directory dir("/tmp///");
+			expect(dir.get_path(), "/tmp/");
+		}
+#endif
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("Directory::get_name()")
+	{
+#ifdef _WIN32
+		{
+			vnx::Directory dir("\\");
+			expect(dir.get_name(), "\\");
+		}
+		{
+			vnx::Directory dir("\\\\\\");
+			expect(dir.get_name(), "\\");
+		}
+		{
+			vnx::Directory dir("C:");
+			expect(dir.get_name(), "C:");
+		}
+		{
+			vnx::Directory dir("C:\\");
+			expect(dir.get_name(), "C:");
+		}
+		{
+			vnx::Directory dir("C:\\tmp");
+			expect(dir.get_name(), "tmp");
+		}
+		{
+			vnx::Directory dir("C:\\tmp\\\\\\");
+			expect(dir.get_name(), "tmp");
+		}
+#else
+		{
+			vnx::Directory dir("/");
+			expect(dir.get_name(), "/");
+		}
+		{
+			vnx::Directory dir("///");
+			expect(dir.get_name(), "/");
+		}
+		{
+			vnx::Directory dir("/tmp");
+			expect(dir.get_name(), "tmp");
+		}
+		{
+			vnx::Directory dir("/tmp///");
+			expect(dir.get_name(), "tmp");
+		}
+#endif
 	}
 	VNX_TEST_END()
 
