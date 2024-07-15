@@ -102,7 +102,7 @@ std::string get_peer_address(int sock) {
 			::inet_ntop(AF_INET6, &((::sockaddr_in6*)p_sock_addr)->sin6_addr, address, sizeof(address));
 			break;
 	}
-	return std::string();
+	return std::string(address);
 }
 
 
