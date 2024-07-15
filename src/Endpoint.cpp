@@ -28,6 +28,7 @@
 #else
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
@@ -36,35 +37,34 @@
 
 namespace vnx {
 
-static std::unique_ptr<sockaddr_in> resolve_sockaddr_in(const std::string& host_name, int port) {
-	static std::mutex mutex;
-	std::lock_guard<std::mutex> lock(mutex);
+static std::unique_ptr<sockaddr_in> resolve_sockaddr_in(const std::string& host_name, const int port)
+{
+	addrinfo hints = {};
+	hints.ai_family = AF_UNSPEC;		// AF_INET or AF_INET6 to force version
+	hints.ai_socktype = SOCK_STREAM;
 
-	::hostent* host = ::gethostbyname(host_name.c_str());
-	if(!host || !host->h_addr_list[0]) {
+	addrinfo* res = nullptr;
+	if(::getaddrinfo(host_name.c_str(), std::to_string(port).c_str(), &hints, &res)) {
 		throw std::runtime_error("could not resolve: '" + host_name + "'");
 	}
-	switch(host->h_addrtype) {
-		case AF_INET: {
-			auto out = new sockaddr_in();
-			::memset(out, 0, sizeof(sockaddr_in));
-			out->sin_family = host->h_addrtype;
-			out->sin_port = ::htons(port);
-			::memcpy(&out->sin_addr, host->h_addr_list[0], host->h_length);
-			return std::unique_ptr<sockaddr_in>(out);
+	for(auto host = res; host != nullptr; host = host->ai_next) {
+		switch(host->ai_family) {
+			case AF_INET: {
+				auto out = new sockaddr_in();
+				::memcpy(out, host->ai_addr, sizeof(sockaddr_in));
+				::freeaddrinfo(res);
+				return std::unique_ptr<sockaddr_in>(out);
+			}
+			case AF_INET6: {
+				auto out = new sockaddr_in6();
+				::memcpy(out, host->ai_addr, sizeof(sockaddr_in6));
+				::freeaddrinfo(res);
+				return std::unique_ptr<sockaddr_in>((sockaddr_in*)out);
+			}
 		}
-		case AF_INET6: {
-			auto out = new sockaddr_in6();
-			::memset(out, 0, sizeof(sockaddr_in6));
-			out->sin6_family = host->h_addrtype;
-			out->sin6_port = ::htons(port);
-			::memcpy(&out->sin6_addr, host->h_addr_list[0], host->h_length);
-			return std::unique_ptr<sockaddr_in>((sockaddr_in*)out);
-		}
-		default:
-			throw std::runtime_error("invalid host->h_addrtype");
 	}
-	return nullptr;
+	::freeaddrinfo(res);
+	throw std::runtime_error("missing AF_INET/6 for: '" + host_name + "'");
 }
 
 static void set_socket_options(int sock, int send_buffer_size, int receive_buffer_size) {
