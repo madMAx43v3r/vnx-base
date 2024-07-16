@@ -55,6 +55,10 @@ static std::unique_ptr<sockaddr_in> resolve_sockaddr_in(const std::string& host_
 				::freeaddrinfo(res);
 				return std::unique_ptr<sockaddr_in>(out);
 			}
+		}
+	}
+	for(auto host = res; host != nullptr; host = host->ai_next) {
+		switch(host->ai_family) {
 			case AF_INET6: {
 				auto out = new sockaddr_in6();
 				::memcpy(out, host->ai_addr, sizeof(sockaddr_in6));
