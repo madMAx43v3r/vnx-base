@@ -33,7 +33,11 @@ File::File(const std::string& path_) : File() {
 }
 
 File::~File() {
-	close();
+	try{
+		close();
+	}catch(...){
+		// no exceptions in destructors
+	}
 }
 
 void File::open(const std::string& path_, const std::string& mode) {
