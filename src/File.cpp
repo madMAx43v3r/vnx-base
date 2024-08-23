@@ -202,12 +202,12 @@ void File::close() {
 	if(p_file) {
 		out.flush();
 		unlock();
-		if(::fclose(p_file)) {
-			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
-		}
 		p_file = nullptr;
 		stream_in.reset(nullptr);
 		stream_out.reset(nullptr);
+		if(::fclose(p_file)) {
+			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
+		}
 	}
 }
 
