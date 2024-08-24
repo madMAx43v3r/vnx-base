@@ -33,7 +33,11 @@ File::File(const std::string& path_) : File() {
 }
 
 File::~File() {
-	close();
+	try{
+		close();
+	}catch(...){
+		// no exceptions in destructors
+	}
 }
 
 void File::open(const std::string& path_, const std::string& mode) {
@@ -202,12 +206,13 @@ void File::close() {
 	if(p_file) {
 		out.flush();
 		unlock();
-		if(::fclose(p_file)) {
-			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
-		}
+		const auto error = ::fclose(p_file);
 		p_file = nullptr;
 		stream_in.reset(nullptr);
 		stream_out.reset(nullptr);
+		if(error) {
+			throw std::runtime_error("fclose('" + path + "') failed with: " + std::string(::strerror(errno)));
+		}
 	}
 }
 
