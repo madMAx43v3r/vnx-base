@@ -80,10 +80,7 @@ void Buffer::reset() {
 
 inline
 std::string Buffer::as_string() const {
-	std::string result;
-	result.resize(size_);
-	::memcpy(&result[0], data_, size_);
-	return result;
+	return std::string((const char*)data_, size_);
 }
 
 
