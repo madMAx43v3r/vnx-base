@@ -441,6 +441,12 @@ struct is_equivalent<std::tuple<T...>> {
 /// Same as is_equivalent but based on two codes (does not consider native padding)
 bool is_equivalent_code(const uint16_t* code_lhs, const uint16_t* code_rhs);
 
+/// Returns true if type is a generated class or struct
+template<typename T>
+constexpr bool is_object() {
+	return std::is_base_of<struct_t, T>::value || std::is_base_of<Value, T>::value;
+}
+
 /// \private
 inline void create_dynamic_code(std::vector<uint16_t>& code, const bool& value, bool special = false) { code.push_back(CODE_BOOL); }
 /// \private

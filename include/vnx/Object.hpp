@@ -44,8 +44,8 @@ bool Object::instanceof() const {
 	return false;
 }
 
-template<typename T>
-void Object::accept_generic(T& visitor) const {
+template<typename V>
+void Object::accept_generic(V& visitor) const {
 	visitor.template type_begin<Object>(field.size());
 	size_t i = 0;
 	for(const auto& entry : field) {
@@ -53,6 +53,11 @@ void Object::accept_generic(T& visitor) const {
 		entry.second.accept_generic(visitor);
 	}
 	visitor.template type_end<Object>(field.size());
+}
+
+template<typename V>
+void accept_generic(V& visitor, const Object& value) {
+	value.accept_generic(visitor);
 }
 
 

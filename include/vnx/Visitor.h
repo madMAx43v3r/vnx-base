@@ -256,6 +256,28 @@ void accept_image(Visitor& visitor, const T* data, const std::array<size_t, N>& 
 	accept_matrix(visitor, data, size);
 }
 
+#if __cplusplus >= 201703L
+
+template<typename V, typename T>
+void accept_generic(V& visitor, const T& value) {
+	if constexpr(is_object<T>()) {
+		value.accept_generic(visitor);
+	} else {
+		visitor.accept(value);
+	}
+}
+
+template<typename V, typename T>
+void accept_generic(V& visitor, std::shared_ptr<T> value) {
+	if(value) {
+		vnx::accept_generic(visitor, *value);
+	} else {
+		visitor.accept(nullptr);
+	}
+}
+
+#endif	// 201703L
+
 template<typename T>
 void type<T>::accept(Visitor& visitor, const T& value) {
 	vnx::accept(visitor, value);

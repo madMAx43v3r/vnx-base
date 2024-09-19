@@ -119,8 +119,8 @@ public:
 		vnx::accept(visitor, *this);
 	}
 	
-	template<typename T>
-	void accept_generic(T& visitor) const;
+	template<typename V>
+	void accept_generic(V& visitor) const;
 
 	Object to_object() const override {
 		return *this;
