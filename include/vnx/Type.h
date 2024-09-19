@@ -86,6 +86,8 @@ typedef bool bool_t;			///< bool type
 typedef float float32_t;		///< 32-bit IEEE float type
 typedef double float64_t;		///< 64-bit IEEE float type
 
+struct struct_t {};				///< base class for all generated structs
+
 class Buffer;
 class Memory;
 class Visitor;
