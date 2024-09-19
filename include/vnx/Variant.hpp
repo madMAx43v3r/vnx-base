@@ -62,6 +62,41 @@ Object Variant::to_object() const {
 	return to<Object>();
 }
 
+template<typename T>
+void Variant::accept_generic(T& visitor) const {
+	if(is_null()) {
+		visitor.accept(nullptr);
+	}
+	else if(is_bool()) {
+		visitor.accept(to<bool>());
+	}
+	else if(is_ulong()) {
+		visitor.accept(to<uint64_t>());
+	}
+	else if(is_long()) {
+		visitor.accept(to<int64_t>());
+	}
+	else if(is_double()) {
+		visitor.accept(to<double>());
+	}
+	else if(is_string()) {
+		visitor.accept(to_string_value());
+	}
+	else if(is_object()) {
+		visitor.accept(to_object());
+	}
+	else if(is_array()) {
+		visitor.accept(to<std::vector<Variant>>());
+	}
+	else if(is_map()) {
+		visitor.accept(to<std::map<Variant, Variant>>());
+	}
+	else {
+		visitor.accept(to_string());
+	}
+	// TODO: tuple
+}
+
 inline
 std::ostream& operator<<(std::ostream& out, const Variant& value) {
 	vnx::write(out, value);

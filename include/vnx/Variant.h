@@ -221,6 +221,9 @@ public:
 	
 	Object to_object() const;
 	
+	template<typename T>
+	void accept_generic(T& visitor) const;
+
 	friend std::ostream& operator<<(std::ostream& out, const Variant& value);
 	
 	friend std::istream& operator>>(std::istream& in, Variant& value);

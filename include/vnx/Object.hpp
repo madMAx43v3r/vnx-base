@@ -44,6 +44,17 @@ bool Object::instanceof() const {
 	return false;
 }
 
+template<typename T>
+void Object::accept_generic(T& visitor) const {
+	visitor.template type_begin<Object>(field.size());
+	size_t i = 0;
+	for(const auto& entry : field) {
+		visitor.type_field(entry.first, i++);
+		entry.second.accept_generic(visitor);
+	}
+	visitor.template type_end<Object>(field.size());
+}
+
 
 } // vnx
 

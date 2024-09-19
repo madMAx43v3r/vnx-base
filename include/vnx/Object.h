@@ -119,6 +119,9 @@ public:
 		vnx::accept(visitor, *this);
 	}
 	
+	template<typename T>
+	void accept_generic(T& visitor) const;
+
 	Object to_object() const override {
 		return *this;
 	}
@@ -153,6 +156,10 @@ public:
 	/// Returns true if this object is an instance of T
 	template<typename T>
 	bool instanceof() const;
+
+	static const TypeCode* static_get_type_code() {
+		return nullptr;
+	}
 
 	friend std::ostream& operator<<(std::ostream& out, const Object& value);
 	
