@@ -18,6 +18,7 @@
 #define INCLUDE_VNX_OUTPUT_HPP_
 
 #include <vnx/Output.h>
+#include <vnx/PrettyPrinter.h>
 #include <vnx/ToStringValue.h>
 #include <vnx/Directory.h>
 #include <vnx/File.h>
@@ -49,6 +50,16 @@ std::string to_string_value(const std::string& value) {
 template<typename T>
 std::string to_string_value_full(const T& value) {
 	return to_string_value(value);
+}
+
+/// Converts to string using PrettyPrinter
+template<typename T>
+std::string to_pretty_string(const T& value) {
+	std::stringstream ss;
+	PrettyPrinter printer(ss);
+	vnx::accept(printer, value);
+	ss << std::endl;
+	return ss.str();
 }
 
 
