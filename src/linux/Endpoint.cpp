@@ -73,7 +73,9 @@ void UnixEndpoint::connect(const int32_t& socket) const {
 
 
 void TcpEndpoint::close(const int32_t& socket) const {
-	::close(socket);
+	if(socket >= 0) {
+		::close(socket);
+	}
 }
 
 
