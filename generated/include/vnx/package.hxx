@@ -1332,6 +1332,319 @@ void accept(Visitor& visitor, const ::vnx::record_topic_info_t& value); ///< \pr
 void accept(Visitor& visitor, const ::vnx::terminal_event_e& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::thread_priority_e& value); ///< \private
 
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Endpoint> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Exception> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::FlowMessage> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Frame> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::GatewayInterface_forward> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::GatewayInterface_forward_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Generic> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::InternalError> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Error> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Failure> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Notification> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Proxy_select_service> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Proxy_select_service_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Request> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Response> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::JRPC_Success> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::LogMsg> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Marker> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Message> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInfo> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_config> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_config_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_config_object> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_config_object_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_module_info> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_module_info_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_type_code> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_get_type_code_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_restart> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_restart_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_self_test> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_self_test_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_set_config> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_set_config_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_set_config_object> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_set_config_object_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_stop> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ModuleInterface_vnx_stop_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::NoSuchMethod> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::NoSuchService> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::OverflowException> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::PermissionDenied> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_get_info> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_get_info_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_pause> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_pause_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_play> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_play_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_by_count> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_by_count_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_by_time> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_by_time_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_to_position> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_to_position_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_to_time> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_seek_to_time_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_set_speed> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_set_speed_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_stop> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_stop_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_toggle> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Player_toggle_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::PlayerStatus> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_global_config> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_global_config_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_module_info> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_module_info_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_name> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_name_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_process_info> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_process_info_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_sync_time> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_sync_time_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_topic_info> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_get_topic_info_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_grep_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_grep_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_journal_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_journal_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_pause_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_pause_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_reload_config> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_reload_config_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_resume_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_resume_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_self_test_all> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_self_test_all_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_set_debug> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_set_debug_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_set_global_config> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_set_global_config_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_show_error_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_show_error_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_trigger_shutdown> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_trigger_shutdown_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_ungrep_log> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Process_ungrep_log_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProcessInfo> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_export> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_export_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_forward> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_forward_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_import> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_import_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_tunnel> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_disable_tunnel_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_export> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_export_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_forward> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_forward_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_import> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_import_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_tunnel> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_enable_tunnel_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_get_session> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_get_session_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_login> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_login_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_connect> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_connect_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_disconnect> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_disconnect_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_login> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_login_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_remote_connect> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_remote_connect_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_remote_login> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_on_remote_login_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_wait_on_connect> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_wait_on_connect_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_wait_on_disconnect> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::ProxyInterface_wait_on_disconnect_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RecordHeader> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RecordIndex> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RecordPointer> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RecorderStatus> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Request> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RequestQueue_clear> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RequestQueue_clear_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RequestQueue_purge> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::RequestQueue_purge_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Sample> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Session> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::TcpEndpoint> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Terminal_read_char> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Terminal_read_char_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Terminal_read_event> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Terminal_read_event_return> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::TimeControl> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::TimeSync> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::TopicInfo> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::TopicInfoList> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Tuple> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::UnixEndpoint> value); ///< \private
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::User> value); ///< \private
+
 /// \private
 template<>
 struct type<::vnx::BaseProxyBase> {

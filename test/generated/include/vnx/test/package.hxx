@@ -50,6 +50,9 @@ void write(std::ostream& out, const ::vnx::test::test_struct_t& value); ///< \pr
 void accept(Visitor& visitor, const ::vnx::test::TestValue& value); ///< \private
 void accept(Visitor& visitor, const ::vnx::test::test_struct_t& value); ///< \private
 
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::test::TestValue> value); ///< \private
+
 /// \private
 template<>
 struct type<::vnx::test::TestValue> {
