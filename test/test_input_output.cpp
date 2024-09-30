@@ -1162,10 +1162,10 @@ int main() {
 		expect(to_big_endian<uint8_t>(0x11), 0x11);
 		const auto test_16 = to_big_endian<uint16_t>(0xFF00);
 		expect(to_hex_string(&test_16, 2, false, false), "FF00");
-		const auto test_32 = to_big_endian<uint32_t>(0xFFFF0000);
-		expect(to_hex_string(&test_32, 4, false, false), "FFFF0000");
-		const auto test_64 = to_big_endian<uint64_t>(0xFFFF0000);
-		expect(to_hex_string(&test_64, 8, false, false), "00000000FFFF0000");
+		const auto test_32 = to_big_endian<uint32_t>(0xAABB0000);
+		expect(to_hex_string(&test_32, 4, false, false), "AABB0000");
+		const auto test_64 = to_big_endian<uint64_t>(0xAABB0000);
+		expect(to_hex_string(&test_64, 8, false, false), "00000000AABB0000");
 	}
 	VNX_TEST_END()
 
@@ -1174,10 +1174,28 @@ int main() {
 		expect(to_little_endian<uint8_t>(0x11), 0x11);
 		const auto test_16 = to_little_endian<uint16_t>(0xFF00);
 		expect(to_hex_string(&test_16, 2, true, false), "FF00");
-		const auto test_32 = to_little_endian<uint32_t>(0xFFFF0000);
-		expect(to_hex_string(&test_32, 4, true, false), "FFFF0000");
-		const auto test_64 = to_little_endian<uint64_t>(0xFFFF0000);
-		expect(to_hex_string(&test_64, 8, true, false), "00000000FFFF0000");
+		const auto test_32 = to_little_endian<uint32_t>(0xAABB0000);
+		expect(to_hex_string(&test_32, 4, true, false), "AABB0000");
+		const auto test_64 = to_little_endian<uint64_t>(0xAABB0000);
+		expect(to_hex_string(&test_64, 8, true, false), "00000000AABB0000");
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("from_big_endian()")
+	{
+		expect(from_big_endian(to_big_endian<uint8_t>(0x11)), 0x11);
+		expect(from_big_endian(to_big_endian<uint16_t>(0xFF00)), 0xFF00);
+		expect(from_big_endian(to_big_endian<uint32_t>(0xAABB0000)), 0xAABB0000);
+		expect(from_big_endian(to_big_endian<uint64_t>(0xAABB0000)), 0xAABB0000);
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("from_little_endian()")
+	{
+		expect(from_little_endian(to_little_endian<uint8_t>(0x11)), 0x11);
+		expect(from_little_endian(to_little_endian<uint16_t>(0xFF00)), 0xFF00);
+		expect(from_little_endian(to_little_endian<uint32_t>(0xAABB0000)), 0xAABB0000);
+		expect(from_little_endian(to_little_endian<uint64_t>(0xAABB0000)), 0xAABB0000);
 	}
 	VNX_TEST_END()
 
@@ -1185,3 +1203,6 @@ int main() {
 
 	return vnx::test::done();
 }
+
+
+

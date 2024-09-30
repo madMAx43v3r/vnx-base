@@ -41,6 +41,7 @@ void read_generic(TypeInput& in, T& value) {
 	}
 }
 
+/// Converts native integer to big-endian
 template<typename T>
 T to_big_endian(const T& value) {
 	union {
@@ -53,6 +54,7 @@ T to_big_endian(const T& value) {
 	return tmp.out;
 }
 
+/// Converts native integer to little-endian
 template<typename T>
 T to_little_endian(const T& value) {
 	union {
@@ -63,6 +65,36 @@ T to_little_endian(const T& value) {
 		tmp.buf[i] = (value >> (i * 8));
 	}
 	return tmp.out;
+}
+
+/// Converts big-endian to native integer
+template<typename T>
+T from_big_endian(const T& value) {
+	union {
+		T in;
+		uint8_t buf[sizeof(T)];
+	} tmp;
+	tmp.in = value;
+	T out = 0;
+	for(size_t i = 0; i < sizeof(T); ++i) {
+		out |= (T(tmp.buf[i]) << ((sizeof(T) - i - 1) * 8));
+	}
+	return out;
+}
+
+/// Converts little-endian to native integer
+template<typename T>
+T from_little_endian(const T& value) {
+	union {
+		T in;
+		uint8_t buf[sizeof(T)];
+	} tmp;
+	tmp.in = value;
+	T out = 0;
+	for(size_t i = 0; i < sizeof(T); ++i) {
+		out |= (T(tmp.buf[i]) << (i * 8));
+	}
+	return out;
 }
 
 
