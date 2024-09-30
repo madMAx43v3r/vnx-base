@@ -21,6 +21,7 @@
 #include <vnx/SHA256.h>
 #include <vnx/File.h>
 #include <vnx/Directory.h>
+#include <vnx/Util.hpp>
 
 #include <vnx/test/Test.h>
 #include <vnx/test/TestValue.hxx>
@@ -1153,6 +1154,30 @@ int main() {
 			expect(dir.get_name(), "tmp");
 		}
 #endif
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("to_big_endian()")
+	{
+		expect(to_big_endian<uint8_t>(0x11), 0x11);
+		const auto test_16 = to_big_endian<uint16_t>(0xFF00);
+		expect(to_hex_string(&test_16, 2, false, false), "FF00");
+		const auto test_32 = to_big_endian<uint32_t>(0xFFFF0000);
+		expect(to_hex_string(&test_32, 4, false, false), "FFFF0000");
+		const auto test_64 = to_big_endian<uint64_t>(0xFFFF0000);
+		expect(to_hex_string(&test_64, 8, false, false), "00000000FFFF0000");
+	}
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("to_little_endian()")
+	{
+		expect(to_little_endian<uint8_t>(0x11), 0x11);
+		const auto test_16 = to_little_endian<uint16_t>(0xFF00);
+		expect(to_hex_string(&test_16, 2, true, false), "FF00");
+		const auto test_32 = to_little_endian<uint32_t>(0xFFFF0000);
+		expect(to_hex_string(&test_32, 4, true, false), "FFFF0000");
+		const auto test_64 = to_little_endian<uint64_t>(0xFFFF0000);
+		expect(to_hex_string(&test_64, 8, true, false), "00000000FFFF0000");
 	}
 	VNX_TEST_END()
 

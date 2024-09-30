@@ -41,6 +41,30 @@ void read_generic(TypeInput& in, T& value) {
 	}
 }
 
+template<typename T>
+T to_big_endian(const T& value) {
+	union {
+		T out;
+		uint8_t buf[sizeof(T)];
+	} tmp;
+	for(size_t i = 0; i < sizeof(T); ++i) {
+		tmp.buf[i] = (value >> ((sizeof(T) - i - 1) * 8));
+	}
+	return tmp.out;
+}
+
+template<typename T>
+T to_little_endian(const T& value) {
+	union {
+		T out;
+		uint8_t buf[sizeof(T)];
+	} tmp;
+	for(size_t i = 0; i < sizeof(T); ++i) {
+		tmp.buf[i] = (value >> (i * 8));
+	}
+	return tmp.out;
+}
+
 
 } // vnx
 
