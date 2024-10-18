@@ -99,7 +99,6 @@ bool Variant::is_long() const {
 			case CODE_UINT8:
 			case CODE_UINT16:
 			case CODE_UINT32:
-			case CODE_UINT64:
 			case CODE_INT8:
 			case CODE_INT16:
 			case CODE_INT32:
@@ -107,12 +106,14 @@ bool Variant::is_long() const {
 			case CODE_ALT_UINT8:
 			case CODE_ALT_UINT16:
 			case CODE_ALT_UINT32:
-			case CODE_ALT_UINT64:
 			case CODE_ALT_INT8:
 			case CODE_ALT_INT16:
 			case CODE_ALT_INT32:
 			case CODE_ALT_INT64:
 				return true;
+			case CODE_UINT64:
+			case CODE_ALT_UINT64:
+				return (to<uint64_t>() >> 63) == 0;
 		}
 	}
 	return false;

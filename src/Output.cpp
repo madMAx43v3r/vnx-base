@@ -207,24 +207,36 @@ void write_dynamic(TypeOutput& out, const uint8_t& value) {
 }
 
 void write_dynamic(TypeOutput& out, const uint16_t& value) {
-	auto* buf = out.write(4 + 2);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_UINT16);
-	write_value(buf + 4, value);
+	if(value >> 8) {
+		auto* buf = out.write(4 + 2);
+		write_value(buf, (uint16_t)1);
+		write_value(buf + 2, (uint16_t)CODE_UINT16);
+		write_value(buf + 4, value);
+	} else {
+		write_dynamic(out, uint8_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const uint32_t& value) {
-	auto* buf = out.write(4 + 4);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_UINT32);
-	write_value(buf + 4, value);
+	if(value >> 16) {
+		auto* buf = out.write(4 + 4);
+		write_value(buf, (uint16_t)1);
+		write_value(buf + 2, (uint16_t)CODE_UINT32);
+		write_value(buf + 4, value);
+	} else {
+		write_dynamic(out, uint16_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const uint64_t& value) {
-	auto* buf = out.write(4 + 8);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_UINT64);
-	write_value(buf + 4, value);
+	if(value >> 32) {
+		auto* buf = out.write(4 + 8);
+		write_value(buf, (uint16_t)1);
+		write_value(buf + 2, (uint16_t)CODE_UINT64);
+		write_value(buf + 4, value);
+	} else {
+		write_dynamic(out, uint32_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const char& value) {
@@ -235,31 +247,59 @@ void write_dynamic(TypeOutput& out, const char& value) {
 }
 
 void write_dynamic(TypeOutput& out, const int8_t& value) {
-	auto* buf = out.write(4 + 1);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_INT8);
-	write_value(buf + 4, value);
+	if(value < 0) {
+		auto* buf = out.write(4 + 1);
+		write_value(buf, (uint16_t)1);
+		write_value(buf + 2, (uint16_t)CODE_INT8);
+		write_value(buf + 4, value);
+	} else {
+		write_dynamic(out, uint8_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const int16_t& value) {
-	auto* buf = out.write(4 + 2);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_INT16);
-	write_value(buf + 4, value);
+	if(value < 0) {
+		if(value < -128) {
+			auto* buf = out.write(4 + 2);
+			write_value(buf, (uint16_t)1);
+			write_value(buf + 2, (uint16_t)CODE_INT16);
+			write_value(buf + 4, value);
+		} else {
+			write_dynamic(out, int8_t(value));
+		}
+	} else {
+		write_dynamic(out, uint16_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const int32_t& value) {
-	auto* buf = out.write(4 + 4);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_INT32);
-	write_value(buf + 4, value);
+	if(value < 0) {
+		if(value < -32768) {
+			auto* buf = out.write(4 + 4);
+			write_value(buf, (uint16_t)1);
+			write_value(buf + 2, (uint16_t)CODE_INT32);
+			write_value(buf + 4, value);
+		} else {
+			write_dynamic(out, int16_t(value));
+		}
+	} else {
+		write_dynamic(out, uint32_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const int64_t& value) {
-	auto* buf = out.write(4 + 8);
-	write_value(buf, (uint16_t)1);
-	write_value(buf + 2, (uint16_t)CODE_INT64);
-	write_value(buf + 4, value);
+	if(value < 0) {
+		if(value < -2147483648ll) {
+			auto* buf = out.write(4 + 8);
+			write_value(buf, (uint16_t)1);
+			write_value(buf + 2, (uint16_t)CODE_INT64);
+			write_value(buf + 4, value);
+		} else {
+			write_dynamic(out, int32_t(value));
+		}
+	} else {
+		write_dynamic(out, uint64_t(value));
+	}
 }
 
 void write_dynamic(TypeOutput& out, const float32_t& value) {

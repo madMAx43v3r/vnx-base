@@ -64,8 +64,8 @@ int main() {
 	VNX_TEST_BEGIN("empty")
 	{
 		const Variant value;
-		std::cout << "sizeof(Variant) = " << sizeof(Variant) << std::endl;
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[empty] sizeof(Variant) = " << sizeof(Variant) << std::endl;
+		std::cout << "[empty] value.data.size() = " << value.data.size() << std::endl;
 		test_comparison(value);
 		test_calc_hash(value);
 		expect(value.empty(), true);
@@ -96,8 +96,8 @@ int main() {
 		
 	VNX_TEST_BEGIN("bool")
 		Variant value(true);
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
-		std::cout << "value = " << value << std::endl;
+		std::cout << "[bool] value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[bool] value = " << value << std::endl;
 		test_comparison(value);
 		test_calc_hash(value);
 		expect(value.is_bool(), true);
@@ -138,21 +138,36 @@ int main() {
 	
 	VNX_TEST_BEGIN("integer")
 		Variant value(1337);
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
-		std::cout << "value = " << value << std::endl;
+		std::cout << "[integer] value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[integer] value = " << value << std::endl;
+		test_comparison(value);
+		test_calc_hash(value);
+		expect(value.is_long(), true);
+		expect(value.is_ulong(), true);
+		expect(value.is_double(), false);
+		expect(int(value), 1337);
+		expect(value.to<Variant>().to<int>(), 1337);
+		value = 66;
+		expect(int(value), 66);
+	VNX_TEST_END()
+
+	VNX_TEST_BEGIN("neg_integer")
+		Variant value(-1337);
+		std::cout << "[neg_integer] value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[neg_integer] value = " << value << std::endl;
 		test_comparison(value);
 		test_calc_hash(value);
 		expect(value.is_long(), true);
 		expect(value.is_ulong(), false);
 		expect(value.is_double(), false);
-		expect(int(value), 1337);
-		expect(value.to<Variant>().to<int>(), 1337);
-		value = 666;
-		expect(int(value), 666);
+		expect(int(value), -1337);
+		expect(value.to<Variant>().to<int>(), -1337);
+		value = -66;
+		expect(int(value), -66);
 	VNX_TEST_END()
 	
 	VNX_TEST_BEGIN("integer_comparison")
-		Variant A(int32_t(1337));
+		Variant A(int32_t(-1337));
 		Variant B(uint16_t(4444));
 		test_comparison(A);
 		test_comparison(B);
@@ -279,7 +294,7 @@ int main() {
 		sample->topic = "test.topic";
 		sample->hop_count = 11;
 		Variant value(sample);
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[sample] value.data.size() = " << value.data.size() << std::endl;
 		{
 			PrettyPrinter printer(std::cout);
 			accept(printer, value);
@@ -302,7 +317,7 @@ int main() {
 		sample.pos = 1337;
 		sample.time = 1111;
 		Variant value(sample);
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[struct] value.data.size() = " << value.data.size() << std::endl;
 		{
 			PrettyPrinter printer(std::cout);
 			accept(printer, value);
@@ -340,7 +355,7 @@ int main() {
 		sample["time"] = 1111;
 		sample["array"] = std::array<bool, 3>({false, true, false});
 		Variant value(sample);
-		std::cout << "value.data.size() = " << value.data.size() << std::endl;
+		std::cout << "[object] value.data.size() = " << value.data.size() << std::endl;
 		{
 			PrettyPrinter printer(std::cout);
 			accept(printer, value);
