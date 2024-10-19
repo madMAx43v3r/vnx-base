@@ -164,7 +164,7 @@ enum {
 	CODE_MATRIX = 21,			///< static ND array, code = {21, <number of dimensions>, <size of dim 0>, <size of dim 1>, ..., <type code>}
 	CODE_IMAGE = 22,			///< dynamic ND array, code = {22, <number of dimensions>, <type code>}, header = {UINT32 <size of dim 0>, UINT32 <size of dim 1>, ...}
 	CODE_TUPLE = 23,			///< array of different types, code = {23, <size>, <type code offset 0>, ..., <type code>, ...}
-	CODE_OBJECT = 24,			///< same as CODE_MAP with {MAP, 4, LIST, INT8, DYNAMIC} but intended to be a dynamically defined type instead of a map
+	CODE_OBJECT = 24,			///< same as CODE_MAP with {MAP, 3, CODE_STRING, DYNAMIC} but intended to be a dynamically defined type instead of a map
 	
 	CODE_BOOL = 31,				///< 8-bit unsigned integer (0 = false, otherwise = true)
 	CODE_STRING = 32,			///< 8-bit signed integer list (same as {CODE_LIST, CODE_INT8}, but different meaning, used to denote a ASCII/UTF8 string)
