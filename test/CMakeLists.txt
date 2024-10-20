@@ -35,3 +35,6 @@ target_link_libraries(test_json_parse vnx_base_static)
 
 # add_executable(test_glibc_bug_31841 test_glibc_bug_31841.cpp)
 # target_link_libraries(test_glibc_bug_31841 Threads::Threads)
+
+add_executable(test_variant_gen_vitest test_variant_gen_vitest.cpp)
+target_link_libraries(test_variant_gen_vitest vnx_base_static)
