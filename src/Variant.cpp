@@ -221,6 +221,69 @@ bool Variant::is_object() const {
 	return false;
 }
 
+static bool validate_strict_json(TypeInput& in, const uint16_t* code, const size_t max_recursion, size_t call_depth) {
+	if(++call_depth > max_recursion) {
+		return false;
+	}
+	switch(code[0]) {
+		case CODE_NULL:
+		case CODE_BOOL:
+		case CODE_UINT8:
+		case CODE_UINT16:
+		case CODE_UINT32:
+		case CODE_UINT64:
+		case CODE_INT8:
+		case CODE_INT16:
+		case CODE_INT32:
+		case CODE_INT64:
+		case CODE_STRING:
+			vnx::skip(in, nullptr, code);
+			return true;
+		case CODE_LIST: {
+			if(code[1] != CODE_DYNAMIC) {
+				return false;
+			}
+			uint32_t size;
+			read(in, size);
+			for(uint32_t i = 0; i < size; ++i) {
+				if(!validate_strict_json(in, code + 1, max_recursion, call_depth)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		case CODE_OBJECT: {
+			uint32_t size;
+			read(in, size);
+			for(uint32_t i = 0; i < size; ++i) {
+				const uint16_t key_code = CODE_STRING;
+				const uint16_t value_code = CODE_DYNAMIC;
+				vnx::skip(in, nullptr, &key_code);
+				if(!validate_strict_json(in, &value_code, max_recursion, call_depth)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		case CODE_DYNAMIC: {
+			uint16_t byte_code[VNX_MAX_BYTE_CODE_SIZE];
+			vnx::read_byte_code(in, byte_code);
+			return validate_strict_json(in, byte_code, max_recursion, call_depth);
+		}
+	}
+	return false;
+}
+
+bool Variant::is_json_strict(const size_t max_recursion) const {
+	if(empty()) {
+		return false;
+	}
+	VectorInputStream stream(&data);
+	TypeInput in(&stream);
+	const uint16_t code = CODE_DYNAMIC;
+	return validate_strict_json(in, &code, max_recursion, 0);
+}
+
 bool Variant::operator==(const Variant& other) const {
 	uint16_t code_size = 0;
 	uint16_t code_size_ = 0;

@@ -210,6 +210,18 @@ public:
 	/// Returns true if value is an Object. (CODE_OBJECT)
 	bool is_object() const;
 	
+	/** \brief Returns true if content is JSON compatible.
+	 *
+	 * When true, conversion to JSON and back yields the exact same `data`.
+	 * Note: Returns false for any CODE_FLOAT.
+	 * Note: Returns false for any CODE_DOUBLE due to rounding errors, even though it would be valid JSON.
+	 * Note: Requires CODE_LIST to always have value type CODE_DYNAMIC.
+	 * Note: Returns false when byte-order is non-native.
+	 * Note: Returns false when `max_recursion` is reached.
+	 * Note: Empty variant returns false.
+	 */
+	bool is_json_strict(const size_t max_recursion = -1) const;
+
 	/// Clear value, ie. make Variant empty.
 	void clear() {
 		data.clear();
