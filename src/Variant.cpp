@@ -276,7 +276,7 @@ static bool validate_strict_json(TypeInput& in, const uint16_t* code, const size
 
 bool Variant::is_json_strict(const size_t max_recursion) const {
 	if(empty()) {
-		return false;
+		return true;
 	}
 	VectorInputStream stream(&data);
 	TypeInput in(&stream);

@@ -218,7 +218,7 @@ public:
 	 * Note: Requires CODE_LIST to always have value type CODE_DYNAMIC.
 	 * Note: Returns false when byte-order is non-native.
 	 * Note: Returns false when `max_recursion` is reached.
-	 * Note: Empty variant returns false.
+	 * Note: Empty variant returns true, this is a special case.
 	 */
 	bool is_json_strict(const size_t max_recursion = -1) const;
 

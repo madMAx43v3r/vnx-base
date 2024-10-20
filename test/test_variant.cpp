@@ -493,6 +493,7 @@ int main() {
 
 	VNX_TEST_BEGIN("is_json_strict()")
 	{
+		expect(vnx::Variant().is_json_strict(), true);
 		expect(vnx::Variant(nullptr).is_json_strict(), true);
 		expect(vnx::Variant(false).is_json_strict(), true);
 		expect(vnx::Variant(true).is_json_strict(), true);
@@ -510,7 +511,6 @@ int main() {
 		expect(vnx::Variant(vnx::Object()).is_json_strict(), true);
 		expect(vnx::Variant(vnx::Object({{"test", vnx::Variant(1337)}, {"test1", vnx::Variant("test")}})).is_json_strict(), true);
 
-		expect(vnx::Variant().is_json_strict(), false);
 		expect(vnx::Variant(std::array<int16_t, 10>()).is_json_strict(), false);
 		expect(vnx::Variant(std::vector<uint32_t>{1, 2, 3}).is_json_strict(), false);
 		expect(vnx::Variant(std::map<std::string, uint32_t>()).is_json_strict(), false);
