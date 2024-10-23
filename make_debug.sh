@@ -6,7 +6,7 @@ mkdir -p build
 
 cd build
 
-cmake -D VNX_BUILD_TESTS=ON -D VNX_BUILD_TOOLS=ON -D CMAKE_BUILD_TYPE=Debug -D CMAKE_CXX_FLAGS="-fmax-errors=1 -Wsuggest-override" ..
+cmake -D VNX_BUILD_TESTS=ON -D VNX_BUILD_TOOLS=ON -D CMAKE_BUILD_TYPE=Debug -D CMAKE_CXX_FLAGS="-fmax-errors=1 -Wsuggest-override" $@ ..
 
-make -j$MAKE_NCPU $@
+make -j$MAKE_NCPU
 
