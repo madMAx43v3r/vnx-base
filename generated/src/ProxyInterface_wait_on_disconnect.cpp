@@ -120,6 +120,7 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_wait_on_disconnect::static_create_
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::ProxyInterface_wait_on_disconnect& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

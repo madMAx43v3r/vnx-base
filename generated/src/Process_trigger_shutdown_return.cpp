@@ -116,6 +116,7 @@ std::shared_ptr<vnx::TypeCode> Process_trigger_shutdown_return::static_create_ty
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::Process_trigger_shutdown_return& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

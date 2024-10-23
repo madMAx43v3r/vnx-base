@@ -116,6 +116,7 @@ std::shared_ptr<vnx::TypeCode> Player_seek_to_position_return::static_create_typ
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::Player_seek_to_position_return& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

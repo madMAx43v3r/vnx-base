@@ -140,6 +140,7 @@ std::shared_ptr<vnx::TypeCode> ProxyInterface_disable_forward::static_create_typ
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::ProxyInterface_disable_forward& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

@@ -116,6 +116,7 @@ std::shared_ptr<vnx::TypeCode> Player_seek_by_time_return::static_create_type_co
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::Player_seek_by_time_return& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

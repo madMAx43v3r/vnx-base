@@ -545,6 +545,7 @@ void ProcessBase::self_test_all_async_return(const vnx::request_id_t& _request_i
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::ProcessBase& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:

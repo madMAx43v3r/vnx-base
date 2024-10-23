@@ -140,6 +140,7 @@ std::shared_ptr<vnx::TypeCode> JRPC_Proxy_select_service::static_create_type_cod
 namespace vnx {
 
 void read(TypeInput& in, ::vnx::JRPC_Proxy_select_service& value, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_OBJECT:
