@@ -48,11 +48,15 @@ std::string JSON_Object::to_string() const {
 }
 
 
-std::shared_ptr<JSON_Array> read_array(std::istream& in);
+std::shared_ptr<JSON_Array> read_array(std::istream& in, int depth);
 
-std::shared_ptr<JSON_Object> read_object(std::istream& in);
+std::shared_ptr<JSON_Object> read_object(std::istream& in, int depth);
 
-std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool until_space) {
+std::shared_ptr<JSON_Value> read_json_ex(std::istream& in, int depth, bool until_eof = false, bool until_space = false)
+{
+	if(++depth > VNX_MAX_RECURSION) {
+		throw std::logic_error("read_json(): recursion overflow");
+	}
 	std::string value;
 	{
 		bool escape = false;
@@ -88,9 +92,9 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 				in.get();
 				continue;
 			} else if(c == '[') {
-				return read_array(in);
+				return read_array(in, depth);
 			} else if(c == '{') {
-				return read_object(in);
+				return read_object(in, depth);
 			} else if(c == ':' || c == ',' || c == '}' || c == ']') {
 				if(!until_eof) {
 					break;
@@ -175,7 +179,12 @@ std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool unt
 	return std::make_shared<JSON_Variant>(Variant(var));
 }
 
-std::shared_ptr<JSON_Array> read_array(std::istream& in) {
+std::shared_ptr<JSON_Value> read_json(std::istream& in, bool until_eof, bool until_space) {
+	return read_json_ex(in, 0, until_eof, until_space);
+}
+
+std::shared_ptr<JSON_Array> read_array(std::istream& in, int depth)
+{
 	auto array = std::make_shared<JSON_Array>();
 	int stack = 0;
 	while(true) {
@@ -195,7 +204,7 @@ std::shared_ptr<JSON_Array> read_array(std::istream& in) {
 			}
 			in.get();
 		} else if(stack) {
-			if(auto value = read_json(in)) {
+			if(auto value = read_json_ex(in, depth)) {
 				array->push_back(value);
 			} else {
 				break;
@@ -203,7 +212,7 @@ std::shared_ptr<JSON_Array> read_array(std::istream& in) {
 		} else if(std::isspace(c)) {
 			in.get();
 		} else {
-			if(auto value = read_json(in)) {
+			if(auto value = read_json_ex(in, depth)) {
 				array->push_back(value);
 			}
 			break;
@@ -212,7 +221,8 @@ std::shared_ptr<JSON_Array> read_array(std::istream& in) {
 	return array;
 }
 
-std::shared_ptr<JSON_Object> read_object(std::istream& in) {
+std::shared_ptr<JSON_Object> read_object(std::istream& in, int depth)
+{
 	auto object = std::make_shared<JSON_Object>();
 	int stack = 0;
 	bool done = false;
@@ -228,7 +238,7 @@ std::shared_ptr<JSON_Object> read_object(std::istream& in) {
 			stack++;
 		}
 		while(stack == 1) {
-			if(auto field = std::dynamic_pointer_cast<JSON_String>(read_json(in)))
+			if(auto field = std::dynamic_pointer_cast<JSON_String>(read_json_ex(in, depth)))
 			{
 				const auto name = field->get_value();
 				while(true) {
@@ -239,7 +249,7 @@ std::shared_ptr<JSON_Object> read_object(std::istream& in) {
 						throw std::runtime_error("invalid json: expected ':' after object field \"" + name + "\"");
 					}
 				}
-				if(auto value = read_json(in)) {
+				if(auto value = read_json_ex(in, depth)) {
 					(*object)[name] = value;
 				} else {
 					throw std::runtime_error("invalid json: unexpected end of data when parsing object value \"" + name + "\"");
