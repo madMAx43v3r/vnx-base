@@ -78,6 +78,9 @@ typedef SSIZE_T ssize_t;
  */
 #define VNX_BUFFER_SIZE 16384u
 
+/// Recursion limit for read functions and type code
+#define VNX_MAX_RECURSION 100
+
 
 /// VNX namespace
 namespace vnx {
@@ -123,7 +126,9 @@ std::vector<const TypeCode*> get_all_type_codes();
  * 
  * @return Pointer to last code element in given \p code. Can be used to compute size of the code.
  */
-const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code = nullptr, size_t size = size_t(-1), size_t pos = 0);
+const uint16_t* validate_code(
+		const uint16_t* code, const TypeCode* type_code = nullptr,
+		const size_t size = size_t(-1), const size_t pos = 0, int depth = 0);
 
 /// Converts a code to humand readable format
 std::string code_to_string(const uint16_t* code, const TypeCode* type_code = nullptr);

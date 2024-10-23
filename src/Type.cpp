@@ -66,9 +66,12 @@ size_t get_value_size(const uint16_t* code, const TypeCode* type_code) {
 	return 0;
 }
 
-const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, const size_t size, const size_t pos) {
+const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, const size_t size, const size_t pos, int depth) {
 	if(!code || pos >= size) {
 		throw std::logic_error("validate_code(): invalid code (unexpected end)");
+	}
+	if(++depth > VNX_MAX_RECURSION) {
+		throw std::logic_error("validate_code(): recursion overflow");
 	}
 	switch(code[pos]) {
 		case CODE_NULL:
@@ -107,16 +110,16 @@ const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, c
 			return code + pos;
 		case CODE_ARRAY:
 		case CODE_ALT_ARRAY:
-			return validate_code(code, type_code, size, pos + 2);
+			return validate_code(code, type_code, size, pos + 2, depth);
 		case CODE_LIST:
 		case CODE_ALT_LIST:
-			return validate_code(code, type_code, size, pos + 1);
+			return validate_code(code, type_code, size, pos + 1, depth);
 		case CODE_MAP:
 		case CODE_ALT_MAP: {
 			if(pos + 3 >= size) {
 				throw std::logic_error("validate_code(): invalid CODE_MAP (too short)");
 			}
-			validate_code(code, type_code, size, pos + 2);
+			validate_code(code, type_code, size, pos + 2, depth);
 			auto offset = code[pos + 1];
 			if(code[pos] == CODE_ALT_MAP) {
 				offset = flip_bytes(offset);
@@ -124,7 +127,7 @@ const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, c
 			if(offset < 3) {
 				throw std::logic_error("validate_code(): invalid CODE_MAP (code offset too small)");
 			}
-			return validate_code(code, type_code, size, pos + offset);
+			return validate_code(code, type_code, size, pos + offset, depth);
 		}
 		case CODE_STRUCT:
 		case CODE_ALT_STRUCT: {
@@ -145,13 +148,13 @@ const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, c
 			if(pos + 2 >= size) {
 				throw std::logic_error("validate_code(): invalid CODE_MATRIX (too short)");
 			}
-			return validate_code(code, type_code, size, pos + 2 + (code[pos] == CODE_MATRIX ? code[pos + 1] : flip_bytes(code[pos + 1])));
+			return validate_code(code, type_code, size, pos + 2 + (code[pos] == CODE_MATRIX ? code[pos + 1] : flip_bytes(code[pos + 1])), depth);
 		case CODE_IMAGE:
 		case CODE_ALT_IMAGE:
 			if(pos + 2 >= size) {
 				throw std::logic_error("validate_code(): invalid CODE_IMAGE (too short)");
 			}
-			return validate_code(code, type_code, size, pos + 2);
+			return validate_code(code, type_code, size, pos + 2, depth);
 		case CODE_TUPLE:
 		case CODE_ALT_TUPLE: {
 			const size_t N = (code[pos] == CODE_TUPLE ? code[pos + 1] : flip_bytes(code[pos + 1]));
@@ -167,13 +170,13 @@ const uint16_t* validate_code(const uint16_t* code, const TypeCode* type_code, c
 				if(offset < 2 + N) {
 					throw std::logic_error("validate_code(): invalid CODE_TUPLE (code offset too small)");
 				}
-				end = validate_code(code, type_code, size, pos + offset);
+				end = validate_code(code, type_code, size, pos + offset, depth);
 			}
 			return end;
 		}
 		case CODE_OPTIONAL:
 		case CODE_ALT_OPTIONAL:
-			return validate_code(code, type_code, size, pos + 1);
+			return validate_code(code, type_code, size, pos + 1, depth);
 		default:
 			throw std::logic_error("validate_code(): invalid code at [" + std::to_string(pos) + "]: " + std::to_string(code[pos]));
 	}

@@ -294,6 +294,7 @@ void copy(TypeInput& in, TypeOutput* out) {
 }
 
 void copy(TypeInput& in, TypeOutput* out, const TypeCode* type_code, const uint16_t* code) {
+	TypeInput::recursion_t tag(in);
 	if(code) {
 		switch(code[0]) {
 			case CODE_NULL:

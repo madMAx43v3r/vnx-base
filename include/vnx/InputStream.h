@@ -328,6 +328,19 @@ private:
  */
 class TypeInput : public InputBuffer {
 public:
+	struct recursion_t {
+		recursion_t(TypeInput& in) : in(in) {
+			if(++in.curr_depth > in.max_recursion) {
+				throw std::logic_error("read(): recursion overflow");
+			}
+		}
+		~recursion_t() {
+			in.curr_depth--;
+		}
+	private:
+		TypeInput& in;
+	};
+
 	TypeInput(InputStream* stream_) : InputBuffer::InputBuffer(stream_) {}
 	
 	/// Same as vnx::get_type_code()
@@ -340,6 +353,9 @@ public:
 	void clear();
 	
 	bool safe_read = false;											///< to avoid pre-allocation of large buffers
+
+	int curr_depth = 0;												///< current recursion depth
+	int max_recursion = VNX_MAX_RECURSION;
 
 	std::unordered_map<Hash64, const TypeCode*> type_code_map;		///< for faster lock-free lookup
 	

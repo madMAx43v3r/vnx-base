@@ -121,6 +121,7 @@ void accept_integral(Visitor& visitor, TypeInput& in, const TypeCode* type_code,
 static
 void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const uint16_t* code, const TypeField* field, const uint8_t* p_buf)
 {
+	TypeInput::recursion_t tag(in);
 	const bool is_extended = !p_buf || !field || field->is_extended;
 	if(code) {
 		switch(code[0]) {
@@ -583,6 +584,7 @@ int compare_array(TypeInput& in, TypeInput& in_, size_t size, size_t size_, cons
 }
 
 int compare(TypeInput& in, TypeInput& in_, const uint16_t* code, const uint16_t* code_) {
+	TypeInput::recursion_t tag(in);
 	switch(code_[0]) {
 		case CODE_DYNAMIC:
 		case CODE_ALT_DYNAMIC: {
@@ -878,6 +880,7 @@ void calc_hash_array(TypeInput& in, size_t size, const uint16_t* code, T& func) 
 
 template<typename T>
 void calc_hash(TypeInput& in, const uint16_t* code, T& func) {
+	TypeInput::recursion_t tag(in);
 	switch(code[0]) {
 		case CODE_BOOL:
 		case CODE_INT8:
