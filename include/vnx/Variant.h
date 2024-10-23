@@ -125,12 +125,8 @@ public:
 	
 	bool operator>=(const Variant& other) const;
 	
-	/** \brief Converts value to a bool.
-	 * 
-	 * CODE_NULL == false, otherwise normal C++ conversion applies.
-	 */
 	operator bool() const {
-		return to<bool>();
+		return is_true();
 	}
 	
 	operator uint8_t() const {
@@ -177,13 +173,16 @@ public:
 		return data.empty();
 	}
 	
+	/// Returns false for: null, false, 0, "" (otherwise true)
+	bool is_true() const;
+
 	/** \brief Returns true if value is null, ie. CODE_NULL.
 	 * 
 	 * Note: Returns true for empty Variant also.
 	 */
 	bool is_null() const;
 	
-	/// Returns true if value is a bool.
+	/// Returns true if value is a boolean.
 	bool is_bool() const;
 
 	/// Returns true if value is a signed or unsigned integer.
@@ -195,7 +194,7 @@ public:
 	/// Returns true if value is a float or double.
 	bool is_double() const;
 	
-	/// Returns true if value is an integer or a float/double.
+	/// Returns true if value is a boolean, integer or a float/double.
 	bool is_integral() const;
 	
 	/// Returns true if value is a string.

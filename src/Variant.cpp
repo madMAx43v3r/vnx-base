@@ -221,6 +221,25 @@ bool Variant::is_object() const {
 	return false;
 }
 
+bool Variant::is_true() const {
+	if(is_null()) {
+		return false;
+	}
+	if(is_bool()) {
+		return to<bool>();
+	}
+	if(is_long()) {
+		return to<int64_t>();
+	}
+	if(is_double()) {
+		return to<double>();
+	}
+	if(is_string()) {
+		return to<std::string>().size();
+	}
+	return true;
+}
+
 static bool validate_strict_json(TypeInput& in, const uint16_t* code, const size_t max_recursion, size_t call_depth) {
 	if(++call_depth > max_recursion) {
 		return false;
