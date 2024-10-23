@@ -14,7 +14,7 @@
 
 namespace vnx {
 
-struct VNX_EXPORT ModuleInterface {
+class VNX_EXPORT ModuleInterface {
 	
 	
 	

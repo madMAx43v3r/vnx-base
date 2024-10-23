@@ -11,7 +11,7 @@
 
 namespace vnx {
 
-struct VNX_EXPORT GatewayInterface {
+class VNX_EXPORT GatewayInterface {
 	
 	
 	
