@@ -138,6 +138,10 @@ public:
 		field[name] = value;
 	}
 
+	const std::map<std::string, Variant>& get_fields() const {
+		return field;
+	}
+
 	/** \brief Returns polymorphic Value (using "__type" field)
 	 *
 	 * @param type_map Optional type map for mapping a received type (the key) to another type.
