@@ -121,6 +121,21 @@ std::string ascii_tolower(std::string str)
 	return str;
 }
 
+/// Returns true if host is little endian
+inline
+bool is_little_endian() {
+	union {
+		uint16_t full;
+		uint8_t byte[2];
+	} test = {0xFF00};
+	return test.byte[0] == 0;
+}
+
+/// Returns true if host is big endian
+inline
+bool is_big_endian() {
+	return !is_little_endian();
+}
 
 /// Expects one line of input from the user with echoing disabled. During input, process log output is paused.
 std::string input_password(const std::string &prompt="");
