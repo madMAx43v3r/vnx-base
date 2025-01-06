@@ -11,6 +11,7 @@
 #include <vnx/GatewayInterface_forward.hxx>
 #include <vnx/GatewayInterface_forward_return.hxx>
 #include <vnx/Generic.hxx>
+#include <vnx/Heartbeat.hxx>
 #include <vnx/InternalError.hxx>
 #include <vnx/JRPC_Error.hxx>
 #include <vnx/JRPC_Failure.hxx>
@@ -299,6 +300,18 @@ void type<::vnx::Hash64>::create_dynamic_code(std::vector<uint16_t>& code) {
 void type<::vnx::Hash64>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Hash64& value, bool special) {
 	const std::vector<int> tmp = {4};
 	code.insert(code.end(), tmp.begin(), tmp.end());}
+
+const TypeCode* type<::vnx::Heartbeat>::get_type_code() {
+	return vnx::vnx_native_type_code_Heartbeat;
+}
+
+void type<::vnx::Heartbeat>::create_dynamic_code(std::vector<uint16_t>& code) {
+	create_dynamic_code(code, ::vnx::Heartbeat());
+}
+
+void type<::vnx::Heartbeat>::create_dynamic_code(std::vector<uint16_t>& code, const ::vnx::Heartbeat& value, bool special) {
+	code.push_back(CODE_OBJECT);
+}
 
 const TypeCode* type<::vnx::InternalError>::get_type_code() {
 	return vnx::vnx_native_type_code_InternalError;
@@ -2230,6 +2243,7 @@ void type<::vnx::thread_priority_e>::create_dynamic_code(std::vector<uint16_t>& 
 
 namespace vnx {
 
+vnx::TopicPtr heartbeat = vnx::get_topic("vnx", "heartbeat");
 vnx::TopicPtr log_out = vnx::get_topic("vnx", "log_out");
 vnx::TopicPtr module_info = vnx::get_topic("vnx", "module_info");
 vnx::TopicPtr shutdown = vnx::get_topic("vnx", "shutdown");
@@ -2248,6 +2262,7 @@ void register_all_types() {
 	vnx::register_type_code(::vnx::GatewayInterface_forward::static_create_type_code());
 	vnx::register_type_code(::vnx::GatewayInterface_forward_return::static_create_type_code());
 	vnx::register_type_code(::vnx::Generic::static_create_type_code());
+	vnx::register_type_code(::vnx::Heartbeat::static_create_type_code());
 	vnx::register_type_code(::vnx::InternalError::static_create_type_code());
 	vnx::register_type_code(::vnx::JRPC_Error::static_create_type_code());
 	vnx::register_type_code(::vnx::JRPC_Failure::static_create_type_code());
@@ -2433,6 +2448,7 @@ const vnx::TypeCode* const vnx_native_type_code_GatewayBase = vnx::get_type_code
 const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward = vnx::get_type_code(vnx::Hash64(0x2bb048616aefdcf6ull));
 const vnx::TypeCode* const vnx_native_type_code_GatewayInterface_forward_return = vnx::get_type_code(vnx::Hash64(0x3d6b8646d83530bbull));
 const vnx::TypeCode* const vnx_native_type_code_Generic = vnx::get_type_code(vnx::Hash64(0x18b78df58e8b9cfeull));
+const vnx::TypeCode* const vnx_native_type_code_Heartbeat = vnx::get_type_code(vnx::Hash64(0x4b8135749ac4e859ull));
 const vnx::TypeCode* const vnx_native_type_code_InternalError = vnx::get_type_code(vnx::Hash64(0xe3a5c8a7193b8c49ull));
 const vnx::TypeCode* const vnx_native_type_code_JRPC_Error = vnx::get_type_code(vnx::Hash64(0x4da8afba21c28c82ull));
 const vnx::TypeCode* const vnx_native_type_code_JRPC_Failure = vnx::get_type_code(vnx::Hash64(0x32b6191aa4b738deull));

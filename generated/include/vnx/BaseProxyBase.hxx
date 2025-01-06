@@ -37,6 +37,8 @@ public:
 	int32_t max_hop_count = 10;
 	int32_t recv_buffer_size = 0;
 	int32_t send_buffer_size = 131072;
+	int32_t heartbeat_ms = 10000;
+	int32_t heartbeat_timeout = 3;
 	std::string default_access = "DEFAULT";
 	
 	typedef ::vnx::Module Super;
@@ -102,7 +104,7 @@ protected:
 
 template<typename T>
 void BaseProxyBase::accept_generic(T& _visitor) const {
-	_visitor.template type_begin<BaseProxyBase>(22);
+	_visitor.template type_begin<BaseProxyBase>(24);
 	_visitor.type_field("address", 0); _visitor.accept(address);
 	_visitor.type_field("auto_login", 1); _visitor.accept(auto_login);
 	_visitor.type_field("import_list", 2); _visitor.accept(import_list);
@@ -124,8 +126,10 @@ void BaseProxyBase::accept_generic(T& _visitor) const {
 	_visitor.type_field("max_hop_count", 18); _visitor.accept(max_hop_count);
 	_visitor.type_field("recv_buffer_size", 19); _visitor.accept(recv_buffer_size);
 	_visitor.type_field("send_buffer_size", 20); _visitor.accept(send_buffer_size);
-	_visitor.type_field("default_access", 21); _visitor.accept(default_access);
-	_visitor.template type_end<BaseProxyBase>(22);
+	_visitor.type_field("heartbeat_ms", 21); _visitor.accept(heartbeat_ms);
+	_visitor.type_field("heartbeat_timeout", 22); _visitor.accept(heartbeat_timeout);
+	_visitor.type_field("default_access", 23); _visitor.accept(default_access);
+	_visitor.template type_end<BaseProxyBase>(24);
 }
 
 

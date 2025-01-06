@@ -68,7 +68,7 @@ namespace vnx {
 
 
 const vnx::Hash64 BaseProxyBase::VNX_TYPE_HASH(0xd8241ff9082104f5ull);
-const vnx::Hash64 BaseProxyBase::VNX_CODE_HASH(0x39f726354914de2eull);
+const vnx::Hash64 BaseProxyBase::VNX_CODE_HASH(0xc1637806ff6a1afaull);
 
 BaseProxyBase::BaseProxyBase(const std::string& _vnx_name)
 	:	Module::Module(_vnx_name)
@@ -94,6 +94,8 @@ BaseProxyBase::BaseProxyBase(const std::string& _vnx_name)
 	vnx::read_config(vnx_name + ".max_hop_count", max_hop_count);
 	vnx::read_config(vnx_name + ".recv_buffer_size", recv_buffer_size);
 	vnx::read_config(vnx_name + ".send_buffer_size", send_buffer_size);
+	vnx::read_config(vnx_name + ".heartbeat_ms", heartbeat_ms);
+	vnx::read_config(vnx_name + ".heartbeat_timeout", heartbeat_timeout);
 	vnx::read_config(vnx_name + ".default_access", default_access);
 }
 
@@ -133,7 +135,9 @@ void BaseProxyBase::accept(vnx::Visitor& _visitor) const {
 	_visitor.type_field(_type_code->fields[18], 18); vnx::accept(_visitor, max_hop_count);
 	_visitor.type_field(_type_code->fields[19], 19); vnx::accept(_visitor, recv_buffer_size);
 	_visitor.type_field(_type_code->fields[20], 20); vnx::accept(_visitor, send_buffer_size);
-	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, default_access);
+	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, heartbeat_ms);
+	_visitor.type_field(_type_code->fields[22], 22); vnx::accept(_visitor, heartbeat_timeout);
+	_visitor.type_field(_type_code->fields[23], 23); vnx::accept(_visitor, default_access);
 	_visitor.type_end(*_type_code);
 }
 
@@ -160,6 +164,8 @@ void BaseProxyBase::write(std::ostream& _out) const {
 	_out << ", \"max_hop_count\": "; vnx::write(_out, max_hop_count);
 	_out << ", \"recv_buffer_size\": "; vnx::write(_out, recv_buffer_size);
 	_out << ", \"send_buffer_size\": "; vnx::write(_out, send_buffer_size);
+	_out << ", \"heartbeat_ms\": "; vnx::write(_out, heartbeat_ms);
+	_out << ", \"heartbeat_timeout\": "; vnx::write(_out, heartbeat_timeout);
 	_out << ", \"default_access\": "; vnx::write(_out, default_access);
 	_out << "}";
 }
@@ -194,6 +200,8 @@ vnx::Object BaseProxyBase::to_object() const {
 	_object["max_hop_count"] = max_hop_count;
 	_object["recv_buffer_size"] = recv_buffer_size;
 	_object["send_buffer_size"] = send_buffer_size;
+	_object["heartbeat_ms"] = heartbeat_ms;
+	_object["heartbeat_timeout"] = heartbeat_timeout;
 	_object["default_access"] = default_access;
 	return _object;
 }
@@ -220,6 +228,10 @@ void BaseProxyBase::from_object(const vnx::Object& _object) {
 			_entry.second.to(export_map);
 		} else if(_entry.first == "forward_list") {
 			_entry.second.to(forward_list);
+		} else if(_entry.first == "heartbeat_ms") {
+			_entry.second.to(heartbeat_ms);
+		} else if(_entry.first == "heartbeat_timeout") {
+			_entry.second.to(heartbeat_timeout);
 		} else if(_entry.first == "import_list") {
 			_entry.second.to(import_list);
 		} else if(_entry.first == "import_map") {
@@ -312,6 +324,12 @@ vnx::Variant BaseProxyBase::get_field(const std::string& _name) const {
 	if(_name == "send_buffer_size") {
 		return vnx::Variant(send_buffer_size);
 	}
+	if(_name == "heartbeat_ms") {
+		return vnx::Variant(heartbeat_ms);
+	}
+	if(_name == "heartbeat_timeout") {
+		return vnx::Variant(heartbeat_timeout);
+	}
 	if(_name == "default_access") {
 		return vnx::Variant(default_access);
 	}
@@ -361,6 +379,10 @@ void BaseProxyBase::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(recv_buffer_size);
 	} else if(_name == "send_buffer_size") {
 		_value.to(send_buffer_size);
+	} else if(_name == "heartbeat_ms") {
+		_value.to(heartbeat_ms);
+	} else if(_name == "heartbeat_timeout") {
+		_value.to(heartbeat_timeout);
 	} else if(_name == "default_access") {
 		_value.to(default_access);
 	}
@@ -390,7 +412,7 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.BaseProxy";
 	type_code->type_hash = vnx::Hash64(0xd8241ff9082104f5ull);
-	type_code->code_hash = vnx::Hash64(0x39f726354914de2eull);
+	type_code->code_hash = vnx::Hash64(0xc1637806ff6a1afaull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::BaseProxyBase);
 	type_code->methods.resize(26);
@@ -420,7 +442,7 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	type_code->methods[23] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
 	type_code->methods[24] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
 	type_code->methods[25] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
-	type_code->fields.resize(22);
+	type_code->fields.resize(24);
 	{
 		auto& field = type_code->fields[0];
 		field.is_extended = true;
@@ -560,6 +582,20 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	}
 	{
 		auto& field = type_code->fields[21];
+		field.data_size = 4;
+		field.name = "heartbeat_ms";
+		field.value = vnx::to_string(10000);
+		field.code = {7};
+	}
+	{
+		auto& field = type_code->fields[22];
+		field.data_size = 4;
+		field.name = "heartbeat_timeout";
+		field.value = vnx::to_string(3);
+		field.code = {7};
+	}
+	{
+		auto& field = type_code->fields[23];
 		field.is_extended = true;
 		field.name = "default_access";
 		field.value = vnx::to_string("DEFAULT");
@@ -831,6 +867,12 @@ void read(TypeInput& in, ::vnx::BaseProxyBase& value, const TypeCode* type_code,
 		if(const auto* const _field = type_code->field_map[20]) {
 			vnx::read_value(_buf + _field->offset, value.send_buffer_size, _field->code.data());
 		}
+		if(const auto* const _field = type_code->field_map[21]) {
+			vnx::read_value(_buf + _field->offset, value.heartbeat_ms, _field->code.data());
+		}
+		if(const auto* const _field = type_code->field_map[22]) {
+			vnx::read_value(_buf + _field->offset, value.heartbeat_timeout, _field->code.data());
+		}
 	}
 	for(const auto* _field : type_code->ext_fields) {
 		switch(_field->native_index) {
@@ -844,7 +886,7 @@ void read(TypeInput& in, ::vnx::BaseProxyBase& value, const TypeCode* type_code,
 			case 7: vnx::read(in, value.export_map, type_code, _field->code.data()); break;
 			case 8: vnx::read(in, value.receive_tunnel, type_code, _field->code.data()); break;
 			case 9: vnx::read(in, value.request_tunnel, type_code, _field->code.data()); break;
-			case 21: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
+			case 23: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
 			default: vnx::skip(in, type_code, _field->code.data());
 		}
 	}
@@ -863,7 +905,7 @@ void write(TypeOutput& out, const ::vnx::BaseProxyBase& value, const TypeCode* t
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	auto* const _buf = out.write(26);
+	auto* const _buf = out.write(34);
 	vnx::write_value(_buf + 0, value.auto_import);
 	vnx::write_value(_buf + 1, value.time_sync);
 	vnx::write_value(_buf + 2, value.allow_login);
@@ -875,6 +917,8 @@ void write(TypeOutput& out, const ::vnx::BaseProxyBase& value, const TypeCode* t
 	vnx::write_value(_buf + 14, value.max_hop_count);
 	vnx::write_value(_buf + 18, value.recv_buffer_size);
 	vnx::write_value(_buf + 22, value.send_buffer_size);
+	vnx::write_value(_buf + 26, value.heartbeat_ms);
+	vnx::write_value(_buf + 30, value.heartbeat_timeout);
 	vnx::write(out, value.address, type_code, type_code->fields[0].code.data());
 	vnx::write(out, value.auto_login, type_code, type_code->fields[1].code.data());
 	vnx::write(out, value.import_list, type_code, type_code->fields[2].code.data());
@@ -885,7 +929,7 @@ void write(TypeOutput& out, const ::vnx::BaseProxyBase& value, const TypeCode* t
 	vnx::write(out, value.export_map, type_code, type_code->fields[7].code.data());
 	vnx::write(out, value.receive_tunnel, type_code, type_code->fields[8].code.data());
 	vnx::write(out, value.request_tunnel, type_code, type_code->fields[9].code.data());
-	vnx::write(out, value.default_access, type_code, type_code->fields[21].code.data());
+	vnx::write(out, value.default_access, type_code, type_code->fields[23].code.data());
 }
 
 void read(std::istream& in, ::vnx::BaseProxyBase& value) {

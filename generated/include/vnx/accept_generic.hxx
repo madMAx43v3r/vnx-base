@@ -11,6 +11,7 @@
 #include <vnx/GatewayInterface_forward.hxx>
 #include <vnx/GatewayInterface_forward_return.hxx>
 #include <vnx/Generic.hxx>
+#include <vnx/Heartbeat.hxx>
 #include <vnx/InternalError.hxx>
 #include <vnx/JRPC_Error.hxx>
 #include <vnx/JRPC_Failure.hxx>
@@ -238,6 +239,15 @@ void accept_generic(V& visitor, std::shared_ptr<const ::vnx::GatewayInterface_fo
 
 template<typename V>
 void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Generic> value) {
+	if(value) {
+		value->accept_generic(visitor);
+	} else {
+		visitor.accept(nullptr);
+	}
+}
+
+template<typename V>
+void accept_generic(V& visitor, std::shared_ptr<const ::vnx::Heartbeat> value) {
 	if(value) {
 		value->accept_generic(visitor);
 	} else {

@@ -67,7 +67,7 @@ namespace vnx {
 
 
 const vnx::Hash64 JRPC_ProxyBase::VNX_TYPE_HASH(0x8f49f08256b4e765ull);
-const vnx::Hash64 JRPC_ProxyBase::VNX_CODE_HASH(0x5ea26f23dcb81475ull);
+const vnx::Hash64 JRPC_ProxyBase::VNX_CODE_HASH(0x115af416a9d0750bull);
 
 JRPC_ProxyBase::JRPC_ProxyBase(const std::string& _vnx_name)
 	:	BaseProxy::BaseProxy(_vnx_name)
@@ -110,7 +110,9 @@ void JRPC_ProxyBase::accept(vnx::Visitor& _visitor) const {
 	_visitor.type_field(_type_code->fields[18], 18); vnx::accept(_visitor, max_hop_count);
 	_visitor.type_field(_type_code->fields[19], 19); vnx::accept(_visitor, recv_buffer_size);
 	_visitor.type_field(_type_code->fields[20], 20); vnx::accept(_visitor, send_buffer_size);
-	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, default_access);
+	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, heartbeat_ms);
+	_visitor.type_field(_type_code->fields[22], 22); vnx::accept(_visitor, heartbeat_timeout);
+	_visitor.type_field(_type_code->fields[23], 23); vnx::accept(_visitor, default_access);
 	_visitor.type_end(*_type_code);
 }
 
@@ -137,6 +139,8 @@ void JRPC_ProxyBase::write(std::ostream& _out) const {
 	_out << ", \"max_hop_count\": "; vnx::write(_out, max_hop_count);
 	_out << ", \"recv_buffer_size\": "; vnx::write(_out, recv_buffer_size);
 	_out << ", \"send_buffer_size\": "; vnx::write(_out, send_buffer_size);
+	_out << ", \"heartbeat_ms\": "; vnx::write(_out, heartbeat_ms);
+	_out << ", \"heartbeat_timeout\": "; vnx::write(_out, heartbeat_timeout);
 	_out << ", \"default_access\": "; vnx::write(_out, default_access);
 	_out << "}";
 }
@@ -171,6 +175,8 @@ vnx::Object JRPC_ProxyBase::to_object() const {
 	_object["max_hop_count"] = max_hop_count;
 	_object["recv_buffer_size"] = recv_buffer_size;
 	_object["send_buffer_size"] = send_buffer_size;
+	_object["heartbeat_ms"] = heartbeat_ms;
+	_object["heartbeat_timeout"] = heartbeat_timeout;
 	_object["default_access"] = default_access;
 	return _object;
 }
@@ -197,6 +203,10 @@ void JRPC_ProxyBase::from_object(const vnx::Object& _object) {
 			_entry.second.to(export_map);
 		} else if(_entry.first == "forward_list") {
 			_entry.second.to(forward_list);
+		} else if(_entry.first == "heartbeat_ms") {
+			_entry.second.to(heartbeat_ms);
+		} else if(_entry.first == "heartbeat_timeout") {
+			_entry.second.to(heartbeat_timeout);
 		} else if(_entry.first == "import_list") {
 			_entry.second.to(import_list);
 		} else if(_entry.first == "import_map") {
@@ -289,6 +299,12 @@ vnx::Variant JRPC_ProxyBase::get_field(const std::string& _name) const {
 	if(_name == "send_buffer_size") {
 		return vnx::Variant(send_buffer_size);
 	}
+	if(_name == "heartbeat_ms") {
+		return vnx::Variant(heartbeat_ms);
+	}
+	if(_name == "heartbeat_timeout") {
+		return vnx::Variant(heartbeat_timeout);
+	}
 	if(_name == "default_access") {
 		return vnx::Variant(default_access);
 	}
@@ -338,6 +354,10 @@ void JRPC_ProxyBase::set_field(const std::string& _name, const vnx::Variant& _va
 		_value.to(recv_buffer_size);
 	} else if(_name == "send_buffer_size") {
 		_value.to(send_buffer_size);
+	} else if(_name == "heartbeat_ms") {
+		_value.to(heartbeat_ms);
+	} else if(_name == "heartbeat_timeout") {
+		_value.to(heartbeat_timeout);
 	} else if(_name == "default_access") {
 		_value.to(default_access);
 	}
@@ -367,7 +387,7 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.JRPC_Proxy";
 	type_code->type_hash = vnx::Hash64(0x8f49f08256b4e765ull);
-	type_code->code_hash = vnx::Hash64(0x5ea26f23dcb81475ull);
+	type_code->code_hash = vnx::Hash64(0x115af416a9d0750bull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::JRPC_ProxyBase);
 	type_code->parents.resize(1);
@@ -400,7 +420,7 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 	type_code->methods[24] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
 	type_code->methods[25] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
 	type_code->methods[26] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
-	type_code->fields.resize(22);
+	type_code->fields.resize(24);
 	{
 		auto& field = type_code->fields[0];
 		field.is_extended = true;
@@ -540,6 +560,20 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 	}
 	{
 		auto& field = type_code->fields[21];
+		field.data_size = 4;
+		field.name = "heartbeat_ms";
+		field.value = vnx::to_string(10000);
+		field.code = {7};
+	}
+	{
+		auto& field = type_code->fields[22];
+		field.data_size = 4;
+		field.name = "heartbeat_timeout";
+		field.value = vnx::to_string(3);
+		field.code = {7};
+	}
+	{
+		auto& field = type_code->fields[23];
 		field.is_extended = true;
 		field.name = "default_access";
 		field.value = vnx::to_string("DEFAULT");
@@ -799,6 +833,12 @@ void read(TypeInput& in, ::vnx::JRPC_ProxyBase& value, const TypeCode* type_code
 		if(const auto* const _field = type_code->field_map[20]) {
 			vnx::read_value(_buf + _field->offset, value.send_buffer_size, _field->code.data());
 		}
+		if(const auto* const _field = type_code->field_map[21]) {
+			vnx::read_value(_buf + _field->offset, value.heartbeat_ms, _field->code.data());
+		}
+		if(const auto* const _field = type_code->field_map[22]) {
+			vnx::read_value(_buf + _field->offset, value.heartbeat_timeout, _field->code.data());
+		}
 	}
 	for(const auto* _field : type_code->ext_fields) {
 		switch(_field->native_index) {
@@ -812,7 +852,7 @@ void read(TypeInput& in, ::vnx::JRPC_ProxyBase& value, const TypeCode* type_code
 			case 7: vnx::read(in, value.export_map, type_code, _field->code.data()); break;
 			case 8: vnx::read(in, value.receive_tunnel, type_code, _field->code.data()); break;
 			case 9: vnx::read(in, value.request_tunnel, type_code, _field->code.data()); break;
-			case 21: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
+			case 23: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
 			default: vnx::skip(in, type_code, _field->code.data());
 		}
 	}
@@ -831,7 +871,7 @@ void write(TypeOutput& out, const ::vnx::JRPC_ProxyBase& value, const TypeCode* 
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	auto* const _buf = out.write(26);
+	auto* const _buf = out.write(34);
 	vnx::write_value(_buf + 0, value.auto_import);
 	vnx::write_value(_buf + 1, value.time_sync);
 	vnx::write_value(_buf + 2, value.allow_login);
@@ -843,6 +883,8 @@ void write(TypeOutput& out, const ::vnx::JRPC_ProxyBase& value, const TypeCode* 
 	vnx::write_value(_buf + 14, value.max_hop_count);
 	vnx::write_value(_buf + 18, value.recv_buffer_size);
 	vnx::write_value(_buf + 22, value.send_buffer_size);
+	vnx::write_value(_buf + 26, value.heartbeat_ms);
+	vnx::write_value(_buf + 30, value.heartbeat_timeout);
 	vnx::write(out, value.address, type_code, type_code->fields[0].code.data());
 	vnx::write(out, value.auto_login, type_code, type_code->fields[1].code.data());
 	vnx::write(out, value.import_list, type_code, type_code->fields[2].code.data());
@@ -853,7 +895,7 @@ void write(TypeOutput& out, const ::vnx::JRPC_ProxyBase& value, const TypeCode* 
 	vnx::write(out, value.export_map, type_code, type_code->fields[7].code.data());
 	vnx::write(out, value.receive_tunnel, type_code, type_code->fields[8].code.data());
 	vnx::write(out, value.request_tunnel, type_code, type_code->fields[9].code.data());
-	vnx::write(out, value.default_access, type_code, type_code->fields[21].code.data());
+	vnx::write(out, value.default_access, type_code, type_code->fields[23].code.data());
 }
 
 void read(std::istream& in, ::vnx::JRPC_ProxyBase& value) {
