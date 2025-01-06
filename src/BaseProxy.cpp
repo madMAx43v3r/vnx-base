@@ -612,13 +612,14 @@ void BaseProxy::read_loop(std::shared_ptr<const Endpoint> endpoint)
 			}
 			is_error = true;
 		}
-		close_socket();
 
 		try {
 			proxy.on_disconnect();		// notify our module that we lost the connection
 		} catch(...) {
 			// no problem
 		}
+		close_socket();					// close socket after notify
+
 		// close open connections
 		for(const auto& entry : incoming) {
 			auto flow_msg = FlowMessage::create();
