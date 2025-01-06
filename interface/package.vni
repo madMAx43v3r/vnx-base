@@ -6,6 +6,7 @@ topic topic_info;
 topic module_info;
 topic time_control;
 topic time_sync;
+topic heartbeat;
 
 extern Hash64 = {4};				// {UINT64}
 extern TopicPtr = {12, 5};			// {LIST, INT8}

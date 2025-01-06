@@ -1,0 +1,7 @@
+package vnx;
+
+class Heartbeat {
+	
+	string source;
+	
+}

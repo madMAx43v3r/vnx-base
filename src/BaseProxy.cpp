@@ -119,22 +119,16 @@ void BaseProxy::main() {
 		on_connect();	// in this case we are already connected
 	}
 	
+	if(heartbeat_ms > 0) {
+		set_timer_millis(heartbeat_ms, std::bind(&BaseProxy::send_heartbeat, this));
+	}
 	set_timer_millis(60000, std::bind(&BaseProxy::print_stats, this));
 	
 	std::thread read_thread(&BaseProxy::read_loop, this, vnx::clone(endpoint));
 	
 	Super::main();
 	
-	{
-		std::lock_guard<std::mutex> lock(mutex_socket);
-		if(socket >= 0) {
-#ifdef _WIN32
-			::shutdown(socket, SD_BOTH);
-#else
-			::shutdown(socket, SHUT_RDWR);		// force read loop to exit
-#endif
-		}
-	}
+	shutdown_socket();
 	read_thread.join();		// wait for read loop to exit
 	close_socket();			// read_loop() may not close socket
 	on_disconnect();		// clean up
@@ -152,6 +146,9 @@ void BaseProxy::handle(std::shared_ptr<const Sample> sample) {
 	if(sample->hop_count >= max_hop_count) {
 		log(WARN) << "Cycle detected on topic '" << sample->topic->get_name() << "'!";
 		return;
+	}
+	if(sample->topic == vnx::heartbeat) {
+		return;		// ignore
 	}
 	if(sample->topic == vnx::shutdown) {
 		Super::handle(sample);
@@ -492,6 +489,38 @@ void BaseProxy::print_stats() {
 	num_requests_send = 0;
 }
 
+void BaseProxy::send_heartbeat() {
+	auto sample = Sample::create();
+	sample->topic = vnx::heartbeat;
+	sample->seq_num = heartbeat_counter++;
+	sample->src_mac = service_addr;
+	auto value = Heartbeat::create();
+	value->source = vnx::get_host_name();
+	sample->value = value;
+	send_outgoing(sample);
+
+	if(heartbeat_timeout > 0
+		&& heartbeat_received > 0
+		&& missed_heartbeats == uint32_t(heartbeat_timeout + 1))
+	{
+		log(WARN) << "Receive timeout after " << heartbeat_timeout * heartbeat_ms << " ms";
+		shutdown_socket();
+	}
+	missed_heartbeats++;
+}
+
+void BaseProxy::shutdown_socket() {
+	std::lock_guard<std::mutex> lock(mutex_socket);
+	if(socket >= 0) {
+		// force read loop to exit
+#ifdef _WIN32
+		::shutdown(socket, SD_RECEIVE);
+#else
+		::shutdown(socket, SHUT_RD);
+#endif
+	}
+}
+
 bool BaseProxy::rewire_connection() {
 	if(socket >= 0) return true;
 
@@ -646,6 +675,14 @@ void BaseProxy::process(std::shared_ptr<Request> request, std::shared_ptr<Pipe> 
 }
 
 void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
+	if(sample->topic == vnx::heartbeat) {
+		sample->src_mac = service_addr;
+		missed_heartbeats = 0;
+		heartbeat_received++;
+		if(auto value = std::dynamic_pointer_cast<const Heartbeat>(sample->value)) {
+			log(DEBUG) << "Received heartbeat " << heartbeat_received << " from '" << value->source << "'";
+		}
+	}
 	const auto session_ = get_session();
 	const permission_e needed = permission_e::PUBLISH;
 	if(session_ && !session_->has_permission_vnx(needed)) {

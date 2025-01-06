@@ -30,6 +30,9 @@ module BaseProxy implements ProxyInterface {
 	int recv_buffer_size = 0;			// TCP buffer size (0 = default) [bytes]
 	int send_buffer_size = 131072;		// TCP buffer size (0 = default) [bytes]
 	
+	int heartbeat_ms = 10000;			// [ms] (0 = disable)
+	int heartbeat_timeout = 3;			// number of missed heartbeats (0 = disable)
+	
 	string default_access = "DEFAULT";	// default access role for anonymous clients (if use_authentication == true)
 
 }
