@@ -490,6 +490,10 @@ void BaseProxy::print_stats() {
 }
 
 void BaseProxy::send_heartbeat() {
+	if(!is_connected) {
+		missed_heartbeats = 0;
+		return;
+	}
 	auto sample = Sample::create();
 	sample->topic = vnx::heartbeat;
 	sample->seq_num = heartbeat_counter++;
