@@ -354,6 +354,8 @@ void BaseProxy::on_connect() {
 }
 
 void BaseProxy::on_disconnect() {
+	stream_out.reset(-1);		// clear socket
+
 	if(block_until_reconnect) {
 		// pause pipes
 		for(const auto& entry : request_pipes) {
