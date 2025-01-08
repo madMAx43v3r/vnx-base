@@ -347,6 +347,10 @@ void BaseProxy::on_connect() {
 
 	is_connected = true;
 	never_connected = false;
+	heartbeats_missed = 0;
+	heartbeats_received = 0;
+
+	send_heartbeat();
 
 	if(endpoint) {
 		log(INFO) << "Connected to " << endpoint->to_url();
@@ -493,7 +497,6 @@ void BaseProxy::print_stats() {
 
 void BaseProxy::send_heartbeat() {
 	if(!is_connected) {
-		missed_heartbeats = 0;
 		return;
 	}
 	auto sample = Sample::create();
@@ -506,13 +509,13 @@ void BaseProxy::send_heartbeat() {
 	send_outgoing(sample);
 
 	if(heartbeat_timeout > 0
-		&& heartbeat_received > 0
-		&& missed_heartbeats == uint32_t(heartbeat_timeout + 1))
+		&& heartbeats_received > 0
+		&& heartbeats_missed == uint32_t(heartbeat_timeout + 1))
 	{
 		log(WARN) << "Receive timeout after " << heartbeat_timeout * heartbeat_ms << " ms";
 		shutdown_socket();
 	}
-	missed_heartbeats++;
+	heartbeats_missed++;
 }
 
 void BaseProxy::shutdown_socket() {
@@ -684,10 +687,10 @@ void BaseProxy::process(std::shared_ptr<Request> request, std::shared_ptr<Pipe> 
 void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
 	if(sample->topic == vnx::heartbeat) {
 		sample->src_mac = service_addr;
-		missed_heartbeats = 0;
-		heartbeat_received++;
+		heartbeats_missed = 0;
+		heartbeats_received++;
 		if(auto value = std::dynamic_pointer_cast<const Heartbeat>(sample->value)) {
-			log(DEBUG) << "Received heartbeat " << heartbeat_received << " from '" << value->source << "'";
+			log(DEBUG) << "Received heartbeat " << heartbeats_received << " from '" << value->source << "'";
 		}
 	}
 	const auto session_ = get_session();

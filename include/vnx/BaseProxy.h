@@ -194,9 +194,9 @@ private:
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_connect;
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_disconnect;
 
-	uint64_t missed_heartbeats = 0;
+	uint64_t heartbeats_missed = 0;
 	uint64_t heartbeat_counter = 0;
-	uint64_t heartbeat_received = 0;
+	uint64_t heartbeats_received = 0;
 
 	std::unordered_map<std::pair<Hash64, Hash64>, uint64_t> channel_map;		// for topics [(src_mac, topic) => seq_num]
 
