@@ -143,7 +143,10 @@ public:
 	 * Get a pointer to at least \p len number of bytes in the buffer.
 	 * Will flush the buffer to the stream if not enough space available.
 	 */
-	uint8_t* write(size_t len) {
+	uint8_t* write(const size_t len) {
+		if(len == 0) {
+			throw std::invalid_argument("write(): length == 0");
+		}
 		if(len > VNX_BUFFER_SIZE) {
 			throw std::invalid_argument("write(): buffer too small");
 		}
@@ -159,7 +162,10 @@ public:
 	 * 
 	 * Used to write large chunks of data, potentially bypassing the buffer.
 	 */
-	void write(const void* data, size_t len) {
+	void write(const void* data, const size_t len) {
+		if(len == 0) {
+			return;
+		}
 		if(len < VNX_BUFFER_SIZE/2) {
 			::memcpy(write(len), data, len);
 		} else {
