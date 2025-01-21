@@ -90,11 +90,12 @@ private:
 				&& (path.empty() || key[path.size()] == '.')
 				&& key.substr(0, path.size()) == path)
 			{
+				if(protect && is_protected_internal(key)) {
+					continue;
+				}
 				if(key.find_last_of('.') == path.size()) {
-					if(!protect || !is_protected_internal(key)) {
-						const auto field = key.substr(path.size() + 1);
-						object[field] = entry.second;
-					}
+					const auto field = key.substr(path.size() + 1);
+					object[field] = entry.second;
 				} else {
 					const size_t start = path.empty() ? 0 : path.size() + 1;
 					const auto next_dot = key.find('.', start);
