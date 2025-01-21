@@ -23,7 +23,6 @@
 #include <vnx/Return.hxx>
 #include <vnx/Exception.hxx>
 #include <vnx/InternalError.hxx>
-#include <vnx/NoSuchService.hxx>
 #include <vnx/ModuleInfo.hxx>
 #include <vnx/FlowMessage.hxx>
 

@@ -18,7 +18,6 @@
 #include <vnx/BaseProxy.h>
 #include <vnx/Request.hxx>
 #include <vnx/Return.hxx>
-#include <vnx/NoSuchService.hxx>
 #include <vnx/PermissionDenied.hxx>
 #include <vnx/UnixEndpoint.hxx>
 #include <vnx/TcpEndpoint.hxx>
