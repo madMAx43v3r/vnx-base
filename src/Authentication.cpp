@@ -124,22 +124,21 @@ std::shared_ptr<const Session> AuthenticationServer::login(	const std::string &n
 															const std::string &default_access)
 {
 	const std::string hashed_password = final_hash(password);
+
 	auto session = Session::create();
-	session->id = new_session_id();
 	session->login_time = vnx::get_time_micros();
 	session->permissions = get_permissions(default_access);
 	if(auto user = get_user(name)){
 		if(user->hashed_password == hashed_password){
 			session->user = user->name;
-			for(auto role : user->access_roles){
-				auto perms = get_permissions(role);
+			for(const auto& role : user->access_roles){
+				const auto perms = get_permissions(role);
 				session->permissions.insert(perms.begin(), perms.end());
 			}
 			session->permissions.insert(user->permissions.begin(), user->permissions.end());
 		}
 	}
-	add_session(session);
-	return session;
+	return add_session(session);
 }
 
 
@@ -150,14 +149,12 @@ std::shared_ptr<const Session> AuthenticationServer::login_anonymous(const std::
 
 std::shared_ptr<const Session> AuthenticationServer::login_anonymous(const std::vector<std::string> &access_roles){
 	auto session = Session::create();
-	session->id = new_session_id();
 	session->login_time = vnx::get_time_micros();
-	for(auto role : access_roles){
-		auto perms = get_permissions(role);
+	for(const auto& role : access_roles){
+		const auto perms = get_permissions(role);
 		session->permissions.insert(perms.begin(), perms.end());
 	}
-	add_session(session);
-	return session;
+	return add_session(session);
 }
 
 
@@ -168,10 +165,10 @@ void AuthenticationServer::logout(Hash64 session_id){
 	if(found == sessions.end()) return;
 
 	std::shared_ptr<const Session> session = found->second;
-	sessions.erase(found);
 	for(const auto& perm : session->permissions) {
 		permissions_lookup.erase(std::make_pair(session->id, perm));
 	}
+	sessions.erase(found);
 }
 
 
@@ -219,7 +216,7 @@ bool AuthenticationServer::is_allowed(Hash64 session_id, const std::string &perm
 	}
 	std::lock_guard<std::mutex> lock(mutex);
 	// perform fast lookup
-	return permissions_lookup.find(std::make_pair(session_id, perm)) != permissions_lookup.end();
+	return permissions_lookup.count(std::make_pair(session_id, perm));
 }
 
 
@@ -228,22 +225,19 @@ std::string AuthenticationServer::final_hash(const std::string &input) const{
 }
 
 
-Hash64 AuthenticationServer::new_session_id(){
-	Hash64 id;
-	do {
-		id = vnx::Hash64::rand();
-	} while(get_session(id));
-	return id;
-}
-
-
-void AuthenticationServer::add_session(std::shared_ptr<Session> session){
+std::shared_ptr<const Session> AuthenticationServer::add_session(std::shared_ptr<Session> session){
 	std::lock_guard<std::mutex> lock(mutex);
-	sessions.emplace(session->id, session);
+
+	// create new id and add session while holding the lock straight, to avoid race condition
+	while(!session->id || sessions.count(session->id)) {
+		session->id = vnx::Hash64::rand();
+	}
+	sessions[session->id] = session;	// overwrite, just in case
 	// add fast lookup entries
 	for(const auto& perm : session->permissions) {
 		permissions_lookup.emplace(session->id, perm);
 	}
+	return session;
 }
 
 

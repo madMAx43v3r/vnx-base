@@ -72,9 +72,7 @@ public:
 	std::string final_hash(const std::string &input) const;
 
 protected:
-	Hash64 new_session_id();
-
-	void add_session(std::shared_ptr<Session> session);
+	std::shared_ptr<const Session> add_session(std::shared_ptr<Session> session);
 
 	void add_permissions(const access_role_e &access_role, const std::set<vnx::permission_e> &perms);
 
@@ -83,8 +81,8 @@ private:
 	mutable std::mutex mutex;
 	std::map<std::string, User> users;
 	std::map<std::string, std::set<std::string>> permissions;
-	std::unordered_map<Hash64, std::shared_ptr<const Session>> sessions;
-	std::unordered_multiset<std::pair<Hash64, std::string>> permissions_lookup;
+	std::unordered_map<Hash64, std::shared_ptr<const Session>> sessions;		// [id => session]
+	std::unordered_set<std::pair<Hash64, std::string>> permissions_lookup;		// [id => permission]
 };
 
 
