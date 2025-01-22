@@ -110,10 +110,28 @@ std::shared_ptr<const ModuleInfo> ModuleBase::vnx_get_module_info() const {
 }
 
 Object ModuleBase::vnx_get_config_object() const {
-	return to_object();
+	const bool protect = !vnx::is_allowed(vnx_request->session, permission_e::PROTECTED_CONFIG);
+	if(protect && vnx::is_config_protected(vnx_name)) {
+		throw std::runtime_error("config is protected");
+	}
+	auto obj = to_object();
+	std::vector<std::string> list;
+	for(const auto& entry : obj.field) {
+		if(protect && vnx::is_config_protected(vnx_name + "." + entry.first)) {
+			list.push_back(entry.first);
+		}
+	}
+	for(const auto& key : list) {
+		obj.erase(key);
+	}
+	return obj;
 }
 
 Variant ModuleBase::vnx_get_config(const std::string& name) {
+	const bool protect = !vnx::is_allowed(vnx_request->session, permission_e::PROTECTED_CONFIG);
+	if(protect && vnx::is_config_protected(vnx_name + "." + name)) {
+		throw std::runtime_error("config is protected");
+	}
 	return get_field(name);
 }
 
