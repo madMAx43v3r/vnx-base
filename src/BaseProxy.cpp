@@ -558,6 +558,9 @@ bool BaseProxy::rewire_connection() {
 			log(WARN) << ex.what() << " (" << endpoint->to_url() << ")";
 		}
 		is_error = true;
+		if(no_retry) {
+			break;
+		}
 	}
 	return false;
 }
