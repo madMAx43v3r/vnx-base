@@ -68,7 +68,7 @@ namespace vnx {
 
 
 const vnx::Hash64 BaseProxyBase::VNX_TYPE_HASH(0xd8241ff9082104f5ull);
-const vnx::Hash64 BaseProxyBase::VNX_CODE_HASH(0xc1637806ff6a1afaull);
+const vnx::Hash64 BaseProxyBase::VNX_CODE_HASH(0xab70b80d21512d18ull);
 
 BaseProxyBase::BaseProxyBase(const std::string& _vnx_name)
 	:	Module::Module(_vnx_name)
@@ -83,6 +83,7 @@ BaseProxyBase::BaseProxyBase(const std::string& _vnx_name)
 	vnx::read_config(vnx_name + ".export_map", export_map);
 	vnx::read_config(vnx_name + ".receive_tunnel", receive_tunnel);
 	vnx::read_config(vnx_name + ".request_tunnel", request_tunnel);
+	vnx::read_config(vnx_name + ".no_retry", no_retry);
 	vnx::read_config(vnx_name + ".auto_import", auto_import);
 	vnx::read_config(vnx_name + ".time_sync", time_sync);
 	vnx::read_config(vnx_name + ".allow_login", allow_login);
@@ -124,20 +125,21 @@ void BaseProxyBase::accept(vnx::Visitor& _visitor) const {
 	_visitor.type_field(_type_code->fields[7], 7); vnx::accept(_visitor, export_map);
 	_visitor.type_field(_type_code->fields[8], 8); vnx::accept(_visitor, receive_tunnel);
 	_visitor.type_field(_type_code->fields[9], 9); vnx::accept(_visitor, request_tunnel);
-	_visitor.type_field(_type_code->fields[10], 10); vnx::accept(_visitor, auto_import);
-	_visitor.type_field(_type_code->fields[11], 11); vnx::accept(_visitor, time_sync);
-	_visitor.type_field(_type_code->fields[12], 12); vnx::accept(_visitor, allow_login);
-	_visitor.type_field(_type_code->fields[13], 13); vnx::accept(_visitor, use_authentication);
-	_visitor.type_field(_type_code->fields[14], 14); vnx::accept(_visitor, block_until_connect);
-	_visitor.type_field(_type_code->fields[15], 15); vnx::accept(_visitor, block_until_reconnect);
-	_visitor.type_field(_type_code->fields[16], 16); vnx::accept(_visitor, max_queue_ms);
-	_visitor.type_field(_type_code->fields[17], 17); vnx::accept(_visitor, max_queue_size);
-	_visitor.type_field(_type_code->fields[18], 18); vnx::accept(_visitor, max_hop_count);
-	_visitor.type_field(_type_code->fields[19], 19); vnx::accept(_visitor, recv_buffer_size);
-	_visitor.type_field(_type_code->fields[20], 20); vnx::accept(_visitor, send_buffer_size);
-	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, heartbeat_ms);
-	_visitor.type_field(_type_code->fields[22], 22); vnx::accept(_visitor, heartbeat_timeout);
-	_visitor.type_field(_type_code->fields[23], 23); vnx::accept(_visitor, default_access);
+	_visitor.type_field(_type_code->fields[10], 10); vnx::accept(_visitor, no_retry);
+	_visitor.type_field(_type_code->fields[11], 11); vnx::accept(_visitor, auto_import);
+	_visitor.type_field(_type_code->fields[12], 12); vnx::accept(_visitor, time_sync);
+	_visitor.type_field(_type_code->fields[13], 13); vnx::accept(_visitor, allow_login);
+	_visitor.type_field(_type_code->fields[14], 14); vnx::accept(_visitor, use_authentication);
+	_visitor.type_field(_type_code->fields[15], 15); vnx::accept(_visitor, block_until_connect);
+	_visitor.type_field(_type_code->fields[16], 16); vnx::accept(_visitor, block_until_reconnect);
+	_visitor.type_field(_type_code->fields[17], 17); vnx::accept(_visitor, max_queue_ms);
+	_visitor.type_field(_type_code->fields[18], 18); vnx::accept(_visitor, max_queue_size);
+	_visitor.type_field(_type_code->fields[19], 19); vnx::accept(_visitor, max_hop_count);
+	_visitor.type_field(_type_code->fields[20], 20); vnx::accept(_visitor, recv_buffer_size);
+	_visitor.type_field(_type_code->fields[21], 21); vnx::accept(_visitor, send_buffer_size);
+	_visitor.type_field(_type_code->fields[22], 22); vnx::accept(_visitor, heartbeat_ms);
+	_visitor.type_field(_type_code->fields[23], 23); vnx::accept(_visitor, heartbeat_timeout);
+	_visitor.type_field(_type_code->fields[24], 24); vnx::accept(_visitor, default_access);
 	_visitor.type_end(*_type_code);
 }
 
@@ -153,6 +155,7 @@ void BaseProxyBase::write(std::ostream& _out) const {
 	_out << ", \"export_map\": "; vnx::write(_out, export_map);
 	_out << ", \"receive_tunnel\": "; vnx::write(_out, receive_tunnel);
 	_out << ", \"request_tunnel\": "; vnx::write(_out, request_tunnel);
+	_out << ", \"no_retry\": "; vnx::write(_out, no_retry);
 	_out << ", \"auto_import\": "; vnx::write(_out, auto_import);
 	_out << ", \"time_sync\": "; vnx::write(_out, time_sync);
 	_out << ", \"allow_login\": "; vnx::write(_out, allow_login);
@@ -189,6 +192,7 @@ vnx::Object BaseProxyBase::to_object() const {
 	_object["export_map"] = export_map;
 	_object["receive_tunnel"] = receive_tunnel;
 	_object["request_tunnel"] = request_tunnel;
+	_object["no_retry"] = no_retry;
 	_object["auto_import"] = auto_import;
 	_object["time_sync"] = time_sync;
 	_object["allow_login"] = allow_login;
@@ -242,6 +246,8 @@ void BaseProxyBase::from_object(const vnx::Object& _object) {
 			_entry.second.to(max_queue_ms);
 		} else if(_entry.first == "max_queue_size") {
 			_entry.second.to(max_queue_size);
+		} else if(_entry.first == "no_retry") {
+			_entry.second.to(no_retry);
 		} else if(_entry.first == "receive_tunnel") {
 			_entry.second.to(receive_tunnel);
 		} else if(_entry.first == "recv_buffer_size") {
@@ -290,6 +296,9 @@ vnx::Variant BaseProxyBase::get_field(const std::string& _name) const {
 	}
 	if(_name == "request_tunnel") {
 		return vnx::Variant(request_tunnel);
+	}
+	if(_name == "no_retry") {
+		return vnx::Variant(no_retry);
 	}
 	if(_name == "auto_import") {
 		return vnx::Variant(auto_import);
@@ -357,6 +366,8 @@ void BaseProxyBase::set_field(const std::string& _name, const vnx::Variant& _val
 		_value.to(receive_tunnel);
 	} else if(_name == "request_tunnel") {
 		_value.to(request_tunnel);
+	} else if(_name == "no_retry") {
+		_value.to(no_retry);
 	} else if(_name == "auto_import") {
 		_value.to(auto_import);
 	} else if(_name == "time_sync") {
@@ -412,7 +423,7 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.BaseProxy";
 	type_code->type_hash = vnx::Hash64(0xd8241ff9082104f5ull);
-	type_code->code_hash = vnx::Hash64(0xc1637806ff6a1afaull);
+	type_code->code_hash = vnx::Hash64(0xab70b80d21512d18ull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::BaseProxyBase);
 	type_code->methods.resize(26);
@@ -442,7 +453,7 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	type_code->methods[23] = ::vnx::ProxyInterface_on_remote_login::static_get_type_code();
 	type_code->methods[24] = ::vnx::ProxyInterface_wait_on_connect::static_get_type_code();
 	type_code->methods[25] = ::vnx::ProxyInterface_wait_on_disconnect::static_get_type_code();
-	type_code->fields.resize(24);
+	type_code->fields.resize(25);
 	{
 		auto& field = type_code->fields[0];
 		field.is_extended = true;
@@ -506,96 +517,103 @@ std::shared_ptr<vnx::TypeCode> BaseProxyBase::static_create_type_code() {
 	{
 		auto& field = type_code->fields[10];
 		field.data_size = 1;
-		field.name = "auto_import";
+		field.name = "no_retry";
 		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
 		auto& field = type_code->fields[11];
 		field.data_size = 1;
-		field.name = "time_sync";
+		field.name = "auto_import";
 		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
 		auto& field = type_code->fields[12];
 		field.data_size = 1;
+		field.name = "time_sync";
+		field.value = vnx::to_string(false);
+		field.code = {31};
+	}
+	{
+		auto& field = type_code->fields[13];
+		field.data_size = 1;
 		field.name = "allow_login";
 		field.value = vnx::to_string(true);
 		field.code = {31};
 	}
 	{
-		auto& field = type_code->fields[13];
+		auto& field = type_code->fields[14];
 		field.data_size = 1;
 		field.name = "use_authentication";
 		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
-		auto& field = type_code->fields[14];
+		auto& field = type_code->fields[15];
 		field.data_size = 1;
 		field.name = "block_until_connect";
 		field.value = vnx::to_string(true);
 		field.code = {31};
 	}
 	{
-		auto& field = type_code->fields[15];
+		auto& field = type_code->fields[16];
 		field.data_size = 1;
 		field.name = "block_until_reconnect";
 		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
-		auto& field = type_code->fields[16];
+		auto& field = type_code->fields[17];
 		field.data_size = 4;
 		field.name = "max_queue_ms";
 		field.value = vnx::to_string(100);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[17];
+		auto& field = type_code->fields[18];
 		field.data_size = 4;
 		field.name = "max_queue_size";
 		field.value = vnx::to_string(1000);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[18];
+		auto& field = type_code->fields[19];
 		field.data_size = 4;
 		field.name = "max_hop_count";
 		field.value = vnx::to_string(10);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[19];
+		auto& field = type_code->fields[20];
 		field.data_size = 4;
 		field.name = "recv_buffer_size";
 		field.value = vnx::to_string(0);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[20];
+		auto& field = type_code->fields[21];
 		field.data_size = 4;
 		field.name = "send_buffer_size";
 		field.value = vnx::to_string(131072);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[21];
+		auto& field = type_code->fields[22];
 		field.data_size = 4;
 		field.name = "heartbeat_ms";
 		field.value = vnx::to_string(10000);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[22];
+		auto& field = type_code->fields[23];
 		field.data_size = 4;
 		field.name = "heartbeat_timeout";
 		field.value = vnx::to_string(3);
 		field.code = {7};
 	}
 	{
-		auto& field = type_code->fields[23];
+		auto& field = type_code->fields[24];
 		field.is_extended = true;
 		field.name = "default_access";
 		field.value = vnx::to_string("DEFAULT");
@@ -835,42 +853,45 @@ void read(TypeInput& in, ::vnx::BaseProxyBase& value, const TypeCode* type_code,
 	const auto* const _buf = in.read(type_code->total_field_size);
 	if(type_code->is_matched) {
 		if(const auto* const _field = type_code->field_map[10]) {
-			vnx::read_value(_buf + _field->offset, value.auto_import, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.no_retry, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[11]) {
-			vnx::read_value(_buf + _field->offset, value.time_sync, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.auto_import, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[12]) {
-			vnx::read_value(_buf + _field->offset, value.allow_login, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.time_sync, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[13]) {
-			vnx::read_value(_buf + _field->offset, value.use_authentication, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.allow_login, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[14]) {
-			vnx::read_value(_buf + _field->offset, value.block_until_connect, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.use_authentication, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[15]) {
-			vnx::read_value(_buf + _field->offset, value.block_until_reconnect, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.block_until_connect, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[16]) {
-			vnx::read_value(_buf + _field->offset, value.max_queue_ms, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.block_until_reconnect, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[17]) {
-			vnx::read_value(_buf + _field->offset, value.max_queue_size, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.max_queue_ms, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[18]) {
-			vnx::read_value(_buf + _field->offset, value.max_hop_count, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.max_queue_size, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[19]) {
-			vnx::read_value(_buf + _field->offset, value.recv_buffer_size, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.max_hop_count, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[20]) {
-			vnx::read_value(_buf + _field->offset, value.send_buffer_size, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.recv_buffer_size, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[21]) {
-			vnx::read_value(_buf + _field->offset, value.heartbeat_ms, _field->code.data());
+			vnx::read_value(_buf + _field->offset, value.send_buffer_size, _field->code.data());
 		}
 		if(const auto* const _field = type_code->field_map[22]) {
+			vnx::read_value(_buf + _field->offset, value.heartbeat_ms, _field->code.data());
+		}
+		if(const auto* const _field = type_code->field_map[23]) {
 			vnx::read_value(_buf + _field->offset, value.heartbeat_timeout, _field->code.data());
 		}
 	}
@@ -886,7 +907,7 @@ void read(TypeInput& in, ::vnx::BaseProxyBase& value, const TypeCode* type_code,
 			case 7: vnx::read(in, value.export_map, type_code, _field->code.data()); break;
 			case 8: vnx::read(in, value.receive_tunnel, type_code, _field->code.data()); break;
 			case 9: vnx::read(in, value.request_tunnel, type_code, _field->code.data()); break;
-			case 23: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
+			case 24: vnx::read(in, value.default_access, type_code, _field->code.data()); break;
 			default: vnx::skip(in, type_code, _field->code.data());
 		}
 	}
@@ -905,20 +926,21 @@ void write(TypeOutput& out, const ::vnx::BaseProxyBase& value, const TypeCode* t
 	else if(code && code[0] == CODE_STRUCT) {
 		type_code = type_code->depends[code[1]];
 	}
-	auto* const _buf = out.write(34);
-	vnx::write_value(_buf + 0, value.auto_import);
-	vnx::write_value(_buf + 1, value.time_sync);
-	vnx::write_value(_buf + 2, value.allow_login);
-	vnx::write_value(_buf + 3, value.use_authentication);
-	vnx::write_value(_buf + 4, value.block_until_connect);
-	vnx::write_value(_buf + 5, value.block_until_reconnect);
-	vnx::write_value(_buf + 6, value.max_queue_ms);
-	vnx::write_value(_buf + 10, value.max_queue_size);
-	vnx::write_value(_buf + 14, value.max_hop_count);
-	vnx::write_value(_buf + 18, value.recv_buffer_size);
-	vnx::write_value(_buf + 22, value.send_buffer_size);
-	vnx::write_value(_buf + 26, value.heartbeat_ms);
-	vnx::write_value(_buf + 30, value.heartbeat_timeout);
+	auto* const _buf = out.write(35);
+	vnx::write_value(_buf + 0, value.no_retry);
+	vnx::write_value(_buf + 1, value.auto_import);
+	vnx::write_value(_buf + 2, value.time_sync);
+	vnx::write_value(_buf + 3, value.allow_login);
+	vnx::write_value(_buf + 4, value.use_authentication);
+	vnx::write_value(_buf + 5, value.block_until_connect);
+	vnx::write_value(_buf + 6, value.block_until_reconnect);
+	vnx::write_value(_buf + 7, value.max_queue_ms);
+	vnx::write_value(_buf + 11, value.max_queue_size);
+	vnx::write_value(_buf + 15, value.max_hop_count);
+	vnx::write_value(_buf + 19, value.recv_buffer_size);
+	vnx::write_value(_buf + 23, value.send_buffer_size);
+	vnx::write_value(_buf + 27, value.heartbeat_ms);
+	vnx::write_value(_buf + 31, value.heartbeat_timeout);
 	vnx::write(out, value.address, type_code, type_code->fields[0].code.data());
 	vnx::write(out, value.auto_login, type_code, type_code->fields[1].code.data());
 	vnx::write(out, value.import_list, type_code, type_code->fields[2].code.data());
@@ -929,7 +951,7 @@ void write(TypeOutput& out, const ::vnx::BaseProxyBase& value, const TypeCode* t
 	vnx::write(out, value.export_map, type_code, type_code->fields[7].code.data());
 	vnx::write(out, value.receive_tunnel, type_code, type_code->fields[8].code.data());
 	vnx::write(out, value.request_tunnel, type_code, type_code->fields[9].code.data());
-	vnx::write(out, value.default_access, type_code, type_code->fields[23].code.data());
+	vnx::write(out, value.default_access, type_code, type_code->fields[24].code.data());
 }
 
 void read(std::istream& in, ::vnx::BaseProxyBase& value) {

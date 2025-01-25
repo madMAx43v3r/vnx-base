@@ -26,6 +26,7 @@ public:
 	std::map<::vnx::TopicPtr, ::vnx::TopicPtr> export_map;
 	::vnx::Hash64 receive_tunnel;
 	::vnx::Hash64 request_tunnel;
+	vnx::bool_t no_retry = false;
 	vnx::bool_t auto_import = false;
 	vnx::bool_t time_sync = false;
 	vnx::bool_t allow_login = true;
@@ -104,7 +105,7 @@ protected:
 
 template<typename T>
 void BaseProxyBase::accept_generic(T& _visitor) const {
-	_visitor.template type_begin<BaseProxyBase>(24);
+	_visitor.template type_begin<BaseProxyBase>(25);
 	_visitor.type_field("address", 0); _visitor.accept(address);
 	_visitor.type_field("auto_login", 1); _visitor.accept(auto_login);
 	_visitor.type_field("import_list", 2); _visitor.accept(import_list);
@@ -115,21 +116,22 @@ void BaseProxyBase::accept_generic(T& _visitor) const {
 	_visitor.type_field("export_map", 7); _visitor.accept(export_map);
 	_visitor.type_field("receive_tunnel", 8); _visitor.accept(receive_tunnel);
 	_visitor.type_field("request_tunnel", 9); _visitor.accept(request_tunnel);
-	_visitor.type_field("auto_import", 10); _visitor.accept(auto_import);
-	_visitor.type_field("time_sync", 11); _visitor.accept(time_sync);
-	_visitor.type_field("allow_login", 12); _visitor.accept(allow_login);
-	_visitor.type_field("use_authentication", 13); _visitor.accept(use_authentication);
-	_visitor.type_field("block_until_connect", 14); _visitor.accept(block_until_connect);
-	_visitor.type_field("block_until_reconnect", 15); _visitor.accept(block_until_reconnect);
-	_visitor.type_field("max_queue_ms", 16); _visitor.accept(max_queue_ms);
-	_visitor.type_field("max_queue_size", 17); _visitor.accept(max_queue_size);
-	_visitor.type_field("max_hop_count", 18); _visitor.accept(max_hop_count);
-	_visitor.type_field("recv_buffer_size", 19); _visitor.accept(recv_buffer_size);
-	_visitor.type_field("send_buffer_size", 20); _visitor.accept(send_buffer_size);
-	_visitor.type_field("heartbeat_ms", 21); _visitor.accept(heartbeat_ms);
-	_visitor.type_field("heartbeat_timeout", 22); _visitor.accept(heartbeat_timeout);
-	_visitor.type_field("default_access", 23); _visitor.accept(default_access);
-	_visitor.template type_end<BaseProxyBase>(24);
+	_visitor.type_field("no_retry", 10); _visitor.accept(no_retry);
+	_visitor.type_field("auto_import", 11); _visitor.accept(auto_import);
+	_visitor.type_field("time_sync", 12); _visitor.accept(time_sync);
+	_visitor.type_field("allow_login", 13); _visitor.accept(allow_login);
+	_visitor.type_field("use_authentication", 14); _visitor.accept(use_authentication);
+	_visitor.type_field("block_until_connect", 15); _visitor.accept(block_until_connect);
+	_visitor.type_field("block_until_reconnect", 16); _visitor.accept(block_until_reconnect);
+	_visitor.type_field("max_queue_ms", 17); _visitor.accept(max_queue_ms);
+	_visitor.type_field("max_queue_size", 18); _visitor.accept(max_queue_size);
+	_visitor.type_field("max_hop_count", 19); _visitor.accept(max_hop_count);
+	_visitor.type_field("recv_buffer_size", 20); _visitor.accept(recv_buffer_size);
+	_visitor.type_field("send_buffer_size", 21); _visitor.accept(send_buffer_size);
+	_visitor.type_field("heartbeat_ms", 22); _visitor.accept(heartbeat_ms);
+	_visitor.type_field("heartbeat_timeout", 23); _visitor.accept(heartbeat_timeout);
+	_visitor.type_field("default_access", 24); _visitor.accept(default_access);
+	_visitor.template type_end<BaseProxyBase>(25);
 }
 
 
