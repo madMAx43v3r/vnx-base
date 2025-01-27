@@ -245,7 +245,10 @@ void BaseProxy::login_async(const std::string &name, const std::string &password
 }
 
 void BaseProxy::enable_import(const std::string& topic_name) {
-	import_table[topic_name]++;
+	{
+		std::lock_guard<std::mutex> lock(mutex_import_table);
+		import_table[topic_name]++;
+	}
 	if(is_connected) {
 		remote->enable_export_async(topic_name);	// tell other end to export this topic
 		log(INFO) << "remote->enable_export('" << topic_name << "')";
@@ -253,7 +256,10 @@ void BaseProxy::enable_import(const std::string& topic_name) {
 }
 
 void BaseProxy::disable_import(const std::string& topic_name) {
-	import_table[topic_name]--;
+	{
+		std::lock_guard<std::mutex> lock(mutex_import_table);
+		import_table[topic_name]--;
+	}
 	if(is_connected) {
 		remote->disable_export_async(topic_name);		// tell other end to stop exporting this topic
 		log(INFO) << "remote->disable_export('" << topic_name << "')";
@@ -473,10 +479,11 @@ void BaseProxy::update_topics() {
 		{
 			auto topic = get_topic(info.name);
 			while(topic) {
-				if(import_table[topic->get_name()] > 0) {
+				const auto name = topic->get_name();
+				if(import_table.count(name) && import_table[name] > 0) {
 					is_import = true;
 				}
-				if(export_table[topic->get_name()] > 0) {
+				if(export_table.count(name) && export_table[name] > 0) {
 					is_export = true;
 				}
 				topic = topic->get_parent();
@@ -487,7 +494,7 @@ void BaseProxy::update_topics() {
 				enable_import(info.name);
 			}
 		} else {
-			if(import_table[info.name] > 0) {
+			if(import_table.count(info.name) && import_table[info.name] > 0) {
 				disable_import(info.name);
 			}
 		}
@@ -706,17 +713,20 @@ void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
 			log(DEBUG) << "Received heartbeat " << heartbeats_received << " from '" << value->source << "'";
 		}
 	} else {
-		bool is_import = false;
-		auto topic = sample->topic;
-		while(topic && !is_import) {
-			is_import = import_table.count(topic->get_name());
-			topic = topic->get_parent();
-		}
-		if(!is_import) {
-			// we did not import this topic, check permission
-			const auto session_ = get_session();
-			const permission_e needed = permission_e::PUBLISH;
-			if(session_ && !session_->has_permission_vnx(needed)) {
+		const auto session_ = get_session();
+		const permission_e needed = permission_e::PUBLISH;
+		if(session_ && !session_->has_permission_vnx(needed)) {
+			bool is_import = false;
+			auto topic = sample->topic;
+			{
+				std::lock_guard<std::mutex> lock(mutex_import_table);
+				while(topic && !is_import) {
+					auto iter = import_table.find(topic->get_name());
+					is_import = iter != import_table.end() && iter->second > 0;
+					topic = topic->get_parent();
+				}
+			}
+			if(!is_import) {
 				log(WARN) << "Denied publish to topic '" << sample->topic->get_name() << "' due to missing: " << needed.to_string_value_full();
 				return;
 			}

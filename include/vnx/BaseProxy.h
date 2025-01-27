@@ -140,19 +140,21 @@ protected:
 	Hash64 remote_process_id;
 	std::shared_ptr<ProxyInterfaceClient> remote;
 
-	std::unordered_map<std::string, ssize_t> import_table;			// [topic => counter]
-	std::unordered_map<std::string, ssize_t> export_table;			// [topic => counter]
+	std::mutex mutex_import_table;
+
+	std::unordered_map<std::string, int32_t> import_table;			// [topic => counter]
+	std::unordered_map<std::string, int32_t> export_table;			// [topic => counter]
 	std::unordered_map<Hash64, uint64_t> forward_table;				// [service => counter]
 	std::map<Hash64, std::string> forward_names;					// [dst_mac => service name]
 	std::unordered_map<Hash64, std::shared_ptr<Pipe>> request_pipes;	// [service => pipe]
 	std::unordered_set<std::pair<Hash64, Hash64>> outgoing;			// (src_mac, dst_mac)
 	
-	std::atomic<size_t> num_frames_send {0};
-	std::atomic<size_t> num_frames_recv {0};
-	std::atomic<size_t> num_samples_send {0};
-	std::atomic<size_t> num_samples_recv {0};
-	std::atomic<size_t> num_requests_send {0};
-	std::atomic<size_t> num_requests_recv {0};
+	std::atomic<uint64_t> num_frames_send {0};
+	std::atomic<uint64_t> num_frames_recv {0};
+	std::atomic<uint64_t> num_samples_send {0};
+	std::atomic<uint64_t> num_samples_recv {0};
+	std::atomic<uint64_t> num_requests_send {0};
+	std::atomic<uint64_t> num_requests_recv {0};
 
 private:
 	void update_topics();
@@ -194,9 +196,9 @@ private:
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_connect;
 	mutable std::vector<vnx::request_t<Hash64>> waiting_on_disconnect;
 
-	uint64_t heartbeats_missed = 0;
-	uint64_t heartbeat_counter = 0;
-	uint64_t heartbeats_received = 0;
+	std::atomic<uint64_t> heartbeat_counter {0};
+	std::atomic<uint64_t> heartbeats_missed {0};
+	std::atomic<uint64_t> heartbeats_received {0};
 
 	std::unordered_map<std::pair<Hash64, Hash64>, uint64_t> channel_map;		// for topics [(src_mac, topic) => seq_num]
 
