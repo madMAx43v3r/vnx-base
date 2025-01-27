@@ -709,9 +709,6 @@ void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
 		sample->src_mac = service_addr;
 		heartbeats_missed = 0;
 		heartbeats_received++;
-		if(auto value = std::dynamic_pointer_cast<const Heartbeat>(sample->value)) {
-			log(DEBUG) << "Received heartbeat " << heartbeats_received << " from '" << value->source << "'";
-		}
 	} else {
 		const auto session_ = get_session();
 		const permission_e needed = permission_e::PUBLISH;
