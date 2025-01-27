@@ -171,8 +171,19 @@ void BaseProxy::handle(std::shared_ptr<const Sample> sample) {
 	}
 	copy->topic = remap_topic(sample->topic, export_map);
 
+	bool is_pass = true;
+	if(session && !session->has_permission_vnx(permission_e::VIEW)) {
+		bool is_export = false;
+		auto topic = sample->topic;
+		while(topic && !is_export) {
+			is_export = export_table.count(topic->get_name());
+			topic = topic->get_parent();
+		}
+		is_pass = is_export;
+	}
+
 	// send to other side
-	if(is_connected && (!session || session->has_permission_vnx(permission_e::VIEW))) {
+	if(is_connected && is_pass) {
 		try {
 			send_outgoing(copy);
 			if(last_seq_num) {
