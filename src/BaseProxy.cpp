@@ -694,12 +694,22 @@ void BaseProxy::process(std::shared_ptr<Sample> sample) noexcept {
 		if(auto value = std::dynamic_pointer_cast<const Heartbeat>(sample->value)) {
 			log(DEBUG) << "Received heartbeat " << heartbeats_received << " from '" << value->source << "'";
 		}
-	}
-	const auto session_ = get_session();
-	const permission_e needed = permission_e::PUBLISH;
-	if(session_ && !session_->has_permission_vnx(needed)) {
-		log(WARN) << "Denied publish to topic '" << sample->topic->get_name() << "' due to missing: " << needed.to_string_value_full();
-		return;
+	} else {
+		bool is_import = false;
+		auto topic = sample->topic;
+		while(topic && !is_import) {
+			is_import = import_table.count(topic->get_name());
+			topic = topic->get_parent();
+		}
+		if(!is_import) {
+			// we did not import this topic, check permission
+			const auto session_ = get_session();
+			const permission_e needed = permission_e::PUBLISH;
+			if(session_ && !session_->has_permission_vnx(needed)) {
+				log(WARN) << "Denied publish to topic '" << sample->topic->get_name() << "' due to missing: " << needed.to_string_value_full();
+				return;
+			}
+		}
 	}
 	if(sample->topic) {
 		auto& last = recv_buffer[std::make_pair(sample->src_mac, sample->topic->get_hash())];
