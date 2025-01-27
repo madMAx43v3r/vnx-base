@@ -176,7 +176,8 @@ void BaseProxy::handle(std::shared_ptr<const Sample> sample) {
 		bool is_export = false;
 		auto topic = sample->topic;
 		while(topic && !is_export) {
-			is_export = export_table.count(topic->get_name());
+			auto iter = export_table.find(topic->get_name());
+			is_export = iter != export_table.end() && iter->second > 0;
 			topic = topic->get_parent();
 		}
 		is_pass = is_export;
