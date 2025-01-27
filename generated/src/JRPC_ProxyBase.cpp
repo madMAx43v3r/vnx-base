@@ -67,7 +67,7 @@ namespace vnx {
 
 
 const vnx::Hash64 JRPC_ProxyBase::VNX_TYPE_HASH(0x8f49f08256b4e765ull);
-const vnx::Hash64 JRPC_ProxyBase::VNX_CODE_HASH(0xbe898b8173d7608aull);
+const vnx::Hash64 JRPC_ProxyBase::VNX_CODE_HASH(0x93f439d36a6efd57ull);
 
 JRPC_ProxyBase::JRPC_ProxyBase(const std::string& _vnx_name)
 	:	BaseProxy::BaseProxy(_vnx_name)
@@ -397,7 +397,7 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.JRPC_Proxy";
 	type_code->type_hash = vnx::Hash64(0x8f49f08256b4e765ull);
-	type_code->code_hash = vnx::Hash64(0xbe898b8173d7608aull);
+	type_code->code_hash = vnx::Hash64(0x93f439d36a6efd57ull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::JRPC_ProxyBase);
 	type_code->parents.resize(1);
@@ -516,14 +516,14 @@ std::shared_ptr<vnx::TypeCode> JRPC_ProxyBase::static_create_type_code() {
 		auto& field = type_code->fields[13];
 		field.data_size = 1;
 		field.name = "allow_login";
-		field.value = vnx::to_string(true);
+		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
 		auto& field = type_code->fields[14];
 		field.data_size = 1;
 		field.name = "use_authentication";
-		field.value = vnx::to_string(false);
+		field.value = vnx::to_string(true);
 		field.code = {31};
 	}
 	{

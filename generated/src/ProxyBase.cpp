@@ -65,7 +65,7 @@ namespace vnx {
 
 
 const vnx::Hash64 ProxyBase::VNX_TYPE_HASH(0x7179aa6109e5d72dull);
-const vnx::Hash64 ProxyBase::VNX_CODE_HASH(0x356efa727520bb15ull);
+const vnx::Hash64 ProxyBase::VNX_CODE_HASH(0xde34e5ea0279f3baull);
 
 ProxyBase::ProxyBase(const std::string& _vnx_name)
 	:	BaseProxy::BaseProxy(_vnx_name)
@@ -395,7 +395,7 @@ std::shared_ptr<vnx::TypeCode> ProxyBase::static_create_type_code() {
 	auto type_code = std::make_shared<vnx::TypeCode>();
 	type_code->name = "vnx.Proxy";
 	type_code->type_hash = vnx::Hash64(0x7179aa6109e5d72dull);
-	type_code->code_hash = vnx::Hash64(0x356efa727520bb15ull);
+	type_code->code_hash = vnx::Hash64(0xde34e5ea0279f3baull);
 	type_code->is_native = true;
 	type_code->native_size = sizeof(::vnx::ProxyBase);
 	type_code->parents.resize(1);
@@ -513,14 +513,14 @@ std::shared_ptr<vnx::TypeCode> ProxyBase::static_create_type_code() {
 		auto& field = type_code->fields[13];
 		field.data_size = 1;
 		field.name = "allow_login";
-		field.value = vnx::to_string(true);
+		field.value = vnx::to_string(false);
 		field.code = {31};
 	}
 	{
 		auto& field = type_code->fields[14];
 		field.data_size = 1;
 		field.name = "use_authentication";
-		field.value = vnx::to_string(false);
+		field.value = vnx::to_string(true);
 		field.code = {31};
 	}
 	{

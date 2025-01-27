@@ -29,8 +29,8 @@ public:
 	vnx::bool_t no_retry = false;
 	vnx::bool_t auto_import = false;
 	vnx::bool_t time_sync = false;
-	vnx::bool_t allow_login = true;
-	vnx::bool_t use_authentication = false;
+	vnx::bool_t allow_login = false;
+	vnx::bool_t use_authentication = true;
 	vnx::bool_t block_until_connect = true;
 	vnx::bool_t block_until_reconnect = false;
 	int32_t max_queue_ms = 100;
