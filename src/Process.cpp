@@ -59,7 +59,7 @@ namespace process {
 static void shutdown_thread() {
 	{
 		std::unique_lock<std::mutex> lock(process::mutex);
-		while(process::do_run) {
+		while(process::do_run.load()) {
 			process::condition.wait(lock);
 		}
 	}
@@ -71,12 +71,15 @@ static void shutdown_thread() {
 	{
 		bool used_force = false;
 		std::unique_lock<std::mutex> lock(process::mutex);
-		while(process::num_modules > (process::instance.is_running() ? 1 : 0) || !process::is_waiting) {
-			if(process::do_force && !used_force) {
+		while(process::num_modules > (process::instance.is_running() ? 1 : 0) || (!process::is_waiting && !used_force)) {
+			if(process::do_force.load() && !used_force) {
 				shutdown_pipes();	// hard shutdown
 				used_force = true;
 			}
 			process::condition.wait(lock);
+		}
+		if(!process::is_waiting) {
+			process::thread.detach();
 		}
 	}
 	process::instance.close();		// close and wait for instance to be deleted
@@ -87,7 +90,7 @@ static void shutdown_thread() {
 }
 
 static void signal_handler(int sig) {
-	if(process::do_run) {
+	if(process::do_run.load()) {
 		trigger_shutdown();
 	} else {
 		force_shutdown();
@@ -358,8 +361,7 @@ void init(const std::string& process_name, int argc, char** argv, std::map<std::
 }
 
 bool do_run() {
-	std::lock_guard<std::mutex> lock(process::mutex);
-	return process::do_run;
+	return process::do_run.load();
 }
 
 void wait() {
@@ -393,15 +395,14 @@ Hash64 get_process_id() {
 }
 
 void trigger_shutdown() {
-	std::lock_guard<std::mutex> lock(process::mutex);
-	process::do_run = false;
+	process::do_run.store(false);
 	process::condition.notify_all();
 }
 
 void force_shutdown() {
 	const auto prev_force = process::do_force.exchange(true);
 	trigger_shutdown();
-	if(prev_force) {
+	if(!prev_force) {
 		::usleep(100*1000);
 		::exit(-1);
 	}
