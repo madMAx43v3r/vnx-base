@@ -59,7 +59,7 @@ namespace process {
 static void shutdown_thread() {
 	{
 		std::unique_lock<std::mutex> lock(process::mutex);
-		while(process::do_run.load()) {
+		while(process::do_run) {
 			process::condition.wait(lock);
 		}
 	}
@@ -72,7 +72,7 @@ static void shutdown_thread() {
 		bool used_force = false;
 		std::unique_lock<std::mutex> lock(process::mutex);
 		while(process::num_modules > (process::instance.is_running() ? 1 : 0) || (!process::is_waiting && !used_force)) {
-			if(process::do_force.load() && !used_force) {
+			if(process::do_force && !used_force) {
 				shutdown_pipes();	// hard shutdown
 				used_force = true;
 			}
@@ -90,7 +90,7 @@ static void shutdown_thread() {
 }
 
 static void signal_handler(int sig) {
-	if(process::do_run.load()) {
+	if(process::do_run) {
 		trigger_shutdown();
 	} else {
 		force_shutdown();
@@ -361,7 +361,7 @@ void init(const std::string& process_name, int argc, char** argv, std::map<std::
 }
 
 bool do_run() {
-	return process::do_run.load();
+	return process::do_run;
 }
 
 void wait() {
