@@ -292,7 +292,7 @@ void init(const std::string& process_name, int argc, char** argv, std::map<std::
 
 	if(log_level >= 3) {
 		for(const auto& entry : get_all_configs()) {
-			if(!entry.second.is_object()) {
+			if(!entry.second.is_object() && !vnx::is_config_protected(entry.first)) {
 				std::cerr << entry.first << " = " << entry.second << std::endl;
 			}
 		}
