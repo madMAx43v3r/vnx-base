@@ -445,7 +445,7 @@ void BaseProxy::on_login(const std::string &name, const std::string &password) {
 			session = new_session;
 		}
 		if(new_session->user == name) {
-			log(INFO) << "User '" << name << "' logged in with permissions: " << vnx::to_string(session->permissions);
+			log(DEBUG) << "User '" << name << "' logged in with permissions: " << vnx::to_string(session->permissions);
 		} else {
 			log(WARN) << "Login for user '" << name << "' failed, still got permissions: " << vnx::to_string(session->permissions);
 		}
