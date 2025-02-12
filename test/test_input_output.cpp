@@ -1199,6 +1199,15 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("resolve_host()")
+	{
+		expect(resolve_host("8.8.8.8"), "8.8.8.8");
+		expect(resolve_host("127.0.0.1"), "127.0.0.1");
+		expect(resolve_host("::1"), "::1");
+		expect(resolve_host("0:0:0:0:0:0:0:1"), "::1");
+	}
+	VNX_TEST_END()
+
 	vnx::static_cleanup();
 
 	return vnx::test::done();

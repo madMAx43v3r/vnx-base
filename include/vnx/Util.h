@@ -154,6 +154,9 @@ std::string get_host_name();
 /// Get peer address for socket
 std::string get_peer_address(int sock);
 
+/// Resolve hostname to IPv4/v6 address string
+std::string resolve_host(const std::string& host_name);
+
 
 } // vnx
 

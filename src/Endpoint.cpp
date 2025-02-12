@@ -109,6 +109,41 @@ std::string get_peer_address(int sock) {
 	return std::string(address);
 }
 
+std::string resolve_host(const std::string& host_name) {
+	addrinfo hints = {};
+	hints.ai_flags = AI_PASSIVE;		// for wildcard IP address
+	hints.ai_family = AF_UNSPEC;		// allow IPv4 or IPv6
+	hints.ai_socktype = SOCK_STREAM;
+
+	addrinfo* res = nullptr;
+	{
+		const auto status = ::getaddrinfo(host_name.c_str(), "0", &hints, &res);
+		if(status != 0) {
+			throw std::runtime_error("could not resolve: '" + host_name + "'");
+		}
+	}
+	for(auto p = res; p != nullptr; p = p->ai_next) {
+		if(p->ai_family == AF_INET) {
+			char out[NI_MAXHOST] = {};
+			if(::getnameinfo(p->ai_addr, p->ai_addrlen, out, NI_MAXHOST, nullptr, 0, NI_NUMERICHOST) == 0) {
+				::freeaddrinfo(res);
+				return out;
+			}
+		}
+	}
+	for(auto p = res; p != nullptr; p = p->ai_next) {
+		if(p->ai_family == AF_INET6) {
+			char out[NI_MAXHOST] = {};
+			if(::getnameinfo(p->ai_addr, p->ai_addrlen, out, NI_MAXHOST, nullptr, 0, NI_NUMERICHOST) == 0) {
+				::freeaddrinfo(res);
+				return out;
+			}
+		}
+	}
+	::freeaddrinfo(res);
+	throw std::runtime_error("missing AF_INET/6 for: '" + host_name + "'");
+}
+
 
 int32_t Endpoint::open() const {
 	throw std::logic_error("not implemented");
