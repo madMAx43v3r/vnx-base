@@ -1208,6 +1208,19 @@ int main() {
 	}
 	VNX_TEST_END()
 
+	VNX_TEST_BEGIN("is_valid_ip_addr()")
+	{
+		expect(is_valid_ip_addr(""), false);
+		expect(is_valid_ip_addr("test"), false);
+		expect(is_valid_ip_addr("test.com"), false);
+		expect(is_valid_ip_addr("test.test.test.com"), false);
+		expect(is_valid_ip_addr("1.1.1.1"), true);
+		expect(is_valid_ip_addr("127.0.0.1"), true);
+		expect(is_valid_ip_addr("::1"), true);
+		expect(is_valid_ip_addr("0:0:0:0:0:0:0:1"), true);
+	}
+	VNX_TEST_END()
+
 	vnx::static_cleanup();
 
 	return vnx::test::done();

@@ -157,6 +157,9 @@ std::string get_peer_address(int sock);
 /// Resolve hostname to IPv4/v6 address string
 std::string resolve_host(const std::string& host_name);
 
+/// Returns true if address is a valid IPv4/v6 address
+bool is_valid_ip_addr(const std::string& address);
+
 
 } // vnx
 

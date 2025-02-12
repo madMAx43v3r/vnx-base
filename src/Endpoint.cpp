@@ -144,6 +144,13 @@ std::string resolve_host(const std::string& host_name) {
 	throw std::runtime_error("missing AF_INET/6 for: '" + host_name + "'");
 }
 
+bool is_valid_ip_addr(const std::string& address) {
+	::sockaddr_in sock_addr = {};
+	::sockaddr_in6 sock_addr6 = {};
+	return ::inet_pton(AF_INET, address.c_str(), &sock_addr.sin_addr) == 1
+		|| ::inet_pton(AF_INET6, address.c_str(), &sock_addr6.sin6_addr) == 1;
+}
+
 
 int32_t Endpoint::open() const {
 	throw std::logic_error("not implemented");
