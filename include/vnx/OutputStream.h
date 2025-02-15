@@ -145,7 +145,7 @@ public:
 	 */
 	uint8_t* write(const size_t len) {
 		if(len == 0) {
-			throw std::invalid_argument("write(): length == 0");
+			return nullptr;
 		}
 		if(len > VNX_BUFFER_SIZE) {
 			throw std::invalid_argument("write(): buffer too small");
