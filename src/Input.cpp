@@ -702,7 +702,7 @@ Variant read(std::istream& in) {
 	if(auto value = read_json(in)) {
 		return value->to_variant();
 	}
-	throw std::underflow_error("EOF");
+	return Variant();
 }
 
 template<>
