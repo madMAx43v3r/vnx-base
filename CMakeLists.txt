@@ -10,6 +10,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if(NOT WIN32)
 	add_compile_options(-Wall)
 endif()
+if(NOT MSVC)
+	add_compile_options(-D _FILE_OFFSET_BITS=64)
+endif()
 
 find_package(Threads REQUIRED)
 
