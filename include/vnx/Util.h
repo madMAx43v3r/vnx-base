@@ -65,7 +65,7 @@ inline int fseek(FILE* stream, int64_t offset, int whence)
 #ifdef _MSC_VER
 	return ::_fseeki64(stream, offset, whence);
 #else
-	return ::fseek(stream, offset, whence);
+	return ::fseeko(stream, offset, whence);
 #endif
 }
 
