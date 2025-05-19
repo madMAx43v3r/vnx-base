@@ -413,6 +413,9 @@ void accept(Visitor& visitor, TypeInput& in, const TypeCode* type_code, const ui
 			if(const auto* const _field = type_code->field_map[0]) {
 				vnx::read_value(buf.data() + _field->offset, value, _field->code.data());
 			}
+		}else if(!type_code->is_matched && type_code->fields.size() > 0){
+			const auto& _field = type_code->fields[0];
+			vnx::read_value(buf.data() + _field.offset, value, _field.code.data());
 		}
 		auto iter = type_code->enum_map.find(value);
 		if(iter != type_code->enum_map.end()) {

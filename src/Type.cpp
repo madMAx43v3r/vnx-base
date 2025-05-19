@@ -695,9 +695,9 @@ void TypeCode::print(std::ostream& out) const {
 		out << "enum " << name << " {";
 		int i = 0;
 		for(const auto& entry : enum_map) {
-			out << entry.second << (i++ ? "," : "") << std::endl;
+			out << (i++ ? "," : "") << std::endl << entry.second;
 		}
-		out << "}" << std::endl;
+		out << std::endl << "}" << std::endl;
 	} else {
 		out << (is_class ? "class " : "struct ") << name << " {" << std::endl;
 		for(const auto& field : fields) {
