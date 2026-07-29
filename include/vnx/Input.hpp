@@ -218,7 +218,7 @@ void read(TypeInput& in, std::shared_ptr<T>& value, const TypeCode* type_code, c
 /** \brief Reads something optional from the input stream.
  *
  * In case of incompatible data a default initialized value will be returned.
- * Compatible with CODE_OPTIONAL.
+ * Compatible with CODE_NULL, CODE_OPTIONAL and every code supported by T.
  */
 template<typename T>
 void read(TypeInput& in, vnx::optional<T>& value, const TypeCode* type_code, const uint16_t* code) {

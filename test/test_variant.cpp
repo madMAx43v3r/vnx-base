@@ -489,6 +489,24 @@ int main() {
 		expect(var.to<int>(), 0);
 		expect(bool(var.to<optional<int>>()), false);
 	}
+	{
+		const Variant var(std::string("hello world"));
+		const auto value = var.to<optional<std::string>>();
+		expect(bool(value), true);
+		expect(*value, "hello world");
+	}
+	{
+		const Variant var(std::string{});
+		const auto value = var.to<optional<std::string>>();
+		expect(bool(value), true);
+		expect(*value, "");
+	}
+	{
+		const auto object = vnx::from_string<Object>("{\"memo\": \"hello world\"}");
+		const auto value = object["memo"].to<optional<std::string>>();
+		expect(bool(value), true);
+		expect(*value, "hello world");
+	}
 	VNX_TEST_END()
 
 	vnx::static_cleanup();
